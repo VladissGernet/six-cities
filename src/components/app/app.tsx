@@ -1,6 +1,10 @@
+import { Offers } from '../../types/offers';
 import MainScreen from '../../pages/main-screen/main-screen';
 
-export default function App(offers): JSX.Element {
-  // TODO описать тип offers
+type AppProps = {
+  offers: Offers;
+};
+
+export default function App({ offers }: AppProps): JSX.Element {
   return <MainScreen offers={offers} />;
 }

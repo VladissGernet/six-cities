@@ -1,6 +1,11 @@
+import { Offers } from '../../types/offers';
 import Places from '../../components/places/places';
 
-export default function MainScreen(): JSX.Element {
+type MainScreenProps = {
+  offers: Offers;
+};
+
+export default function MainScreen({ offers }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -82,7 +87,7 @@ export default function MainScreen(): JSX.Element {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <Places />
+            <Places offers={offers} />
             <div className="cities__right-section">
               <section className="cities__map map"></section>
             </div>

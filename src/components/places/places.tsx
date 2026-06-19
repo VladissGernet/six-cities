@@ -1,6 +1,11 @@
+import { Offers } from '../../types/offers';
 import PlacesList from './places-list';
 
-export default function Places(): JSX.Element {
+type PlacesProps = {
+  offers: Offers;
+};
+
+export default function Places({ offers }: PlacesProps): JSX.Element {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -28,7 +33,7 @@ export default function Places(): JSX.Element {
           </li>
         </ul>
       </form>
-      <PlacesList />
+      <PlacesList offers={offers} />
     </section>
   );
 }
