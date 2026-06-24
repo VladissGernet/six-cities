@@ -1,4 +1,6 @@
-export const offers = [
+import { Offers } from '../types/offers';
+
+export const offers: Offers = [
   {
     id: '9b1ecd0c-6178-4b4b-90a3-9d49a9727e5c',
     title: 'The Joshua Tree House',

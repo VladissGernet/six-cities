@@ -1,0 +1,3 @@
+const RATING_TO_PERCENT = 10;
+
+export { RATING_TO_PERCENT };
