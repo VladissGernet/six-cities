@@ -1,4 +1,4 @@
-import { Offers } from '../../types/offers';
+import { Offers, Offer } from '../../types/offers';
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
@@ -12,7 +12,27 @@ type FavoritesProps = {
   offers: Offers;
 };
 
+function groupFavoriteOffersByCity(offers: Offers) {
+  return offers.reduce<Map<string, Offer[]>>((favoriteOffersByCity, offer) => {
+    if (!offer.isFavorite) {
+      return favoriteOffersByCity;
+    }
+
+    const isIncluded = favoriteOffersByCity.get(offer.city.name);
+
+    if (isIncluded) {
+      isIncluded.push(offer);
+    } else {
+      favoriteOffersByCity.set(offer.city.name, [offer]);
+    }
+    return favoriteOffersByCity;
+  }, new Map<string, Offer[]>());
+}
+
 export default function Favorites({ offers }: FavoritesProps): JSX.Element {
+  const favoriteOffersByCity = groupFavoriteOffersByCity(offers);
+  // TODO продолжить реализацию ренедра городов добавленных в избранное.
+
   return (
     <Page isFavorites>
       <Header />
