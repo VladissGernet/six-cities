@@ -3,6 +3,9 @@ import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 
+// Исправление sticky-footer.
+import styles from './favorites.module.css';
+
 type FavoritesProps = {
   offers: Offers;
 };
@@ -14,8 +17,11 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
     <Page isFavorites>
       <Header />
       <Main isFavorites>
-        <div className="page__favorites-container container">
-          <section className="favorites">
+        <div
+          // Исправление sticky-footer.
+          className={`page__favorites-container ${styles['page__favorites-container']} container`}
+        >
+          <section className={`favorites ${styles.favorites}`}>
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               <li className="favorites__locations-items">

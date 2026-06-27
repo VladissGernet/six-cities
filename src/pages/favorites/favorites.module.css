@@ -1,0 +1,9 @@
+.page__favorites-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.favorites {
+  width: 100%;
+}

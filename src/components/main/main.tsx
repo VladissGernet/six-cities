@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import styles from './main.module.css';
 
 type MainProps = {
   children?: React.ReactNode;
@@ -15,7 +16,8 @@ export default function Main({
     <main
       className={cn('page__main', {
         'page__main--index': isIndex,
-        'page__main--favorites': isFavorites,
+        // Исправление sticky-footer.
+        [styles['page__main--favorites']]: isFavorites,
       })}
     >
       {children}
