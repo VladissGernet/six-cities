@@ -9,7 +9,7 @@ type MainScreenProps = {
 
 export default function MainScreen({ offers }: MainScreenProps): JSX.Element {
   return (
-    <Page>
+    <Page isGray isMain>
       <Header />
 
       <main className="page__main page__main--index">
