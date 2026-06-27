@@ -39,7 +39,7 @@ function groupFavoriteOffersByCity(offers: Offers) {
 
 export default function Favorites({ offers }: FavoritesProps): JSX.Element {
   const favoriteOffersByCity = groupFavoriteOffersByCity(offers);
-
+  // TODO, заменить на <Page hasFavorites={favoriteOffersByCity.length > 0}>
   return (
     <Page isFavorites>
       <Header />

@@ -17,7 +17,8 @@ export default function Main({
       className={cn('page__main', {
         'page__main--index': isIndex,
         // Исправление sticky-footer.
-        [styles['page__main--favorites']]: isFavorites,
+        [`page__main--favorites ${styles['page__main--favorites']}`]:
+          isFavorites,
       })}
     >
       {children}
