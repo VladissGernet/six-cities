@@ -1,6 +1,7 @@
 import { Offers } from '../../types/offers';
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
+import Main from '../../components/main/main';
 import Places from '../../components/places/places';
 
 type MainScreenProps = {
@@ -12,7 +13,7 @@ export default function MainScreen({ offers }: MainScreenProps): JSX.Element {
     <Page isGray isMain>
       <Header />
 
-      <main className="page__main page__main--index">
+      <Main isIndex>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -58,7 +59,7 @@ export default function MainScreen({ offers }: MainScreenProps): JSX.Element {
             </div>
           </div>
         </div>
-      </main>
+      </Main>
     </Page>
   );
 }

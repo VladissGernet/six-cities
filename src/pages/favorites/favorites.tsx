@@ -1,6 +1,7 @@
 import { Offers } from '../../types/offers';
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
+import Main from '../../components/main/main';
 
 type FavoritesProps = {
   offers: Offers;
@@ -12,7 +13,7 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
   return (
     <Page>
       <Header />
-      <main className="page__main page__main--favorites">
+      <Main isFavorites>
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
@@ -186,7 +187,7 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
             </ul>
           </section>
         </div>
-      </main>
+      </Main>
       <footer className="footer container">
         <a className="footer__logo-link" href="main.html">
           <img
