@@ -1,5 +1,6 @@
 import { Offers } from '../../types/offers';
 import PlacesList from './places-list';
+import { PLACES_IMAGE_SIZES } from '../../const';
 
 type PlacesProps = {
   offers: Offers;
@@ -33,7 +34,12 @@ export default function Places({ offers }: PlacesProps): JSX.Element {
           </li>
         </ul>
       </form>
-      <PlacesList offers={offers} />
+      <PlacesList
+        offers={offers}
+        className="cities__places-list places__list"
+        parentName="cities"
+        imageSizes={PLACES_IMAGE_SIZES}
+      />
     </section>
   );
 }

@@ -1,3 +1,11 @@
 const RATING_TO_PERCENT = 10;
+const PLACES_IMAGE_SIZES = {
+  width: 260,
+  height: 200,
+};
+const FAVORITES_IMAGE_SIZES = {
+  width: 150,
+  height: 110,
+};
 
-export { RATING_TO_PERCENT };
+export { RATING_TO_PERCENT, PLACES_IMAGE_SIZES, FAVORITES_IMAGE_SIZES };

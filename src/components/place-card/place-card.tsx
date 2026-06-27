@@ -4,9 +4,18 @@ import Rating from '../rating/rating';
 
 type PlaceCardProps = {
   offer: Offer;
+  parentName: string;
+  imageSizes: {
+    width: number;
+    height: number;
+  };
 };
 
-export default function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
+export default function PlaceCard({
+  offer,
+  parentName,
+  imageSizes,
+}: PlaceCardProps): JSX.Element {
   const { isFavorite, isPremium, previewImage, price, rating, title, type } =
     offer;
 
@@ -19,19 +28,19 @@ export default function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
   );
 
   return (
-    <article className="cities__card place-card">
+    <article className={`${parentName}__card place-card`}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${parentName}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width={imageSizes.width}
+            height={imageSizes.height}
             alt={title}
           />
         </a>

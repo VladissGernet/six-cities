@@ -93,4 +93,50 @@ export const offers: Offers = [
     isPremium: true,
     rating: 1.5,
   },
+  {
+    id: '366ebbc3-7d24-4435-b2f3-b6a3de193f08',
+    title: 'House in countryside',
+    type: 'room',
+    price: 285,
+    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/4.jpg',
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.938361,
+        longitude: 6.959974,
+        zoom: 13,
+      },
+    },
+    location: {
+      latitude: 50.950361,
+      longitude: 6.961974,
+      zoom: 16,
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 2.6,
+  },
+  {
+    id: '8f9b1627-17db-4d27-a2ed-540451dbc2a6',
+    title: 'Wood and stone place',
+    type: 'house',
+    price: 645,
+    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/11.jpg',
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.938361,
+        longitude: 6.959974,
+        zoom: 13,
+      },
+    },
+    location: {
+      latitude: 50.932361,
+      longitude: 6.937974,
+      zoom: 16,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.2,
+  },
 ];
