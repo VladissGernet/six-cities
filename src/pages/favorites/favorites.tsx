@@ -11,7 +11,7 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
   console.log(offers);
 
   return (
-    <Page>
+    <Page isFavorites>
       <Header />
       <Main isFavorites>
         <div className="page__favorites-container container">
