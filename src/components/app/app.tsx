@@ -1,6 +1,6 @@
 import { Offers, GroupedOffers } from '../../types/offers';
-import MainScreen from '../../pages/main-screen/main-screen';
-// import Favorites from '../../pages/favorites/favorites';
+// import MainScreen from '../../pages/main-screen/main-screen';
+import Favorites from '../../pages/favorites/favorites';
 
 type AppProps = {
   offers: Offers;
@@ -20,6 +20,6 @@ function groupOffers(offers: Offers): GroupedOffers {
 }
 
 export default function App({ offers }: AppProps): JSX.Element {
-  return <MainScreen groupedOffers={groupOffers(offers)} />;
-  // return <Favorites groupedOffers={groupOffers(offers)} />;
+  // return <MainScreen groupedOffers={groupOffers(offers)} />;
+  return <Favorites groupedOffers={groupOffers(offers)} />;
 }

@@ -1,5 +1,5 @@
 import cb from 'classnames';
-import { Offers, Offer } from '../../types/offers';
+import { GroupedOffers, CityName, Offer } from '../../types/offers';
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
@@ -10,44 +10,39 @@ import { FAVORITES_IMAGE_SIZES } from '../../const';
 // Исправление sticky-footer.
 import styles from './favorites.module.css';
 
+type FilteredFavorites = { city: CityName; group: Offer[] }[];
+
 type FavoritesProps = {
-  offers: Offers;
+  groupedOffers: GroupedOffers;
 };
 
 /**
- * Группирует избранные предложения по городу.
+ * Группирует избранные предложения по городу и фильтрует их, оставляя только избранные значения.
  *
- * @param offers - Массив предложений.
- * @returns Массив объектов вида `{ city: string, group: Offer[] }`,
+ * @param groupedOffers - Коллекция предложений.
+ * @returns Массив объектов вида `{ city: CityName, group: Offer[] }`,
  *          где каждый объект соответствует одному городу и содержит
  *          только избранные предложения этого города.
  */
-function groupFavoriteOffersByCity(offers: Offers) {
-  const groups = offers.reduce<Map<string, Offer[]>>(
-    (favoriteOffersByCity, offer) => {
-      if (!offer.isFavorite) {
-        return favoriteOffersByCity;
-      }
+function filterFavoriteOffers(groupedOffers: GroupedOffers): FilteredFavorites {
+  const transformedFilteredOffers: FilteredFavorites = [];
 
-      const isIncluded = favoriteOffersByCity.get(offer.city.name);
+  groupedOffers.forEach((offers, city) => {
+    const filteredOffers = offers.filter((offer) => offer.isFavorite);
 
-      if (isIncluded) {
-        isIncluded.push(offer);
-      } else {
-        favoriteOffersByCity.set(offer.city.name, [offer]);
-      }
-      return favoriteOffersByCity;
-    },
-    new Map<string, Offer[]>(),
-  );
-  return Array.from(groups, ([city, group]) => ({
-    city,
-    group,
-  }));
+    if (filteredOffers.length) {
+      transformedFilteredOffers.push({ city, group: filteredOffers });
+    }
+  });
+
+  return transformedFilteredOffers;
 }
 
-export default function Favorites({ offers }: FavoritesProps): JSX.Element {
-  const favoriteOffersByCity = groupFavoriteOffersByCity(offers);
+export default function Favorites({
+  groupedOffers,
+}: FavoritesProps): JSX.Element {
+  const favoriteOffersByCity = filterFavoriteOffers(groupedOffers);
+
   const hasFavorites = favoriteOffersByCity.length > 0;
 
   const mainContainerClassName = cb(
@@ -80,7 +75,7 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
               </div>
             </div>
             <PlacesList
-              offers={group}
+              groupedOffersByCity={group}
               className="favorites__places"
               parentName="favorites"
               imageSizes={FAVORITES_IMAGE_SIZES}
