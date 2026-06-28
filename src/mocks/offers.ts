@@ -20,7 +20,7 @@ export const offers: Offers = [
       longitude: 2.342499,
       zoom: 16,
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 3.9,
   },

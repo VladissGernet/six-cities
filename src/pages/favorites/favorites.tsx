@@ -1,3 +1,4 @@
+import cb from 'classnames';
 import { Offers, Offer } from '../../types/offers';
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
@@ -13,6 +14,14 @@ type FavoritesProps = {
   offers: Offers;
 };
 
+/**
+ * Группирует избранные предложения по городу.
+ *
+ * @param offers - Массив предложений.
+ * @returns Массив объектов вида `{ city: string, group: Offer[] }`,
+ *          где каждый объект соответствует одному городу и содержит
+ *          только избранные предложения этого города.
+ */
 function groupFavoriteOffersByCity(offers: Offers) {
   const groups = offers.reduce<Map<string, Offer[]>>(
     (favoriteOffersByCity, offer) => {
@@ -39,14 +48,20 @@ function groupFavoriteOffersByCity(offers: Offers) {
 
 export default function Favorites({ offers }: FavoritesProps): JSX.Element {
   const favoriteOffersByCity = groupFavoriteOffersByCity(offers);
-  // TODO, заменить на <Page hasFavorites={favoriteOffersByCity.length > 0}>
+  const hasFavorites = favoriteOffersByCity.length > 0;
+
   return (
-    <Page isFavorites>
+    <Page hasFavorites={hasFavorites}>
       <Header />
-      <Main isFavorites>
+      <Main hasFavorites={hasFavorites}>
         <div
-          // Исправление sticky-footer.
-          className={`page__favorites-container ${styles['page__favorites-container']} container`}
+          className={cb(
+            'page__favorites-container',
+            // Исправление sticky-footer.
+            // TODO, остановился здесь
+            hasFavorites && styles['page__favorites-container'],
+            'container',
+          )}
         >
           <section className={`favorites ${styles.favorites}`}>
             <h1 className="favorites__title">Saved listing</h1>

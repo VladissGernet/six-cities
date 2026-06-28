@@ -5,20 +5,21 @@ type PageProps = {
   children?: React.ReactNode;
   isGray?: boolean;
   isMain?: boolean;
-  isFavorites?: boolean;
+  hasFavorites?: boolean;
 };
 
 export default function Page({
   children,
   isGray,
   isMain,
-  isFavorites,
+  hasFavorites,
 }: PageProps): JSX.Element {
   const pageClassName = cn('page', {
     'page--gray': isGray,
     'page--main': isMain,
     // Фикс sticky-footer на странице Favorites.
-    [styles['page--favorites']]: isFavorites,
+    [styles['page--favorites']]: hasFavorites,
+    'page--favorites-empty': !hasFavorites,
   });
 
   return <div className={pageClassName}>{children}</div>;

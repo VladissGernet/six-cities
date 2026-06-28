@@ -4,13 +4,13 @@ import styles from './main.module.css';
 type MainProps = {
   children?: React.ReactNode;
   isIndex?: boolean;
-  isFavorites?: boolean;
+  hasFavorites?: boolean;
 };
 
 export default function Main({
   children,
   isIndex,
-  isFavorites,
+  hasFavorites,
 }: MainProps): JSX.Element {
   return (
     <main
@@ -18,7 +18,8 @@ export default function Main({
         'page__main--index': isIndex,
         // Исправление sticky-footer.
         [`page__main--favorites ${styles['page__main--favorites']}`]:
-          isFavorites,
+          hasFavorites,
+        'page__main--favorites page__main--favorites-empty': !hasFavorites,
       })}
     >
       {children}
