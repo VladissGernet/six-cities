@@ -21,9 +21,7 @@ export default function PlaceCard({
 
   const bookmarkButtonClassName = cn(
     'place-card__bookmark-button',
-    {
-      'place-card__bookmark-button--active': isFavorite,
-    },
+    isFavorite && 'place-card__bookmark-button--active',
     'button',
   );
 

@@ -49,21 +49,29 @@ function groupFavoriteOffersByCity(offers: Offers) {
 export default function Favorites({ offers }: FavoritesProps): JSX.Element {
   const favoriteOffersByCity = groupFavoriteOffersByCity(offers);
   const hasFavorites = favoriteOffersByCity.length > 0;
+  const mainContainerClassName = cb(
+    'page__favorites-container',
+
+    // Исправление sticky-footer.
+    hasFavorites && styles['page__favorites-container'],
+
+    'container',
+  );
+
+  const favoritesClassName = cb(
+    'favorites',
+    !hasFavorites && 'favorites--empty',
+
+    // Исправление sticky-footer.
+    hasFavorites && styles.favorites,
+  );
 
   return (
     <Page hasFavorites={hasFavorites}>
       <Header />
       <Main hasFavorites={hasFavorites}>
-        <div
-          className={cb(
-            'page__favorites-container',
-            // Исправление sticky-footer.
-            // TODO, остановился здесь
-            hasFavorites && styles['page__favorites-container'],
-            'container',
-          )}
-        >
-          <section className={`favorites ${styles.favorites}`}>
+        <div className={mainContainerClassName}>
+          <section className={favoritesClassName}>
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {favoriteOffersByCity.map(({ city, group }) => (

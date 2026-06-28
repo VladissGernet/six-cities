@@ -5,22 +5,26 @@ type PageProps = {
   children?: React.ReactNode;
   isGray?: boolean;
   isMain?: boolean;
-  hasFavorites?: boolean;
+  hasFavorites?: boolean | null;
 };
 
 export default function Page({
   children,
   isGray,
   isMain,
-  hasFavorites,
+  hasFavorites = null,
 }: PageProps): JSX.Element {
-  const pageClassName = cn('page', {
-    'page--gray': isGray,
-    'page--main': isMain,
+  const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
+
+  const pageClassName = cn(
+    'page',
+    isGray && 'page--gray',
+    isMain && 'page--main',
+    isFavoritesEmpty && 'page--favorites-empty',
+
     // Фикс sticky-footer на странице Favorites.
-    [styles['page--favorites']]: hasFavorites,
-    'page--favorites-empty': !hasFavorites,
-  });
+    hasFavorites && styles['page--favorites'],
+  );
 
   return <div className={pageClassName}>{children}</div>;
 }
