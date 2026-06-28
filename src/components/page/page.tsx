@@ -18,6 +18,7 @@ export default function Page({
 
   const pageClassName = cn(
     'page',
+    styles['page--fix'],
     isGray && 'page--gray',
     isMain && 'page--main',
     isFavoritesEmpty && 'page--favorites-empty',
