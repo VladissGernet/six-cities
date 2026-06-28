@@ -1,15 +1,15 @@
-import { Offers } from '../../types/offers';
+import { GroupedOffers } from '../../types/offers';
 import Places from '../../components/places/places';
 
 type CitiesProps = {
-  offers: Offers;
+  groupedOffers: GroupedOffers;
 };
 
-export default function Cities({ offers }: CitiesProps): JSX.Element {
+export default function Cities({ groupedOffers }: CitiesProps): JSX.Element {
   return (
     <div className="cities">
       <div className="cities__places-container container">
-        <Places offers={offers} />
+        <Places groupedOffers={groupedOffers} />
         <div className="cities__right-section">
           <section className="cities__map map"></section>
         </div>

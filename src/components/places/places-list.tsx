@@ -1,8 +1,8 @@
-import { Offers, Offer } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
 
 type PlacesListProps = {
-  offers: Offers;
+  groupedOffersByCity: Offers;
   className: string;
   parentName: string;
   imageSizes: {
@@ -12,23 +12,21 @@ type PlacesListProps = {
 };
 
 export default function PlacesList({
-  offers,
+  groupedOffersByCity,
   className,
   parentName,
   imageSizes,
 }: PlacesListProps): JSX.Element {
   return (
     <div className={className}>
-      {offers.map(
-        (offer: Offer): JSX.Element => (
-          <PlaceCard
-            key={offer.id}
-            offer={offer}
-            parentName={parentName}
-            imageSizes={imageSizes}
-          />
-        ),
-      )}
+      {groupedOffersByCity.map((offer) => (
+        <PlaceCard
+          key={offer.id}
+          offer={offer}
+          parentName={parentName}
+          imageSizes={imageSizes}
+        />
+      ))}
     </div>
   );
 }

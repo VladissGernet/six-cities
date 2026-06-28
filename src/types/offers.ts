@@ -1,4 +1,4 @@
-type CityName =
+export type CityName =
   | 'Paris'
   | 'Cologne'
   | 'Brussels'
@@ -18,6 +18,8 @@ type City = {
   name: CityName;
   location: Location;
 };
+
+export type GroupedOffers = Map<CityName, Offer[]>;
 
 export type Offer = {
   id: string;

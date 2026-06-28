@@ -1,4 +1,4 @@
-import { Offers } from '../../types/offers';
+import { GroupedOffers } from '../../types/offers';
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
@@ -6,10 +6,12 @@ import Tabs from '../../components/tabs/tabs';
 import Cities from '../../components/cities/cities';
 
 type MainScreenProps = {
-  offers: Offers;
+  groupedOffers: GroupedOffers;
 };
 
-export default function MainScreen({ offers }: MainScreenProps): JSX.Element {
+export default function MainScreen({
+  groupedOffers,
+}: MainScreenProps): JSX.Element {
   return (
     <Page isGray isMain>
       <Header />
@@ -17,7 +19,7 @@ export default function MainScreen({ offers }: MainScreenProps): JSX.Element {
       <Main isIndex>
         <h1 className="visually-hidden">Cities</h1>
         <Tabs />
-        <Cities offers={offers} />
+        <Cities groupedOffers={groupedOffers} />
       </Main>
     </Page>
   );

@@ -1,16 +1,20 @@
-import { Offers } from '../../types/offers';
+import { GroupedOffers } from '../../types/offers';
 import PlacesList from './places-list';
 import { PLACES_IMAGE_SIZES } from '../../const';
 
 type PlacesProps = {
-  offers: Offers;
+  groupedOffers: GroupedOffers;
 };
 
-export default function Places({ offers }: PlacesProps): JSX.Element {
+// TODO, Заглушка для рендера
+const DEFAULT_CITY = 'Paris';
+
+export default function Places({ groupedOffers }: PlacesProps): JSX.Element {
+  const groupedOffersByCity = groupedOffers.get(DEFAULT_CITY);
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">312 places to stay in Amsterdam</b>
+      <b className="places__found">312 places to stay in {DEFAULT_CITY}</b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>
@@ -35,7 +39,7 @@ export default function Places({ offers }: PlacesProps): JSX.Element {
         </ul>
       </form>
       <PlacesList
-        offers={offers}
+        groupedOffersByCity={groupedOffersByCity ?? []}
         className="cities__places-list places__list"
         parentName="cities"
         imageSizes={PLACES_IMAGE_SIZES}
