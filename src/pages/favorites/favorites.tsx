@@ -65,7 +65,7 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
     // Исправление sticky-footer.
     hasFavorites && styles.favorites,
   );
-
+  // TODO остановился здесь на создании empty message
   return (
     <Page hasFavorites={hasFavorites}>
       <Header />
