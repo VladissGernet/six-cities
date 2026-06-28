@@ -49,6 +49,7 @@ function groupFavoriteOffersByCity(offers: Offers) {
 export default function Favorites({ offers }: FavoritesProps): JSX.Element {
   const favoriteOffersByCity = groupFavoriteOffersByCity(offers);
   const hasFavorites = favoriteOffersByCity.length > 0;
+
   const mainContainerClassName = cb(
     'page__favorites-container',
 
@@ -57,7 +58,6 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
 
     'container',
   );
-
   const favoritesClassName = cb(
     'favorites',
     !hasFavorites && 'favorites--empty',
@@ -65,33 +65,50 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
     // Исправление sticky-footer.
     hasFavorites && styles.favorites,
   );
-  // TODO остановился здесь на создании empty message
+
+  const favoritesListTemplate = (
+    <>
+      <h1 className="favorites__title">Saved listing</h1>
+      <ul className="favorites__list">
+        {favoriteOffersByCity.map(({ city, group }) => (
+          <li key={city} className="favorites__locations-items">
+            <div className="favorites__locations locations locations--current">
+              <div className="locations__item">
+                <a className="locations__item-link" href="#">
+                  <span>{city}</span>
+                </a>
+              </div>
+            </div>
+            <PlacesList
+              offers={group}
+              className="favorites__places"
+              parentName="favorites"
+              imageSizes={FAVORITES_IMAGE_SIZES}
+            />
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+  const emptyListTemplate = (
+    <>
+      <h1 className="visually-hidden">Favorites (empty)</h1>
+      <div className="favorites__status-wrapper">
+        <b className="favorites__status">Nothing yet saved.</b>
+        <p className="favorites__status-description">
+          Save properties to narrow down search or plan your future trips.
+        </p>
+      </div>
+    </>
+  );
+
   return (
     <Page hasFavorites={hasFavorites}>
       <Header />
       <Main hasFavorites={hasFavorites}>
         <div className={mainContainerClassName}>
           <section className={favoritesClassName}>
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {favoriteOffersByCity.map(({ city, group }) => (
-                <li key={city} className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="#">
-                        <span>{city}</span>
-                      </a>
-                    </div>
-                  </div>
-                  <PlacesList
-                    offers={group}
-                    className="favorites__places"
-                    parentName="favorites"
-                    imageSizes={FAVORITES_IMAGE_SIZES}
-                  />
-                </li>
-              ))}
-            </ul>
+            {hasFavorites ? favoritesListTemplate : emptyListTemplate}
           </section>
         </div>
       </Main>
