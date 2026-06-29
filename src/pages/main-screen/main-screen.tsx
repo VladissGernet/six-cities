@@ -10,7 +10,7 @@ type MainScreenProps = {
 };
 
 // TODO, Заглушка для рендера
-const DEFAULT_CITY = 'Paris';
+const DEFAULT_CITY = 'Paris'; // Дефолтный первый активный город.
 const DEFAULT_CITY_EMPTY = 'Dusseldorf';
 
 export default function MainScreen({
@@ -20,12 +20,13 @@ export default function MainScreen({
     city: DEFAULT_CITY_EMPTY,
     cities: groupedOffers.get(DEFAULT_CITY_EMPTY) ?? [],
   };
+  const isNoOffers = !groupedOffersByCity.cities.length;
 
   return (
     <Page isGray isMain>
       <Header />
 
-      <Main isIndex>
+      <Main isIndex isNoOffers={isNoOffers}>
         <h1 className="visually-hidden">Cities</h1>
         <Tabs />
         <Cities groupedOffersByCity={groupedOffersByCity} />
