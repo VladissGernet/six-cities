@@ -20,7 +20,8 @@ function groupOffers(offers: Offers): GroupedOffers {
 }
 
 export default function App({ offers }: AppProps): JSX.Element {
-  // TODO, остановился на добавлении пустой страницы.
+  // TODO, остановился на:
+  // 1. добавлении пустой страницы.
   // 2. рефакторинг tabs
   return <MainScreen groupedOffers={groupOffers(offers)} />;
   // return <Favorites groupedOffers={groupOffers(offers)} />;

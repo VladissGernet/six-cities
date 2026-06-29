@@ -35,3 +35,8 @@ export type Offer = {
 };
 
 export type Offers = Offer[];
+
+export type GroupedOffersByCity = {
+  city: CityName;
+  cities: Offers;
+};
