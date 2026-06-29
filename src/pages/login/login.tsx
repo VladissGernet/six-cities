@@ -1,8 +1,12 @@
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
+import { CITY_NAMES } from '../../const';
 
 export default function Login(): JSX.Element {
+  // TODO, остановился на добавлении случайного города.
+  // Вынести функцию получения рандомного элемента массива в utils.
+  const randomCity = CITY_NAMES[Math.floor(Math.random() * CITY_NAMES.length)];
   return (
     <Page isGray isLogin>
       <Header isLoginPage />
