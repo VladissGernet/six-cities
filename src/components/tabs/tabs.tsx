@@ -1,38 +1,29 @@
+import cb from 'classnames';
+import { CITY_NAMES } from '../../const';
+
+// TODO, Заглушка для рендера
+const DEFAULT_CITY = 'Paris'; // Дефолтный первый активный город.
+
 export default function Tabs(): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Paris</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Cologne</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Brussels</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item tabs__item--active">
-              <span>Amsterdam</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Hamburg</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Dusseldorf</span>
-            </a>
-          </li>
+          {CITY_NAMES.map((city) => {
+            const isActive = city === DEFAULT_CITY;
+            const linkClassName = cb(
+              'locations__item-link tabs__item',
+              isActive && 'tabs__item--active',
+            );
+
+            return (
+              <li key={city} className="locations__item">
+                <a className={linkClassName} href="#">
+                  <span>{city}</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </div>
