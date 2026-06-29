@@ -11,13 +11,14 @@ type MainScreenProps = {
 
 // TODO, Заглушка для рендера
 const DEFAULT_CITY = 'Paris';
+const DEFAULT_CITY_EMPTY = 'Dusseldorf';
 
 export default function MainScreen({
   groupedOffers,
 }: MainScreenProps): JSX.Element {
   const groupedOffersByCity: GroupedOffersByCity = {
-    city: DEFAULT_CITY,
-    cities: groupedOffers.get(DEFAULT_CITY) ?? [],
+    city: DEFAULT_CITY_EMPTY,
+    cities: groupedOffers.get(DEFAULT_CITY_EMPTY) ?? [],
   };
 
   return (
