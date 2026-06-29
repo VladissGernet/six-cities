@@ -1,6 +1,7 @@
 import { Offers, GroupedOffers } from '../../types/offers';
-import MainScreen from '../../pages/main-screen/main-screen';
+// import MainScreen from '../../pages/main-screen/main-screen';
 // import Favorites from '../../pages/favorites/favorites';
+import Login from '../../pages/login/login';
 
 type AppProps = {
   offers: Offers;
@@ -23,6 +24,7 @@ export default function App({ offers }: AppProps): JSX.Element {
   // TODO, остановился на:
   // 1. Рендер login
   // 2. рендер Offer
-  return <MainScreen groupedOffers={groupOffers(offers)} />;
+  // return <MainScreen groupedOffers={groupOffers(offers)} />;
   // return <Favorites groupedOffers={groupOffers(offers)} />;
+  return <Login />;
 }

@@ -6,6 +6,7 @@ type MainProps = {
   isIndex?: boolean;
   isNoOffers?: boolean;
   hasFavorites?: boolean | null;
+  isLoginPage?: boolean;
 };
 
 export default function Main({
@@ -13,6 +14,7 @@ export default function Main({
   isIndex,
   isNoOffers,
   hasFavorites = null,
+  isLoginPage,
 }: MainProps): JSX.Element {
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
@@ -21,6 +23,7 @@ export default function Main({
     isIndex && 'page__main--index',
     isFavoritesEmpty && 'page__main--favorites page__main--favorites-empty',
     isNoOffers && 'page__main--index-empty',
+    isLoginPage && 'page__main--login',
 
     // Исправление sticky-footer.
     hasFavorites && `page__main--favorites ${styles['page__main--favorites']}`,

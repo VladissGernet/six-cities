@@ -5,6 +5,7 @@ type PageProps = {
   children?: React.ReactNode;
   isGray?: boolean;
   isMain?: boolean;
+  isLogin?: boolean;
   hasFavorites?: boolean | null;
 };
 
@@ -12,6 +13,7 @@ export default function Page({
   children,
   isGray,
   isMain,
+  isLogin,
   hasFavorites = null,
 }: PageProps): JSX.Element {
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
@@ -21,6 +23,7 @@ export default function Page({
     styles['page--fix'],
     isGray && 'page--gray',
     isMain && 'page--main',
+    isLogin && 'page--login',
     isFavoritesEmpty && 'page--favorites-empty',
 
     // Фикс sticky-footer на странице Favorites.

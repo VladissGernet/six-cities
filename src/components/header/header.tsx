@@ -1,8 +1,12 @@
 type HeaderProps = {
   isLoggedIn?: boolean;
+  isLoginPage?: boolean;
 };
 
-export default function Header({ isLoggedIn }: HeaderProps): JSX.Element {
+export default function Header({
+  isLoggedIn,
+  isLoginPage,
+}: HeaderProps): JSX.Element {
   const loggedInElement = (
     <>
       <li className="header__nav-item user">
@@ -31,6 +35,18 @@ export default function Header({ isLoggedIn }: HeaderProps): JSX.Element {
     </li>
   );
 
+  const navElement = (
+    <nav className="header__nav">
+      <ul className="header__nav-list">
+        {/*
+          TODO, рассмотреть рефакторинг в будущем с помощью React.memo и useMemo.
+          Данная реализация редерит выше сразу ДВЕ разметки для пустого и полного элемента.
+        */}
+        {isLoggedIn ? loggedInElement : signInElement}
+      </ul>
+    </nav>
+  );
+
   return (
     <header className="header">
       <div className="container">
@@ -47,15 +63,7 @@ export default function Header({ isLoggedIn }: HeaderProps): JSX.Element {
               />
             </a>
           </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              {/*
-                TODO, рассмотреть рефакторинг в будущем с помощью React.memo и useMemo.
-                Данная реализация редерит выше сразу ДВЕ разметки для пустого и полного элемента.
-              */}
-              {isLoggedIn ? loggedInElement : signInElement}
-            </ul>
-          </nav>
+          {isLoginPage ? '' : navElement}
         </div>
       </div>
     </header>
