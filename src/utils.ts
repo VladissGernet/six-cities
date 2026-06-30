@@ -13,6 +13,8 @@ function getRandomElement<T>(array: readonly T[]): T | undefined {
   return array[Math.floor(Math.random() * array.length)];
 }
 
+type FilteredFavorites = { city: CityName; group: Offer[] }[];
+
 /**
  * Группирует избранные предложения по городу и фильтрует их, оставляя только избранные значения.
  *
@@ -21,8 +23,6 @@ function getRandomElement<T>(array: readonly T[]): T | undefined {
  *          где каждый объект соответствует одному городу и содержит
  *          только избранные предложения этого города.
  */
-type FilteredFavorites = { city: CityName; group: Offer[] }[];
-
 function filterFavoriteOffers(groupedOffers: GroupedOffers): FilteredFavorites {
   const transformedFilteredOffers: FilteredFavorites = [];
 

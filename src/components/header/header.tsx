@@ -1,3 +1,4 @@
+import { filterFavoriteOffers } from '../../utils';
 import { GroupedOffers } from '../../types/offers';
 
 type HeaderProps = {
@@ -6,12 +7,24 @@ type HeaderProps = {
   groupedOffers?: GroupedOffers;
 };
 
+function getTotalFavorites(groupedOffers: GroupedOffers | undefined) {
+  if (!groupedOffers) {
+    return 0;
+  }
+  const filteredFavorites = filterFavoriteOffers(groupedOffers);
+
+  return filteredFavorites.reduce(
+    (total, { group }) => total + group.length,
+    0,
+  );
+}
+
 export default function Header({
   isLoggedIn,
   isLoginPage,
   groupedOffers,
 }: HeaderProps): JSX.Element {
-  console.log(groupedOffers);
+  const totalFavorites = getTotalFavorites(groupedOffers);
 
   const loggedInElement = (
     <>
@@ -21,7 +34,7 @@ export default function Header({
           <span className="header__user-name user__name">
             Oliver.conner@gmail.com
           </span>
-          <span className="header__favorite-count">3</span>
+          <span className="header__favorite-count">{totalFavorites}</span>
         </a>
       </li>
       <li className="header__nav-item">
