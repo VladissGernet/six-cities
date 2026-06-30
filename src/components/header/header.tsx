@@ -1,12 +1,18 @@
+import { GroupedOffers } from '../../types/offers';
+
 type HeaderProps = {
   isLoggedIn?: boolean;
   isLoginPage?: boolean;
+  groupedOffers?: GroupedOffers;
 };
 
 export default function Header({
   isLoggedIn,
   isLoginPage,
+  groupedOffers,
 }: HeaderProps): JSX.Element {
+  console.log(groupedOffers);
+
   const loggedInElement = (
     <>
       <li className="header__nav-item user">
