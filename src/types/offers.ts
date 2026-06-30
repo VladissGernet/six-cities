@@ -1,10 +1,4 @@
-export type CityName =
-  | 'Paris'
-  | 'Cologne'
-  | 'Brussels'
-  | 'Amsterdam'
-  | 'Hamburg'
-  | 'Dusseldorf';
+import { CityName } from '../const';
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 

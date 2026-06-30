@@ -2,11 +2,12 @@ import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 import { CITY_NAMES } from '../../const';
+import { getRandomElement } from '../../utils';
+import { CityName } from '../../const';
 
 export default function Login(): JSX.Element {
-  // TODO, остановился на добавлении случайного города.
-  // Вынести функцию получения рандомного элемента массива в utils.
-  const randomCity = CITY_NAMES[Math.floor(Math.random() * CITY_NAMES.length)];
+  const randomCity = getRandomElement<CityName>(CITY_NAMES);
+
   return (
     <Page isGray isLogin>
       <Header isLoginPage />
@@ -53,7 +54,7 @@ export default function Login(): JSX.Element {
                   на главную страницу и устанавливает фильтр в соответствии с выбранным
                   городом.
                 */}
-                <span>Amsterdam</span>
+                <span>{randomCity}</span>
               </a>
             </div>
           </section>

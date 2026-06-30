@@ -7,6 +7,7 @@ const FAVORITES_IMAGE_SIZES = {
   width: 150,
   height: 110,
 };
+
 const CITY_NAMES = [
   'Paris',
   'Cologne',
@@ -14,7 +15,9 @@ const CITY_NAMES = [
   'Amsterdam',
   'Hamburg',
   'Dusseldorf',
-];
+] as const;
+
+export type CityName = (typeof CITY_NAMES)[number];
 
 export {
   RATING_TO_PERCENT,
