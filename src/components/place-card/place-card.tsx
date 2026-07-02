@@ -4,6 +4,7 @@ import Rating from '../rating/rating';
 
 type PlaceCardProps = {
   offer: Offer;
+
   parentName: string;
   imageSizes: {
     width: number;
@@ -13,6 +14,23 @@ type PlaceCardProps = {
 
 export default function PlaceCard({
   offer,
+  /*
+  TODO, исправить parentName на такойже, как и в Rating решение.
+  TODO, рассмотреть возможность использования переиспользование и наращивание типов через "&"
+  // Например
+  type Item = {
+    id: string;
+  };
+
+  type Post = Item & {
+    title: string;
+    description: string;
+  };
+
+  type MegaPost = Post & {
+    viewsCount: number;
+  };
+  */
   parentName,
   imageSizes,
 }: PlaceCardProps): JSX.Element {
