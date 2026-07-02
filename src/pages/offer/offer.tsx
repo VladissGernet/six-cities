@@ -2,7 +2,10 @@ import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 import Gallery from '../../components/gallery/gallery';
-// import Rating from '../../components/rating/rating';
+import Rating from '../../components/rating/rating';
+
+// TODO, мокорвый рейтинг потом удалить!
+const MOCK_RATING = 4.8;
 
 export default function Offer(): JSX.Element {
   // TODO, остановился здесь
@@ -30,13 +33,13 @@ export default function Offer(): JSX.Element {
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
               </div>
-              <div className="offer__rating rating">
-                <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="offer__rating-value rating__value">4.8</span>
-              </div>
+              <Rating
+                rating={MOCK_RATING}
+                rootClassName={'offer__rating'}
+                starsWrapperClassName={'offer__stars'}
+                valueClassName={'offer__rating-value'}
+                showValue
+              />
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
                   Apartment

@@ -1,18 +1,37 @@
-import { RATING_TO_PERCENT } from '../../const';
+import cb from 'classnames';
+import { PERCENT_PER_STAR } from '../../const';
 
 type RatingProps = {
   rating: number;
+  /** Внешний контейнер: place-card__rating / offer__rating */
+  rootClassName?: string;
+  /** Контейнер звёзд: place-card__stars / offer__stars */
+  starsWrapperClassName?: string;
+  /** Контейнер числового значения (если нужен): offer__rating-value */
+  valueClassName?: string;
+  /** Показывать ли числовое значение */
+  showValue?: boolean;
 };
 
-export default function Rating({ rating }: RatingProps): JSX.Element {
-  const finalWidth = `${Math.round(rating) * RATING_TO_PERCENT}%`;
+export default function Rating({
+  rating,
+  rootClassName,
+  starsWrapperClassName,
+  valueClassName,
+  showValue = false,
+}: RatingProps): JSX.Element {
+  /** Расчет получения ширины полосы закрашиваний фона звезд рейтинга. */
+  const finalWidth = `${Math.round(rating) * PERCENT_PER_STAR}%`;
 
   return (
-    <div className="place-card__rating rating">
-      <div className="place-card__stars rating__stars">
+    <div className={cb(rootClassName, 'rating')}>
+      <div className={cb(starsWrapperClassName, 'rating__stars')}>
         <span style={{ width: finalWidth }}></span>
         <span className="visually-hidden">Rating</span>
       </div>
+      {showValue && (
+        <span className={cb(valueClassName, 'rating__value')}>{rating}</span>
+      )}
     </div>
   );
 }

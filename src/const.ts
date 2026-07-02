@@ -17,6 +17,9 @@ const CITY_NAMES = [
   'Dusseldorf',
 ] as const;
 
+// 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.)
+const PERCENT_PER_STAR = 20;
+
 export type CityName = (typeof CITY_NAMES)[number];
 
 export {
@@ -24,4 +27,5 @@ export {
   PLACES_IMAGE_SIZES,
   FAVORITES_IMAGE_SIZES,
   CITY_NAMES,
+  PERCENT_PER_STAR,
 };

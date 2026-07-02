@@ -1,5 +1,5 @@
 import { Offers, GroupedOffers } from '../../types/offers';
-// import MainScreen from '../../pages/main-screen/main-screen';
+import MainScreen from '../../pages/main-screen/main-screen';
 // import Favorites from '../../pages/favorites/favorites';
 // import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';

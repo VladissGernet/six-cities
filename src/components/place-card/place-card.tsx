@@ -56,7 +56,11 @@ export default function PlaceCard({
             <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
-        <Rating rating={rating} />
+        <Rating
+          rating={rating}
+          rootClassName={'place-card__rating'}
+          starsWrapperClassName={'place-card__stars'}
+        />
         <h2 className="place-card__name">
           <a href="#">{title}</a>
         </h2>
