@@ -17,10 +17,10 @@ const CITY_NAMES = [
   'Dusseldorf',
 ] as const;
 
+export type CityName = (typeof CITY_NAMES)[number];
+
 // 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.)
 const PERCENT_PER_STAR = 20;
-
-export type CityName = (typeof CITY_NAMES)[number];
 
 export {
   RATING_TO_PERCENT,
