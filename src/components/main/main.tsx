@@ -15,6 +15,7 @@ export default function Main({
   isIndex,
   isNoOffers,
   isOffer,
+  // TODO, TypeGuard
   hasFavorites = null,
   isLoginPage,
 }: MainProps): JSX.Element {

@@ -10,6 +10,7 @@ type HeaderProps = {
 export default function Header({
   isLoggedIn,
   isLoginPage,
+  // TODO, TypeGuard, возможно тут применение.
   offers = [],
 }: HeaderProps): JSX.Element {
   const totalFavorites = filterByProperty(offers, 'isFavorite', true).length;

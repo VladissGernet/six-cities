@@ -9,6 +9,7 @@ export default function Cities({
   groupedOffersByCity,
 }: CitiesProps): JSX.Element {
   const isNoCities = !groupedOffersByCity.cities.length;
+
   const citiesElement = (
     <div className="cities__places-container container">
       <Places groupedOffersByCity={groupedOffersByCity} />
@@ -17,6 +18,7 @@ export default function Cities({
       </div>
     </div>
   );
+
   const emptyCitiesElement = (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
