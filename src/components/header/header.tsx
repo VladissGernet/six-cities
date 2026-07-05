@@ -1,30 +1,18 @@
-import { filterFavoriteOffers } from '../../utils';
-import { GroupedOffers } from '../../types/offers';
+import { filterByProperty } from '../../utils';
+import { Offers } from '../../types/offers';
 
 type HeaderProps = {
   isLoggedIn?: boolean;
   isLoginPage?: boolean;
-  groupedOffers?: GroupedOffers;
+  offers?: Offers;
 };
-
-function getTotalFavorites(groupedOffers: GroupedOffers | undefined) {
-  if (!groupedOffers) {
-    return 0;
-  }
-  const filteredFavorites = filterFavoriteOffers(groupedOffers);
-
-  return filteredFavorites.reduce(
-    (total, { group }) => total + group.length,
-    0,
-  );
-}
 
 export default function Header({
   isLoggedIn,
   isLoginPage,
-  groupedOffers,
+  offers = [],
 }: HeaderProps): JSX.Element {
-  const totalFavorites = getTotalFavorites(groupedOffers);
+  const totalFavorites = filterByProperty(offers, 'isFavorite', true).length;
 
   const loggedInElement = (
     <>

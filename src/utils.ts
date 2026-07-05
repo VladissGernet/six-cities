@@ -13,8 +13,23 @@ function getRandomElement<T>(array: readonly T[]): T | undefined {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-type FilteredFavorites = { city: CityName; group: Offer[] }[];
+/**
+ * Типобезопасно фильтрует массив объектов по значению свойства массив объектов
+ * по значению указанного свойства.
+ * @param collection Массив объектов одного типа.
+ * @param property Ключ свойства объекта из массива collection.
+ * @param value Значение свойства, по которому выполняется фильтрация.
+ * @returns Массив объектов, у которых значение свойства совпадает с value.
+ */
+function filterByProperty<T, K extends keyof T>(
+  collection: T[],
+  property: K,
+  value: T[K],
+): T[] {
+  return collection.filter((item) => item[property] === value);
+}
 
+type FilteredFavorites = { city: CityName; group: Offer[] }[];
 /**
  * Группирует избранные предложения по городу и фильтрует их, оставляя только избранные значения.
  *
@@ -27,7 +42,7 @@ function filterFavoriteOffers(groupedOffers: GroupedOffers): FilteredFavorites {
   const transformedFilteredOffers: FilteredFavorites = [];
 
   groupedOffers.forEach((offers, city) => {
-    const filteredOffers = offers.filter((offer) => offer.isFavorite);
+    const filteredOffers = filterByProperty(offers, 'isFavorite', true);
 
     if (filteredOffers.length) {
       transformedFilteredOffers.push({ city, group: filteredOffers });
@@ -37,4 +52,4 @@ function filterFavoriteOffers(groupedOffers: GroupedOffers): FilteredFavorites {
   return transformedFilteredOffers;
 }
 
-export { getRandomElement, filterFavoriteOffers };
+export { getRandomElement, filterFavoriteOffers, filterByProperty };

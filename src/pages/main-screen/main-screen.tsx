@@ -4,10 +4,11 @@ import Main from '../../components/main/main';
 import Tabs from '../../components/tabs/tabs';
 import Cities from '../../components/cities/cities';
 
-import { GroupedOffers, GroupedOffersByCity } from '../../types/offers';
+import { GroupedOffers, GroupedOffersByCity, Offers } from '../../types/offers';
 
 type MainScreenProps = {
   groupedOffers: GroupedOffers;
+  offers: Offers;
 };
 
 // TODO, Заглушка для рендера
@@ -16,6 +17,7 @@ const DEFAULT_CITY = 'Paris'; // Дефолтный первый активны�
 
 export default function MainScreen({
   groupedOffers,
+  offers,
 }: MainScreenProps): JSX.Element {
   const groupedOffersByCity: GroupedOffersByCity = {
     city: DEFAULT_CITY,
@@ -25,7 +27,7 @@ export default function MainScreen({
 
   return (
     <Page isGray isMain>
-      <Header isLoggedIn groupedOffers={groupedOffers} />
+      <Header isLoggedIn offers={offers} />
 
       <Main isIndex isNoOffers={isNoOffers}>
         <h1 className="visually-hidden">Cities</h1>
