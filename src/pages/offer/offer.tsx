@@ -3,6 +3,7 @@ import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 import Gallery from '../../components/gallery/gallery';
 import Rating from '../../components/rating/rating';
+import NearPlaces from '../../components/near-places/near-places';
 
 // TODO, мокорвый рейтинг потом удалить!
 const MOCK_RATING = 4.8;
@@ -255,6 +256,7 @@ export default function Offer(): JSX.Element {
           <section className="offer__map map"></section>
         </section>
         <div className="container">
+          {/* <NearPlaces groupedOffersByCity={groupedOffersByCity} /> */}
           <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighbourhood

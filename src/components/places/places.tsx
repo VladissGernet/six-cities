@@ -1,18 +1,31 @@
+import cn from 'classnames';
+
 import { GroupedOffersByCity } from '../../types/offers';
 import PlacesList from './places-list';
 import { PLACES_IMAGE_SIZES } from '../../const';
 
+// TODO, TypeGuard, рассмотреть возможность использования.
 type PlacesProps = {
+  title: string;
+  titleClassName?: string;
+  isTitleNotVisible?: boolean;
   groupedOffersByCity: GroupedOffersByCity;
 };
 
 export default function Places({
   groupedOffersByCity,
+  title,
+  titleClassName,
+  isTitleNotVisible,
 }: PlacesProps): JSX.Element {
   const { city, cities } = groupedOffersByCity;
   return (
     <section className="cities__places places">
-      <h2 className="visually-hidden">Places</h2>
+      <h2
+        className={cn(isTitleNotVisible ? 'visually-hidden' : titleClassName)}
+      >
+        {title}
+      </h2>
       <b className="places__found">312 places to stay in {city}</b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
