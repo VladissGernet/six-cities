@@ -6,9 +6,9 @@ import Main from '../../components/main/main';
 import PlacesList from '../../components/places/places-list';
 import Footer from '../../components/footer/footer';
 
+import { filterFavoriteOffers } from './favorites.helper';
 import { GroupedOffers } from '../../types/offers';
 import { FAVORITES_IMAGE_SIZES } from '../../const';
-import { filterFavoriteOffers } from '../../utils';
 
 // Исправление sticky-footer.
 import styles from './favorites.module.css';

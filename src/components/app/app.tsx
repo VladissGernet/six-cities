@@ -23,7 +23,7 @@ function groupOffers(offers: Offers): GroupedOffers {
 
 export default function App({ offers }: AppProps): JSX.Element {
   const groupedOffers = groupOffers(offers);
-  return <MainScreen groupedOffers={groupedOffers} offers={offers} />;
+  // return <MainScreen groupedOffers={groupedOffers} offers={offers} />;
   return <Favorites groupedOffers={groupedOffers} />;
   // return <Login />;
   return <Offer />;
