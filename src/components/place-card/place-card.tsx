@@ -1,41 +1,16 @@
 import cn from 'classnames';
-import { Offer } from '../../types/offers';
 import Rating from '../rating/rating';
 
-type PlaceCardProps = {
-  offer: Offer;
+import { Offer } from '../../types/offers';
+import { ImageSizes } from '../../types/general';
 
+type PlaceCardProps = ImageSizes & {
+  offer: Offer;
   parentName: string;
-  imageSizes: {
-    width: number;
-    height: number;
-  };
 };
 
 export default function PlaceCard({
   offer,
-  /*
-  TODO, исправить parentName на такойже, как и в Rating решение.
-  TODO, рассмотреть возможность использования переиспользование и наращивание типов через "&"
-  // Например
-    type Item = {
-      id: string;
-    };
-
-    type Post = Item & {
-      title: string;
-      description: string;
-    };
-
-    type MegaPost = Post & {
-      viewsCount: number;
-    };
-
-    // Вернулись к дженерикам с указанием верхней границы для типа
-    function printId<T extends Item>(post: T): void {
-      console.log(post.id);
-    }
-  */
   parentName,
   imageSizes,
 }: PlaceCardProps): JSX.Element {
