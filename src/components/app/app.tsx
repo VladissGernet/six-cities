@@ -11,6 +11,10 @@ type AppProps = {
   offers: Offers;
 };
 
+/* TODO
+  Остановился на выделении мест для рефакторинга TypeGuard.
+*/
+
 export default function App({ offers }: AppProps): JSX.Element {
   const groupedOffers = groupOffers(offers);
   return <MainScreen groupedOffers={groupedOffers} offers={offers} />;
