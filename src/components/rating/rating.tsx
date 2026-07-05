@@ -1,4 +1,4 @@
-import cb from 'classnames';
+import cn from 'classnames';
 import { PERCENT_PER_STAR } from '../../const';
 
 type RatingProps = {
@@ -25,13 +25,13 @@ export default function Rating({
   const finalWidth = `${Math.round(rating) * PERCENT_PER_STAR}%`;
 
   return (
-    <div className={cb(rootClassName, 'rating')}>
-      <div className={cb(starsWrapperClassName, 'rating__stars')}>
+    <div className={cn(rootClassName, 'rating')}>
+      <div className={cn(starsWrapperClassName, 'rating__stars')}>
         <span style={{ width: finalWidth }}></span>
         <span className="visually-hidden">Rating</span>
       </div>
       {showValue && (
-        <span className={cb(valueClassName, 'rating__value')}>{rating}</span>
+        <span className={cn(valueClassName, 'rating__value')}>{rating}</span>
       )}
     </div>
   );

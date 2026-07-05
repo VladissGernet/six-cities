@@ -1,15 +1,18 @@
 import { filterByProperty } from '../../utils';
 import { Offers } from '../../types/offers';
+import cn from 'classnames';
 
 type HeaderProps = {
   isLoggedIn?: boolean;
   isLoginPage?: boolean;
+  isMainScreen?: boolean;
   offers?: Offers;
 };
 
 export default function Header({
   isLoggedIn,
   isLoginPage,
+  isMainScreen,
   // TODO, TypeGuard, возможно тут применение.
   offers = [],
 }: HeaderProps): JSX.Element {
@@ -60,8 +63,12 @@ export default function Header({
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            {/* TODO, на главной странице возможно придется деактивировать. */}
-            <a className="header__logo-link header__logo-link--active">
+            <a
+              className={cn(
+                'header__logo-link',
+                !isMainScreen && 'header__logo-link--active',
+              )}
+            >
               <img
                 className="header__logo"
                 src="img/logo.svg"

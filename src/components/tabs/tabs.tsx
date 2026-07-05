@@ -1,4 +1,4 @@
-import cb from 'classnames';
+import cn from 'classnames';
 import { CITY_NAMES } from '../../const';
 
 // TODO, Заглушка для рендера
@@ -11,7 +11,7 @@ export default function Tabs(): JSX.Element {
         <ul className="locations__list tabs__list">
           {CITY_NAMES.map((city) => {
             const isActive = city === DEFAULT_CITY;
-            const linkClassName = cb(
+            const linkClassName = cn(
               'locations__item-link tabs__item',
               isActive && 'tabs__item--active',
             );

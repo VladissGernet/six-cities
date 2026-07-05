@@ -27,7 +27,7 @@ export default function MainScreen({
 
   return (
     <Page isGray isMain>
-      <Header isLoggedIn offers={offers} />
+      <Header isLoggedIn offers={offers} isMainScreen />
 
       <Main isIndex isNoOffers={isNoOffers}>
         <h1 className="visually-hidden">Cities</h1>

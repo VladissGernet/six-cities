@@ -1,4 +1,4 @@
-import cb from 'classnames';
+import cn from 'classnames';
 
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
@@ -24,7 +24,7 @@ export default function Favorites({
 
   const hasFavorites = favoriteOffersByCity.length > 0;
 
-  const mainContainerClassName = cb(
+  const mainContainerClassName = cn(
     'page__favorites-container',
 
     // Исправление sticky-footer.
@@ -32,7 +32,7 @@ export default function Favorites({
 
     'container',
   );
-  const favoritesClassName = cb(
+  const favoritesClassName = cn(
     'favorites',
     !hasFavorites && 'favorites--empty',
 
