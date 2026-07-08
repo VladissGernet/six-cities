@@ -18,7 +18,6 @@ export default function Rating({
   rootClassName,
   starsWrapperClassName,
   valueClassName,
-  // TODO, TypeGuard
   showValue = false,
 }: RatingProps): JSX.Element {
   /** Расчет получения ширины полосы закрашиваний фона звезд рейтинга. */

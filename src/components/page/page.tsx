@@ -14,7 +14,6 @@ export default function Page({
   isGray,
   isMain,
   isLogin,
-  // TODO, TypeGuard
   hasFavorites = null,
 }: PageProps): JSX.Element {
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;

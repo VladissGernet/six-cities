@@ -4,7 +4,6 @@ import { GroupedOffersByCity } from '../../types/offers';
 import PlacesList from './places-list';
 import { PLACES_IMAGE_SIZES } from '../../const';
 
-// TODO, TypeGuard, рассмотреть возможность использования.
 type PlacesProps = {
   title: string;
   titleClassName?: string;
