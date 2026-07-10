@@ -12,6 +12,7 @@ type AppProps = {
 };
 
 // TODO, использовать NavLink для лого, чтобы на гл странице деактивировать его.
+// TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 
 export default function App({ offers }: AppProps): JSX.Element {
   const groupedOffers = groupOffers(offers);
