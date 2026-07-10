@@ -11,6 +11,8 @@ type AppProps = {
   offers: Offers;
 };
 
+// TODO, использовать NavLink для лого, чтобы на гл странице деактивировать его.
+
 export default function App({ offers }: AppProps): JSX.Element {
   const groupedOffers = groupOffers(offers);
   return <MainScreen groupedOffers={groupedOffers} offers={offers} />;
