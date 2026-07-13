@@ -27,9 +27,10 @@ export default function Main({
     isNoOffers && 'page__main--index-empty',
     isLoginPage && 'page__main--login',
     isOffer && 'page__main--offer',
+    hasFavorites && 'page__main--favorites',
 
     // Исправление sticky-footer.
-    hasFavorites && `page__main--favorites ${styles['page__main--favorites']}`,
+    styles['page__main--sticky-footer-fix'],
   );
   return <main className={mainClassName}>{children}</main>;
 }

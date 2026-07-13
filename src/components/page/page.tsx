@@ -20,14 +20,13 @@ export default function Page({
 
   const pageClassName = cn(
     'page',
-    styles['page--fix'],
     isGray && 'page--gray',
     isMain && 'page--main',
     isLogin && 'page--login',
     isFavoritesEmpty && 'page--favorites-empty',
 
     // Фикс sticky-footer на странице Favorites.
-    hasFavorites && styles['page--favorites'],
+    styles['page--sticky-footer-fix'],
   );
 
   return <div className={pageClassName}>{children}</div>;

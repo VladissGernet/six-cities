@@ -1,9 +1,6 @@
-.page--fix {
-  min-height: 100vh; /* вместо height: 100vh, чтобы не обрезать контент при переполнении */
-}
-
 /* Стили исправления sticky-footer. */
-.page--favorites {
+.page--sticky-footer-fix {
+  min-height: 100vh; /* вместо height: 100vh, чтобы не обрезать контент при переполнении */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
