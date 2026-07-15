@@ -21,6 +21,7 @@ export default function MainScreen({
 }: MainScreenProps): JSX.Element {
   const groupedOffersByCity: GroupedOffersByCity = {
     city: DEFAULT_CITY,
+    // TODO, реализовать typeGuard
     cities: groupedOffers.get(DEFAULT_CITY) ?? [],
   };
   const isNoOffers = !groupedOffersByCity.cities.length;

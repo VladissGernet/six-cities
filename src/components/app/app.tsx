@@ -48,7 +48,7 @@ export default function App({ offers }: AppProps): JSX.Element {
         <Route path={AppRoute.Login} element={<Login />} />
         <Route
           path={`${AppRoute.Offer}/:id`}
-          element={<Offer offers={offers} />}
+          element={<Offer offers={offers} groupedOffers={groupedOffers} />}
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

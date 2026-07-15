@@ -26,4 +26,16 @@ function filterByProperty<T, K extends keyof T>(
   return collection.filter((item) => item[property] === value);
 }
 
-export { getRandomElement, filterByProperty };
+/**
+ * Делает первую букву строки заглавной.
+ * @param value Исходная строка.
+ * @returns Строка с заглавной первой буквой, либо исходная строка, если она пустая.
+ */
+function capitalizeFirstLetter(value: string): string {
+  if (!value) {
+    return value;
+  }
+  return value[0].toUpperCase() + value.slice(1);
+}
+
+export { getRandomElement, filterByProperty, capitalizeFirstLetter };
