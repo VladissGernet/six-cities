@@ -22,12 +22,22 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import { capitalizeFirstLetter } from '../../utils';
 
 // Types.
-import { Offers, GroupedOffers } from '../../types/offers';
+import { Offers, GroupedOffers, GroupedOffersByCity } from '../../types/offers';
 
 type OfferProps = {
   offers: Offers;
   groupedOffers: GroupedOffers;
+  groupedOffersByCity: GroupedOffersByCity;
 };
+
+// function getGroupedOffersByCity(
+//   groupedOffersByCity: GroupedOffersByCity | undefined,
+// ) {
+//   if (groupedOffersByCity is GroupedOffersByCity) {
+//     return groupedOffersByCity;
+//   }
+//   return null;
+// }
 
 export default function Offer({
   offers,
@@ -41,7 +51,10 @@ export default function Offer({
 
   const { title, isPremium, rating, type, price, city } = offer;
   // TODO, остановился здесь. Реализовать type guard.
-  const groupedOffersByCity = groupedOffers.get(city.name);
+  // const groupedOffersByCity = getGroupedOffersByCity(
+  //   groupedOffers.get(city.name),
+  // );
+  console.log(groupedOffers.get(city.name));
 
   return (
     <Page>
@@ -99,7 +112,7 @@ export default function Offer({
           <Map />
         </section>
         <div className="container">
-          {/* <NearPlaces groupedOffersByCity={groupedOffersByCity} /> */}
+          {/* <NearPlaces groupedOffersByCity={groupedOffers.get(city.name)} /> */}
           <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighbourhood

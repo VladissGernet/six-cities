@@ -7,7 +7,6 @@ type NearPlacesProps = {
 };
 
 /** Отображает 3 первых предложения неподалёку. */
-
 export default function NearPlaces({
   groupedOffersByCity,
 }: NearPlacesProps): JSX.Element {
