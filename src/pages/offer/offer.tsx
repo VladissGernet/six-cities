@@ -30,15 +30,6 @@ type OfferProps = {
   groupedOffersByCity: GroupedOffersByCity;
 };
 
-// function getGroupedOffersByCity(
-//   groupedOffersByCity: GroupedOffersByCity | undefined,
-// ) {
-//   if (groupedOffersByCity is GroupedOffersByCity) {
-//     return groupedOffersByCity;
-//   }
-//   return null;
-// }
-
 export default function Offer({
   offers,
   groupedOffers,
@@ -115,6 +106,8 @@ export default function Offer({
         <div className="container">
           <Places
             rootClassName="near-places"
+            title="Other places in the neighbourhood"
+            titleClassName="near-places__title"
             groupedOffersByCity={groupedOffersByCity}
           />
           <section className="near-places places">
