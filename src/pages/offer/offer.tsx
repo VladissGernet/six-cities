@@ -9,7 +9,7 @@ import Gallery from '../../components/gallery/gallery';
 import Rating from '../../components/rating/rating';
 import Reviews from '../../components/reviews/reviews';
 import Map from '../../components/map/map';
-import NearPlaces from '../../components/near-places/near-places';
+import Places from '../../components/places/places';
 
 // This folder.
 import OfferHost from './offer-host';
@@ -54,6 +54,7 @@ export default function Offer({
   // const groupedOffersByCity = getGroupedOffersByCity(
   //   groupedOffers.get(city.name),
   // );
+  const groupedOffersByCity = groupedOffers.get(city.name);
   console.log(groupedOffers.get(city.name));
 
   return (
@@ -112,7 +113,10 @@ export default function Offer({
           <Map />
         </section>
         <div className="container">
-          {/* <NearPlaces groupedOffersByCity={groupedOffers.get(city.name)} /> */}
+          <Places
+            rootClassName="near-places"
+            groupedOffersByCity={groupedOffersByCity}
+          />
           <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighbourhood

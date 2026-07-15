@@ -5,27 +5,32 @@ import PlacesList from './places-list';
 import { PLACES_IMAGE_SIZES } from '../../const';
 
 type PlacesProps = {
+  rootClassName?: string;
   title: string;
   titleClassName?: string;
   isTitleNotVisible?: boolean;
+  extraTitle?: string;
   groupedOffersByCity: GroupedOffersByCity;
 };
 
 export default function Places({
-  groupedOffersByCity,
+  rootClassName,
   title,
   titleClassName,
   isTitleNotVisible,
+  extraTitle,
+
+  groupedOffersByCity,
 }: PlacesProps): JSX.Element {
-  const { city, cities } = groupedOffersByCity;
+  const { cities } = groupedOffersByCity;
   return (
-    <section className="cities__places places">
+    <section className={cn(rootClassName, 'places')}>
       <h2
         className={cn(isTitleNotVisible ? 'visually-hidden' : titleClassName)}
       >
         {title}
       </h2>
-      <b className="places__found">312 places to stay in {city}</b>
+      {extraTitle && <b className="places__found">{extraTitle}</b>}
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>

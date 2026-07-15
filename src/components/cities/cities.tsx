@@ -9,11 +9,17 @@ export default function Cities({
   groupedOffersByCity,
 }: CitiesProps): JSX.Element {
   const isNoCities = !groupedOffersByCity.cities.length;
-  // TODO, исправить ошибку в problems
-
+  const { city, cities } = groupedOffersByCity;
+  // TODO, сделать окончание динамичным places
   const citiesElement = (
     <div className="cities__places-container container">
-      <Places groupedOffersByCity={groupedOffersByCity} />
+      <Places
+        rootClassName="cities__places"
+        title="Places"
+        extraTitle={`${cities.length} places to stay in ${city}`}
+        isTitleNotVisible
+        groupedOffersByCity={groupedOffersByCity}
+      />
       <div className="cities__right-section">
         <section className="cities__map map"></section>
       </div>
