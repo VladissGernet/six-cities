@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
@@ -5,10 +7,24 @@ import Gallery from '../../components/gallery/gallery';
 import Rating from '../../components/rating/rating';
 import NearPlaces from '../../components/near-places/near-places';
 
+import NotFoundPage from '../not-found-page/not-found-page';
+
+import { Offers } from '../../types/offers';
+
+type OfferProps = {
+  offers: Offers;
+};
+
 // TODO, мокорвый рейтинг потом удалить!
 const MOCK_RATING = 4.8;
 
-export default function Offer(): JSX.Element {
+export default function Offer({ offers }: OfferProps): JSX.Element {
+  const { id } = useParams();
+  const offer = offers.find((item) => item.id === id);
+  if (!offer) {
+    return <NotFoundPage />;
+  }
+
   // TODO, остановился здесь
   return (
     <Page>

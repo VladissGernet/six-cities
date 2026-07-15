@@ -1,3 +1,6 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { AppRoute } from '../../const';
 import { Offers } from '../../types/offers';
 
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -11,6 +14,8 @@ import { groupOffers } from './app.helper';
 type AppProps = {
   offers: Offers;
 };
+
+// TODO, исправить баг по стилям с полоской футера в favorites.
 
 // TODO, использовать NavLink для лого, чтобы на гл странице деактивировать его.
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
@@ -28,9 +33,25 @@ type AppProps = {
 
 export default function App({ offers }: AppProps): JSX.Element {
   const groupedOffers = groupOffers(offers);
-  // return <MainScreen groupedOffers={groupedOffers} offers={offers} />;
-  // return <Favorites groupedOffers={groupedOffers} />;
-  // return <Login />;
-  // return <Offer />;
-  return <NotFoundPage />;
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path={AppRoute.Root}
+          element={<MainScreen groupedOffers={groupedOffers} offers={offers} />}
+        />
+        <Route
+          path={AppRoute.Favorites}
+          element={<Favorites groupedOffers={groupedOffers} />}
+        />
+        <Route path={AppRoute.Login} element={<Login />} />
+        <Route
+          path={`${AppRoute.Offer}/:id`}
+          element={<Offer offers={offers} />}
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }

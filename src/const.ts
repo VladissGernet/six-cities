@@ -8,6 +8,14 @@ const FAVORITES_IMAGE_SIZES = {
   height: 110,
 };
 
+export enum AppRoute {
+  Root = '/',
+  Favorites = '/favorites',
+  Login = '/login',
+  Offer = '/offer',
+  NotFoundPage = '/not-found-page',
+}
+
 const CITY_NAMES = [
   'Paris',
   'Cologne',
