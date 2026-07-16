@@ -8,6 +8,7 @@ type MainProps = {
   hasFavorites?: boolean | null;
   isLoginPage?: boolean;
   isOffer?: boolean;
+  isNotFound?: boolean;
 };
 
 export default function Main({
@@ -17,6 +18,7 @@ export default function Main({
   isOffer,
   hasFavorites = null,
   isLoginPage,
+  isNotFound,
 }: MainProps): JSX.Element {
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
@@ -30,7 +32,9 @@ export default function Main({
     hasFavorites && 'page__main--favorites',
 
     // Исправление sticky-footer.
-    styles['page__main--sticky-footer-fix'],
+    hasFavorites && styles['page__main--favorites-not-empty-fix'],
+    isNotFound && styles['page__main--not-found-fix'],
+    isOffer && styles['page__main--offer-fix'],
   );
   return <main className={mainClassName}>{children}</main>;
 }

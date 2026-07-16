@@ -7,12 +7,11 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  flex-grow: 1;
-  /* TODO, отсановился на исправилении sticky footer */
 }
 
+/* Стили исправления sticky-footer. */
+.page__favorites-container,
 .favorites {
-  /* Стили исправления sticky-footer. */
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;

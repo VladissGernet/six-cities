@@ -55,7 +55,7 @@ export default function Offer({
   );
 
   return (
-    <Page>
+    <Page isOffer>
       <Header />
       <Main isOffer>
         <section className="offer">

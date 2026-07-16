@@ -37,7 +37,7 @@ export default function Favorites({
     !hasFavorites && 'favorites--empty',
 
     // Исправление sticky-footer.
-    hasFavorites && styles.favorites,
+    hasFavorites && styles['favorites'],
   );
 
   const favoritesListTemplate = (
@@ -77,7 +77,7 @@ export default function Favorites({
   );
 
   return (
-    <Page hasFavorites={hasFavorites}>
+    <Page hasFavorites={hasFavorites} isFavorites>
       <Header />
       <Main hasFavorites={hasFavorites}>
         <div className={mainContainerClassName}>

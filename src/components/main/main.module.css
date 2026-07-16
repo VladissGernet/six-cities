@@ -1,10 +1,18 @@
 /* Стили исправления sticky-footer. */
-.page__main--sticky-footer-fix {
+.page__main--favorites-not-empty-fix,
+.page__main--offer-fix {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
-  flex-grow: 1;
   flex-direction: column;
+}
+
+.page__main--favorites-not-empty-fix,
+.page__main--offer-fix,
+.page__main--not-found-fix {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
