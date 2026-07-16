@@ -107,7 +107,7 @@ export default function Offer({
               <Reviews />
             </div>
           </div>
-          <Map />
+          <Map rootClassName="offer__map" />
         </section>
         <div className={cn('container', styles['offer__places-container'])}>
           <Places

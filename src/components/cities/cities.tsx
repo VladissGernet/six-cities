@@ -1,5 +1,7 @@
-import { GroupedOffersByCity } from '../../types/offers';
 import Places from '../../components/places/places';
+import Map from '../map/map';
+
+import { GroupedOffersByCity } from '../../types/offers';
 
 type CitiesProps = {
   groupedOffersByCity: GroupedOffersByCity;
@@ -24,7 +26,7 @@ export default function Cities({
         isSortingForm
       />
       <div className="cities__right-section">
-        <section className="cities__map map"></section>
+        <Map rootClassName="cities__map" />
       </div>
     </div>
   );

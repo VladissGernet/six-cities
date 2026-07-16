@@ -1,4 +1,9 @@
-// TODO, ааптировать на главную страницу.
-export default function Map(): JSX.Element {
-  return <section className="offer__map map"></section>;
+import cn from 'classnames';
+
+type MapProps = {
+  rootClassName: string;
+};
+
+export default function Map({ rootClassName }: MapProps): JSX.Element {
+  return <section className={cn(rootClassName, 'map')} />;
 }
