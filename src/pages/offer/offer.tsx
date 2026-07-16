@@ -1,4 +1,5 @@
 // General.
+import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 
 // Components
@@ -24,6 +25,9 @@ import { createGroupedOffersByCity } from '../../utils/offers';
 
 // Types.
 import { Offers, GroupedOffers } from '../../types/offers';
+
+// Styles
+import styles from './offer.module.css';
 
 type OfferProps = {
   offers: Offers;
@@ -105,9 +109,9 @@ export default function Offer({
           </div>
           <Map />
         </section>
-        <div className="container">
+        <div className={cn('container', styles['offer__places-container'])}>
           <Places
-            rootClassName="near-places"
+            rootClassName={cn('near-places', styles['offer__places-content'])}
             title="Other places in the neighbourhood"
             titleClassName="near-places__title"
             groupedOffersByCity={groupedOffersByCity}

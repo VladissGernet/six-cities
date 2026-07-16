@@ -1,0 +1,15 @@
+/* Стили исправления sticky-footer. */
+.offer__places-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.offer__places-content {
+  flex-grow: 1;
+}
