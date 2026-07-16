@@ -19,6 +19,7 @@ export default function Cities({
         extraTitle={`${cities.length} places to stay in ${city}`}
         isTitleNotVisible
         groupedOffersByCity={groupedOffersByCity}
+        isSortingForm
       />
       <div className="cities__right-section">
         <section className="cities__map map"></section>
