@@ -10,13 +10,15 @@ export default function Cities({
 }: CitiesProps): JSX.Element {
   const isNoCities = !groupedOffersByCity.cities.length;
   const { city, cities } = groupedOffersByCity;
-  // TODO, сделать окончание динамичным places
+  const isMultipleCities = cities.length > 1;
+  const extraTitle = `${cities.length} ${isMultipleCities ? 'places' : 'place'} to stay in ${city}`;
+
   const citiesElement = (
     <div className="cities__places-container container">
       <Places
         rootClassName="cities__places"
         title="Places"
-        extraTitle={`${cities.length} places to stay in ${city}`}
+        extraTitle={extraTitle}
         isTitleNotVisible
         groupedOffersByCity={groupedOffersByCity}
         isSortingForm
