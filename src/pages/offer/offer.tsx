@@ -30,6 +30,8 @@ type OfferProps = {
   groupedOffers: GroupedOffers;
 };
 
+const MAX_OFFERS = 3;
+
 export default function Offer({
   offers,
   groupedOffers,
@@ -45,6 +47,7 @@ export default function Offer({
   const groupedOffersByCity = createGroupedOffersByCity(
     city.name,
     groupedOffers,
+    MAX_OFFERS,
   );
 
   return (
