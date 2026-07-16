@@ -6,7 +6,7 @@ import Cities from '../../components/cities/cities';
 
 import { GroupedOffers, Offers } from '../../types/offers';
 
-import { createGroupedOffersByCity } from '../../utils';
+import { createGroupedOffersByCity } from '../../utils/offers';
 
 type MainScreenProps = {
   groupedOffers: GroupedOffers;

@@ -19,7 +19,8 @@ import OfferInside from './offer-inside';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 // Utils.
-import { capitalizeFirstLetter, createGroupedOffersByCity } from '../../utils';
+import { capitalizeFirstLetter } from '../../utils/utils';
+import { createGroupedOffersByCity } from '../../utils/offers';
 
 // Types.
 import { Offers, GroupedOffers } from '../../types/offers';

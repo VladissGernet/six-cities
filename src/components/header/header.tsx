@@ -1,4 +1,4 @@
-import { filterByProperty } from '../../utils';
+import { filterByProperty } from '../../utils/utils';
 import { Offers } from '../../types/offers';
 import cn from 'classnames';
 
