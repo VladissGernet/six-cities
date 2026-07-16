@@ -1,6 +1,5 @@
 import { Offers, GroupedOffers } from '../../types/offers';
 
-// TODO, попробовать реализовать infer.
 /**
  * Преобразует массив прдложений в коллекцию.
  * @param offers Массив всех предложений.
