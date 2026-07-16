@@ -34,6 +34,7 @@ type AppProps = {
 export default function App({ offers }: AppProps): JSX.Element {
   const groupedOffers = groupOffers(offers);
 
+  // TODO, попробовать реализовать общий layout с page,header и т.п.
   return (
     <BrowserRouter>
       <Routes>
