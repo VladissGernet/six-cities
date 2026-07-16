@@ -19,15 +19,14 @@ import OfferInside from './offer-inside';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 // Utils.
-import { capitalizeFirstLetter } from '../../utils';
+import { capitalizeFirstLetter, createGroupedOffersByCity } from '../../utils';
 
 // Types.
-import { Offers, GroupedOffers, GroupedOffersByCity } from '../../types/offers';
+import { Offers, GroupedOffers } from '../../types/offers';
 
 type OfferProps = {
   offers: Offers;
   groupedOffers: GroupedOffers;
-  groupedOffersByCity: GroupedOffersByCity;
 };
 
 export default function Offer({
@@ -41,12 +40,11 @@ export default function Offer({
   }
 
   const { title, isPremium, rating, type, price, city } = offer;
-  // TODO, остановился здесь. Реализовать type guard.
-  // const groupedOffersByCity = getGroupedOffersByCity(
-  //   groupedOffers.get(city.name),
-  // );
-  const groupedOffersByCity = groupedOffers.get(city.name);
-  console.log(groupedOffers.get(city.name));
+  // TODO, решение можно оформить еще более “по-реактовски”: через useMemo, чтобы groupedOffersByCity не пересоздавался на каждом рендере.
+  const groupedOffersByCity = createGroupedOffersByCity(
+    city.name,
+    groupedOffers,
+  );
 
   return (
     <Page>

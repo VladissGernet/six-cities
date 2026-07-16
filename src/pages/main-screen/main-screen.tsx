@@ -4,7 +4,9 @@ import Main from '../../components/main/main';
 import Tabs from '../../components/tabs/tabs';
 import Cities from '../../components/cities/cities';
 
-import { GroupedOffers, GroupedOffersByCity, Offers } from '../../types/offers';
+import { GroupedOffers, Offers } from '../../types/offers';
+
+import { createGroupedOffersByCity } from '../../utils';
 
 type MainScreenProps = {
   groupedOffers: GroupedOffers;
@@ -19,11 +21,11 @@ export default function MainScreen({
   groupedOffers,
   offers,
 }: MainScreenProps): JSX.Element {
-  const groupedOffersByCity: GroupedOffersByCity = {
-    city: DEFAULT_CITY,
-    // TODO, реализовать typeGuard
-    cities: groupedOffers.get(DEFAULT_CITY) ?? [],
-  };
+  // TODO, решение можно оформить еще более “по-реактовски”: через useMemo, чтобы groupedOffersByCity не пересоздавался на каждом рендере.
+  const groupedOffersByCity = createGroupedOffersByCity(
+    DEFAULT_CITY,
+    groupedOffers,
+  );
   const isNoOffers = !groupedOffersByCity.cities.length;
 
   return (
