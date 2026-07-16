@@ -16,6 +16,12 @@ export enum AppRoute {
   NotFoundPage = '/not-found-page',
 }
 
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
 const CITY_NAMES = [
   'Paris',
   'Cologne',

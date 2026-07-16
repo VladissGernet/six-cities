@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offers } from '../../types/offers';
 
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -8,6 +8,8 @@ import Favorites from '../../pages/favorites/favorites';
 import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+
+import PrivateRoute from '../private-route/private-route';
 
 import { groupOffers } from './app.helper';
 
@@ -42,7 +44,11 @@ export default function App({ offers }: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Favorites}
-          element={<Favorites groupedOffers={groupedOffers} />}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <Favorites groupedOffers={groupedOffers} />
+            </PrivateRoute>
+          }
         />
         <Route path={AppRoute.Login} element={<Login />} />
         <Route
