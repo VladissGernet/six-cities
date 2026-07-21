@@ -7,10 +7,10 @@ import { Offers, GroupedOffers } from '../../types/offers';
  */
 function groupOffers(offers: Offers): GroupedOffers {
   return offers.reduce<GroupedOffers>((favoriteOffersByCity, offer) => {
-    const isIncluded = favoriteOffersByCity.get(offer.city.name);
+    const offersByCity = favoriteOffersByCity.get(offer.city.name);
 
-    if (isIncluded) {
-      isIncluded.push(offer);
+    if (offersByCity) {
+      offersByCity.push(offer);
     } else {
       favoriteOffersByCity.set(offer.city.name, [offer]);
     }
