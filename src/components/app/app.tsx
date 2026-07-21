@@ -35,6 +35,7 @@ export default function App({ offers }: AppProps): JSX.Element {
   const groupedOffers = groupOffers(offers);
 
   // TODO, попробовать реализовать общий layout с page,header и т.п.
+  // TODO, рассмотреть необходимость оборачивания кода нижа в <React.StrictMode>
   return (
     <BrowserRouter>
       <Routes>
