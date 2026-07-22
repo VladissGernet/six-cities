@@ -31,7 +31,7 @@ export default function PlaceCard({
     setIsHovered(true);
   const onMouseLeave: React.MouseEventHandler<HTMLElement> = () =>
     setIsHovered(false);
-  console.log(isCardHovered);
+  // console.log(isCardHovered);
 
   const bookmarkButtonClassName = cn(
     'place-card__bookmark-button',
