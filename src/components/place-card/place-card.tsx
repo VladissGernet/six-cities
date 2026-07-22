@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import cn from 'classnames';
 import Rating from '../rating/rating';
 
@@ -14,8 +16,22 @@ export default function PlaceCard({
   parentName,
   imageSizes,
 }: PlaceCardProps): JSX.Element {
+  const [isCardHovered, setIsHovered] = useState(false);
   const { isFavorite, isPremium, previewImage, price, rating, title, type } =
     offer;
+
+  /*
+    TODO
+    Добавьте в состояние компонента активную карточку с предложением (объект с данными предложения
+    или только уникальный идентификатор предложения). Под активной карточкой предложения подразумевается
+    карточка, на которую пользователь навёл курсор. Состояние пригодится нам в дальнейшем для реализации
+    отображения маркеров предложений на карте.
+  */
+  const onMouseEnter: React.MouseEventHandler<HTMLElement> = () =>
+    setIsHovered(true);
+  const onMouseLeave: React.MouseEventHandler<HTMLElement> = () =>
+    setIsHovered(false);
+  console.log(isCardHovered);
 
   const bookmarkButtonClassName = cn(
     'place-card__bookmark-button',
@@ -24,7 +40,11 @@ export default function PlaceCard({
   );
 
   return (
-    <article className={`${parentName}__card place-card`}>
+    <article
+      className={`${parentName}__card place-card`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>

@@ -36,6 +36,7 @@ export default function App({ offers }: AppProps): JSX.Element {
 
   // TODO, попробовать реализовать общий layout с page,header и т.п.
   // TODO, рассмотреть необходимость оборачивания кода нижа в <React.StrictMode>
+  // TODO, остановился на 9 пункте.
   return (
     <BrowserRouter>
       <Routes>
