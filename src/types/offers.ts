@@ -1,4 +1,4 @@
-import { CityName } from '../const';
+import { CITY_NAMES } from '../const';
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
@@ -34,3 +34,8 @@ export type GroupedOffersByCity = {
   city: CityName;
   cities: Offers;
 };
+
+/**
+ * Зависит от константы { CITY_NAMES } from '../const';
+ */
+export type CityName = (typeof CITY_NAMES)[number];

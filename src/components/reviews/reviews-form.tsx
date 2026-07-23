@@ -1,22 +1,53 @@
 import { useState } from 'react';
+import { RatingValue } from '../../types/general';
+import { RATING_VALUES } from '../../const';
+
+const isRatingValue = (value: string): value is RatingValue =>
+  (RATING_VALUES as readonly string[]).includes(value);
 
 export default function ReviewsForm(): JSX.Element {
   // TODO, остановился здесь
-  const [userRating, setUserRating] = useState(null);
+  const [userRating, setUserRating] = useState<RatingValue | null>(null);
   const [userReviewText, setUserReviewText] = useState('');
 
+  const submitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+
+    console.log('userRating :', userRating);
+    console.log('userReviewText :', userReviewText);
+  };
+
+  const ratingChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (
+    e,
+  ) => {
+    const { value } = e.target;
+    if (!isRatingValue(value)) {
+      return;
+    }
+    setUserRating(value);
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={submitHandler}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <div className="reviews__rating-form form__rating">
+      <div
+        className="reviews__rating-form form__rating"
+        onChange={ratingChangeHandler}
+      >
         <input
           className="form__rating-input visually-hidden"
           name="rating"
           value="5"
           id="5-stars"
           type="radio"
+          onChange={ratingChangeHandler}
         />
         <label
           htmlFor="5-stars"
@@ -34,6 +65,7 @@ export default function ReviewsForm(): JSX.Element {
           value="4"
           id="4-stars"
           type="radio"
+          onChange={ratingChangeHandler}
         />
         <label
           htmlFor="4-stars"
@@ -51,6 +83,7 @@ export default function ReviewsForm(): JSX.Element {
           value="3"
           id="3-stars"
           type="radio"
+          onChange={ratingChangeHandler}
         />
         <label
           htmlFor="3-stars"
@@ -68,6 +101,7 @@ export default function ReviewsForm(): JSX.Element {
           value="2"
           id="2-stars"
           type="radio"
+          onChange={ratingChangeHandler}
         />
         <label
           htmlFor="2-stars"
@@ -85,6 +119,7 @@ export default function ReviewsForm(): JSX.Element {
           value="1"
           id="1-star"
           type="radio"
+          onChange={ratingChangeHandler}
         />
         <label
           htmlFor="1-star"

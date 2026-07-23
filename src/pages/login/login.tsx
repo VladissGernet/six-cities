@@ -2,7 +2,8 @@ import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 
-import { CITY_NAMES, CityName } from '../../const';
+import { CITY_NAMES } from '../../const';
+import { CityName } from '../../types/offers';
 import { getRandomElement } from '../../utils/utils';
 
 export default function Login(): JSX.Element {

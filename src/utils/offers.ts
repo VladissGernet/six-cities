@@ -1,6 +1,6 @@
 // Файл с helpers для работы с offers.
 
-import { CityName } from '../const';
+import { CityName } from '../types/offers';
 import { GroupedOffers, GroupedOffersByCity } from '../types/offers';
 
 /**

@@ -1,5 +1,5 @@
 import { GroupedOffers, Offer } from '../../types/offers';
-import { CityName } from '../../const';
+import { CityName } from '../../types/offers';
 import { filterByProperty } from '../../utils/utils';
 
 type FilteredFavorites = { city: CityName; group: Offer[] }[];

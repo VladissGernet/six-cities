@@ -8,7 +8,7 @@ const FAVORITES_IMAGE_SIZES = {
   height: 110,
 };
 
-export enum AppRoute {
+enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
   Login = '/login',
@@ -16,12 +16,14 @@ export enum AppRoute {
   NotFoundPage = '/not-found-page',
 }
 
-export enum AuthorizationStatus {
+enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
-
+/**
+ * Ещё создёт тип { CityName } from "./types/offers".
+ */
 const CITY_NAMES = [
   'Paris',
   'Cologne',
@@ -31,7 +33,10 @@ const CITY_NAMES = [
   'Dusseldorf',
 ] as const;
 
-export type CityName = (typeof CITY_NAMES)[number];
+/**
+ * Ещё создёт тип { RatingValue } from "./types/general".
+ */
+const RATING_VALUES = ['1', '2', '3', '4', '5'] as const;
 
 // 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.)
 const PERCENT_PER_STAR = 20;
@@ -42,4 +47,7 @@ export {
   FAVORITES_IMAGE_SIZES,
   CITY_NAMES,
   PERCENT_PER_STAR,
+  RATING_VALUES,
+  AppRoute,
+  AuthorizationStatus,
 };
