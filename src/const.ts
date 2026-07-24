@@ -41,6 +41,8 @@ const RATING_VALUES = ['1', '2', '3', '4', '5'] as const;
 // 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.)
 const PERCENT_PER_STAR = 20;
 
+const MIN_TEXTAREA_CHARACTERS = 50;
+
 export {
   RATING_TO_PERCENT,
   PLACES_IMAGE_SIZES,
@@ -48,6 +50,7 @@ export {
   CITY_NAMES,
   PERCENT_PER_STAR,
   RATING_VALUES,
+  MIN_TEXTAREA_CHARACTERS,
   AppRoute,
   AuthorizationStatus,
 };
