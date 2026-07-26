@@ -6,29 +6,16 @@ import {
 } from 'react';
 import { RatingValue } from '../../types/general';
 import { RATING_VALUES, MIN_TEXTAREA_CHARACTERS } from '../../const';
-// TODO
-// DEV ONLY, REMOVE!!!
-const TEST_MIN_TEXTAREA_CHARACTERS = 3;
 
-// Доработать на основании
-// https://www.perplexity.ai/search/b2463bbb-8574-4a34-bc58-7dc06efacd57#4
 const isRatingValue = (value: string): value is RatingValue =>
   (RATING_VALUES as readonly string[]).includes(value);
 
 export default function ReviewsForm(): JSX.Element {
   const [userRating, setUserRating] = useState<RatingValue | null>(null);
   const [userReviewText, setUserReviewText] = useState<string>('');
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] =
-    useState<boolean>(true);
 
-  const toggleSubmitButton = (
-    ratingValue: RatingValue,
-    reviewText: string,
-  ): boolean =>
-    !(
-      isRatingValue(ratingValue) &&
-      reviewText.length >= TEST_MIN_TEXTAREA_CHARACTERS
-    );
+  const isSubmitDisabled =
+    userRating === null || userReviewText.length < MIN_TEXTAREA_CHARACTERS;
 
   const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -37,20 +24,16 @@ export default function ReviewsForm(): JSX.Element {
   };
 
   const reviewTextHandler: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    const value = e.target.value;
+    const value = e.currentTarget.value;
     setUserReviewText(value);
-    setIsSubmitButtonDisabled(
-      toggleSubmitButton(userRating as RatingValue, value),
-    );
   };
 
   const ratingChangeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { value } = e.target;
+    const { value } = e.currentTarget;
     if (!isRatingValue(value)) {
       return;
     }
     setUserRating(value);
-    setIsSubmitButtonDisabled(toggleSubmitButton(value, userReviewText));
   };
 
   return (
@@ -102,7 +85,7 @@ export default function ReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isSubmitButtonDisabled}
+          disabled={isSubmitDisabled}
         >
           Submit
         </button>
