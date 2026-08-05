@@ -1,6 +1,8 @@
 import ReviewsForm from './reviews-form';
 
 export default function Reviews(): JSX.Element {
+  // TODO
+  // Max 10 штук показвывется отсортированных от новых к старым.
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
