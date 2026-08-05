@@ -23,6 +23,7 @@ enum AuthorizationStatus {
 }
 /**
  * Ещё создёт тип { CityName } from "./types/offers".
+ * TODO, Исправить на ед число.
  */
 const CITY_NAMES = [
   'Paris',
