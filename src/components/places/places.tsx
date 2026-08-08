@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { GroupedOffersByCity } from '../../types/offers';
 import PlacesList from './places-list';
 import PlacesForm from './places-form';
-import { PLACES_IMAGE_SIZES } from '../../const';
+import { IMAGE_SIZE } from '../../const';
 
 type PlacesProps = {
   rootClassName?: string;
@@ -39,7 +39,7 @@ export default function Places({
         groupedOffersByCity={cities}
         className="cities__places-list places__list"
         parentName="cities"
-        imageSizes={PLACES_IMAGE_SIZES}
+        imageSizes={IMAGE_SIZE.PLACES}
       />
     </section>
   );

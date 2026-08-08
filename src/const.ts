@@ -1,14 +1,14 @@
 const RATING_TO_PERCENT = 10;
-/*  * TODO, Исправить на ед число. возможно это enum */
-const PLACES_IMAGE_SIZES = {
-  width: 260,
-  height: 200,
-};
-/*  * TODO, Исправить на ед число. возможно это enum */
-const FAVORITES_IMAGE_SIZES = {
-  width: 150,
-  height: 110,
-};
+const IMAGE_SIZE = {
+  PLACES: {
+    width: 260,
+    height: 200,
+  },
+  FAVORITES: {
+    width: 150,
+    height: 110,
+  },
+} as const;
 
 enum AppRoute {
   Root = '/',
@@ -25,7 +25,6 @@ enum AuthorizationStatus {
 }
 /**
  * Ещё создёт тип { CityName } from "./types/offers".
- * TODO, Исправить на ед число.
  */
 const CITY_NAMES = [
   'Paris',
@@ -41,15 +40,14 @@ const CITY_NAMES = [
  */
 const RATING_VALUES = ['1', '2', '3', '4', '5'] as const;
 
-// 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.)
+/** 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.) */
 const PERCENT_PER_STAR = 20;
 
 const MIN_TEXTAREA_CHARACTERS = 50;
 
 export {
+  IMAGE_SIZE,
   RATING_TO_PERCENT,
-  PLACES_IMAGE_SIZES,
-  FAVORITES_IMAGE_SIZES,
   CITY_NAMES,
   PERCENT_PER_STAR,
   RATING_VALUES,
