@@ -45,6 +45,12 @@ const PERCENT_PER_STAR = 20;
 
 const MIN_TEXTAREA_CHARACTERS = 50;
 
+const MAP_CONFIG = {
+  TILE: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  ATTRIBUTION:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+};
+
 export {
   IMAGE_SIZE,
   RATING_TO_PERCENT,
@@ -52,6 +58,7 @@ export {
   PERCENT_PER_STAR,
   RATING_VALUES,
   MIN_TEXTAREA_CHARACTERS,
+  MAP_CONFIG,
   AppRoute,
   AuthorizationStatus,
 };
