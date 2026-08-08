@@ -1,8 +1,10 @@
 const RATING_TO_PERCENT = 10;
+/*  * TODO, Исправить на ед число. возможно это enum */
 const PLACES_IMAGE_SIZES = {
   width: 260,
   height: 200,
 };
+/*  * TODO, Исправить на ед число. возможно это enum */
 const FAVORITES_IMAGE_SIZES = {
   width: 150,
   height: 110,
