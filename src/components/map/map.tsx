@@ -14,7 +14,6 @@ type MapProps = {
 };
 
 export default function Map({ rootClassName, offers }: MapProps): JSX.Element {
-  console.log(offers);
   const mapRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -22,9 +21,12 @@ export default function Map({ rootClassName, offers }: MapProps): JSX.Element {
       return;
     }
 
+    /* Координаты и zoom текущего города. */
+    const { latitude, longitude, zoom } = offers[0].city.location;
+
     const map = new LeafletMap(mapRef.current, {
-      center: [0, 0],
-      zoom: 10,
+      center: [latitude, longitude],
+      zoom: zoom,
     });
 
     const layer = new TileLayer(MAP_CONFIG.TILE, {
@@ -36,7 +38,7 @@ export default function Map({ rootClassName, offers }: MapProps): JSX.Element {
     return () => {
       map.remove();
     };
-  }, []);
+  }, [offers]);
 
   return <section className={cn(rootClassName, 'map')} ref={mapRef} />;
 }
