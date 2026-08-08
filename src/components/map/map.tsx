@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 
 import cn from 'classnames';
 import { Offers } from '../../types/offers';
-import { Map as LeafletMap, TileLayer } from 'leaflet';
+import { Map as LeafletMap, TileLayer, Icon } from 'leaflet';
 
-import { MAP_CONFIG } from '../../const';
+import { MAP_CONFIG, CUSTOM_ICON } from '../../const';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -13,9 +13,15 @@ type MapProps = {
   offers: Offers;
 };
 
+const defaultCustomIcon = new Icon(CUSTOM_ICON.DEFAULT);
+
+const currentCustomIcon = new Icon(CUSTOM_ICON.ACTIVE);
+
 export default function Map({ rootClassName, offers }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
+  console.log(defaultCustomIcon);
 
+  // Добавление карты.
   useEffect(() => {
     if (mapRef.current === null) {
       return;
