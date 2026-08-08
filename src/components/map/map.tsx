@@ -1,10 +1,9 @@
-import { useEffect, useRef } from 'react';
-
+import { Icon } from 'leaflet';
 import cn from 'classnames';
+import { useRef } from 'react';
+import useMap from '../../hooks/use-map';
 import { Offers } from '../../types/offers';
-import { Map as LeafletMap, TileLayer, Icon } from 'leaflet';
-
-import { MAP_CONFIG, CUSTOM_ICON } from '../../const';
+import { CUSTOM_ICON } from '../../const';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -19,32 +18,12 @@ const currentCustomIcon = new Icon(CUSTOM_ICON.ACTIVE);
 
 export default function Map({ rootClassName, offers }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
-  console.log(defaultCustomIcon);
+  const { latitude, longitude, zoom } = offers[0].city.location;
 
-  // Добавление карты.
-  useEffect(() => {
-    if (mapRef.current === null) {
-      return;
-    }
-
-    /* Координаты и zoom текущего города. */
-    const { latitude, longitude, zoom } = offers[0].city.location;
-
-    const map = new LeafletMap(mapRef.current, {
-      center: [latitude, longitude],
-      zoom: zoom,
-    });
-
-    const layer = new TileLayer(MAP_CONFIG.TILE, {
-      attribution: MAP_CONFIG.ATTRIBUTION,
-    });
-
-    map.addLayer(layer);
-
-    return () => {
-      map.remove();
-    };
-  }, [offers]);
+  const map = useMap({ mapRef, latitude, longitude, zoom });
+  // TODO повторить
+  // https://chat.deepseek.com/a/chat/s/b884eea1-7f8a-47ac-849e-643c5e1b3117
+  console.log(map, 'mapInstance');
 
   return <section className={cn(rootClassName, 'map')} ref={mapRef} />;
 }
