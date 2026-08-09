@@ -43,8 +43,7 @@ export default function HeaderNav({
     <nav className="header__nav">
       <ul className="header__nav-list">
         {/*
-          TODO, рассмотреть рефакторинг в будущем с помощью React.memo и useMemo.
-          Данная реализация редерит выше сразу ДВЕ разметки для пустого и полного элемента.
+          TODO, вынести компоненты loggedInElement и signInElement в отдельные компоненты.
         */}
         {isLoggedIn ? loggedInElement : signInElement}
       </ul>

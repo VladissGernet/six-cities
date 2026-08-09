@@ -83,9 +83,8 @@ export default function Favorites({
         <div className={mainContainerClassName}>
           <section className={favoritesClassName}>
             {/*
-              TODO, рассмотреть рефакторинг в будущем с помощью React.memo и useMemo.
-              Данная реализация редерит выше сразу ДВЕ разметки для пустого и полного элемента.
-            */}
+          TODO, вынести компоненты favoritesListTemplate и emptyListTemplate в отдельные компоненты.
+        */}
             {hasFavorites ? favoritesListTemplate : emptyListTemplate}
           </section>
         </div>

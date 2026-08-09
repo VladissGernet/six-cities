@@ -48,9 +48,8 @@ export default function Cities({
   return (
     <div className="cities">
       {/*
-        TODO, рассмотреть рефакторинг в будущем с помощью React.memo и useMemo.
-        Данная реализация редерит выше сразу ДВЕ разметки для пустого и полного элемента.
-      */}
+          TODO, вынести компоненты emptyCitiesElement и citiesElement в отдельные компоненты.
+        */}
       {isNoCities ? emptyCitiesElement : citiesElement}
     </div>
   );
