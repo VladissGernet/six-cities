@@ -34,28 +34,31 @@ type OfferProps = {
   groupedOffers: GroupedOffers;
 };
 
-const MAX_OFFERS = 3;
+const MAX_OFFERS = 4;
 
 export default function Offer({
   offers,
   groupedOffers,
 }: OfferProps): JSX.Element {
   const { id } = useParams();
-  const offer = offers.find((item) => item.id === id);
-  if (!offer) {
+  const selectedOffer = offers.find((item) => item.id === id);
+  if (!selectedOffer) {
     return <NotFoundPage />;
   }
 
-  const { title, isPremium, rating, type, price, city } = offer;
-  // TODO, решение можно оформить еще более “по-реактовски”: через useMemo, чтобы groupedOffersByCity не пересоздавался на каждом рендере.
+  const { title, isPremium, rating, type, price, city } = selectedOffer;
+  // TODO, остановился здесь на создании массива для прокидывания в карту и создания трех предложений.
   const groupedOffersByCity = createGroupedOffersByCity(
     city.name,
     groupedOffers,
-    MAX_OFFERS,
   );
-  // todo, остановился здесь
-  console.log(groupedOffersByCity);
 
+  // const nearOffers = groupedOffersByCity.cities.reduce((selectedOffers, offer) => {
+  //   if (selectedOffers.length >= MAX_OFFERS) {
+
+  //   }
+  //   console.log(offer);
+  // }, [selectedOffer]);
   return (
     <Page isOffer>
       <Header />
