@@ -8,7 +8,7 @@ import Footer from '../../components/footer/footer';
 
 import { filterFavoriteOffers } from './favorites.helper';
 import { GroupedOffers } from '../../types/offers';
-import { IMAGE_SIZE } from '../../const';
+import { ImageSize } from '../../const';
 
 // Исправление sticky-footer.
 import styles from './favorites.module.css';
@@ -57,7 +57,7 @@ export default function Favorites({
               groupedOffersByCity={group}
               className="favorites__places"
               parentName="favorites"
-              imageSizes={IMAGE_SIZE.FAVORITES}
+              imageSizes={ImageSize.Favorites}
             />
           </li>
         ))}

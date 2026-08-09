@@ -1,19 +1,19 @@
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
 import { Map, TileLayer } from 'leaflet';
-import { MAP_CONFIG } from '../const';
+import { MapConfig } from '../const';
 
 type UseMapProps = {
   mapRef: MutableRefObject<HTMLElement | null>;
-  latitude: number;
-  longitude: number;
-  zoom: number;
+  latitude?: number;
+  longitude?: number;
+  zoom?: number;
 };
 
 export default function useMap({
   mapRef,
-  latitude,
-  longitude,
-  zoom,
+  latitude = MapConfig.DefaultPosition.Latitude,
+  longitude = MapConfig.DefaultPosition.Longitude,
+  zoom = MapConfig.DefaultPosition.Zoom,
 }: UseMapProps): Map | null {
   const [mapInstance, setMapInstance] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
@@ -29,8 +29,8 @@ export default function useMap({
         zoom,
       });
 
-      const layer = new TileLayer(MAP_CONFIG.TILE, {
-        attribution: MAP_CONFIG.ATTRIBUTION,
+      const layer = new TileLayer(MapConfig.Tile, {
+        attribution: MapConfig.Attribution,
       });
 
       instance.addLayer(layer);
