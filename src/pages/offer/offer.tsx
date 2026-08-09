@@ -53,6 +53,8 @@ export default function Offer({
     groupedOffers,
     MAX_OFFERS,
   );
+  // todo, остановился здесь
+  console.log(groupedOffersByCity);
 
   return (
     <Page isOffer>
@@ -107,7 +109,12 @@ export default function Offer({
               <Reviews />
             </div>
           </div>
-          <Map rootClassName="offer__map" />
+          <div className="container">
+            <Map
+              rootClassName="offer__map"
+              offers={groupedOffersByCity.cities}
+            />
+          </div>
         </section>
         <div className={cn('container', styles['offer__places-container'])}>
           <Places
