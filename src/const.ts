@@ -1,6 +1,6 @@
 import { IconOptions } from 'leaflet';
-import pin from '../markup/img/pin.svg';
-import pinActive from '../markup/img/pin-active.svg';
+import pin from '../public/img/pin.svg';
+import pinActive from '../public/img/pin-active.svg';
 
 /** 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.) */
 const PERCENT_PER_STAR = 20;
@@ -63,13 +63,13 @@ const MapConfig = {
 const CustomIcon: Record<'Default' | 'Active', IconOptions> = {
   Default: {
     iconUrl: pin,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [28, 40],
+    iconAnchor: [14, 40],
   },
   Active: {
     iconUrl: pinActive,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [28, 40],
+    iconAnchor: [14, 40],
   },
 } as const;
 

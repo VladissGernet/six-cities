@@ -1,6 +1,6 @@
-import { Icon } from 'leaflet';
+import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import useMap from '../../hooks/use-map';
 import { Offers } from '../../types/offers';
 import { CustomIcon } from '../../const';
@@ -13,7 +13,6 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon(CustomIcon.Default);
-
 const currentCustomIcon = new Icon(CustomIcon.Active);
 
 export default function Map({
@@ -26,7 +25,24 @@ export default function Map({
 
   const mapRef = useRef<HTMLElement | null>(null);
   const map = useMap({ mapRef, latitude, longitude, zoom });
-  console.log(map, 'mapInstance');
+  useEffect(() => {
+    if (map) {
+      const markerLayer = layerGroup();
+      offers.forEach(({ location }) => {
+        const marker = new Marker({
+          lat: location.latitude,
+          lng: location.longitude,
+        });
+
+        marker.setIcon(defaultCustomIcon).addTo(markerLayer);
+      });
+      markerLayer.addTo(map);
+
+      return () => {
+        map.removeLayer(markerLayer);
+      };
+    }
+  }, [map, offers]);
 
   return offers.length ? (
     <section className={cn(rootClassName, 'map')} ref={mapRef} />
