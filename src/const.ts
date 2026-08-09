@@ -1,6 +1,6 @@
 import { IconOptions } from 'leaflet';
-import pin from '../public/img/pin.svg';
-import pinActive from '../public/img/pin-active.svg';
+import pin from '/img/pin.svg';
+import pinActive from '/img/pin-active.svg';
 
 /** 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.) */
 const PERCENT_PER_STAR = 20;
