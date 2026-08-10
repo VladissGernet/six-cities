@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
 import { Map, TileLayer } from 'leaflet';
-import { MapConfig } from '../const';
+import { MapConfig } from '../../const';
 
 type UseMapProps = {
   mapRef: MutableRefObject<HTMLElement | null>;

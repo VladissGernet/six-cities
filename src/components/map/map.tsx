@@ -1,9 +1,8 @@
-import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
-import { useRef, useEffect } from 'react';
-import useMap from '../../hooks/use-map';
+import { useRef } from 'react';
+import useMap from '../../hooks/map/use-map';
+import useMapMarkerLayer from '../../hooks/map/use-map-marker-layer';
 import { Offers, Location } from '../../types/offers';
-import { CustomIcon } from '../../const';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -12,9 +11,6 @@ type MapProps = {
   offers: Offers;
   selectedOfferLocation?: Location | null;
 };
-
-const defaultCustomIcon = new Icon(CustomIcon.Default);
-const currentCustomIcon = new Icon(CustomIcon.Active);
 
 export default function Map({
   rootClassName,
@@ -27,35 +23,9 @@ export default function Map({
 
   const mapRef = useRef<HTMLElement | null>(null);
   const map = useMap({ mapRef, latitude, longitude, zoom });
+  useMapMarkerLayer(map, offers, selectedOfferLocation);
 
-  useEffect(() => {
-    if (map) {
-      const markerLayer = layerGroup();
-      offers.forEach(({ location }) => {
-        const marker = new Marker({
-          lat: location.latitude,
-          lng: location.longitude,
-        });
-
-        marker.setIcon(defaultCustomIcon).addTo(markerLayer);
-      });
-
-      if (selectedOfferLocation) {
-        const marker = new Marker({
-          lat: selectedOfferLocation.latitude,
-          lng: selectedOfferLocation.longitude,
-        });
-        marker.setIcon(currentCustomIcon).addTo(markerLayer);
-      }
-      markerLayer.addTo(map);
-
-      return () => {
-        map.removeLayer(markerLayer);
-      };
-    }
-  }, [map, offers, selectedOfferLocation]);
-
-  return offers.length ? (
+  return offers?.length ? (
     <section className={cn(rootClassName, 'map')} ref={mapRef} />
   ) : null;
 }
