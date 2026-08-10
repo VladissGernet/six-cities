@@ -2,29 +2,6 @@ import { Offers } from '../types/offers';
 
 export const offers: Offers = [
   {
-    id: '51f121e1-6805-45bc-be88-bcbccf48fd2b',
-    title: 'Penthouse, 4-5 rooms + 5 balconies',
-    type: 'hotel',
-    price: 261,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/16.jpg',
-    city: {
-      name: 'Paris',
-      location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
-        zoom: 13,
-      },
-    },
-    location: {
-      latitude: 48.868610000000004,
-      longitude: 2.342499,
-      zoom: 16,
-    },
-    isFavorite: false,
-    isPremium: false,
-    rating: 4.5,
-  },
-  {
     id: '3ff7e299-aa6f-4441-b72f-9e8fd187ba4b',
     title: 'Perfectly located Castro',
     type: 'apartment',

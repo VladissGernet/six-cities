@@ -50,7 +50,10 @@ export default function Offer({
     return <NotFoundPage />;
   }
 
-  const { title, isPremium, rating, type, price, city } = selectedOffer;
+  const { title, isPremium, rating, type, price, city, location } =
+    selectedOffer;
+
+  // Подготовка данных для рендера городов поблизости.
   const groupedOffersByCity = createGroupedOffersByCity(
     city.name,
     groupedOffers,
@@ -59,8 +62,7 @@ export default function Offer({
     groupedOffersByCity.cities,
     id,
   );
-
-  console.log(nearOffers);
+  groupedOffersByCity.cities = nearOffers;
 
   return (
     <Page isOffer>
@@ -116,7 +118,11 @@ export default function Offer({
             </div>
           </div>
           <div className="container">
-            <Map rootClassName="offer__map" offers={nearOffers} />
+            <Map
+              rootClassName="offer__map"
+              offers={nearOffers}
+              selectedOfferLocation={location}
+            />
           </div>
         </section>
         <div className={cn('container', styles['offer__places-container'])}>
