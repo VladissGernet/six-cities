@@ -21,7 +21,10 @@ import NotFoundPage from '../not-found-page/not-found-page';
 
 // Utils.
 import { capitalizeFirstLetter } from '../../utils/utils';
-import { createGroupedOffersByCity } from '../../utils/offers';
+import {
+  createGroupedOffersByCity,
+  getNearOffersWithRestriction,
+} from '../../utils/offers';
 
 // Types.
 import { Offers, GroupedOffers } from '../../types/offers';
@@ -34,31 +37,31 @@ type OfferProps = {
   groupedOffers: GroupedOffers;
 };
 
-const MAX_OFFERS = 4;
-
 export default function Offer({
   offers,
   groupedOffers,
 }: OfferProps): JSX.Element {
   const { id } = useParams();
+  if (!id) {
+    return <NotFoundPage />;
+  }
   const selectedOffer = offers.find((item) => item.id === id);
   if (!selectedOffer) {
     return <NotFoundPage />;
   }
 
   const { title, isPremium, rating, type, price, city } = selectedOffer;
-  // TODO, остановился здесь на создании массива для прокидывания в карту и создания трех предложений.
   const groupedOffersByCity = createGroupedOffersByCity(
     city.name,
     groupedOffers,
   );
+  const nearOffers = getNearOffersWithRestriction(
+    groupedOffersByCity.cities,
+    id,
+  );
 
-  // const nearOffers = groupedOffersByCity.cities.reduce((selectedOffers, offer) => {
-  //   if (selectedOffers.length >= MAX_OFFERS) {
+  console.log(nearOffers);
 
-  //   }
-  //   console.log(offer);
-  // }, [selectedOffer]);
   return (
     <Page isOffer>
       <Header />
@@ -113,10 +116,7 @@ export default function Offer({
             </div>
           </div>
           <div className="container">
-            <Map
-              rootClassName="offer__map"
-              offers={groupedOffersByCity.cities}
-            />
+            <Map rootClassName="offer__map" offers={nearOffers} />
           </div>
         </section>
         <div className={cn('container', styles['offer__places-container'])}>

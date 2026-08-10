@@ -5,6 +5,7 @@ import pinActive from '/img/pin-active.svg';
 /** 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.) */
 const PERCENT_PER_STAR = 20;
 const MIN_TEXTAREA_CHARACTERS = 50;
+const MAX_NEAR_OFFERS = 3;
 
 const ImageSize = {
   Places: {
@@ -79,6 +80,7 @@ export {
   PERCENT_PER_STAR,
   RATING_VALUES,
   MIN_TEXTAREA_CHARACTERS,
+  MAX_NEAR_OFFERS,
   MapConfig,
   CustomIcon,
   AppRoute,
