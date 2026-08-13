@@ -1,4 +1,7 @@
 export default function PlacesForm(): JSX.Element {
+  // TODO, пример лучшей простой реализации:
+  // https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/6/item/17
+  // на 48:50
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
