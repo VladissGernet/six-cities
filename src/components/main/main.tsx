@@ -2,6 +2,7 @@ import cn from 'classnames';
 import styles from './main.module.css';
 
 type MainProps = {
+  // Todo, заменить на PropsWithChildren,  см демо проект guess-mellody
   children?: React.ReactNode;
   isIndex?: boolean;
   isNoOffers?: boolean;

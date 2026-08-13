@@ -3,6 +3,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
+  // Todo, заменить на PropsWithChildren,  см демо проект guess-mellody
   children: JSX.Element;
 };
 

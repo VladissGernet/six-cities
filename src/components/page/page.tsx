@@ -2,6 +2,7 @@ import cn from 'classnames';
 import styles from './page.module.css';
 
 type PageProps = {
+  // Todo, заменить на PropsWithChildren,  см демо проект guess-mellody
   children?: React.ReactNode;
   isGray?: boolean;
   isMain?: boolean;
