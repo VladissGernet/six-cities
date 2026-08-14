@@ -6,6 +6,7 @@ import pinActive from '/img/pin-active.svg';
 const PERCENT_PER_STAR = 20;
 const MIN_TEXTAREA_CHARACTERS = 50;
 const MAX_NEAR_OFFERS = 3;
+const INITIAL_STATE_CITY = 'Paris';
 
 const ImageSize = {
   Places: {
@@ -75,6 +76,7 @@ const CustomIcon: Record<'Default' | 'Active', IconOptions> = {
 } as const;
 
 export {
+  INITIAL_STATE_CITY,
   ImageSize,
   CITY_NAMES,
   PERCENT_PER_STAR,
