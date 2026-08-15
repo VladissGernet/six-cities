@@ -2,4 +2,4 @@ import { createAction } from '@reduxjs/toolkit';
 
 export const cityChange = createAction('offers/cityChange');
 
-export const fillOffersList = createAction('offers/fillOffersList');
+export const getOffersListByCity = createAction('offers/getOffersListByCity');
