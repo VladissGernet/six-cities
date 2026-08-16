@@ -25,4 +25,3 @@ export const reducer = createReducer(initialState, (builder) => {
       // используем тестовые данные.
     });
 });
-// https://www.perplexity.ai/search/385e4d6b-3b3f-475b-8765-130fc51a8a44

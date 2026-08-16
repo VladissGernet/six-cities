@@ -8,10 +8,10 @@ import Favorites from '../../pages/favorites/favorites';
 import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-
 import PrivateRoute from '../private-route/private-route';
 
 import { groupOffers } from './app.helper';
+import { useAppSelector } from '../../hooks/redux';
 
 type AppProps = {
   offers: Offers;
@@ -33,6 +33,7 @@ type AppProps = {
 
 export default function App({ offers }: AppProps): JSX.Element {
   const groupedOffers = groupOffers(offers);
+  console.log(useAppSelector((state) => state));
 
   // TODO, попробовать реализовать общий layout с page,header и т.п.
   // TODO, рассмотреть необходимость оборачивания кода нижа в <React.StrictMode>
