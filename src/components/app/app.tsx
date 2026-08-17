@@ -9,9 +9,6 @@ import Offer from '../../pages/offer/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 
-import { groupOffers } from './app.helper';
-import { useAppSelector } from '../../hooks/redux';
-
 // TODO, использовать NavLink для лого, чтобы на гл странице деактивировать его.
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 /*
@@ -27,30 +24,21 @@ import { useAppSelector } from '../../hooks/redux';
 */
 
 export default function App(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const groupedOffers = groupOffers(offers);
-
   // TODO, попробовать реализовать общий layout с page,header и т.п.
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<MainScreen groupedOffers={groupedOffers} />}
-        />
+        <Route path={AppRoute.Root} element={<MainScreen />} />
         <Route
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <Favorites groupedOffers={groupedOffers} />
+              <Favorites />
             </PrivateRoute>
           }
         />
         <Route path={AppRoute.Login} element={<Login />} />
-        <Route
-          path={`${AppRoute.Offer}/:id`}
-          element={<Offer offers={offers} groupedOffers={groupedOffers} />}
-        />
+        <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

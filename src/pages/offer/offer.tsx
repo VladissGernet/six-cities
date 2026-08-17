@@ -1,6 +1,7 @@
 // General.
 import cn from 'classnames';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
 
 // Components
 import Page from '../../components/page/page';
@@ -26,22 +27,14 @@ import {
   getNearOffersWithRestriction,
 } from '../../utils/offers';
 
-// Types.
-import { Offers, GroupedOffers } from '../../types/offers';
-
 // Styles
 import styles from './offer.module.css';
 
-type OfferProps = {
-  offers: Offers;
-  groupedOffers: GroupedOffers;
-};
-
-export default function Offer({
-  offers,
-  groupedOffers,
-}: OfferProps): JSX.Element {
+export default function Offer(): JSX.Element {
   const { id } = useParams();
+  const offers = useAppSelector((state) => state.offers);
+  const groupedOffers = useAppSelector((state) => state.groupedOffers);
+
   if (!id) {
     return <NotFoundPage />;
   }
@@ -120,7 +113,7 @@ export default function Offer({
           <div className="container">
             <Map
               rootClassName="offer__map"
-              offers={nearOffers}
+              groupedPlaces={nearOffers}
               selectedOfferLocation={location}
             />
           </div>

@@ -1,17 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { offers } from '../mocks/offers';
 import { INITIAL_STATE_CITY } from '../const';
-import { Offers, CityName } from '../types/offers';
+import { Offers, CityName, GroupedOffers } from '../types/offers';
 import { cityChange, fillOffersListByCity } from './action';
+import { groupOffers } from '../components/app/app.helper';
 
 type StateType = {
   city: CityName;
   offers: Offers;
+  groupedOffers: GroupedOffers;
 };
 
 const initialState: StateType = {
   city: INITIAL_STATE_CITY,
   offers,
+  groupedOffers: groupOffers(offers),
 };
 
 export const reducer = createReducer(initialState, (builder) => {

@@ -1,17 +1,14 @@
-import { Offers } from '../../types/offers';
+import { useAppSelector } from '../../hooks/redux';
 import { filterByProperty } from '../../utils/utils';
 
 type HeaderNavProps = {
-  offers?: Offers;
   isLoggedIn?: boolean;
 };
 
-export default function HeaderNav({
-  offers = [],
-  isLoggedIn,
-}: HeaderNavProps): JSX.Element {
+export default function HeaderNav({ isLoggedIn }: HeaderNavProps): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const totalFavorites = filterByProperty(offers, 'isFavorite', true).length;
-
+  // TODO, данные элементы вынести в отдельныен компоненты.
   const loggedInElement = (
     <>
       <li className="header__nav-item user">
@@ -30,7 +27,7 @@ export default function HeaderNav({
       </li>
     </>
   );
-
+  // TODO, данные элементы вынести в отдельныен компоненты.
   const signInElement = (
     <li className="header__nav-item user">
       <a className="header__nav-link header__nav-link--profile" href="#">

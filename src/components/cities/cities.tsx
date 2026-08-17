@@ -26,7 +26,7 @@ export default function Cities({
         isSortingForm
       />
       <div className="cities__right-section">
-        <Map rootClassName="cities__map" offers={cities} />
+        <Map rootClassName="cities__map" groupedPlaces={cities} />
       </div>
     </div>
   );

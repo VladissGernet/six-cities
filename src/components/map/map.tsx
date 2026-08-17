@@ -8,24 +8,25 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   rootClassName: string;
-  offers: Offers;
+  /**Сгруппированные в массив места по выбранному городу. */
+  groupedPlaces: Offers;
   selectedOfferLocation?: Location | null;
 };
 
 export default function Map({
   rootClassName,
-  offers,
+  groupedPlaces,
   selectedOfferLocation = null,
 }: MapProps): JSX.Element | null {
   // Получаем сгруппированные предложения по одному городу.
   // У всех предложений будет одинаковый offers[n].city.location.
-  const { latitude, longitude, zoom } = offers[0].city.location;
+  const { latitude, longitude, zoom } = groupedPlaces[0].city.location;
 
   const mapRef = useRef<HTMLElement | null>(null);
   const map = useMap({ mapRef, latitude, longitude, zoom });
-  useMapMarkerLayer(map, offers, selectedOfferLocation);
+  useMapMarkerLayer(map, groupedPlaces, selectedOfferLocation);
 
-  return offers?.length ? (
+  return groupedPlaces?.length ? (
     <section className={cn(rootClassName, 'map')} ref={mapRef} />
   ) : null;
 }
