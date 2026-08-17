@@ -1,13 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-type HeaderLogoProps = {
-  isMainScreen?: boolean;
-};
+export default function HeaderLogo(): JSX.Element {
+  const location = useLocation();
+  const isMain = location.pathname === String(AppRoute.Root);
 
-export default function HeaderLogo({
-  isMainScreen,
-}: HeaderLogoProps): JSX.Element {
   const LogoContent = (
     <img
       className="header__logo"
@@ -17,9 +14,10 @@ export default function HeaderLogo({
       height="41"
     />
   );
+
   return (
     <div className="header__left">
-      {isMainScreen ? (
+      {isMain ? (
         <span className="header__logo-link header__logo-link--active">
           {LogoContent}
         </span>

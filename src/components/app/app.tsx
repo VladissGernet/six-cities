@@ -9,7 +9,6 @@ import Offer from '../../pages/offer/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 
-// TODO, использовать NavLink для лого, чтобы на гл странице деактивировать его.
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 /*
   TODO

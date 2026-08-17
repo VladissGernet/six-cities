@@ -21,7 +21,7 @@ export default function MainScreen(): JSX.Element {
 
   return (
     <Page isGray isMain>
-      <Header isLoggedIn isMainScreen />
+      <Header isLoggedIn />
 
       <Main isIndex isNoOffers={isNoOffers}>
         <h1 className="visually-hidden">Cities</h1>
