@@ -1,48 +1,15 @@
-import { useAppSelector } from '../../hooks/redux';
-import { filterByProperty } from '../../utils/utils';
+import HeaderLoggedIn from './header-logged-in';
+import HeaderSignIn from './header-sign-in';
 
 type HeaderNavProps = {
   isLoggedIn?: boolean;
 };
 
 export default function HeaderNav({ isLoggedIn }: HeaderNavProps): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const totalFavorites = filterByProperty(offers, 'isFavorite', true).length;
-  // TODO, данные элементы вынести в отдельныен компоненты.
-  const loggedInElement = (
-    <>
-      <li className="header__nav-item user">
-        <a className="header__nav-link header__nav-link--profile" href="#">
-          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-          <span className="header__user-name user__name">
-            Oliver.conner@gmail.com
-          </span>
-          <span className="header__favorite-count">{totalFavorites}</span>
-        </a>
-      </li>
-      <li className="header__nav-item">
-        <a className="header__nav-link" href="#">
-          <span className="header__signout">Sign out</span>
-        </a>
-      </li>
-    </>
-  );
-  // TODO, данные элементы вынести в отдельныен компоненты.
-  const signInElement = (
-    <li className="header__nav-item user">
-      <a className="header__nav-link header__nav-link--profile" href="#">
-        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-        <span className="header__login">Sign in</span>
-      </a>
-    </li>
-  );
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
-        {/*
-          TODO, вынести компоненты loggedInElement и signInElement в отдельные компоненты.
-        */}
-        {isLoggedIn ? loggedInElement : signInElement}
+        {isLoggedIn ? <HeaderLoggedIn /> : <HeaderSignIn />}
       </ul>
     </nav>
   );
