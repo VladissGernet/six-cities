@@ -52,10 +52,10 @@ export default function Offer(): JSX.Element {
     groupedOffers,
   );
   const nearOffers = getNearOffersWithRestriction(
-    groupedOffersByCity.cities,
+    groupedOffersByCity.offerPlacesByCity,
     id,
   );
-  groupedOffersByCity.cities = nearOffers;
+  groupedOffersByCity.offerPlacesByCity = nearOffers;
 
   return (
     <Page isOffer>

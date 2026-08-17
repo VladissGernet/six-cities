@@ -11,7 +11,7 @@ export default function CitiesFilled({
   extraTitle,
   groupedOffersByCity,
 }: CitiesFilledProps): JSX.Element {
-  const { cities } = groupedOffersByCity;
+  const { offerPlacesByCity } = groupedOffersByCity;
   return (
     <div className="cities__places-container container">
       <Places
@@ -23,7 +23,7 @@ export default function CitiesFilled({
         isSortingForm
       />
       <div className="cities__right-section">
-        <Map rootClassName="cities__map" groupedPlaces={cities} />
+        <Map rootClassName="cities__map" groupedPlaces={offerPlacesByCity} />
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ export default function MainScreen(): JSX.Element {
     selectedCity,
     groupedOffers,
   );
-  const isNoOffers = !groupedOffersByCity.cities.length;
+  const isNoOffers = !groupedOffersByCity.offerPlacesByCity.length;
 
   return (
     <Page isGray isMain>

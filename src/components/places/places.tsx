@@ -25,7 +25,7 @@ export default function Places({
 
   groupedOffersByCity,
 }: PlacesProps): JSX.Element {
-  const { cities } = groupedOffersByCity;
+  const { offerPlacesByCity } = groupedOffersByCity;
   return (
     <section className={cn(rootClassName, 'places')}>
       <h2
@@ -36,7 +36,7 @@ export default function Places({
       {extraTitle && <b className="places__found">{extraTitle}</b>}
       {isSortingForm && <PlacesForm />}
       <PlacesList
-        groupedOffersByCity={cities}
+        groupedOffersByCity={offerPlacesByCity}
         className="cities__places-list places__list"
         parentName="cities"
         imageSizes={ImageSize.Places}

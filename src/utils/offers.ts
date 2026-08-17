@@ -21,7 +21,7 @@ function createGroupedOffersByCity(
 ): GroupedOffersByCity {
   return {
     city: city,
-    cities: groupedOffers.get(city) ?? [],
+    offerPlacesByCity: groupedOffers.get(city) ?? [],
   };
 }
 

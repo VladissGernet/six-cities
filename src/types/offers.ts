@@ -32,7 +32,7 @@ export type Offers = Offer[];
 
 export type GroupedOffersByCity = {
   city: CityName;
-  cities: Offers;
+  offerPlacesByCity: Offers;
 };
 
 /**
