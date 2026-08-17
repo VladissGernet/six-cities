@@ -4,21 +4,22 @@ import Main from '../../components/main/main';
 import Tabs from '../../components/tabs/tabs';
 import Cities from '../../components/cities/cities';
 
-import { GroupedOffers, Offers } from '../../types/offers';
+import { GroupedOffers } from '../../types/offers';
 
 import { createGroupedOffersByCity } from '../../utils/offers';
 import { INITIAL_STATE_CITY } from '../../const';
+import { useAppSelector } from '../../hooks/redux';
 
 type MainScreenProps = {
   groupedOffers: GroupedOffers;
-  offers: Offers;
 };
 
 export default function MainScreen({
   groupedOffers,
-  offers,
 }: MainScreenProps): JSX.Element {
   // TODO, решение можно оформить еще более “по-реактовски”: через useMemo, чтобы groupedOffersByCity не пересоздавался на каждом рендере.
+  const offers = useAppSelector((state) => state.offers);
+
   const groupedOffersByCity = createGroupedOffersByCity(
     INITIAL_STATE_CITY,
     groupedOffers,

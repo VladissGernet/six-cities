@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { Offers } from '../../types/offers';
 
 import MainScreen from '../../pages/main-screen/main-screen';
 import Favorites from '../../pages/favorites/favorites';
@@ -12,10 +11,6 @@ import PrivateRoute from '../private-route/private-route';
 
 import { groupOffers } from './app.helper';
 import { useAppSelector } from '../../hooks/redux';
-
-type AppProps = {
-  offers: Offers;
-};
 
 // TODO, использовать NavLink для лого, чтобы на гл странице деактивировать его.
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
@@ -31,18 +26,17 @@ type AppProps = {
   https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/3/item/18#:~:text=%D0%BF%D0%BE%D0%BA%D0%B0%D0%B7%D0%B0%D0%BD%D0%B0%20%C2%AB%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0%20404%C2%BB.-,%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B%20%D1%81%D0%BE%C2%A0scroll,-%D0%92%D0%B5%D0%B1%20%D1%81%C2%A0%D0%BF%D0%B5%D1%80%D0%B2%D1%8B%D1%85
 */
 
-export default function App({ offers }: AppProps): JSX.Element {
+export default function App(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const groupedOffers = groupOffers(offers);
-  console.log(useAppSelector((state) => state));
 
   // TODO, попробовать реализовать общий layout с page,header и т.п.
-  // TODO, рассмотреть необходимость оборачивания кода нижа в <React.StrictMode>
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen groupedOffers={groupedOffers} offers={offers} />}
+          element={<MainScreen groupedOffers={groupedOffers} />}
         />
         <Route
           path={AppRoute.Favorites}
