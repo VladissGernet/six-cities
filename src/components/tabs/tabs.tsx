@@ -1,11 +1,12 @@
 import cn from 'classnames';
 import { CITY_NAMES } from '../../const';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import createHandleCityClick from './tabs.handlers';
 
 export default function Tabs(): JSX.Element {
   const currentCity = useAppSelector((state) => state.city);
-  const handleClick = createHandleCityClick(currentCity);
+  const dispatch = useAppDispatch();
+  const handleClick = createHandleCityClick(currentCity, dispatch);
 
   return (
     <div className="tabs">

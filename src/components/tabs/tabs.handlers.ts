@@ -1,12 +1,19 @@
 import { MouseEvent } from 'react';
 import { CITY_NAMES } from '../../const';
+
 import { CityName } from '../../types/offers';
+import { AppDispatch } from '../../types/state';
+
+import { changeCity } from '../../store/action';
 
 function isCityName(value: string): value is CityName {
   return CITY_NAMES.includes(value as CityName);
 }
 
-export default function createHandleCityClick(currentCity: CityName) {
+export default function createHandleCityClick(
+  currentCity: CityName,
+  dispatch: AppDispatch,
+) {
   return function handleClick(e: MouseEvent<HTMLUListElement>) {
     e.preventDefault();
     const target = e.target as HTMLElement;
@@ -21,9 +28,7 @@ export default function createHandleCityClick(currentCity: CityName) {
     }
 
     if (selectedCity && isCityName(selectedCity)) {
-      console.log('go change');
-
-      console.log(selectedCity);
+      dispatch(changeCity(selectedCity));
     }
   };
 }
