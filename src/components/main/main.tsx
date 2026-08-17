@@ -1,16 +1,15 @@
+import { PropsWithChildren } from 'react';
 import cn from 'classnames';
 import styles from './main.module.css';
 
-type MainProps = {
-  // Todo, заменить на PropsWithChildren,  см демо проект guess-mellody
-  children?: React.ReactNode;
+type MainProps = PropsWithChildren<{
   isIndex?: boolean;
   isNoOffers?: boolean;
   hasFavorites?: boolean | null;
   isLoginPage?: boolean;
   isOffer?: boolean;
   isNotFound?: boolean;
-};
+}>;
 
 export default function Main({
   children,

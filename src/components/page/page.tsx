@@ -1,9 +1,8 @@
+import { PropsWithChildren } from 'react';
 import cn from 'classnames';
 import styles from './page.module.css';
 
-type PageProps = {
-  // Todo, заменить на PropsWithChildren,  см демо проект guess-mellody
-  children?: React.ReactNode;
+type PageProps = PropsWithChildren<{
   isGray?: boolean;
   isMain?: boolean;
   isLogin?: boolean;
@@ -11,7 +10,7 @@ type PageProps = {
   isNotFound?: boolean;
   isOffer?: boolean;
   hasFavorites?: boolean | null;
-};
+}>;
 
 export default function Page({
   children,
