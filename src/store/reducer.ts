@@ -1,5 +1,7 @@
-import { createReducer } from '@reduxjs/toolkit';
+// Моковые данные.
 import { offers } from '../mocks/offers';
+
+import { createReducer } from '@reduxjs/toolkit';
 import { INITIAL_STATE_CITY } from '../const';
 import { Offers, CityName, GroupedOffers } from '../types/offers';
 import { cityChange, fillOffersListByCity } from './action';

@@ -7,19 +7,14 @@ import PlacesList from '../../components/places/places-list';
 import Footer from '../../components/footer/footer';
 
 import { filterFavoriteOffers } from './favorites.helper';
-import { GroupedOffers } from '../../types/offers';
 import { ImageSize } from '../../const';
 
 // Исправление sticky-footer.
 import styles from './favorites.module.css';
+import { useAppSelector } from '../../hooks/redux';
 
-type FavoritesProps = {
-  groupedOffers: GroupedOffers;
-};
-
-export default function Favorites({
-  groupedOffers,
-}: FavoritesProps): JSX.Element {
+export default function Favorites(): JSX.Element {
+  const groupedOffers = useAppSelector((state) => state.groupedOffers);
   const favoriteOffersByCity = filterFavoriteOffers(groupedOffers);
 
   const hasFavorites = favoriteOffersByCity.length > 0;
