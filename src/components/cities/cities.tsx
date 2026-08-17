@@ -1,6 +1,5 @@
-import Places from '../../components/places/places';
-import Map from '../map/map';
-
+import CitiesFilled from './cities-filled';
+import CitiesEmpty from './cities-empty';
 import { GroupedOffersByCity } from '../../types/offers';
 
 type CitiesProps = {
@@ -15,42 +14,16 @@ export default function Cities({
   const isMultipleCities = cities.length > 1;
   const extraTitle = `${cities.length} ${isMultipleCities ? 'places' : 'place'} to stay in ${city}`;
 
-  const citiesElement = (
-    <div className="cities__places-container container">
-      <Places
-        rootClassName="cities__places"
-        title="Places"
-        extraTitle={extraTitle}
-        isTitleNotVisible
-        groupedOffersByCity={groupedOffersByCity}
-        isSortingForm
-      />
-      <div className="cities__right-section">
-        <Map rootClassName="cities__map" groupedPlaces={cities} />
-      </div>
-    </div>
-  );
-
-  const emptyCitiesElement = (
-    <div className="cities__places-container cities__places-container--empty container">
-      <section className="cities__no-places">
-        <div className="cities__status-wrapper tabs__content">
-          <b className="cities__status">No places to stay available</b>
-          <p className="cities__status-description">
-            We could not find any property available at the moment in Dusseldorf
-          </p>
-        </div>
-      </section>
-      <div className="cities__right-section"></div>
-    </div>
-  );
-
   return (
     <div className="cities">
-      {/*
-          TODO, вынести компоненты emptyCitiesElement и citiesElement в отдельные компоненты.
-        */}
-      {isNoCities ? emptyCitiesElement : citiesElement}
+      {isNoCities ? (
+        <CitiesEmpty />
+      ) : (
+        <CitiesFilled
+          extraTitle={extraTitle}
+          groupedOffersByCity={groupedOffersByCity}
+        />
+      )}
     </div>
   );
 }
