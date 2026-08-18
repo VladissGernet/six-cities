@@ -13,7 +13,7 @@ type City = {
   location: Location;
 };
 
-export type GroupedOffers = Map<CityName, Offer[]>;
+export type GroupedOffers = Partial<Record<CityName, Offers>>;
 
 export type Offer = {
   id: string;

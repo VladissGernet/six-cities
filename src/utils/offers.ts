@@ -10,6 +10,25 @@ import {
 import { MAX_NEAR_OFFERS } from '../const';
 
 /**
+ * Преобразует массив прдложений в объект сгруппированных городов.
+ * @param offers Массив всех предложений.
+ * @returns Объект предложений по городам(ключам).
+ */
+function groupOffers(offers: Offers): GroupedOffers {
+  return offers.reduce((groupedOffers, offer) => {
+    const currentOfferCity = offer.city.name;
+
+    if (groupedOffers[currentOfferCity]?.length) {
+      groupedOffers[currentOfferCity].push(offer);
+    } else {
+      groupedOffers[currentOfferCity] = [offer];
+    }
+
+    return groupedOffers;
+  }, {} as GroupedOffers);
+}
+
+/**
  * Получаем объект с городом и массивом предложеений по этому городу.
  * @param city Название города.
  * @param groupedOffers Коллекция Map предложений.
@@ -21,7 +40,7 @@ function createGroupedOffersByCity(
 ): GroupedOffersByCity {
   return {
     city: city,
-    offerPlacesByCity: groupedOffers.get(city) ?? [],
+    offerPlacesByCity: groupedOffers[city] ?? [],
   };
 }
 
@@ -57,23 +76,5 @@ const getNearOffersWithRestriction = (
   }
   return filteredOffers;
 };
-
-/**
- * Преобразует массив прдложений в коллекцию.
- * @param offers Массив всех предложений.
- * @returns Коллекция Map предложений по городам(ключам).
- */
-function groupOffers(offers: Offers): GroupedOffers {
-  return offers.reduce<GroupedOffers>((favoriteOffersByCity, offer) => {
-    const offersByCity = favoriteOffersByCity.get(offer.city.name);
-
-    if (offersByCity) {
-      offersByCity.push(offer);
-    } else {
-      favoriteOffersByCity.set(offer.city.name, [offer]);
-    }
-    return favoriteOffersByCity;
-  }, new Map());
-}
 
 export { createGroupedOffersByCity, getNearOffersWithRestriction, groupOffers };
