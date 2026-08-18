@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import { useRef } from 'react';
 import useMap from '../../hooks/map/use-map';
-import useMapMarkerLayer from '../../hooks/map/use-map-marker-layer';
 import { Offers, Location } from '../../types/offers';
 
 import 'leaflet/dist/leaflet.css';
@@ -23,8 +22,14 @@ export default function Map({
   const { latitude, longitude, zoom } = groupedPlaces[0].city.location;
 
   const mapRef = useRef<HTMLElement | null>(null);
-  const map = useMap({ mapRef, latitude, longitude, zoom });
-  useMapMarkerLayer(map, groupedPlaces, selectedOfferLocation);
+  useMap({
+    mapRef,
+    latitude,
+    longitude,
+    zoom,
+    groupedPlaces,
+    selectedOfferLocation,
+  });
 
   return groupedPlaces?.length ? (
     <section className={cn(rootClassName, 'map')} ref={mapRef} />
