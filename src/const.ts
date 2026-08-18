@@ -33,6 +33,13 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+const PlacesSortingValue = {
+  Popular: 'Popular',
+  PriceLowToHigh: 'Price: low to high',
+  PriceHighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
+} as const;
+
 /**
  * Ещё создёт тип { CityName } from "./types/offers".
  */
@@ -87,4 +94,5 @@ export {
   CustomIcon,
   AppRoute,
   AuthorizationStatus,
+  PlacesSortingValue,
 };

@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 import { GroupedOffersByCity } from '../../types/offers';
 import PlacesList from './places-list';
-import PlacesForm from './places-form';
+import PlacesSorting from './places-sorting';
 import { ImageSize } from '../../const';
 
 type PlacesProps = {
@@ -34,7 +34,7 @@ export default function Places({
         {title}
       </h2>
       {extraTitle && <b className="places__found">{extraTitle}</b>}
-      {isSortingForm && <PlacesForm />}
+      {isSortingForm && <PlacesSorting />}
       <PlacesList
         groupedOffersByCity={offerPlacesByCity}
         className="cities__places-list places__list"
