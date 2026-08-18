@@ -5,7 +5,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { INITIAL_STATE_CITY } from '../const';
 import { Offers, CityName, GroupedOffers } from '../types/offers';
 import { changeCity, fillOffersListByCity } from './action';
-import { groupOffers } from '../components/app/app.helper';
+import { groupOffers } from '../utils/offers';
 
 type StateType = {
   city: CityName;
@@ -20,19 +20,13 @@ const initialState: StateType = {
 };
 
 export const reducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(changeCity, (state, action) => {
-      console.log(action.payload);
-      console.log('go payload');
-
-      // TODO, Остановился здесь
-      // https://www.perplexity.ai/search/e1f5a5b0-1dd6-4635-b462-91abb1f77aeb
-
-      // изменение города
-    })
-    .addCase(fillOffersListByCity, (state) => {
-      // Действие для заполнения списка предложений должно
-      // поместить в хранилище все предложения по аренде. Пока
-      // используем тестовые данные.
-    });
+  builder.addCase(changeCity, (state, action) => {
+    const newCity = action.payload;
+    state.city = newCity;
+  });
+  // .addCase(fillOffersListByCity, (state) => {
+  //   // Действие для заполнения списка предложений должно
+  //   // поместить в хранилище все предложения по аренде. Пока
+  //   // используем тестовые данные.
+  // });
 });

@@ -6,6 +6,11 @@ import { AppDispatch } from '../../types/state';
 
 import { changeCity } from '../../store/action';
 
+/**
+ * Проверяет, имеется ли value в типе CityName.
+ * @param value строка для сопоставления с типом CityName.
+ * @returns boolean значение результата поиска в CityName.
+ */
 function isCityName(value: string): value is CityName {
   return CITY_NAMES.includes(value as CityName);
 }
