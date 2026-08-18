@@ -1,19 +1,20 @@
 import { PlacesSortingValue } from '../../const';
 import { PlacesSortingValueType } from '../../types/general';
-import { Offers } from '../../types/offers';
+import { Offer, Offers } from '../../types/offers';
+
+export type Comparator = (a: Offer, b: Offer) => number;
+
+const SortingComparator: Readonly<Record<PlacesSortingValueType, Comparator>> =
+  {
+    [PlacesSortingValue.Popular]: () => 0,
+    [PlacesSortingValue.PriceLowToHigh]: (a, b) => a.price - b.price,
+    [PlacesSortingValue.PriceHighToLow]: (a, b) => b.price - a.price,
+    [PlacesSortingValue.TopRatedFirst]: (a, b) => b.rating - a.rating,
+  } as const;
 
 export function sortOffers(
   offers: Offers,
   option: PlacesSortingValueType,
 ): Offers {
-  console.log(offers);
-  // Price: low to high. От дешёвых к дорогим.
-  // const result = offers.toSorted((a, b) => a.price - b.price);
-  // Price: high to low. От дорогих к дешёвым.
-  // const result = offers.toSorted((a, b) => b.price - a.price);
-  // Top rated first.
-  const result = offers.toSorted((a, b) => b.rating - a.rating);
-  console.log(result);
-  return result;
+  return offers.toSorted(SortingComparator[option]);
 }
-// https://chat.deepseek.com/a/chat/s/3aaa2965-1717-4868-8bcc-b0d4d58b04ba

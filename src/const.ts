@@ -33,6 +33,7 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+// Sorting.
 const PlacesSortingValue = {
   Popular: 'Popular',
   PriceLowToHigh: 'Price: low to high',

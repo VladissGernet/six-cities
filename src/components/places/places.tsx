@@ -33,8 +33,6 @@ export default function Places({
     PlacesSortingValue.Popular,
   );
 
-  const sortedOffers = sortOffers(offerPlacesByCity, activeOption);
-
   return (
     <section className={cn(rootClassName, 'places')}>
       <h2
@@ -53,7 +51,7 @@ export default function Places({
         groupedOffersByCity={
           activeOption === PlacesSortingValue.Popular
             ? offerPlacesByCity
-            : sortedOffers
+            : sortOffers(offerPlacesByCity, activeOption)
         }
         className="cities__places-list places__list"
         parentName="cities"
