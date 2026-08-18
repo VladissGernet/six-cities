@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import cn from 'classnames';
 
-import { GroupedOffersByCity } from '../../types/offers';
+import { GroupedOffersByCity, LocationSet } from '../../types/offers';
 import PlacesList from './places-list';
 import PlacesSorting from './places-sorting';
 import { ImageSize, PlacesSortingValue } from '../../const';
@@ -15,6 +15,7 @@ type PlacesProps = {
   isTitleNotVisible?: boolean;
   extraTitle?: string;
   isSortingForm?: boolean;
+  setLocation?: LocationSet;
   groupedOffersByCity: GroupedOffersByCity;
 };
 
@@ -25,7 +26,7 @@ export default function Places({
   isTitleNotVisible,
   extraTitle,
   isSortingForm,
-
+  setLocation,
   groupedOffersByCity,
 }: PlacesProps): JSX.Element {
   const { offerPlacesByCity } = groupedOffersByCity;
@@ -56,6 +57,7 @@ export default function Places({
         className="cities__places-list places__list"
         parentName="cities"
         imageSizes={ImageSize.Places}
+        setLocation={setLocation}
       />
     </section>
   );

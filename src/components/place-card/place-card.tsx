@@ -1,40 +1,28 @@
-import { useState } from 'react';
-
 import cn from 'classnames';
 import Rating from '../rating/rating';
 
-import { Offer } from '../../types/offers';
+import { LocationSet, Offer } from '../../types/offers';
 import { ImageSizes } from '../../types/general';
 
 type PlaceCardProps = ImageSizes & {
   offer: Offer;
   parentName: string;
+  setLocation?: LocationSet;
 };
 
 export default function PlaceCard({
   offer,
   parentName,
   imageSizes,
+  setLocation,
 }: PlaceCardProps): JSX.Element {
-  const [isCardHovered, setIsHovered] = useState(false);
   const { isFavorite, isPremium, previewImage, price, rating, title, type } =
     offer;
 
-  /*
-    TODO
-    Добавьте в состояние компонента активную карточку с предложением (объект с данными предложения
-    или только уникальный идентификатор предложения). Под активной карточкой предложения подразумевается
-    карточка, на которую пользователь навёл курсор. Состояние пригодится нам в дальнейшем для реализации
-    отображения маркеров предложений на карте.
-  */
   const onMouseEnter: React.MouseEventHandler<HTMLElement> = () =>
-    setIsHovered(true);
+    setLocation && setLocation(offer.location);
   const onMouseLeave: React.MouseEventHandler<HTMLElement> = () =>
-    setIsHovered(false);
-  // TODO, Остановился здесь.
-  // Реализуйте поведение, когда при наведении на карточку предложения на карте оранжевым цветом подсвечивается соответствующий маркер.
-  // console.log(isCardHovered);
-  // console.log(offer.id);
+    setLocation && setLocation(null);
 
   const bookmarkButtonClassName = cn(
     'place-card__bookmark-button',

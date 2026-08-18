@@ -1,4 +1,4 @@
-import { Offers } from '../../types/offers';
+import { LocationSet, Offers } from '../../types/offers';
 import { ImageSizes } from '../../types/general';
 
 import PlaceCard from '../place-card/place-card';
@@ -7,6 +7,7 @@ type PlacesListProps = ImageSizes & {
   groupedOffersByCity: Offers;
   className: string;
   parentName: string;
+  setLocation?: LocationSet;
 };
 
 export default function PlacesList({
@@ -14,6 +15,7 @@ export default function PlacesList({
   className,
   parentName,
   imageSizes,
+  setLocation,
 }: PlacesListProps): JSX.Element {
   return (
     <div className={className}>
@@ -23,6 +25,7 @@ export default function PlacesList({
           offer={offer}
           parentName={parentName}
           imageSizes={imageSizes}
+          setLocation={setLocation}
         />
       ))}
     </div>

@@ -35,6 +35,8 @@ export type GroupedOffersByCity = {
   offerPlacesByCity: Offers;
 };
 
+export type LocationSet = (location: Location | null) => void;
+
 /**
  * Зависит от константы { CITY_NAMES } from '../const';
  */
