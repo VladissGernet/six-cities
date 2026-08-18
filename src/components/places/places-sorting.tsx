@@ -2,12 +2,16 @@ import { useState, MouseEventHandler } from 'react';
 import { PlacesSortingValue } from '../../const';
 import { PlacesSortingValueType } from '../../types/general';
 
-export default function PlacesSorting(): JSX.Element {
-  const sortingValues = Object.values(PlacesSortingValue);
+type PlacesSortingTypes = {
+  activeOption: PlacesSortingValueType;
+  setActiveOption: (value: PlacesSortingValueType) => void;
+};
 
-  const [activeValue, setActiveValue] = useState<PlacesSortingValueType>(
-    PlacesSortingValue.Popular,
-  );
+export default function PlacesSorting({
+  activeOption,
+  setActiveOption,
+}: PlacesSortingTypes): JSX.Element {
+  const sortingValues = Object.values(PlacesSortingValue);
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
   const selectedPointClickHandler: MouseEventHandler<HTMLSpanElement> = (e) => {
@@ -17,11 +21,11 @@ export default function PlacesSorting(): JSX.Element {
     }
   };
   const optionClickHandler = (optionValue: PlacesSortingValueType) => {
-    if (optionValue === activeValue) {
+    if (optionValue === activeOption) {
       return;
     }
 
-    setActiveValue(optionValue);
+    setActiveOption(optionValue);
     setIsMenuOpened(false);
   };
   // Остановился здесь
@@ -37,7 +41,7 @@ export default function PlacesSorting(): JSX.Element {
         tabIndex={0}
         onClick={selectedPointClickHandler}
       >
-        {activeValue}
+        {activeOption}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use href="#icon-arrow-select"></use>
         </svg>
@@ -50,7 +54,7 @@ export default function PlacesSorting(): JSX.Element {
         {sortingValues.map((sortingValue) => (
           <li
             className={`places__option ${
-              sortingValue === activeValue ? 'places__option--active' : ''
+              sortingValue === activeOption ? 'places__option--active' : ''
             }`}
             tabIndex={0}
             key={sortingValue}

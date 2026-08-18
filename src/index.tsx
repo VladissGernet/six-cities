@@ -9,6 +9,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+// TODO, В проекте наблюдается неоднозначность стрелочных функций и функциональных выражений.
+// Привести все к единому виду.
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

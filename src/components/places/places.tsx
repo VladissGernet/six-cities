@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import cn from 'classnames';
 
 import { GroupedOffersByCity } from '../../types/offers';
 import PlacesList from './places-list';
 import PlacesSorting from './places-sorting';
-import { ImageSize } from '../../const';
+import { ImageSize, PlacesSortingValue } from '../../const';
+import { PlacesSortingValueType } from '../../types/general';
+import { sortOffers } from './places.helper';
 
 type PlacesProps = {
   rootClassName?: string;
@@ -26,6 +29,12 @@ export default function Places({
   groupedOffersByCity,
 }: PlacesProps): JSX.Element {
   const { offerPlacesByCity } = groupedOffersByCity;
+  const [activeOption, setActiveOption] = useState<PlacesSortingValueType>(
+    PlacesSortingValue.Popular,
+  );
+
+  const sortedOffers = sortOffers(offerPlacesByCity, activeOption);
+
   return (
     <section className={cn(rootClassName, 'places')}>
       <h2
@@ -34,7 +43,12 @@ export default function Places({
         {title}
       </h2>
       {extraTitle && <b className="places__found">{extraTitle}</b>}
-      {isSortingForm && <PlacesSorting />}
+      {isSortingForm && (
+        <PlacesSorting
+          activeOption={activeOption}
+          setActiveOption={setActiveOption}
+        />
+      )}
       <PlacesList
         groupedOffersByCity={offerPlacesByCity}
         className="cities__places-list places__list"
