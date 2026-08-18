@@ -50,7 +50,11 @@ export default function Places({
         />
       )}
       <PlacesList
-        groupedOffersByCity={offerPlacesByCity}
+        groupedOffersByCity={
+          activeOption === PlacesSortingValue.Popular
+            ? offerPlacesByCity
+            : sortedOffers
+        }
         className="cities__places-list places__list"
         parentName="cities"
         imageSizes={ImageSize.Places}
