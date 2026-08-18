@@ -31,7 +31,10 @@ export default function PlaceCard({
     setIsHovered(true);
   const onMouseLeave: React.MouseEventHandler<HTMLElement> = () =>
     setIsHovered(false);
+  // TODO, Остановился здесь.
+  // Реализуйте поведение, когда при наведении на карточку предложения на карте оранжевым цветом подсвечивается соответствующий маркер.
   // console.log(isCardHovered);
+  // console.log(offer.id);
 
   const bookmarkButtonClassName = cn(
     'place-card__bookmark-button',
