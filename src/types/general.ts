@@ -1,4 +1,4 @@
-import { RATING_VALUES } from '../const';
+import { RATING_VALUES, PlacesSortingValue } from '../const';
 
 export type ImageSizes = {
   imageSizes: {
@@ -6,6 +6,9 @@ export type ImageSizes = {
     height: number;
   };
 };
+
+export type PlacesSortingValueType =
+  (typeof PlacesSortingValue)[keyof typeof PlacesSortingValue];
 
 /**
  * Зависит от константы { RATING_VALUES } from '../const';
