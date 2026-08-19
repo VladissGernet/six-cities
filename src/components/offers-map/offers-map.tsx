@@ -6,6 +6,8 @@ import { Offers } from '../../types/offers';
 import 'leaflet/dist/leaflet.css';
 import { CustomIcon } from '../../const';
 import { Icon, layerGroup, Marker } from 'leaflet';
+import { useAppSelector } from '../../hooks/redux';
+import { ActiveMapMarkerId } from '../../types/general';
 
 type OffersMapProps = {
   rootClassName: string;
@@ -50,10 +52,12 @@ export default function OffersMap({
     markerLayer.addTo(map);
   }
 
-  if (mapMarkersRef.current) {
-    const selectedMarker = mapMarkersRef.current.get(
-      '6bd7a6c8-8e61-4acd-9982-666adccece00',
-    );
+  const activeMarkerId = useAppSelector<ActiveMapMarkerId>(
+    (state) => state.activeMapMarkerId,
+  );
+
+  if (mapMarkersRef.current && activeMarkerId) {
+    const selectedMarker = mapMarkersRef.current.get(activeMarkerId);
     selectedMarker?.setIcon(currentCustomIcon);
   }
 

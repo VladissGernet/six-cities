@@ -14,3 +14,5 @@ export type PlacesSortingValueType =
  * Зависит от константы { RATING_VALUES } from '../const';
  */
 export type RatingValue = (typeof RATING_VALUES)[number];
+
+export type ActiveMapMarkerId = null | string;

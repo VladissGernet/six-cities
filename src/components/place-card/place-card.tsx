@@ -1,28 +1,36 @@
 import cn from 'classnames';
 import Rating from '../rating/rating';
 
-import { LocationSet, Offer } from '../../types/offers';
+import { Offer } from '../../types/offers';
 import { ImageSizes } from '../../types/general';
+import { useAppDispatch } from '../../hooks/redux';
+import { setActiveMapMaker } from '../../store/action';
 
 type PlaceCardProps = ImageSizes & {
   offer: Offer;
   parentName: string;
-  setLocation?: LocationSet;
 };
-
 export default function PlaceCard({
   offer,
   parentName,
   imageSizes,
-  setLocation,
 }: PlaceCardProps): JSX.Element {
-  const { isFavorite, isPremium, previewImage, price, rating, title, type } =
-    offer;
+  const {
+    isFavorite,
+    isPremium,
+    previewImage,
+    price,
+    rating,
+    title,
+    type,
+    id,
+  } = offer;
+  const dispatch = useAppDispatch();
 
   const onMouseEnter: React.MouseEventHandler<HTMLElement> = () =>
-    setLocation && setLocation(offer.location);
+    dispatch(setActiveMapMaker(id));
   const onMouseLeave: React.MouseEventHandler<HTMLElement> = () =>
-    setLocation && setLocation(null);
+    dispatch(setActiveMapMaker(null));
 
   const bookmarkButtonClassName = cn(
     'place-card__bookmark-button',
