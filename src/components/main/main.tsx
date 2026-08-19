@@ -36,5 +36,8 @@ export default function Main({
     isNotFound && styles['page__main--not-found-fix'],
     isOffer && styles['page__main--offer-fix'],
   );
+
+  // TODO, использовать uselocation для подстановки классов.
+  // isNoOffers убрать и другие классы без стилей!
   return <main className={mainClassName}>{children}</main>;
 }

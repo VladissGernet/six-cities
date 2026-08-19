@@ -28,6 +28,7 @@ export default function CitiesFilled({
         isSortingForm
       />
       <div className="cities__right-section">
+        {/* TOOD, переместить сюда проверку на grouped.length */}
         <OffersMap
           rootClassName="cities__map"
           groupedPlaces={offerPlacesByCity}
