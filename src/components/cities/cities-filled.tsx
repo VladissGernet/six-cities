@@ -1,6 +1,6 @@
 import { GroupedOffersByCity, Location } from '../../types/offers';
 import Places from '../../components/places/places';
-import Map from '../map/map';
+import OffersMap from '../offers-map/offers-map';
 import { useState } from 'react';
 
 type CitiesFilledProps = {
@@ -17,7 +17,8 @@ export default function CitiesFilled({
 
   const { offerPlacesByCity } = groupedOffersByCity;
   // TODO, остановился здесь.
-  // Решение рабочее, но карта заново рендериться. Надо как-то без нового рендера обновлять слой маркеров.
+  // порпобовать заменить useState либо useRef, но сокрее всего не бдут обновления
+  // меток на карте, либо через store, что более вероятнее будет правильно.
 
   return (
     <div className="cities__places-container container">
@@ -31,7 +32,7 @@ export default function CitiesFilled({
         isSortingForm
       />
       <div className="cities__right-section">
-        <Map
+        <OffersMap
           rootClassName="cities__map"
           groupedPlaces={offerPlacesByCity}
           selectedOfferLocation={selectedOfferLocation}

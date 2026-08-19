@@ -58,8 +58,8 @@ const CITY_NAMES = [
  */
 const RATING_VALUES = ['1', '2', '3', '4', '5'] as const;
 
-// Map.
-const MapConfig = {
+// OffersMap.
+const OffersMapConfig = {
   Tile: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
   Attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -91,7 +91,7 @@ export {
   RATING_VALUES,
   MIN_TEXTAREA_CHARACTERS,
   MAX_NEAR_OFFERS,
-  MapConfig,
+  OffersMapConfig,
   CustomIcon,
   AppRoute,
   AuthorizationStatus,

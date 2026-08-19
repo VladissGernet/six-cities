@@ -10,7 +10,7 @@ import Main from '../../components/main/main';
 import Gallery from '../../components/gallery/gallery';
 import Rating from '../../components/rating/rating';
 import Reviews from '../../components/reviews/reviews';
-import Map from '../../components/map/map';
+import OffersMap from '../../components/offers-map/offers-map';
 import Places from '../../components/places/places';
 
 // This folder.
@@ -111,7 +111,7 @@ export default function Offer(): JSX.Element {
             </div>
           </div>
           <div className="container">
-            <Map
+            <OffersMap
               rootClassName="offer__map"
               groupedPlaces={nearOffers}
               selectedOfferLocation={location}
