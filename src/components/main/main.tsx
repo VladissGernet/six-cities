@@ -37,7 +37,8 @@ export default function Main({
     isOffer && styles['page__main--offer-fix'],
   );
 
-  // TODO, использовать uselocation для подстановки классов.
+  // TODO, использовать uselocation для подстановки классов, т.е. создать хук (useEffect или useLayoutEffect) после рендера и только
+  // потом добавлять классы , также этот код с эффектом можно вынести в другой компонент -кастомный хук.
   // isNoOffers убрать и другие классы без стилей!
   return <main className={mainClassName}>{children}</main>;
 }

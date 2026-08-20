@@ -111,6 +111,7 @@ export default function Offer(): JSX.Element {
             </div>
           </div>
           <div className="container">
+            {/* TODO исправить карту. */}
             <OffersMap
               rootClassName="offer__map"
               groupedPlaces={nearOffers}
