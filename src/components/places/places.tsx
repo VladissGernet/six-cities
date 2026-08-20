@@ -6,6 +6,7 @@ import PlacesList from './places-list';
 import PlacesSorting from './places-sorting';
 import { ImageSize, PlacesSortingValue } from '../../const';
 import { PlacesSortingValueType } from '../../types/general';
+// TODO, рассмотреть кеширование с помощью useMemo.
 import { sortOffers } from './places.helper';
 
 type PlacesProps = {
