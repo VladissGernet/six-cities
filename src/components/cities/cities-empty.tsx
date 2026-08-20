@@ -1,4 +1,9 @@
 export default function CitiesEmpty(): JSX.Element {
+  /* TODO, исправить Dusseldorf на current city в
+    <p className="cities__status-description">
+      We could not find any property available at the moment in Dusseldorf
+    </p>
+  */
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
