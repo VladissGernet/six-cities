@@ -4,7 +4,7 @@ import { OffersMapConfig } from '../../const';
 import { Offers } from '../../types/offers';
 
 type UseOffersMapProps = {
-  mapRef: MutableRefObject<HTMLElement | null>;
+  mapContainerRef: MutableRefObject<HTMLElement | null>;
   latitude?: number;
   longitude?: number;
   zoom?: number;
@@ -12,7 +12,7 @@ type UseOffersMapProps = {
 };
 
 export default function useOffersMap({
-  mapRef,
+  mapContainerRef,
   latitude = OffersMapConfig.DefaultPosition.Latitude,
   longitude = OffersMapConfig.DefaultPosition.Longitude,
   zoom = OffersMapConfig.DefaultPosition.Zoom,
@@ -23,8 +23,8 @@ export default function useOffersMap({
 
   // Добавление карты.
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current) {
-      const instance = new Map(mapRef.current, {
+    if (mapContainerRef.current !== null && !isRenderedRef.current) {
+      const instance = new Map(mapContainerRef.current, {
         center: {
           lat: latitude,
           lng: longitude,
@@ -46,7 +46,7 @@ export default function useOffersMap({
         isRenderedRef.current = false;
       };
     }
-  }, [mapRef, latitude, longitude, zoom, groupedPlaces]);
+  }, [mapContainerRef, latitude, longitude, zoom, groupedPlaces]);
 
   return mapInstance;
 }

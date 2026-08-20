@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useRef } from 'react';
-import useMap from '../../hooks/offers-map/use-offers-map';
+import useOffersMap from '../../hooks/offers-map/use-offers-map';
 import { Offers } from '../../types/offers';
 
 import 'leaflet/dist/leaflet.css';
@@ -25,11 +25,11 @@ export default function OffersMap({
   // У всех предложений будет одинаковый offers[n].city.location.
   const { latitude, longitude, zoom } = groupedPlaces[0].city.location;
 
-  const mapRef = useRef<HTMLElement | null>(null);
+  const mapContainerRef = useRef<HTMLElement | null>(null);
   const mapMarkersRef = useRef<Map<string, Marker>>(new Map());
 
-  const map = useMap({
-    mapRef,
+  const map = useOffersMap({
+    mapContainerRef,
     latitude,
     longitude,
     zoom,
@@ -62,6 +62,6 @@ export default function OffersMap({
   }
 
   return groupedPlaces?.length ? (
-    <section className={cn(rootClassName, 'map')} ref={mapRef} />
+    <section className={cn(rootClassName, 'map')} ref={mapContainerRef} />
   ) : null;
 }

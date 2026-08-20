@@ -19,8 +19,6 @@ export default function ReviewsForm(): JSX.Element {
 
   const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    console.log('userRating :', userRating);
-    console.log('userReviewText :', userReviewText);
   };
 
   const reviewTextHandler: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
