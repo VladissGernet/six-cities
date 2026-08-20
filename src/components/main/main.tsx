@@ -4,7 +4,6 @@ import styles from './main.module.css';
 
 type MainProps = PropsWithChildren<{
   isIndex?: boolean;
-  isNoOffers?: boolean;
   hasFavorites?: boolean | null;
   isLoginPage?: boolean;
   isOffer?: boolean;
@@ -14,7 +13,6 @@ type MainProps = PropsWithChildren<{
 export default function Main({
   children,
   isIndex,
-  isNoOffers,
   isOffer,
   hasFavorites = null,
   isLoginPage,
@@ -26,7 +24,6 @@ export default function Main({
     'page__main',
     isIndex && 'page__main--index',
     isFavoritesEmpty && 'page__main--favorites page__main--favorites-empty',
-    isNoOffers && 'page__main--index-empty',
     isLoginPage && 'page__main--login',
     isOffer && 'page__main--offer',
     hasFavorites && 'page__main--favorites',

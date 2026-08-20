@@ -17,13 +17,12 @@ export default function MainScreen(): JSX.Element {
     selectedCity,
     groupedOffers,
   );
-  const isNoOffers = !groupedOffersByCity.offerPlacesByCity.length;
-
+  // TODO, main не должен знать о данных.
   return (
     <Page isGray isMain>
       <Header isLoggedIn />
 
-      <Main isIndex isNoOffers={isNoOffers}>
+      <Main isIndex>
         <h1 className="visually-hidden">Cities</h1>
         <Tabs />
         <Cities groupedOffersByCity={groupedOffersByCity} />
