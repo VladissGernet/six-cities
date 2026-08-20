@@ -1,17 +1,17 @@
-import { GroupedOffersByCity } from '../../types/offers';
 import Places from '../../components/places/places';
+import { useAppSelector } from '../../hooks/redux';
 import OffersMap from '../offers-map/offers-map';
 
 type CitiesFilledProps = {
   extraTitle?: string;
-  groupedOffersByCity: GroupedOffersByCity;
 };
 
 export default function CitiesFilled({
   extraTitle,
-  groupedOffersByCity,
 }: CitiesFilledProps): JSX.Element {
-  const { offerPlacesByCity } = groupedOffersByCity;
+  const selectedCity = useAppSelector((state) => state.city);
+  const groupedOffersByCity =
+    useAppSelector((state) => state.groupedOffers)[selectedCity] || [];
 
   // TODO, остановился здесь.
   // порпобовать заменить useState либо useRef, но сокрее всего не бдут обновления
@@ -31,7 +31,7 @@ export default function CitiesFilled({
         {/* TOOD, переместить сюда проверку на grouped.length */}
         <OffersMap
           rootClassName="cities__map"
-          groupedPlaces={offerPlacesByCity}
+          groupedPlaces={groupedOffersByCity}
         />
       </div>
     </div>

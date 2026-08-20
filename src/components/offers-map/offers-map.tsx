@@ -36,6 +36,10 @@ export default function OffersMap({
     groupedPlaces,
   });
 
+  // TODO попробовать также вынесть в отдельный хук , как и useOffersMap и сделать
+  // защиту от повторрного создания markerLayer в useRef где функция создания будет с
+  // условием :
+  // if (mapContainerRef.current !== null && !isRenderedRef.current) {
   if (map) {
     mapMarkersRef.current.clear();
     const markerLayer = layerGroup();

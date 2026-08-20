@@ -1,29 +1,20 @@
 import CitiesFilled from './cities-filled';
 import CitiesEmpty from './cities-empty';
-import { GroupedOffersByCity } from '../../types/offers';
+import { useAppSelector } from '../../hooks/redux';
 
-type CitiesProps = {
-  groupedOffersByCity: GroupedOffersByCity;
-};
+export default function Cities(): JSX.Element {
+  const currentCity = useAppSelector((state) => state.city);
+  const groupedOffers = useAppSelector((state) => state.groupedOffers);
+  const groupedOffersByCity = groupedOffers[currentCity];
 
-export default function Cities({
-  groupedOffersByCity,
-}: CitiesProps): JSX.Element {
-  const isNoCities = !groupedOffersByCity.offerPlacesByCity.length;
-  const { city, offerPlacesByCity } = groupedOffersByCity;
-  const isMultipleCities = offerPlacesByCity.length > 1;
-  const extraTitle = `${offerPlacesByCity.length} ${isMultipleCities ? 'places' : 'place'} to stay in ${city}`;
+  const isNoCities = !groupedOffersByCity?.length;
+  const isMultipleCities =
+    groupedOffersByCity && groupedOffersByCity.length > 1;
+  const extraTitle = `${groupedOffersByCity?.length} ${isMultipleCities ? 'places' : 'place'} to stay in ${currentCity}`;
 
   return (
     <div className="cities">
-      {isNoCities ? (
-        <CitiesEmpty />
-      ) : (
-        <CitiesFilled
-          extraTitle={extraTitle}
-          groupedOffersByCity={groupedOffersByCity}
-        />
-      )}
+      {isNoCities ? <CitiesEmpty /> : <CitiesFilled extraTitle={extraTitle} />}
     </div>
   );
 }

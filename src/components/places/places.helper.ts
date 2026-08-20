@@ -12,6 +12,12 @@ const SortingComparator: Readonly<Record<PlacesSortingValueType, Comparator>> =
     [PlacesSortingValue.TopRatedFirst]: (a, b) => b.rating - a.rating,
   } as const;
 
+/**
+ * Возвращает без мутации массив отсортированных предложений.
+ * @param offers Массив предложений.
+ * @param option Значение для выбора функции сортировки из SortingComparator.
+ * @returns Отсортированный массив предложений в соответствии с option.
+ */
 export function sortOffers(
   offers: Offers,
   option: PlacesSortingValueType,

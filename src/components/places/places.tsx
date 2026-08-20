@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import cn from 'classnames';
 
-import { GroupedOffersByCity } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import PlacesList from './places-list';
 import PlacesSorting from './places-sorting';
 import { ImageSize, PlacesSortingValue } from '../../const';
@@ -15,8 +15,8 @@ type PlacesProps = {
   titleClassName?: string;
   isTitleNotVisible?: boolean;
   extraTitle?: string;
+  groupedOffersByCity: Offers;
   isSortingForm?: boolean;
-  groupedOffersByCity: GroupedOffersByCity;
 };
 
 export default function Places({
@@ -25,10 +25,9 @@ export default function Places({
   titleClassName,
   isTitleNotVisible,
   extraTitle,
-  isSortingForm,
   groupedOffersByCity,
+  isSortingForm,
 }: PlacesProps): JSX.Element {
-  const { offerPlacesByCity } = groupedOffersByCity;
   const [activeOption, setActiveOption] = useState<PlacesSortingValueType>(
     PlacesSortingValue.Popular,
   );
@@ -50,8 +49,8 @@ export default function Places({
       <PlacesList
         groupedOffersByCity={
           activeOption === PlacesSortingValue.Popular
-            ? offerPlacesByCity
-            : sortOffers(offerPlacesByCity, activeOption)
+            ? groupedOffersByCity
+            : sortOffers(groupedOffersByCity, activeOption)
         }
         className="cities__places-list places__list"
         parentName="cities"

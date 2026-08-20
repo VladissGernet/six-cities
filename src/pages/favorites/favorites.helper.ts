@@ -12,6 +12,7 @@ import { filterByProperty } from '../../utils/utils';
 function filterFavoriteOffers(
   groupedOffers: GroupedOffers,
 ): GroupedOffersByCity[] {
+  // TODO исправить типизацию
   const transformedFilteredOffers: GroupedOffersByCity[] = [];
 
   groupedOffers.forEach((offers, city) => {
