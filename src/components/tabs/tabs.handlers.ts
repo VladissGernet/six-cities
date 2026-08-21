@@ -11,6 +11,7 @@ import { changeCity } from '../../store/action';
  * @param value строка для сопоставления с типом CityName.
  * @returns boolean значение результата поиска в CityName.
  */
+// TODO, заменить stirng ниже на что то более наглядное, например type Token = string;
 function isCityName(value: string): value is CityName {
   return CITY_NAMES.includes(value as CityName);
 }

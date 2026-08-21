@@ -6,7 +6,7 @@ import {
 } from 'react';
 import { RatingValue } from '../../types/general';
 import { RATING_VALUES, MIN_TEXTAREA_CHARACTERS } from '../../const';
-
+// TODO, заменить stirng ниже на что то более наглядное, например type Token = string;
 const isRatingValue = (value: string): value is RatingValue =>
   (RATING_VALUES as readonly string[]).includes(value);
 
