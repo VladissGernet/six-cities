@@ -16,3 +16,9 @@ export type PlacesSortingValueType =
 export type RatingValue = (typeof RATING_VALUES)[number];
 
 export type ActiveMapMarkerId = null | string;
+
+/* TODO
+Заменить на
+  import type { Questions } from '../types/question';
+  import type { AppDispatch, State } from '../types/state';
+*/

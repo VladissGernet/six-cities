@@ -7,6 +7,3 @@ export const changeCity = createAction<CityName>('offers/changeCity');
 export const setActiveMapMaker = createAction<ActiveMapMarkerId>(
   'offersMap/setActiveMapMaker',
 );
-
-// TOOD, возможно придется удалить.
-// export const fillOffersListByCity = createAction('offers/fillOffersListByCity');

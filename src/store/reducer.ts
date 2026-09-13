@@ -32,10 +32,4 @@ export const reducer = createReducer(initialState, (builder) => {
       const newActiveMapMarkerId = action.payload;
       state.activeMapMarkerId = newActiveMapMarkerId;
     });
-  // TOOD, возможно придется удалить.
-  // .addCase(fillOffersListByCity, (state) => {
-  //   // Действие для заполнения списка предложений должно
-  //   // поместить в хранилище все предложения по аренде. Пока
-  //   // используем тестовые данные.
-  // });
 });
