@@ -81,7 +81,7 @@ const CustomIcon: Record<'Default' | 'Active', IconOptions> = {
     iconSize: [28, 40],
     iconAnchor: [14, 40],
   },
-} as const;
+};
 
 export {
   INITIAL_STATE_CITY,

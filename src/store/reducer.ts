@@ -2,9 +2,14 @@
 import { offers } from '../mocks/offers';
 
 import { createReducer } from '@reduxjs/toolkit';
-import { INITIAL_STATE_CITY } from '../const';
+import { AuthorizationStatus, INITIAL_STATE_CITY } from '../const';
 import { Offers, CityName, GroupedOffers } from '../types/offers';
-import { changeCity, setActiveMapMaker } from './action';
+import {
+  changeCity,
+  loadOffers,
+  requireAuthorizationStatus,
+  setActiveMapMaker,
+} from './action';
 import { groupOffers } from '../utils/offers';
 import { ActiveMapMarkerId } from '../types/general';
 
@@ -13,6 +18,7 @@ type StateType = {
   offers: Offers;
   groupedOffers: GroupedOffers;
   activeMapMarkerId: ActiveMapMarkerId;
+  authorizationStatus: AuthorizationStatus;
 };
 
 const initialState: StateType = {
@@ -20,6 +26,7 @@ const initialState: StateType = {
   offers,
   groupedOffers: groupOffers(offers),
   activeMapMarkerId: null,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -31,5 +38,13 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setActiveMapMaker, (state, action) => {
       const newActiveMapMarkerId = action.payload;
       state.activeMapMarkerId = newActiveMapMarkerId;
+    })
+    .addCase(loadOffers, (state, action) => {
+      const newOffers = action.payload;
+      state.offers = newOffers;
+      state.groupedOffers = groupOffers(newOffers);
+    })
+    .addCase(requireAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
