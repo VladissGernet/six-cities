@@ -1,5 +1,6 @@
 // Моковые данные.
-import { offers } from '../mocks/offers';
+// TODO, Удалить остатки данных
+// import { offers } from '../mocks/offers';
 
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, INITIAL_STATE_CITY } from '../const';
@@ -23,8 +24,8 @@ type StateType = {
 
 const initialState: StateType = {
   city: INITIAL_STATE_CITY,
-  offers,
-  groupedOffers: groupOffers(offers),
+  offers: [],
+  groupedOffers: {},
   activeMapMarkerId: null,
   authorizationStatus: AuthorizationStatus.Unknown,
 };

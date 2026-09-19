@@ -8,6 +8,29 @@ const MIN_TEXTAREA_CHARACTERS = 50;
 const MAX_NEAR_OFFERS = 3;
 const INITIAL_STATE_CITY = 'Paris';
 
+enum AppRoute {
+  Root = '/',
+  Favorites = '/favorites',
+  Login = '/login',
+  Offer = '/offer',
+  NotFoundPage = '/not-found-page',
+}
+
+enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+enum APIRoute {
+  Offers = '/offers',
+  Nearby = '/nearby',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 const ImageSize = {
   Places: {
     width: 260,
@@ -18,20 +41,6 @@ const ImageSize = {
     height: 110,
   },
 } as const;
-
-const enum AppRoute {
-  Root = '/',
-  Favorites = '/favorites',
-  Login = '/login',
-  Offer = '/offer',
-  NotFoundPage = '/not-found-page',
-}
-
-const enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
-}
 
 // Sorting.
 const PlacesSortingValue = {
@@ -84,6 +93,9 @@ const CustomIcon: Record<'Default' | 'Active', IconOptions> = {
 };
 
 export {
+  AppRoute,
+  APIRoute,
+  AuthorizationStatus,
   INITIAL_STATE_CITY,
   ImageSize,
   CITY_NAMES,
@@ -93,7 +105,5 @@ export {
   MAX_NEAR_OFFERS,
   OffersMapConfig,
   CustomIcon,
-  AppRoute,
-  AuthorizationStatus,
   PlacesSortingValue,
 };
