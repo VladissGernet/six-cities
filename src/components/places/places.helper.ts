@@ -1,6 +1,7 @@
 import { PlacesSortingValue } from '../../const';
-import { PlacesSortingValueType } from '../../types/general';
-import { Offer, Offers } from '../../types/offers';
+
+import type { PlacesSortingValueType } from '../../types/general';
+import type { Offer, Offers } from '../../types/offers';
 
 export type Comparator = (a: Offer, b: Offer) => number;
 

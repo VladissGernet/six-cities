@@ -1,7 +1,8 @@
-import { GroupedOffersByCity } from '../../types/offers';
 import PlacesList from '../../components/places/places-list';
 
 import { ImageSize } from '../../const';
+
+import type { GroupedOffersByCity } from '../../types/offers';
 
 type FavoritesFilledListProps = {
   favoriteOffersByCity: GroupedOffersByCity[];

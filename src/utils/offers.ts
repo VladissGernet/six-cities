@@ -1,13 +1,14 @@
 // Файл с helpers для работы с offers.
 
-import { CityName } from '../types/offers';
-import {
+import { MAX_NEAR_OFFERS } from '../const';
+
+import type { CityName } from '../types/offers';
+import type {
   GroupedOffers,
   GroupedOffersByCity,
   Offers,
   Offer,
 } from '../types/offers';
-import { MAX_NEAR_OFFERS } from '../const';
 
 /**
  * Преобразует массив прдложений в объект сгруппированных городов.

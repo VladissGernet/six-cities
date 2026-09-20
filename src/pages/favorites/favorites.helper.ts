@@ -1,5 +1,6 @@
-import { GroupedOffers, GroupedOffersByCity } from '../../types/offers';
 import { filterByProperty } from '../../utils/utils';
+
+import type { GroupedOffers, GroupedOffersByCity } from '../../types/offers';
 
 /**
  * Группирует избранные предложения по городу и фильтрует их, оставляя только избранные значения.

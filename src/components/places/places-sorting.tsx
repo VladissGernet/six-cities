@@ -1,6 +1,7 @@
 import { useState, MouseEventHandler } from 'react';
 import { PlacesSortingValue } from '../../const';
-import { PlacesSortingValueType } from '../../types/general';
+
+import type { PlacesSortingValueType } from '../../types/general';
 
 type PlacesSortingTypes = {
   activeOption: PlacesSortingValueType;

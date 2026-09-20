@@ -1,10 +1,10 @@
 import { MouseEvent } from 'react';
 import { CITY_NAMES } from '../../const';
 
-import { CityName } from '../../types/offers';
-import { AppDispatch } from '../../types/state';
-
 import { changeCity } from '../../store/action';
+
+import type { CityName } from '../../types/offers';
+import type { AppDispatch } from '../../types/state';
 
 /**
  * Проверяет, имеется ли value в типе CityName.

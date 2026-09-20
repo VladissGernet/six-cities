@@ -4,7 +4,6 @@
 
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, INITIAL_STATE_CITY } from '../const';
-import { Offers, CityName, GroupedOffers } from '../types/offers';
 import {
   changeCity,
   loadOffers,
@@ -12,7 +11,9 @@ import {
   setActiveMapMaker,
 } from './action';
 import { groupOffers } from '../utils/offers';
-import { ActiveMapMarkerId } from '../types/general';
+
+import type { Offers, CityName, GroupedOffers } from '../types/offers';
+import type { ActiveMapMarkerId } from '../types/general';
 
 type StateType = {
   city: CityName;

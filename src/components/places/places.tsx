@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import cn from 'classnames';
 
-import { Offers } from '../../types/offers';
 import PlacesList from './places-list';
 import PlacesSorting from './places-sorting';
 import { ImageSize, PlacesSortingValue } from '../../const';
-import { PlacesSortingValueType } from '../../types/general';
 // TODO, рассмотреть кеширование с помощью useMemo.
 import { sortOffers } from './places.helper';
+
+import type { Offers } from '../../types/offers';
+import type { PlacesSortingValueType } from '../../types/general';
 
 type PlacesProps = {
   rootClassName?: string;

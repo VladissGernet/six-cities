@@ -1,5 +1,5 @@
-import { Offers } from '../../types/offers';
-import { ImageSizes } from '../../types/general';
+import type { Offers } from '../../types/offers';
+import type { ImageSizes } from '../../types/general';
 
 import PlaceCard from '../place-card/place-card';
 

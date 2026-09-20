@@ -1,10 +1,11 @@
 import cn from 'classnames';
 import Rating from '../rating/rating';
 
-import { Offer } from '../../types/offers';
-import { ImageSizes } from '../../types/general';
 import { useAppDispatch } from '../../hooks/redux';
 import { setActiveMapMaker } from '../../store/action';
+
+import type { Offer } from '../../types/offers';
+import type { ImageSizes } from '../../types/general';
 
 type PlaceCardProps = ImageSizes & {
   offer: Offer;

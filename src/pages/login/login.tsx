@@ -3,8 +3,9 @@ import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 
 import { CITY_NAMES } from '../../const';
-import { CityName } from '../../types/offers';
 import { getRandomElement } from '../../utils/utils';
+
+import type { CityName } from '../../types/offers';
 
 export default function Login(): JSX.Element {
   const randomCity = getRandomElement<CityName>(CITY_NAMES);

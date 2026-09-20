@@ -39,9 +39,3 @@ export type GroupedOffersByCity = {
  * Зависит от константы { CITY_NAMES } from '../const';
  */
 export type CityName = (typeof CITY_NAMES)[number];
-
-/* TODO
-Заменить на
-  import type { Questions } from '../types/question';
-  import type { AppDispatch, State } from '../types/state';
-*/
