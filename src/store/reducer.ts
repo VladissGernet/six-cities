@@ -9,11 +9,13 @@ import {
   loadOffers,
   requireAuthorizationStatus,
   setActiveMapMaker,
+  setError,
 } from './action';
 import { groupOffers } from '../utils/offers';
 
 import type { Offers, CityName, GroupedOffers } from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
+import type { StateError } from '../types/state';
 
 type StateType = {
   city: CityName;
@@ -21,6 +23,7 @@ type StateType = {
   groupedOffers: GroupedOffers;
   activeMapMarkerId: ActiveMapMarkerId;
   authorizationStatus: AuthorizationStatus;
+  error: StateError;
 };
 
 const initialState: StateType = {
@@ -29,6 +32,7 @@ const initialState: StateType = {
   groupedOffers: {},
   activeMapMarkerId: null,
   authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -48,5 +52,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });

@@ -7,6 +7,7 @@ const PERCENT_PER_STAR = 20;
 const MIN_TEXTAREA_CHARACTERS = 50;
 const MAX_NEAR_OFFERS = 3;
 const INITIAL_STATE_CITY = 'Paris';
+const TIMEOUT_SHOW_ERROR = 2000;
 
 enum AppRoute {
   Root = '/',
@@ -106,4 +107,5 @@ export {
   OffersMapConfig,
   CustomIcon,
   PlacesSortingValue,
+  TIMEOUT_SHOW_ERROR,
 };
