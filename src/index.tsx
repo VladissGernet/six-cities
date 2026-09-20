@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app/app';
 import { Provider } from 'react-redux';
+
+import App from './components/app/app';
+import ErrorMessage from './components/error-message/error-message';
 
 import { store } from './store';
 
@@ -52,6 +54,7 @@ URL для axios сохранить в enum, потому что они на п�
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ErrorMessage />
       <App />
     </Provider>
   </React.StrictMode>,
