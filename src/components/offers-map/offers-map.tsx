@@ -1,13 +1,14 @@
 import cn from 'classnames';
 import { useRef } from 'react';
 import useOffersMap from '../../hooks/offers-map/use-offers-map';
-import { Offers } from '../../types/offers';
 
 import 'leaflet/dist/leaflet.css';
 import { CustomIcon } from '../../const';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import { useAppSelector } from '../../hooks/redux';
-import { ActiveMapMarkerId } from '../../types/general';
+
+import type { Offers } from '../../types/offers';
+import type { ActiveMapMarkerId } from '../../types/general';
 
 type OffersMapProps = {
   rootClassName: string;
