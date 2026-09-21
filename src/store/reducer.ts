@@ -10,6 +10,7 @@ import {
   requireAuthorizationStatus,
   setActiveMapMaker,
   setError,
+  setOffersDataLoadingStatus,
 } from './action';
 import { groupOffers } from '../utils/offers';
 
@@ -24,6 +25,7 @@ type StateType = {
   activeMapMarkerId: ActiveMapMarkerId;
   authorizationStatus: AuthorizationStatus;
   error: StateError;
+  isOffersDataLoading: boolean;
 };
 
 const initialState: StateType = {
@@ -33,6 +35,7 @@ const initialState: StateType = {
   activeMapMarkerId: null,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
+  isOffersDataLoading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -55,5 +58,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersDataLoading = action.payload;
     });
 });

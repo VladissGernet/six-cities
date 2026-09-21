@@ -8,6 +8,8 @@ import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
+import { useAppSelector } from '../../hooks/redux';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 /*
@@ -24,6 +26,20 @@ import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
   // TODO, попробовать реализовать общий layout с page,header и т.п.
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus,
+  );
+  const isQuestionsDataLoading = useAppSelector(
+    (state) => state.isOffersDataLoading,
+  );
+
+  if (
+    authorizationStatus === AuthorizationStatus.Unknown ||
+    isQuestionsDataLoading
+  ) {
+    return <LoadingScreen />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -31,7 +47,7 @@ export default function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <Favorites />
             </PrivateRoute>
           }

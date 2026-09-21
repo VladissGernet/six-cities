@@ -1,7 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
-import { loadOffers, requireAuthorizationStatus, setError } from './action';
+import {
+  loadOffers,
+  requireAuthorizationStatus,
+  setError,
+  setOffersDataLoadingStatus,
+} from './action';
 import { dropToken, saveToken } from '../services/token';
 
 import type { AppDispatch } from '../types/state';
@@ -14,7 +19,10 @@ export const fetchOffersAction = createAsyncThunk<
   undefined,
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
+  // TODO, возможно здесь можно заменить 'data/fetchOffers/fullfiled'
+  dispatch(setOffersDataLoadingStatus(true));
   const { data } = await api.get<Offers>(APIRoute.Offers);
+  dispatch(setOffersDataLoadingStatus(false));
 
   dispatch(loadOffers(data));
 });
