@@ -4,20 +4,21 @@ import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 
-import { AppRoute, CITY_NAMES } from '../../const';
+import { CITY_NAMES } from '../../const';
 import { getRandomElement } from '../../utils/utils';
 
 import type { CityName } from '../../types/offers';
 import { useAppDispatch } from '../../hooks/redux';
 import { loginAction } from '../../store/api-actions';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 export default function AuthScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // TODO возможно использовать для другого это нужно.
+  // const navigate = useNavigate();
 
   const handleSubmit: FormEventHandler = (evt) => {
     evt.preventDefault();
@@ -30,7 +31,7 @@ export default function AuthScreen(): JSX.Element {
         }),
       );
       // TODO, проверка на ошибку логина
-      navigate(AppRoute.Root);
+      // navigate(AppRoute.Root);
     }
   };
 
