@@ -53,7 +53,7 @@ export default function App(): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.AuthScreen} element={<AuthScreen />} />
+        <Route path={AppRoute.Login} element={<AuthScreen />} />
         <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -12,7 +12,7 @@ const TIMEOUT_SHOW_ERROR = 2000;
 enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
-  AuthScreen = '/auth-screen',
+  Login = '/login',
   Offer = '/offer',
   NotFoundPage = '/not-found-page',
 }
