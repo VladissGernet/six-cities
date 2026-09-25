@@ -7,7 +7,7 @@ import { getRandomElement } from '../../utils/utils';
 
 import type { CityName } from '../../types/offers';
 
-export default function Login(): JSX.Element {
+export default function AuthScreen(): JSX.Element {
   const randomCity = getRandomElement<CityName>(CITY_NAMES);
 
   return (

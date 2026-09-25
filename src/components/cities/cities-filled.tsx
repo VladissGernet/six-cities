@@ -13,7 +13,7 @@ export default function CitiesFilled({
   const groupedOffersByCity =
     useAppSelector((state) => state.groupedOffers)[selectedCity] || [];
 
-  // TODO, остановился здесь.
+  // TODO
   // порпобовать заменить useState либо useRef, но сокрее всего не бдут обновления
   // меток на карте, либо через store, что более вероятнее будет правильно.
 

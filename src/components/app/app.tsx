@@ -4,12 +4,13 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 
 import MainScreen from '../../pages/main-screen/main-screen';
 import Favorites from '../../pages/favorites/favorites';
-import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import { useAppSelector } from '../../hooks/redux';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import AuthScreen from '../../pages/auth-screen/auth-screen';
+
+import { useAppSelector } from '../../hooks/redux';
 
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 /*
@@ -52,7 +53,7 @@ export default function App(): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Login} element={<Login />} />
+        <Route path={AppRoute.AuthScreen} element={<AuthScreen />} />
         <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
