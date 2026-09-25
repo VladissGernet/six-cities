@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { AppRoute, AuthorizationStatus } from '../../const';
 
@@ -11,6 +11,8 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 
 import { useAppSelector } from '../../hooks/redux';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../browser-history';
 
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 /*
@@ -42,7 +44,7 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Root} element={<MainScreen />} />
         <Route
@@ -57,6 +59,6 @@ export default function App(): JSX.Element {
         <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
