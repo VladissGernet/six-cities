@@ -1,10 +1,14 @@
-import { useAppSelector } from '../../hooks/redux';
+import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import { filterByProperty } from '../../utils/utils';
+import { AppRoute } from '../../const';
+import { logoutAction } from '../../store/api-actions';
 
 export default function HeaderLoggedIn(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const totalFavorites = filterByProperty(offers, 'isFavorite', true).length;
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -18,9 +22,17 @@ export default function HeaderLoggedIn(): JSX.Element {
         </a>
       </li>
       <li className="header__nav-item">
-        <a className="header__nav-link" href="#">
+        <Link
+          className="header__nav-link"
+          onClick={(evt) => {
+            // TODO, доработать header и проверить разлогинивание.
+            evt.preventDefault();
+            dispatch(logoutAction());
+          }}
+          to={AppRoute.Root}
+        >
           <span className="header__signout">Sign out</span>
-        </a>
+        </Link>
       </li>
     </>
   );
