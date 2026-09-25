@@ -1,16 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import {
-  APIRoute,
-  AppRoute,
-  AuthorizationStatus,
-  TIMEOUT_SHOW_ERROR,
-} from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import {
   loadOffers,
   redirectToRoute,
   requireAuthorizationStatus,
-  setError,
   setOffersDataLoadingStatus,
 } from './action';
 import { dropToken, saveToken } from '../services/token';
@@ -73,12 +67,4 @@ export const logoutAction = createAsyncThunk<
   await api.delete(APIRoute.Logout);
   dropToken();
   dispatch(requireAuthorizationStatus(AuthorizationStatus.NoAuth));
-});
-
-export const clearErrorAction = createAsyncThunk<
-  void,
-  undefined,
-  { dispatch: AppDispatch }
->('data/setError', (_arg, { dispatch }) => {
-  setTimeout(() => dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
 });
