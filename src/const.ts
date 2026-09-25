@@ -8,6 +8,9 @@ const MIN_TEXTAREA_CHARACTERS = 50;
 const MAX_NEAR_OFFERS = 3;
 const INITIAL_STATE_CITY = 'Paris';
 
+const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
+const REQUEST_TIMEOUT = 5000;
+
 enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
@@ -106,4 +109,6 @@ export {
   OffersMapConfig,
   CustomIcon,
   PlacesSortingValue,
+  BACKEND_URL,
+  REQUEST_TIMEOUT,
 };
