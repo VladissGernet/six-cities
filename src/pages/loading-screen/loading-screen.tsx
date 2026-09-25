@@ -1,5 +1,5 @@
 function LoadingScreen(): JSX.Element {
-  // TODO, добавить стили из loading-screen.css
+  // TODO, остановился здесь. Добавить стили из loading-screen.css
   return <p>Loading ...</p>;
 }
 
