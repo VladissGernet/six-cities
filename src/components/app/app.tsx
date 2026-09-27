@@ -29,6 +29,10 @@ import browserHistory from '../../browser-history';
 
 export default function App(): JSX.Element {
   // TODO, попробовать реализовать общий layout с page,header и т.п.
+  // Остановился здесь https://www.perplexity.ai/search/cdad473f-a175-42a6-8efa-a8afefc3e112
+  // Надо решить проблему с условием от LoadingScreen, т.е. нужно Header с его useLocation добавить в Route.
+  // А может и не надо этого делать, и сделать Loader без Header и прочего.
+  // Либо сделать HeaderLayout и его переиспользовать.
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus,
   );
@@ -47,6 +51,7 @@ export default function App(): JSX.Element {
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Root} element={<MainScreen />} />
+        {/* <Route path={AppRoute.Root} element={<LoadingScreen />} /> */}
         <Route
           path={AppRoute.Favorites}
           element={

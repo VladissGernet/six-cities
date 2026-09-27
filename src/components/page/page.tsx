@@ -22,6 +22,7 @@ export default function Page({
   isOffer,
   hasFavorites = null,
 }: PageProps): JSX.Element {
+  // TODO, возможно нужно вынести в общий Layout.
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
   const pageClassName = cn(
