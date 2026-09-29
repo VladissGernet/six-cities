@@ -25,6 +25,9 @@ export default function Page({
   // TODO, возможно нужно вынести в общий Layout.
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
+  // TODO, заменить isMain, isLogin и прочее на это.
+  // const locationPathname = useLocation().pathname;
+
   const pageClassName = cn(
     'page',
     isGray && 'page--gray',

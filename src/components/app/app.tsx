@@ -1,18 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 
 import MainScreen from '../../pages/main-screen/main-screen';
-import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 
-import { useAppSelector } from '../../hooks/redux';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+import AppLayout from '../../layout/app-layout';
 
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 /*
@@ -28,41 +26,16 @@ import browserHistory from '../../browser-history';
 */
 
 export default function App(): JSX.Element {
-  // TODO, попробовать реализовать общий layout с page,header и т.п.
-  // Остановился здесь https://www.perplexity.ai/search/cdad473f-a175-42a6-8efa-a8afefc3e112
-  // Надо решить проблему с условием от LoadingScreen, т.е. нужно Header с его useLocation добавить в Route.
-  // А может и не надо этого делать, и сделать Loader без Header и прочего.
-  // Либо сделать HeaderLayout и его переиспользовать.
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus,
-  );
-  const isQuestionsDataLoading = useAppSelector(
-    (state) => state.isOffersDataLoading,
-  );
-
-  if (
-    authorizationStatus === AuthorizationStatus.Unknown ||
-    isQuestionsDataLoading
-  ) {
-    return <LoadingScreen />;
-  }
-
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainScreen />} />
-        {/* <Route path={AppRoute.Root} element={<LoadingScreen />} /> */}
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <Favorites />
-            </PrivateRoute>
-          }
-        />
-        <Route path={AppRoute.Login} element={<AuthScreen />} />
-        <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route element={<AppLayout />}>
+          <Route path={AppRoute.Root} element={<MainScreen />} />
+          <Route path={AppRoute.Favorites} element={<PrivateRoute />} />
+          <Route path={AppRoute.Login} element={<AuthScreen />} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Routes>
     </HistoryRouter>
   );

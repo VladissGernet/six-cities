@@ -1,17 +1,15 @@
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import Favorites from '../../pages/favorites/favorites';
+import { useAppSelector } from '../../hooks/redux';
 
-type PrivateRouteProps = {
-  authorizationStatus: AuthorizationStatus;
-  children: JSX.Element;
-};
+export default function PrivateRoute(): JSX.Element {
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus,
+  );
 
-export default function PrivateRoute({
-  authorizationStatus,
-  children,
-}: PrivateRouteProps): JSX.Element {
   return authorizationStatus === AuthorizationStatus.Auth ? (
-    children
+    <Favorites />
   ) : (
     <Navigate to={AppRoute.Login} />
   );
