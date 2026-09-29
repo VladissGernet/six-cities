@@ -11,6 +11,7 @@ import AuthScreen from '../../pages/auth-screen/auth-screen';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import AppLayout from '../../layout/app-layout';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 // TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 /*
@@ -30,7 +31,8 @@ export default function App(): JSX.Element {
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route element={<AppLayout />}>
-          <Route path={AppRoute.Root} element={<MainScreen />} />
+          {/* <Route path={AppRoute.Root} element={<MainScreen />} /> */}
+          <Route path={AppRoute.Root} element={<LoadingScreen />} />
           <Route path={AppRoute.Favorites} element={<PrivateRoute />} />
           <Route path={AppRoute.Login} element={<AuthScreen />} />
           <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />

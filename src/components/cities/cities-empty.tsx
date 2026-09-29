@@ -1,3 +1,5 @@
+import Container from '../container/container';
+
 export default function CitiesEmpty(): JSX.Element {
   /* TODO, исправить Dusseldorf на current city в
     <p className="cities__status-description">
@@ -5,7 +7,7 @@ export default function CitiesEmpty(): JSX.Element {
     </p>
   */
   return (
-    <div className="cities__places-container cities__places-container--empty container">
+    <Container className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
         <div className="cities__status-wrapper tabs__content">
           <b className="cities__status">No places to stay available</b>
@@ -15,6 +17,6 @@ export default function CitiesEmpty(): JSX.Element {
         </div>
       </section>
       <div className="cities__right-section"></div>
-    </div>
+    </Container>
   );
 }

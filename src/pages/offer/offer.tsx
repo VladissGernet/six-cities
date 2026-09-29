@@ -12,6 +12,7 @@ import Rating from '../../components/rating/rating';
 import Reviews from '../../components/reviews/reviews';
 import OffersMap from '../../components/offers-map/offers-map';
 import Places from '../../components/places/places';
+import Container from '../../components/container/container';
 
 // This folder.
 import OfferHost from './offer-host';
@@ -62,10 +63,10 @@ export default function Offer(): JSX.Element {
       <Header />
       <Main isOffer>
         <section className="offer">
-          <div className="offer__gallery-container container">
+          <Container className="offer__gallery-container container">
             <Gallery />
-          </div>
-          <div className="offer__container container">
+          </Container>
+          <Container className="offer__container container">
             <div className="offer__wrapper">
               {isPremium && (
                 <div className="offer__mark">
@@ -109,7 +110,7 @@ export default function Offer(): JSX.Element {
               <OfferHost />
               <Reviews />
             </div>
-          </div>
+          </Container>
           <div className="container">
             {/* TODO исправить карту. */}
             <OffersMap
@@ -119,14 +120,16 @@ export default function Offer(): JSX.Element {
             />
           </div>
         </section>
-        <div className={cn('container', styles['offer__places-container'])}>
+        <Container
+          className={cn('container', styles['offer__places-container'])}
+        >
           <Places
             rootClassName={cn('near-places', styles['offer__places-content'])}
             title="Other places in the neighbourhood"
             titleClassName="near-places__title"
             groupedOffersByCity={groupedOffersByCity}
           />
-        </div>
+        </Container>
       </Main>
     </Page>
   );

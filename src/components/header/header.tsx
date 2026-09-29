@@ -1,24 +1,25 @@
+import Container from '../container/container';
 import HeaderLogo from './header-logo';
 import HeaderNav from './header-nav';
 
 type HeaderProps = {
   isLoggedIn?: boolean;
-  isLoginPage?: boolean;
+  isHeaderNoNav?: boolean;
 };
 
 export default function Header({
   isLoggedIn,
-  isLoginPage,
+  isHeaderNoNav,
 }: HeaderProps): JSX.Element {
   return (
     <header className="header">
-      <div className="container">
+      <Container>
         <div className="header__wrapper">
           <HeaderLogo />
 
-          {isLoginPage ? '' : <HeaderNav isLoggedIn={isLoggedIn} />}
+          {isHeaderNoNav ? '' : <HeaderNav isLoggedIn={isLoggedIn} />}
         </div>
-      </div>
+      </Container>
     </header>
   );
 }

@@ -4,6 +4,7 @@ import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 import Footer from '../../components/footer/footer';
+import Container from '../../components/container/container';
 
 import FavoritesFilledList from './favorites-filled-list';
 import FavoritesEmptyList from './favorites-empty-list';
@@ -37,7 +38,7 @@ export default function Favorites(): JSX.Element {
     <Page hasFavorites={hasFavorites} isFavorites>
       <Header />
       <Main hasFavorites={hasFavorites}>
-        <div className={mainContainerClassName}>
+        <Container className={mainContainerClassName}>
           <section className={favoritesClassName}>
             {hasFavorites ? (
               <FavoritesFilledList
@@ -47,7 +48,7 @@ export default function Favorites(): JSX.Element {
               <FavoritesEmptyList />
             )}
           </section>
-        </div>
+        </Container>
       </Main>
       <Footer />
     </Page>

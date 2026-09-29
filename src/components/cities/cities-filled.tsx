@@ -1,5 +1,6 @@
 import Places from '../../components/places/places';
 import { useAppSelector } from '../../hooks/redux';
+import Container from '../container/container';
 import OffersMap from '../offers-map/offers-map';
 
 type CitiesFilledProps = {
@@ -18,7 +19,7 @@ export default function CitiesFilled({
   // меток на карте, либо через store, что более вероятнее будет правильно.
 
   return (
-    <div className="cities__places-container container">
+    <Container className="cities__places-container container">
       <Places
         rootClassName="cities__places"
         title="Places"
@@ -34,6 +35,6 @@ export default function CitiesFilled({
           groupedPlaces={groupedOffersByCity}
         />
       </div>
-    </div>
+    </Container>
   );
 }

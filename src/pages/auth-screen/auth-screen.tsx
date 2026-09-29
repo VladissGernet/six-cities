@@ -10,6 +10,7 @@ import { getRandomElement } from '../../utils/utils';
 import type { CityName } from '../../types/offers';
 import { useAppDispatch } from '../../hooks/redux';
 import { loginAction } from '../../store/api-actions';
+import Container from '../../components/container/container';
 // import { useNavigate } from 'react-router-dom';
 
 export default function AuthScreen(): JSX.Element {
@@ -39,9 +40,9 @@ export default function AuthScreen(): JSX.Element {
 
   return (
     <Page isGray isLogin>
-      <Header isLoginPage />
+      <Header isHeaderNoNav />
       <Main isLoginPage>
-        <div className="page__login-container container">
+        <Container className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
             <form
@@ -94,7 +95,7 @@ export default function AuthScreen(): JSX.Element {
               </a>
             </div>
           </section>
-        </div>
+        </Container>
       </Main>
     </Page>
   );
