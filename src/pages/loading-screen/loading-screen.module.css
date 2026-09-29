@@ -3,10 +3,12 @@
   --color-2: rgba(0, 0, 0, 0);
   --size: 1px;
 
-  display: inline-block;
   position: relative;
   font-size: calc(48 * var(--size));
   box-sizing: border-box;
+
+  width: fit-content;
+  margin: 25vh auto;
 }
 .loader::before {
   content: 'Loading';
@@ -18,10 +20,11 @@
   height: calc(5 * var(--size));
   background: currentColor;
   position: absolute;
-  bottom: calc(20 * var(--size));
+  bottom: calc(14 * var(--size));
   right: calc(-5 * var(--size));
   box-sizing: border-box;
   animation: animloader 1s linear infinite;
+  border-radius: 50%;
 }
 
 @keyframes animloader {

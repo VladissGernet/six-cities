@@ -7,12 +7,12 @@ import styles from './loading-screen.module.css';
 
 function LoadingScreen(): JSX.Element {
   return (
-    <Page isGray isMain>
+    <Page isGray>
       <Header isHeaderNoNav />
 
-      <Main isIndex>
+      <Main>
         <Container>
-          <span className={styles.loader}></span>
+          <p className={styles.loader}></p>
         </Container>
       </Main>
     </Page>
