@@ -29,7 +29,6 @@ export default function PlacesSorting({
     setActiveOption(optionValue);
     setIsMenuOpened(false);
   };
-  // Остановился здесь
 
   // TODO, пример лучшей простой реализации:
   // https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/6/item/17
