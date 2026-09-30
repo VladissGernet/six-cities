@@ -11,6 +11,7 @@ type PlaceCardProps = ImageSizes & {
   offer: Offer;
   parentName: string;
 };
+
 export default function PlaceCard({
   offer,
   parentName,
