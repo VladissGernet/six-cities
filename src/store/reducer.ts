@@ -10,11 +10,13 @@ import {
   requireAuthorizationStatus,
   setActiveMapMaker,
   setOffersDataLoadingStatus,
+  setUserAccountData,
 } from './action';
 import { groupOffers } from '../utils/offers';
 
 import type { Offers, CityName, GroupedOffers } from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
+import type { UserData } from '../types/user-data';
 
 type StateType = {
   city: CityName;
@@ -23,6 +25,7 @@ type StateType = {
   activeMapMarkerId: ActiveMapMarkerId;
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
+  userAccountData: UserData | null;
 };
 
 const initialState: StateType = {
@@ -32,6 +35,7 @@ const initialState: StateType = {
   activeMapMarkerId: null,
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
+  userAccountData: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -54,5 +58,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setUserAccountData, (state, action) => {
+      state.userAccountData = action.payload;
     });
 });

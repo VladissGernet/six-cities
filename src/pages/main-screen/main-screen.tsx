@@ -8,8 +8,7 @@ export default function MainScreen(): JSX.Element {
   // TODO, main не должен знать о данных.
   return (
     <Page isGray isMain>
-      {/* TODO, Задание 14, остановился на 6 пункте. */}
-      <Header isLoggedIn />
+      <Header />
 
       <Main isIndex>
         <h1 className="visually-hidden">Cities</h1>

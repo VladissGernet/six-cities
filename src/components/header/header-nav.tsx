@@ -1,15 +1,17 @@
+import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks/redux';
 import HeaderLoggedIn from './header-logged-in';
 import HeaderSignIn from './header-sign-in';
 
-type HeaderNavProps = {
-  isLoggedIn?: boolean;
-};
+export default function HeaderNav(): JSX.Element {
+  const isAuth =
+    useAppSelector((state) => state.authorizationStatus) ===
+    AuthorizationStatus.Auth;
 
-export default function HeaderNav({ isLoggedIn }: HeaderNavProps): JSX.Element {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
-        {isLoggedIn ? <HeaderLoggedIn /> : <HeaderSignIn />}
+        {isAuth ? <HeaderLoggedIn /> : <HeaderSignIn />}
       </ul>
     </nav>
   );

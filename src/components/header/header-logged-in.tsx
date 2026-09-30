@@ -6,6 +6,7 @@ import { AppRoute } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 
 export default function HeaderLoggedIn(): JSX.Element {
+  const userData = useAppSelector((state) => state.userAccountData);
   const offers = useAppSelector((state) => state.offers);
   const totalFavorites = filterByProperty(offers, 'isFavorite', true).length;
   const dispatch = useAppDispatch();
@@ -16,7 +17,7 @@ export default function HeaderLoggedIn(): JSX.Element {
         <a className="header__nav-link header__nav-link--profile" href="#">
           <div className="header__avatar-wrapper user__avatar-wrapper"></div>
           <span className="header__user-name user__name">
-            Oliver.conner@gmail.com
+            {userData?.email}
           </span>
           <span className="header__favorite-count">{totalFavorites}</span>
         </a>
@@ -25,7 +26,6 @@ export default function HeaderLoggedIn(): JSX.Element {
         <Link
           className="header__nav-link"
           onClick={(evt) => {
-            // TODO, доработать header и проверить разлогинивание.
             evt.preventDefault();
             dispatch(logoutAction());
           }}
