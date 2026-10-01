@@ -12,15 +12,14 @@ import type { AppDispatch } from '../../types/state';
  * @returns boolean значение результата поиска в CityName.
  */
 // TODO, заменить stirng ниже на что то более наглядное, например type Token = string;
-function isCityName(value: string): value is CityName {
-  return CITY_NAMES.includes(value as CityName);
-}
+const isCityName = (value: string): value is CityName =>
+  CITY_NAMES.includes(value as CityName);
 
 export default function createHandleCityClick(
   currentCity: CityName,
   dispatch: AppDispatch,
 ) {
-  return function handleClick(e: MouseEvent<HTMLUListElement>) {
+  return (e: MouseEvent<HTMLUListElement>) => {
     e.preventDefault();
     const target = e.target as HTMLElement;
     const link = target.closest('a');

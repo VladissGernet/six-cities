@@ -3,12 +3,12 @@
  * @param array Массив из значений.
  * @returns Случайный элемент массива array.
  */
-function getRandomElement<T>(array: readonly T[]): T | undefined {
+const getRandomElement = <T>(array: readonly T[]): T | undefined => {
   if (!array.length) {
     return undefined;
   }
   return array[Math.floor(Math.random() * array.length)];
-}
+};
 
 /**
  * Типобезопасно фильтрует массив объектов по значению свойства массив объектов
@@ -18,13 +18,11 @@ function getRandomElement<T>(array: readonly T[]): T | undefined {
  * @param value Значение свойства, по которому выполняется фильтрация.
  * @returns Массив объектов, у которых значение свойства совпадает с value.
  */
-function filterByProperty<T, K extends keyof T>(
+const filterByProperty = <T, K extends keyof T>(
   collection: T[],
   property: K,
   value: T[K],
-): T[] {
-  return collection.filter((item) => item[property] === value);
-}
+): T[] => collection.filter((item) => item[property] === value);
 
 /**
  * Делает первую букву строки заглавной.
@@ -32,11 +30,11 @@ function filterByProperty<T, K extends keyof T>(
  * @returns Строка с заглавной первой буквой, либо исходная строка, если она пустая.
  */
 // TODO, заменить stirng ниже на что то более наглядное, например type Token = string;
-function capitalizeFirstLetter(value: string): string {
+const capitalizeFirstLetter = (value: string): string => {
   if (!value) {
     return value;
   }
   return value[0].toUpperCase() + value.slice(1);
-}
+};
 
 export { getRandomElement, filterByProperty, capitalizeFirstLetter };

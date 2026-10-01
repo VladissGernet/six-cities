@@ -15,8 +15,8 @@ import type {
  * @param offers Массив всех предложений.
  * @returns Объект предложений по городам(ключам).
  */
-function groupOffers(offers: Offers): GroupedOffers {
-  return offers.reduce((groupedOffers, offer) => {
+const groupOffers = (offers: Offers): GroupedOffers =>
+  offers.reduce((groupedOffers, offer) => {
     const currentOfferCity = offer.city.name;
 
     if (groupedOffers[currentOfferCity]?.length) {
@@ -27,7 +27,6 @@ function groupOffers(offers: Offers): GroupedOffers {
 
     return groupedOffers;
   }, {} as GroupedOffers);
-}
 
 /**
  * Получаем объект с городом и массивом предложеений по этому городу.
@@ -35,16 +34,13 @@ function groupOffers(offers: Offers): GroupedOffers {
  * @param groupedOffers Коллекция Map предложений.
  * @returns Объект с названием города и массива предложений по этому городу.
  */
-function createGroupedOffersByCity(
+const createGroupedOffersByCity = (
   city: CityName,
   groupedOffers: GroupedOffers,
-): GroupedOffersByCity {
-  return {
-    city: city,
-    offerPlacesByCity: groupedOffers[city] ?? [],
-  };
-}
-
+): GroupedOffersByCity => ({
+  city: city,
+  offerPlacesByCity: groupedOffers[city] ?? [],
+});
 /**
  * Возвращает ближайшие предложения, исключая предложения
  * с идентификатором выбранного города.

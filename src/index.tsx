@@ -12,10 +12,6 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-// TODO, В проекте наблюдается неоднозначность стрелочных функций и функциональных выражений.
-// Привести все к единому виду.
-// TODO, проверить все import , возможно есть дублирующие или неиспользовающиеся.
-
 /*
 (state) => state.city - и подобные функции описать как getCity и т.п. в какой-нибудь offers-selectors.ts
 https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/7/item/17
