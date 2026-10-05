@@ -14,10 +14,6 @@ export default function CitiesFilled({
   const groupedOffersByCity =
     useAppSelector((state) => state.groupedOffers)[selectedCity] || [];
 
-  // TODO
-  // порпобовать заменить useState либо useRef, но сокрее всего не бдут обновления
-  // меток на карте, либо через store, что более вероятнее будет правильно.
-
   return (
     <Container className="cities__places-container container">
       <Places
