@@ -29,7 +29,6 @@ const filterByProperty = <T, K extends keyof T>(
  * @param value Исходная строка.
  * @returns Строка с заглавной первой буквой, либо исходная строка, если она пустая.
  */
-// TODO, заменить stirng ниже на что то более наглядное, например type Token = string;
 const capitalizeFirstLetter = (value: string): string => {
   if (!value) {
     return value;

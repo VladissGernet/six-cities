@@ -1,7 +1,3 @@
-// Моковые данные.
-// TODO, Удалить остатки данных
-// import { offers } from '../mocks/offers';
-
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, INITIAL_STATE_CITY } from '../const';
 import {

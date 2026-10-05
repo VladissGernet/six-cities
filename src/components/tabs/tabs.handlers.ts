@@ -11,7 +11,6 @@ import type { AppDispatch } from '../../types/state';
  * @param value строка для сопоставления с типом CityName.
  * @returns boolean значение результата поиска в CityName.
  */
-// TODO, заменить stirng ниже на что то более наглядное, например type Token = string;
 const isCityName = (value: string): value is CityName =>
   CITY_NAMES.includes(value as CityName);
 
