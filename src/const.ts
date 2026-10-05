@@ -72,7 +72,7 @@ const RATING_VALUES = ['1', '2', '3', '4', '5'] as const;
 
 // OffersMap.
 const OffersMapConfig = {
-  Tile: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  Tile: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
   Attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   DefaultPosition: {
