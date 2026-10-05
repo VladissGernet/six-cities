@@ -48,6 +48,7 @@ export default function OffersMap({
     (state) => state.activeMapMarkerId,
   );
 
+  // TODO, вынести этот участок кода как-нибудь в другое место.
   if (map) {
     mapMarkersRef.current.clear();
     const markerLayer = layerGroup();
