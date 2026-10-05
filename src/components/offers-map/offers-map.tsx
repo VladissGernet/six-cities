@@ -10,6 +10,8 @@ import { useAppSelector } from '../../hooks/redux';
 import type { Offers } from '../../types/offers';
 import type { ActiveMapMarkerId } from '../../types/general';
 
+type offerId = string;
+
 type OffersMapProps = {
   rootClassName: string;
   groupedPlaces: Offers;
@@ -27,8 +29,7 @@ export default function OffersMap({
   const { latitude, longitude, zoom } = groupedPlaces[0].city.location;
 
   const mapContainerRef = useRef<HTMLElement | null>(null);
-  // TODO, заменить stirng ниже на что то более наглядное, например type Token = string;
-  const mapMarkersRef = useRef<Map<string, Marker>>(new Map());
+  const mapMarkersRef = useRef<Map<offerId, Marker>>(new Map());
 
   const map = useOffersMap({
     mapContainerRef,

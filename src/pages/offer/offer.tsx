@@ -40,14 +40,13 @@ export default function Offer(): JSX.Element {
   if (!id) {
     return <NotFoundPage />;
   }
+
   const selectedOffer = offers.find((item) => item.id === id);
   if (!selectedOffer) {
     return <NotFoundPage />;
   }
 
-  const { title, isPremium, rating, type, price, city, location } =
-    selectedOffer;
-  // TODO, прокинуть как-то на карту.
+  const { title, isPremium, rating, type, price, city } = selectedOffer;
 
   // Подготовка данных для рендера городов поблизости.
   const groupedOffersByCity = createGroupedOffersByCity(
@@ -116,10 +115,10 @@ export default function Offer(): JSX.Element {
               <Reviews />
             </div>
           </Container>
-          <div className="container">
-            {/* TODO исправить карту. */}
+          <Container>
+            {/* TODO прокинуть в карту выбранный оффер. */}
             <OffersMap rootClassName="offer__map" groupedPlaces={nearOffers} />
-          </div>
+          </Container>
         </section>
         <Container
           className={cn('container', styles['offer__places-container'])}
