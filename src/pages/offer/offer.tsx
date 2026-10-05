@@ -47,17 +47,18 @@ export default function Offer(): JSX.Element {
 
   const { title, isPremium, rating, type, price, city, location } =
     selectedOffer;
+  // TODO, прокинуть как-то на карту.
 
   // Подготовка данных для рендера городов поблизости.
   const groupedOffersByCity = createGroupedOffersByCity(
     city.name,
     groupedOffers,
   );
+
   const nearOffers = getNearOffersWithRestriction(
     groupedOffersByCity.offerPlacesByCity,
     id,
   );
-  groupedOffersByCity.offerPlacesByCity = nearOffers;
 
   return (
     <Page isOffer>
@@ -117,11 +118,7 @@ export default function Offer(): JSX.Element {
           </Container>
           <div className="container">
             {/* TODO исправить карту. */}
-            <OffersMap
-              rootClassName="offer__map"
-              groupedPlaces={nearOffers}
-              selectedOfferLocation={location}
-            />
+            <OffersMap rootClassName="offer__map" groupedPlaces={nearOffers} />
           </div>
         </section>
         <Container
@@ -131,7 +128,7 @@ export default function Offer(): JSX.Element {
             rootClassName={cn('near-places', styles['offer__places-content'])}
             title="Other places in the neighbourhood"
             titleClassName="near-places__title"
-            groupedOffersByCity={groupedOffersByCity}
+            groupedOffersByCity={nearOffers}
           />
         </Container>
       </Main>

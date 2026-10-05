@@ -1,11 +1,13 @@
 import cn from 'classnames';
 import Rating from '../rating/rating';
+import { Link } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/redux';
 import { setActiveMapMaker } from '../../store/action';
 
 import type { Offer } from '../../types/offers';
 import type { ImageSizes } from '../../types/general';
+import { AppRoute } from '../../const';
 
 type PlaceCardProps = ImageSizes & {
   offer: Offer;
@@ -40,6 +42,8 @@ export default function PlaceCard({
     'button',
   );
 
+  const offerRoute = `${AppRoute.Offer}/${id}`;
+
   return (
     <article
       className={`${parentName}__card place-card`}
@@ -52,7 +56,7 @@ export default function PlaceCard({
         </div>
       )}
       <div className={`${parentName}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={offerRoute}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -60,7 +64,7 @@ export default function PlaceCard({
             height={imageSizes.height}
             alt={title}
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -81,7 +85,7 @@ export default function PlaceCard({
           starsWrapperClassName={'place-card__stars'}
         />
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={offerRoute}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
