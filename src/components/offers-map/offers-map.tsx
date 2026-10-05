@@ -1,14 +1,19 @@
+// General.
 import cn from 'classnames';
 import { useRef } from 'react';
+import { CustomIcon } from '../../const';
+
+// Hooks.
+import { useAppSelector } from '../../hooks/redux';
 import useOffersMap from '../../hooks/offers-map/use-offers-map';
 
-import 'leaflet/dist/leaflet.css';
-import { CustomIcon } from '../../const';
-import { Icon, layerGroup, Marker } from 'leaflet';
-import { useAppSelector } from '../../hooks/redux';
-
+// Types.
 import type { Offers } from '../../types/offers';
 import type { ActiveMapMarkerId } from '../../types/general';
+
+// Leaflet.
+import { Icon, layerGroup, Marker } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 type offerId = string;
 
@@ -18,7 +23,7 @@ type OffersMapProps = {
 };
 
 const defaultCustomIcon = new Icon(CustomIcon.Default);
-const currentCustomIcon = new Icon(CustomIcon.Active);
+const selectedCustomIcon = new Icon(CustomIcon.Active);
 
 export default function OffersMap({
   rootClassName,
@@ -39,13 +44,14 @@ export default function OffersMap({
     groupedPlaces,
   });
 
-  // TODO попробовать также вынесть в отдельный хук , как и useOffersMap и сделать
-  // защиту от повторрного создания markerLayer в useRef где функция создания будет с
-  // условием :
-  // if (mapContainerRef.current !== null && !isRenderedRef.current) {
+  const activeMarkerId = useAppSelector<ActiveMapMarkerId>(
+    (state) => state.activeMapMarkerId,
+  );
+
   if (map) {
     mapMarkersRef.current.clear();
     const markerLayer = layerGroup();
+
     groupedPlaces.forEach(({ location, id }) => {
       const marker = new Marker({
         lat: location.latitude,
@@ -53,19 +59,16 @@ export default function OffersMap({
       });
 
       mapMarkersRef.current.set(id, marker);
-      marker.setIcon(defaultCustomIcon).addTo(markerLayer);
+
+      if (id === activeMarkerId) {
+        marker.setIcon(selectedCustomIcon);
+      } else {
+        marker.setIcon(defaultCustomIcon);
+      }
+      marker.addTo(markerLayer);
     });
 
     markerLayer.addTo(map);
-  }
-
-  const activeMarkerId = useAppSelector<ActiveMapMarkerId>(
-    (state) => state.activeMapMarkerId,
-  );
-
-  if (mapMarkersRef.current && activeMarkerId) {
-    const selectedMarker = mapMarkersRef.current.get(activeMarkerId);
-    selectedMarker?.setIcon(currentCustomIcon);
   }
 
   return groupedPlaces?.length ? (
