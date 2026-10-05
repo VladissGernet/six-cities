@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
@@ -13,6 +14,9 @@ import styles from './not-found-page.module.css';
 export default function NotFoundPage(): JSX.Element {
   return (
     <Page isNotFound>
+      <Helmet>
+        <title>404 Not Found</title>
+      </Helmet>
       <Header />
 
       <Main isNotFound>

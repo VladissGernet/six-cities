@@ -1,4 +1,5 @@
 // General.
+import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
@@ -60,6 +61,9 @@ export default function Offer(): JSX.Element {
 
   return (
     <Page isOffer>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <Header />
       <Main isOffer>
         <section className="offer">

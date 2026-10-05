@@ -1,3 +1,4 @@
+import { HelmetProvider } from 'react-helmet-async';
 import { Routes, Route } from 'react-router-dom';
 
 import { AppRoute } from '../../const';
@@ -12,7 +13,6 @@ import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import AppLayout from '../../layout/app-layout';
 
-// TODO, также возможно нужно разобраться с helmet для изменения title у вкладки.
 /*
   TODO
   https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/3/item/18
@@ -27,16 +27,18 @@ import AppLayout from '../../layout/app-layout';
 
 export default function App(): JSX.Element {
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route path={AppRoute.Root} element={<MainScreen />} />
-          <Route path={AppRoute.Favorites} element={<PrivateRoute />} />
-          <Route path={AppRoute.Login} element={<AuthScreen />} />
-          <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </HistoryRouter>
+    <HelmetProvider>
+      <HistoryRouter history={browserHistory}>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path={AppRoute.Root} element={<MainScreen />} />
+            <Route path={AppRoute.Favorites} element={<PrivateRoute />} />
+            <Route path={AppRoute.Login} element={<AuthScreen />} />
+            <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </HistoryRouter>
+    </HelmetProvider>
   );
 }

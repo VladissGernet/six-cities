@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useRef, type FormEventHandler } from 'react';
 
 import Page from '../../components/page/page';
@@ -40,6 +41,9 @@ export default function AuthScreen(): JSX.Element {
 
   return (
     <Page isGray isLogin>
+      <Helmet>
+        <title>Sign in</title>
+      </Helmet>
       <Header isHeaderNoNav />
       <Main isLoginPage>
         <Container className="page__login-container container">

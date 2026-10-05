@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
 
 import Page from '../../components/page/page';
@@ -36,6 +37,9 @@ export default function Favorites(): JSX.Element {
 
   return (
     <Page hasFavorites={hasFavorites} isFavorites>
+      <Helmet>
+        <title>Favorites</title>
+      </Helmet>
       <Header />
       <Main hasFavorites={hasFavorites}>
         <Container className={mainContainerClassName}>
