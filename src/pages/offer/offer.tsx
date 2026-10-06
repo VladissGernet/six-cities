@@ -65,7 +65,7 @@ export default function Offer(): JSX.Element {
         <title>{title}</title>
       </Helmet>
       <Header />
-      <Main isOffer>
+      <Main>
         <section className="offer">
           <Container className="offer__gallery-container container">
             <Gallery />
