@@ -34,6 +34,7 @@ const initialState: StateType = {
   userAccountData: null,
 };
 
+// TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
 export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
