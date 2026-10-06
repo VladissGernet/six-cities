@@ -11,7 +11,7 @@ const getRandomElement = <T>(array: readonly T[]): T | undefined => {
 };
 
 /**
- * Типобезопасно фильтрует массив объектов по значению свойства массив объектов
+ * Безопасно для типов фильтрует массив объектов по значению свойства массив объектов
  * по значению указанного свойства.
  * @param collection Массив объектов одного типа.
  * @param property Ключ свойства объекта из массива collection.
@@ -36,4 +36,18 @@ const capitalizeFirstLetter = (value: string): string => {
   return value[0].toUpperCase() + value.slice(1);
 };
 
-export { getRandomElement, filterByProperty, capitalizeFirstLetter };
+/**
+ * Принимает строку пути текущей страницы и возвращает строку пути основания,
+ * для дальнейшего сопоставления с AppRoute.
+ * Например /offer/something преобразует в /offer.
+ * @param path - путь текущей страницы, получаемый через useLocation().pathname.
+ * @returns Обрезанный до основания путь в виде строки.
+ */
+const makeBasePath = (path: string): string => `/${path.split('/')[1]}`;
+
+export {
+  getRandomElement,
+  filterByProperty,
+  capitalizeFirstLetter,
+  makeBasePath,
+};

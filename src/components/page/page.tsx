@@ -3,6 +3,7 @@ import cn from 'classnames';
 import styles from './page.module.css';
 import { useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { makeBasePath } from '../../utils/utils';
 
 type PageProps = PropsWithChildren<{
   isGray?: boolean;
@@ -24,13 +25,15 @@ export default function Page({
 }: PageProps): JSX.Element {
   // TODO, возможно нужно вынести в общий Layout.
   const { pathname } = useLocation();
+  const basePath = makeBasePath(pathname);
+
   // TODO, заменить флаг на проверку из state.
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
   const pageClassName = cn(
     'page',
     isGray && 'page--gray',
-    pageClassNames[pathname],
+    pageClassNames[basePath],
     isFavoritesEmpty && 'page--favorites-empty',
     // Фикс sticky-footer на странице Favorites.
     styles['page--sticky-footer-fix'],

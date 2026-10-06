@@ -3,6 +3,7 @@ import cn from 'classnames';
 import styles from './main.module.css';
 import { AppRoute } from '../../const';
 import { useLocation } from 'react-router-dom';
+import { makeBasePath } from '../../utils/utils';
 
 type MainProps = PropsWithChildren<{
   isIndex?: boolean;
@@ -26,14 +27,10 @@ export default function Main({
   isLoginPage,
   isNotFound,
 }: MainProps): JSX.Element {
-  // TODO, убрать и зменить проверкой через state.
   const { pathname } = useLocation();
-  // TODO, остановился на решении проблемы чтения пути после /offer/someid
-  // либо можно просто сделать через split
-  // либо через useMatch('/offer/:id')
-  //  Не забыть сделать правку в page.
-  console.log(pathname);
+  const basePath = makeBasePath(pathname);
 
+  // TODO, убрать и зменить проверкой через state.
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
   const mainClassName = cn(
@@ -46,7 +43,7 @@ export default function Main({
     // Исправление sticky-footer.
     hasFavorites && styles['page__main--favorites-not-empty-fix'],
     isNotFound && styles['page__main--not-found-fix'],
-    mainClassNames[pathname],
+    mainClassNames[basePath],
   );
 
   // TODO, использовать uselocation для подстановки классов, т.е. создать хук (useEffect или useLayoutEffect) после рендера и только
