@@ -6,26 +6,20 @@ import { useLocation } from 'react-router-dom';
 import { makeBasePath } from '../../utils/utils';
 
 type MainProps = PropsWithChildren<{
-  isIndex?: boolean;
   hasFavorites?: boolean | null;
-  isLoginPage?: boolean;
-  isNotFound?: boolean;
 }>;
 
 const mainClassNames: Record<string, string | undefined> = {
-  [AppRoute.Root]: 'page--main',
-  [AppRoute.Login]: 'page--login',
-  [AppRoute.Favorites]: styles['page--favorites-fix'],
-  [AppRoute.NotFoundPage]: styles['page--not-found-fix'],
+  [AppRoute.Root]: 'page__main--index',
+  [AppRoute.Login]: 'page__main--login',
+  // [AppRoute.Favorites]: styles['page--favorites-fix'],
+  [AppRoute.NotFoundPage]: styles['page__main--not-found-fix'],
   [AppRoute.Offer]: `page__main--offer ${styles['page__main--offer-fix']}`,
 };
 
 export default function Main({
   children,
-  isIndex,
   hasFavorites = null,
-  isLoginPage,
-  isNotFound,
 }: MainProps): JSX.Element {
   const { pathname } = useLocation();
   const basePath = makeBasePath(pathname);
@@ -33,16 +27,18 @@ export default function Main({
   // TODO, убрать и зменить проверкой через state.
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
+  // TODO, если несуществующая страница (AppRoute.NotFoundPage), то такое решение не работает.
+  // нужен useMatch.
+  // Также не забыть исправить и в <Page>
+  console.log(basePath);
+
   const mainClassName = cn(
     'page__main',
-    isIndex && 'page__main--index',
     isFavoritesEmpty && 'page__main--favorites page__main--favorites-empty',
-    isLoginPage && 'page__main--login',
-    hasFavorites && 'page__main--favorites',
 
     // Исправление sticky-footer.
-    hasFavorites && styles['page__main--favorites-not-empty-fix'],
-    isNotFound && styles['page__main--not-found-fix'],
+    hasFavorites &&
+      `page__main--favorites ${styles['page__main--favorites-not-empty-fix']}`,
     mainClassNames[basePath],
   );
 

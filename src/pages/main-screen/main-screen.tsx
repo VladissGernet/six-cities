@@ -14,7 +14,7 @@ export default function MainScreen(): JSX.Element {
       </Helmet>
       <Header />
 
-      <Main isIndex>
+      <Main>
         <h1 className="visually-hidden">Cities</h1>
         <Tabs />
         <Cities />

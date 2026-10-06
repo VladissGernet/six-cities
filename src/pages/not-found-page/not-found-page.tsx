@@ -19,7 +19,7 @@ export default function NotFoundPage(): JSX.Element {
       </Helmet>
       <Header />
 
-      <Main isNotFound>
+      <Main>
         <Container className={cn('container', styles['container'])}>
           <h1>404 Not Found</h1>
           <p>This page doesn’t exist.</p>

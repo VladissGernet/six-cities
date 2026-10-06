@@ -45,7 +45,7 @@ export default function AuthScreen(): JSX.Element {
         <title>Sign in</title>
       </Helmet>
       <Header isHeaderNoNav />
-      <Main isLoginPage>
+      <Main>
         <Container className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
