@@ -36,7 +36,7 @@ export default function Favorites(): JSX.Element {
   );
 
   return (
-    <Page hasFavorites={hasFavorites} isFavorites>
+    <Page hasFavorites={hasFavorites}>
       <Helmet>
         <title>Favorites</title>
       </Helmet>

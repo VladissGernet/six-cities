@@ -18,6 +18,7 @@ export default function Main({
   isLoginPage,
   isNotFound,
 }: MainProps): JSX.Element {
+  // TODO, убрать и зменить проверкой через state.
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
   const mainClassName = cn(

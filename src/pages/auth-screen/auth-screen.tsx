@@ -40,7 +40,7 @@ export default function AuthScreen(): JSX.Element {
   const randomCity = getRandomElement<CityName>(CITY_NAMES);
 
   return (
-    <Page isGray isLogin>
+    <Page isGray>
       <Helmet>
         <title>Sign in</title>
       </Helmet>

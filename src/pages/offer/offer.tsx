@@ -60,7 +60,7 @@ export default function Offer(): JSX.Element {
   );
 
   return (
-    <Page isOffer>
+    <Page>
       <Helmet>
         <title>{title}</title>
       </Helmet>

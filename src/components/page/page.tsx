@@ -1,45 +1,39 @@
 import { PropsWithChildren } from 'react';
 import cn from 'classnames';
 import styles from './page.module.css';
+import { useLocation } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type PageProps = PropsWithChildren<{
   isGray?: boolean;
-  isMain?: boolean;
-  isLogin?: boolean;
-  isFavorites?: boolean;
-  isNotFound?: boolean;
-  isOffer?: boolean;
   hasFavorites?: boolean | null;
 }>;
+
+const pageClassNames: Record<string, string | undefined> = {
+  [AppRoute.Root]: 'page--main',
+  [AppRoute.Login]: 'page--login',
+  [AppRoute.Favorites]: styles['page--favorites-fix'],
+  [AppRoute.NotFoundPage]: styles['page--not-found-fix'],
+  [AppRoute.Offer]: styles['page--offer-fix'],
+};
 
 export default function Page({
   children,
   isGray,
-  isMain,
-  isLogin,
-  isFavorites,
-  isNotFound,
-  isOffer,
   hasFavorites = null,
 }: PageProps): JSX.Element {
   // TODO, возможно нужно вынести в общий Layout.
+  const { pathname } = useLocation();
+  // TODO, заменить флаг на проверку из state.
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
-
-  // TODO, заменить isMain, isLogin и прочее на это.
-  // const locationPathname = useLocation().pathname;
 
   const pageClassName = cn(
     'page',
     isGray && 'page--gray',
-    isMain && 'page--main',
-    isLogin && 'page--login',
+    pageClassNames[pathname],
     isFavoritesEmpty && 'page--favorites-empty',
-
     // Фикс sticky-footer на странице Favorites.
     styles['page--sticky-footer-fix'],
-    isFavorites && styles['page--favorites-fix'],
-    isNotFound && styles['page--not-found-fix'],
-    isOffer && styles['page--offer-fix'],
   );
 
   return <div className={pageClassName}>{children}</div>;

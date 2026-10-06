@@ -8,7 +8,7 @@ import Cities from '../../components/cities/cities';
 export default function MainScreen(): JSX.Element {
   // TODO, main не должен знать о данных.
   return (
-    <Page isGray isMain>
+    <Page isGray>
       <Helmet>
         <title>Cities</title>
       </Helmet>

@@ -13,7 +13,7 @@ import styles from './not-found-page.module.css';
 
 export default function NotFoundPage(): JSX.Element {
   return (
-    <Page isNotFound>
+    <Page>
       <Helmet>
         <title>404 Not Found</title>
       </Helmet>
