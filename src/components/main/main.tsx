@@ -27,19 +27,14 @@ export default function Main({
   // TODO, убрать и зменить проверкой через state.
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
-  // TODO, если несуществующая страница (AppRoute.NotFoundPage), то такое решение не работает.
-  // нужен useMatch.
-  // Также не забыть исправить и в <Page>
-  console.log(basePath);
-
   const mainClassName = cn(
     'page__main',
     isFavoritesEmpty && 'page__main--favorites page__main--favorites-empty',
+    mainClassNames[basePath] || mainClassNames[AppRoute.NotFoundPage],
 
     // Исправление sticky-footer.
     hasFavorites &&
       `page__main--favorites ${styles['page__main--favorites-not-empty-fix']}`,
-    mainClassNames[basePath],
   );
 
   // TODO, использовать uselocation для подстановки классов, т.е. создать хук (useEffect или useLayoutEffect) после рендера и только

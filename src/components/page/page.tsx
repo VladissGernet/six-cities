@@ -33,7 +33,7 @@ export default function Page({
   const pageClassName = cn(
     'page',
     isGray && 'page--gray',
-    pageClassNames[basePath],
+    pageClassNames[basePath] || pageClassNames[AppRoute.NotFoundPage],
     isFavoritesEmpty && 'page--favorites-empty',
     // Фикс sticky-footer на странице Favorites.
     styles['page--sticky-footer-fix'],
