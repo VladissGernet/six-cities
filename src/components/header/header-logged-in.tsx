@@ -15,7 +15,14 @@ export default function HeaderLoggedIn(): JSX.Element {
     <>
       <li className="header__nav-item user">
         <a className="header__nav-link header__nav-link--profile" href="#">
-          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+          <div
+            className="header__avatar-wrapper user__avatar-wrapper"
+            style={{
+              backgroundImage: userData?.avatarUrl
+                ? `url("${userData.avatarUrl}")`
+                : 'none',
+            }}
+          />
           <span className="header__user-name user__name">
             {userData?.email}
           </span>
