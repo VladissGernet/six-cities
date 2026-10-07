@@ -2,10 +2,8 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, INITIAL_STATE_CITY } from '../const';
 import {
   changeCity,
-  loadOffers,
   requireAuthorizationStatus,
   setActiveMapMaker,
-  setOffersDataLoadingStatus,
   setUserAccountData,
 } from './action';
 import { groupOffers } from '../utils/offers';
@@ -13,6 +11,7 @@ import { groupOffers } from '../utils/offers';
 import type { Offers, CityName, GroupedOffers } from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
 import type { UserData } from '../types/user-data';
+import { fetchOffersAction } from './api-actions';
 
 type StateType = {
   city: CityName;
@@ -45,16 +44,21 @@ export const reducer = createReducer(initialState, (builder) => {
       const newActiveMapMarkerId = action.payload;
       state.activeMapMarkerId = newActiveMapMarkerId;
     })
-    .addCase(loadOffers, (state, action) => {
+    .addCase(fetchOffersAction.pending, (state) => {
+      state.isOffersDataLoading = true;
+    })
+    .addCase(fetchOffersAction.fulfilled, (state, action) => {
+      state.isOffersDataLoading = false;
       const newOffers = action.payload;
       state.offers = newOffers;
       state.groupedOffers = groupOffers(newOffers);
     })
+    .addCase(fetchOffersAction.rejected, (state) => {
+      // Ошибка будет обработана через api.ts.
+      state.isOffersDataLoading = false;
+    })
     .addCase(requireAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
-    })
-    .addCase(setOffersDataLoadingStatus, (state, action) => {
-      state.isOffersDataLoading = action.payload;
     })
     .addCase(setUserAccountData, (state, action) => {
       state.userAccountData = action.payload;

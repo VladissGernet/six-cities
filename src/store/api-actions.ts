@@ -2,10 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import {
-  loadOffers,
   redirectToRoute,
   requireAuthorizationStatus,
-  setOffersDataLoadingStatus,
   setUserAccountData,
 } from './action';
 import { dropToken, saveToken } from '../services/token';
@@ -16,21 +14,17 @@ import type { AuthData } from '../types/auth-data';
 import type { UserData } from '../types/user-data';
 
 export const fetchOffersAction = createAsyncThunk<
+  Offers,
   void,
-  undefined,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
-  // TODO, возможно здесь можно заменить 'data/fetchOffers/fullfiled'
-  dispatch(setOffersDataLoadingStatus(true));
+>('data/fetchOffers', async (_arg, { extra: api }) => {
   const { data } = await api.get<Offers>(APIRoute.Offers);
-  dispatch(setOffersDataLoadingStatus(false));
-
-  dispatch(loadOffers(data));
+  return data;
 });
 
 export const checkAuthAction = createAsyncThunk<
   void,
-  undefined,
+  void,
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
   try {
@@ -67,7 +61,7 @@ export const loginAction = createAsyncThunk<
 
 export const logoutAction = createAsyncThunk<
   void,
-  undefined,
+  void,
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('user/logout', async (_arg, { dispatch, extra: api }) => {
   await api.delete(APIRoute.Logout);
