@@ -19,6 +19,7 @@ enum AppRoute {
   NotFoundPage = '/not-found-page',
 }
 
+// TODO, исправить над authentication
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

@@ -41,9 +41,9 @@ function filterFavoriteOffers(
   */
   const transformedFilteredOffers: GroupedOffersByCity[] = [];
 
-  groupedOffers.forEach((offers, city) => {
+  Object.values(groupedOffers).forEach((offers, city) => {
     const filteredOffers = filterByProperty(offers, 'isFavorite', true);
-
+    // TODO, Здесь city зачем то передовал, но не помню с какой целью. Сейчас это index от forEach.
     if (filteredOffers.length) {
       transformedFilteredOffers.push({
         city,
