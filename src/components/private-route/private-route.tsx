@@ -1,14 +1,14 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthenticationStatus } from '../../const';
 import Favorites from '../../pages/favorites/favorites';
 import { useAppSelector } from '../../hooks/redux';
 
 export default function PrivateRoute(): JSX.Element {
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus,
+  const authenticationStatus = useAppSelector(
+    (state) => state.AuthenticationStatus,
   );
 
-  return authorizationStatus === AuthorizationStatus.Auth ? (
+  return authenticationStatus === AuthenticationStatus.Auth ? (
     <Favorites />
   ) : (
     <Navigate to={AppRoute.Login} />

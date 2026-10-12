@@ -19,8 +19,7 @@ enum AppRoute {
   NotFoundPage = '/not-found-page',
 }
 
-// TODO, исправить над authentication
-enum AuthorizationStatus {
+enum AuthenticationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -99,7 +98,7 @@ const CustomIcon: Record<'Default' | 'Active', IconOptions> = {
 export {
   AppRoute,
   APIRoute,
-  AuthorizationStatus,
+  AuthenticationStatus,
   INITIAL_STATE_CITY,
   ImageSize,
   CITY_NAMES,

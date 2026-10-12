@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus, INITIAL_STATE_CITY } from '../const';
+import { AuthenticationStatus, INITIAL_STATE_CITY } from '../const';
 import {
   changeCity,
-  requireAuthorizationStatus,
+  requireAuthenticationStatus,
   setActiveMapMaker,
   setUserAccountData,
 } from './action';
@@ -18,7 +18,7 @@ type StateType = {
   offers: Offers;
   groupedOffers: GroupedOffers;
   activeMapMarkerId: ActiveMapMarkerId;
-  authorizationStatus: AuthorizationStatus;
+  AuthenticationStatus: AuthenticationStatus;
   isOffersDataLoading: boolean;
   userAccountData: UserData | null;
 };
@@ -28,7 +28,7 @@ const initialState: StateType = {
   offers: [],
   groupedOffers: {},
   activeMapMarkerId: null,
-  authorizationStatus: AuthorizationStatus.Unknown,
+  AuthenticationStatus: AuthenticationStatus.Unknown,
   isOffersDataLoading: false,
   userAccountData: null,
 };
@@ -57,8 +57,8 @@ export const reducer = createReducer(initialState, (builder) => {
       // Ошибка будет обработана через api.ts.
       state.isOffersDataLoading = false;
     })
-    .addCase(requireAuthorizationStatus, (state, action) => {
-      state.authorizationStatus = action.payload;
+    .addCase(requireAuthenticationStatus, (state, action) => {
+      state.AuthenticationStatus = action.payload;
     })
     .addCase(setUserAccountData, (state, action) => {
       state.userAccountData = action.payload;

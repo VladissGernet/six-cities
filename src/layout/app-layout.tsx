@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { useAppSelector } from '../hooks/redux';
-import { AuthorizationStatus } from '../const';
+import { AuthenticationStatus } from '../const';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
 
 /**
@@ -9,15 +9,15 @@ import LoadingScreen from '../pages/loading-screen/loading-screen';
  * и при этом показывать LoadingScreen до тех пор, пока данные не загрузятся.
  */
 export default function AppLayout(): JSX.Element {
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus,
+  const authenticationStatus = useAppSelector(
+    (state) => state.AuthenticationStatus,
   );
   const isQuestionsDataLoading = useAppSelector(
     (state) => state.isOffersDataLoading,
   );
 
   if (
-    authorizationStatus === AuthorizationStatus.Unknown ||
+    authenticationStatus === AuthenticationStatus.Unknown ||
     isQuestionsDataLoading
   ) {
     return <LoadingScreen />;
