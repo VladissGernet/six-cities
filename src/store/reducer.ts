@@ -64,6 +64,7 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchOffersAction.rejected, (state) => {
       // TODO, Расмотреть вариант с отображением ошибки как тут:
+      // Также здесь рассказано про slice в reducer.
       // https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/7/item/17
       // 1:33:41
 
