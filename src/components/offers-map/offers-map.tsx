@@ -1,7 +1,6 @@
 // General.
 import cn from 'classnames';
 import { useRef } from 'react';
-import { CustomIcon } from '../../const';
 
 // Hooks.
 import { useAppSelector } from '../../hooks/redux';
@@ -9,21 +8,17 @@ import useOffersMap from '../../hooks/offers-map/use-offers-map';
 
 // Types.
 import type { Offers } from '../../types/offers';
-import type { ActiveMapMarkerId } from '../../types/general';
+import type { ActiveMapMarkerId, MapMarkers } from '../../types/general';
 
 // Leaflet.
-import { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-type offerId = string;
+import { renderMapMarkersLayer } from './offers-map.helper';
 
 type OffersMapProps = {
   rootClassName: string;
   groupedPlaces: Offers;
 };
-
-const defaultCustomIcon = new Icon(CustomIcon.Default);
-const selectedCustomIcon = new Icon(CustomIcon.Active);
 
 export default function OffersMap({
   rootClassName,
@@ -34,7 +29,7 @@ export default function OffersMap({
   const { latitude, longitude, zoom } = groupedPlaces[0].city.location;
 
   const mapContainerRef = useRef<HTMLElement | null>(null);
-  const mapMarkersRef = useRef<Map<offerId, Marker>>(new Map());
+  const mapMarkersRef = useRef<MapMarkers>(new Map());
 
   const map = useOffersMap({
     mapContainerRef,
@@ -48,29 +43,12 @@ export default function OffersMap({
     (state) => state.activeMapMarkerId,
   );
 
-  // TODO, вынести этот участок кода как-нибудь в другое место.
-  if (map) {
-    mapMarkersRef.current.clear();
-    const markerLayer = layerGroup();
-
-    groupedPlaces.forEach(({ location, id }) => {
-      const marker = new Marker({
-        lat: location.latitude,
-        lng: location.longitude,
-      });
-
-      mapMarkersRef.current.set(id, marker);
-
-      if (id === activeMarkerId) {
-        marker.setIcon(selectedCustomIcon);
-      } else {
-        marker.setIcon(defaultCustomIcon);
-      }
-      marker.addTo(markerLayer);
-    });
-
-    markerLayer.addTo(map);
-  }
+  renderMapMarkersLayer(
+    groupedPlaces,
+    map,
+    mapMarkersRef.current,
+    activeMarkerId,
+  );
 
   return groupedPlaces?.length ? (
     <section className={cn(rootClassName, 'map')} ref={mapContainerRef} />

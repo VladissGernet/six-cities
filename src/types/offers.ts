@@ -13,10 +13,12 @@ type City = {
   location: Location;
 };
 
+export type offerId = string;
+
 export type GroupedOffers = Partial<Record<CityName, Offers>>;
 
 export type Offer = {
-  id: string;
+  id: offerId;
   title: string;
   type: OfferType;
   price: number;
