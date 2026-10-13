@@ -5,6 +5,7 @@ import PlacesList from './places-list';
 import PlacesSorting from './places-sorting';
 import { ImageSize, PlacesSortingValue } from '../../const';
 // TODO, рассмотреть кеширование с помощью useMemo.
+// Раздел 8.
 import { sortOffers } from './places.helper';
 
 import type { Offers } from '../../types/offers';
