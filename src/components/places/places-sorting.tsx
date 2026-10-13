@@ -1,4 +1,4 @@
-import { useState, MouseEventHandler } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PlacesSortingValue } from '../../const';
 
 import type { PlacesSortingValueType } from '../../types/general';
@@ -12,15 +12,10 @@ export default function PlacesSorting({
   activeOption,
   setActiveOption,
 }: PlacesSortingTypes): JSX.Element {
-  const sortingValues = Object.values(PlacesSortingValue);
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+  const menuRef = useRef<null | HTMLSpanElement>(null);
+  const sortingValues = Object.values(PlacesSortingValue);
 
-  const selectedPointClickHandler: MouseEventHandler<HTMLSpanElement> = (e) => {
-    e.preventDefault();
-    if (!isMenuOpened) {
-      setIsMenuOpened(true);
-    }
-  };
   const optionClickHandler = (optionValue: PlacesSortingValueType) => {
     if (optionValue === activeOption) {
       return;
@@ -30,18 +25,31 @@ export default function PlacesSorting({
     setIsMenuOpened(false);
   };
 
-  // TODO, пример лучшей простой реализации:
-  // https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/6/item/17
-  // на 48:50
-  // Доделать закрытие меню.
+  // Закрытие меню при клике за пределами селектов.
+  useEffect(() => {
+    const hideMenu = (evt: MouseEvent) => {
+      if (
+        evt.target instanceof HTMLElement &&
+        menuRef.current &&
+        !menuRef.current.contains(evt.target)
+      ) {
+        setIsMenuOpened(false);
+      }
+    };
+    document.addEventListener('click', hideMenu);
+    return () => {
+      document.removeEventListener('click', hideMenu);
+    };
+  }, []);
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
       <span
+        ref={menuRef}
         className="places__sorting-type"
         tabIndex={0}
-        onClick={selectedPointClickHandler}
+        onClick={() => setIsMenuOpened((lastOpened) => !lastOpened)}
       >
         {activeOption}
         <svg className="places__sorting-arrow" width="7" height="4">
