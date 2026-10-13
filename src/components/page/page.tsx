@@ -15,7 +15,6 @@ const pageClassNames: Record<string, string | undefined> = {
 };
 
 export default function Page({ children }: PropsWithChildren): JSX.Element {
-  // TODO, возможно нужно вынести в общий Layout.
   const { pathname } = useLocation();
   const basePath = makeBasePath(pathname);
 

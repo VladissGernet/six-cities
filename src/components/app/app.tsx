@@ -11,7 +11,10 @@ import AuthScreen from '../../pages/auth-screen/auth-screen';
 
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+
 import AppLayout from '../../layout/app-layout';
+import PageWithoutLayout from '../../layout/page-without-footer-layout';
+import PageWithFooterLayout from '../../layout/page-with-footer-layout';
 
 export default function App(): JSX.Element {
   return (
@@ -19,11 +22,17 @@ export default function App(): JSX.Element {
       <HistoryRouter history={browserHistory}>
         <Routes>
           <Route element={<AppLayout />}>
-            <Route path={AppRoute.Root} element={<MainScreen />} />
-            <Route path={AppRoute.Favorites} element={<PrivateRoute />} />
             <Route path={AppRoute.Login} element={<AuthScreen />} />
-            <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
-            <Route path="*" element={<NotFoundPage />} />
+
+            <Route element={<PageWithoutLayout />}>
+              <Route path={AppRoute.Root} element={<MainScreen />} />
+              <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+
+            <Route element={<PageWithFooterLayout />}>
+              <Route path={AppRoute.Favorites} element={<PrivateRoute />} />
+            </Route>
           </Route>
         </Routes>
       </HistoryRouter>

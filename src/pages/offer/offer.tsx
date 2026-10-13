@@ -5,9 +5,6 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
 // Components
-import Page from '../../components/page/page';
-import Header from '../../components/header/header';
-import Main from '../../components/main/main';
 import Gallery from '../../components/gallery/gallery';
 import Rating from '../../components/rating/rating';
 import Reviews from '../../components/reviews/reviews';
@@ -60,77 +57,72 @@ export default function Offer(): JSX.Element {
   );
 
   return (
-    <Page>
+    <>
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <Header />
-      <Main>
-        <section className="offer">
-          <Container className="offer__gallery-container container">
-            <Gallery />
-          </Container>
-          <Container className="offer__container container">
-            <div className="offer__wrapper">
-              {isPremium && (
-                <div className="offer__mark">
-                  <span>Premium</span>
-                </div>
-              )}
-              <div className="offer__name-wrapper">
-                <h1 className="offer__name">{title}</h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use href="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
-              </div>
-              <Rating
-                rating={rating}
-                rootClassName={'offer__rating'}
-                starsWrapperClassName={'offer__stars'}
-                valueClassName={'offer__rating-value'}
-                showValue
-              />
-              <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">
-                  {capitalizeFirstLetter(type)}
-                </li>
-                <li className="offer__feature offer__feature--bedrooms">
-                  {/* TODO, Исправить на реальное, сейчас mock данные */}3
-                  Bedrooms
-                </li>
-                <li className="offer__feature offer__feature--adults">
-                  {/* TODO, Исправить на реальное, сейчас mock данные */}
-                  Max 4 adults
-                </li>
-              </ul>
-              <div className="offer__price">
-                <b className="offer__price-value">&euro;{price}</b>
-                <span className="offer__price-text">&nbsp;night</span>
-              </div>
-              <OfferInside />
-              <OfferHost />
-              <Reviews />
-            </div>
-          </Container>
-          <Container>
-            {/* TODO прокинуть в карту выбранный оффер. */}
-            <OffersMap rootClassName="offer__map" groupedPlaces={nearOffers} />
-          </Container>
-        </section>
-        <Container
-          className={cn('container', styles['offer__places-container'])}
-        >
-          <Places
-            rootClassName={cn('near-places', styles['offer__places-content'])}
-            title="Other places in the neighbourhood"
-            titleClassName="near-places__title"
-            groupedOffersByCity={nearOffers}
-          />
+      <section className="offer">
+        <Container className="offer__gallery-container container">
+          <Gallery />
         </Container>
-      </Main>
-    </Page>
+        <Container className="offer__container container">
+          <div className="offer__wrapper">
+            {isPremium && (
+              <div className="offer__mark">
+                <span>Premium</span>
+              </div>
+            )}
+            <div className="offer__name-wrapper">
+              <h1 className="offer__name">{title}</h1>
+              <button className="offer__bookmark-button button" type="button">
+                <svg className="offer__bookmark-icon" width="31" height="33">
+                  <use href="#icon-bookmark"></use>
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </button>
+            </div>
+            <Rating
+              rating={rating}
+              rootClassName={'offer__rating'}
+              starsWrapperClassName={'offer__stars'}
+              valueClassName={'offer__rating-value'}
+              showValue
+            />
+            <ul className="offer__features">
+              <li className="offer__feature offer__feature--entire">
+                {capitalizeFirstLetter(type)}
+              </li>
+              <li className="offer__feature offer__feature--bedrooms">
+                {/* TODO, Исправить на реальное, сейчас mock данные */}3
+                Bedrooms
+              </li>
+              <li className="offer__feature offer__feature--adults">
+                {/* TODO, Исправить на реальное, сейчас mock данные */}
+                Max 4 adults
+              </li>
+            </ul>
+            <div className="offer__price">
+              <b className="offer__price-value">&euro;{price}</b>
+              <span className="offer__price-text">&nbsp;night</span>
+            </div>
+            <OfferInside />
+            <OfferHost />
+            <Reviews />
+          </div>
+        </Container>
+        <Container>
+          {/* TODO прокинуть в карту выбранный оффер. */}
+          <OffersMap rootClassName="offer__map" groupedPlaces={nearOffers} />
+        </Container>
+      </section>
+      <Container className={cn('container', styles['offer__places-container'])}>
+        <Places
+          rootClassName={cn('near-places', styles['offer__places-content'])}
+          title="Other places in the neighbourhood"
+          titleClassName="near-places__title"
+          groupedOffersByCity={nearOffers}
+        />
+      </Container>
+    </>
   );
 }
