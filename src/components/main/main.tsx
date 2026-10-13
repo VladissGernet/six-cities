@@ -14,6 +14,7 @@ import styles from './main.module.css';
 const mainClassNames: Record<string, string | undefined> = {
   [AppRoute.Root]: 'page__main--index',
   [AppRoute.Login]: 'page__main--login',
+  [AppRoute.Favorites]: 'page__main--favorites',
   [AppRoute.NotFoundPage]: styles['page__main--not-found-fix'],
   [AppRoute.Offer]: `page__main--offer ${styles['page__main--offer-fix']}`,
 };
@@ -29,9 +30,8 @@ export default function Main({ children }: PropsWithChildren): JSX.Element {
 
   const mainClassName = cn(
     'page__main',
-    isFavoritesEmpty && 'page__main--favorites page__main--favorites-empty',
-    // TODO, условие или не совсем подходит
     mainClassNames[basePath] || mainClassNames[AppRoute.NotFoundPage],
+    isFavoritesEmpty && 'page__main--favorites-empty',
 
     // Исправление sticky-footer.
     hasFavorites &&

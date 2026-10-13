@@ -32,7 +32,6 @@ export default function Page({ children, isGray }: PageProps): JSX.Element {
   const pageClassName = cn(
     'page',
     isGray && 'page--gray',
-    // TODO, условие или не совсем подходит
     pageClassNames[basePath] || pageClassNames[AppRoute.NotFoundPage],
     isFavoritesEmpty && 'page--favorites-empty',
     // Фикс sticky-footer на странице Favorites.
