@@ -6,9 +6,14 @@ import {
   setActiveMapMaker,
   setUserAccountData,
 } from './action';
-import { groupOffers } from '../utils/offers';
+import { filterFavoriteOffers, groupOffers } from '../utils/offers';
 
-import type { Offers, CityName, GroupedOffers } from '../types/offers';
+import type {
+  Offers,
+  CityName,
+  GroupedOffers,
+  GroupedOffersByCity,
+} from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
 import type { UserData } from '../types/user-data';
 import { fetchOffersAction } from './api-actions';
@@ -17,6 +22,7 @@ type StateType = {
   city: CityName;
   offers: Offers;
   groupedOffers: GroupedOffers;
+  groupedFavoirteOffers: GroupedOffersByCity[];
   activeMapMarkerId: ActiveMapMarkerId;
   AuthenticationStatus: AuthenticationStatus;
   isOffersDataLoading: boolean;
@@ -27,6 +33,7 @@ const initialState: StateType = {
   city: INITIAL_STATE_CITY,
   offers: [],
   groupedOffers: {},
+  groupedFavoirteOffers: [],
   activeMapMarkerId: null,
   AuthenticationStatus: AuthenticationStatus.Unknown,
   isOffersDataLoading: false,
@@ -44,6 +51,7 @@ export const reducer = createReducer(initialState, (builder) => {
       const newActiveMapMarkerId = action.payload;
       state.activeMapMarkerId = newActiveMapMarkerId;
     })
+    // Fetch
     .addCase(fetchOffersAction.pending, (state) => {
       state.isOffersDataLoading = true;
     })
@@ -52,6 +60,7 @@ export const reducer = createReducer(initialState, (builder) => {
       const newOffers = action.payload;
       state.offers = newOffers;
       state.groupedOffers = groupOffers(newOffers);
+      state.groupedFavoirteOffers = filterFavoriteOffers(state.groupedOffers);
     })
     .addCase(fetchOffersAction.rejected, (state) => {
       // Ошибка будет обработана через api.ts.

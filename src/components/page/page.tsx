@@ -4,10 +4,10 @@ import styles from './page.module.css';
 import { useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { makeBasePath } from '../../utils/utils';
+import { useAppSelector } from '../../hooks/redux';
 
 type PageProps = PropsWithChildren<{
   isGray?: boolean;
-  hasFavorites?: boolean | null;
 }>;
 
 const pageClassNames: Record<string, string | undefined> = {
@@ -18,21 +18,21 @@ const pageClassNames: Record<string, string | undefined> = {
   [AppRoute.Offer]: styles['page--offer-fix'],
 };
 
-export default function Page({
-  children,
-  isGray,
-  hasFavorites = null,
-}: PageProps): JSX.Element {
+export default function Page({ children, isGray }: PageProps): JSX.Element {
   // TODO, возможно нужно вынести в общий Layout.
   const { pathname } = useLocation();
   const basePath = makeBasePath(pathname);
 
-  // TODO, заменить флаг на проверку из state.
+  const favoriteOffersByCity = useAppSelector(
+    (state) => state.groupedFavoirteOffers,
+  );
+  const hasFavorites = favoriteOffersByCity.length > 0;
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
   const pageClassName = cn(
     'page',
     isGray && 'page--gray',
+    // TODO, условие или не совсем подходит
     pageClassNames[basePath] || pageClassNames[AppRoute.NotFoundPage],
     isFavoritesEmpty && 'page--favorites-empty',
     // Фикс sticky-footer на странице Favorites.

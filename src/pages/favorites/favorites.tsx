@@ -10,15 +10,14 @@ import Container from '../../components/container/container';
 import FavoritesFilledList from './favorites-filled-list';
 import FavoritesEmptyList from './favorites-empty-list';
 
-import { filterFavoriteOffers } from './favorites.helper';
-
 // Исправление sticky-footer.
 import styles from './favorites.module.css';
 import { useAppSelector } from '../../hooks/redux';
 
 export default function Favorites(): JSX.Element {
-  const groupedOffers = useAppSelector((state) => state.groupedOffers);
-  const favoriteOffersByCity = filterFavoriteOffers(groupedOffers);
+  const favoriteOffersByCity = useAppSelector(
+    (state) => state.groupedFavoirteOffers,
+  );
   const hasFavorites = favoriteOffersByCity.length > 0;
 
   const mainContainerClassName = cn(
@@ -36,12 +35,12 @@ export default function Favorites(): JSX.Element {
   );
 
   return (
-    <Page hasFavorites={hasFavorites}>
+    <Page>
       <Helmet>
         <title>Favorites</title>
       </Helmet>
       <Header />
-      <Main hasFavorites={hasFavorites}>
+      <Main>
         <Container className={mainContainerClassName}>
           <section className={favoritesClassName}>
             {hasFavorites ? (
