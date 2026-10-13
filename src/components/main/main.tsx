@@ -12,11 +12,9 @@ type MainProps = PropsWithChildren<{
 const mainClassNames: Record<string, string | undefined> = {
   [AppRoute.Root]: 'page__main--index',
   [AppRoute.Login]: 'page__main--login',
-  // [AppRoute.Favorites]: styles['page--favorites-fix'],
   [AppRoute.NotFoundPage]: styles['page__main--not-found-fix'],
   [AppRoute.Offer]: `page__main--offer ${styles['page__main--offer-fix']}`,
 };
-
 export default function Main({
   children,
   hasFavorites = null,
