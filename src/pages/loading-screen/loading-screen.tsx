@@ -7,7 +7,7 @@ import styles from './loading-screen.module.css';
 
 function LoadingScreen(): JSX.Element {
   return (
-    <Page isGray>
+    <Page>
       <Header isHeaderNoNav />
 
       <Main>

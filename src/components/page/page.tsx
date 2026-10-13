@@ -6,19 +6,15 @@ import { AppRoute } from '../../const';
 import { makeBasePath } from '../../utils/utils';
 import { useAppSelector } from '../../hooks/redux';
 
-type PageProps = PropsWithChildren<{
-  isGray?: boolean;
-}>;
-
 const pageClassNames: Record<string, string | undefined> = {
-  [AppRoute.Root]: 'page--main',
-  [AppRoute.Login]: 'page--login',
+  [AppRoute.Root]: 'page--main page--gray',
+  [AppRoute.Login]: 'page--login page--gray',
   [AppRoute.Favorites]: styles['page--favorites-fix'],
   [AppRoute.NotFoundPage]: styles['page--not-found-fix'],
   [AppRoute.Offer]: styles['page--offer-fix'],
 };
 
-export default function Page({ children, isGray }: PageProps): JSX.Element {
+export default function Page({ children }: PropsWithChildren): JSX.Element {
   // TODO, возможно нужно вынести в общий Layout.
   const { pathname } = useLocation();
   const basePath = makeBasePath(pathname);
@@ -31,7 +27,6 @@ export default function Page({ children, isGray }: PageProps): JSX.Element {
 
   const pageClassName = cn(
     'page',
-    isGray && 'page--gray',
     pageClassNames[basePath] || pageClassNames[AppRoute.NotFoundPage],
     isFavoritesEmpty && 'page--favorites-empty',
     // Фикс sticky-footer на странице Favorites.
