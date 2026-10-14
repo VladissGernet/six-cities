@@ -1,17 +1,19 @@
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import { useRef, type FormEventHandler } from 'react';
 
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
-
-import { CITY_NAMES } from '../../const';
-import { getRandomElement } from '../../utils/utils';
-
-import type { CityName } from '../../types/offers';
-import { useAppDispatch } from '../../hooks/redux';
-import { loginAction } from '../../store/api-actions';
 import Container from '../../components/container/container';
+
+import { loginAction } from '../../store/api-actions';
+import { changeCity } from '../../store/action';
+
+import { AppRoute, CITY_NAMES } from '../../const';
+import { getRandomElement } from '../../utils/utils';
+import { useAppDispatch } from '../../hooks/redux';
+import type { CityName } from '../../types/offers';
 
 export default function AuthScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -33,6 +35,12 @@ export default function AuthScreen(): JSX.Element {
   };
 
   const randomCity = getRandomElement<CityName>(CITY_NAMES);
+
+  const handleRandomCityClick = () => {
+    if (randomCity) {
+      dispatch(changeCity(randomCity));
+    }
+  };
 
   return (
     <Page>
@@ -82,15 +90,13 @@ export default function AuthScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                {/* TODO В правой части страницы «Login» отображается кнопка для быстрого перехода
-                  к списку предложений по аренде в этом городе. Город для быстрого перехода
-                  определяется случайным образом. Клик по кнопке перенаправляет пользователя
-                  на главную страницу и устанавливает фильтр в соответствии с выбранным
-                  городом.
-                */}
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Root}
+                onClick={handleRandomCityClick}
+              >
                 <span>{randomCity}</span>
-              </a>
+              </Link>
             </div>
           </section>
         </Container>
