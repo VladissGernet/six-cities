@@ -12,15 +12,12 @@ import type { CityName } from '../../types/offers';
 import { useAppDispatch } from '../../hooks/redux';
 import { loginAction } from '../../store/api-actions';
 import Container from '../../components/container/container';
-// import { useNavigate } from 'react-router-dom';
 
 export default function AuthScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  // TODO возможно использовать для другого это нужно.
-  // const navigate = useNavigate();
 
   const handleSubmit: FormEventHandler = (evt) => {
     evt.preventDefault();
@@ -32,8 +29,6 @@ export default function AuthScreen(): JSX.Element {
           password: passwordRef.current.value,
         }),
       );
-      // TODO, проверка на ошибку логина
-      // navigate(AppRoute.Root);
     }
   };
 
@@ -88,8 +83,7 @@ export default function AuthScreen(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
-                {/* TODO
-                  В правой части страницы «Login» отображается кнопка для быстрого перехода
+                {/* TODO В правой части страницы «Login» отображается кнопка для быстрого перехода
                   к списку предложений по аренде в этом городе. Город для быстрого перехода
                   определяется случайным образом. Клик по кнопке перенаправляет пользователя
                   на главную страницу и устанавливает фильтр в соответствии с выбранным

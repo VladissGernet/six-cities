@@ -4,8 +4,7 @@ import cn from 'classnames';
 import PlacesList from './places-list';
 import PlacesSorting from './places-sorting';
 import { ImageSize, PlacesSortingValue } from '../../const';
-// TODO, рассмотреть кеширование с помощью useMemo.
-// Раздел 8.
+// TODO Раздел 8. рассмотреть кеширование с помощью useMemo.
 import { sortOffers } from './places.helper';
 
 import type { Offers } from '../../types/offers';

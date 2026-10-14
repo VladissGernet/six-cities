@@ -51,6 +51,7 @@ export const loginAction = createAsyncThunk<
       email,
       password,
     });
+    // TODO, проверка на ошибку логина
 
     saveToken(data.token);
     dispatch(setUserAccountData(data));
