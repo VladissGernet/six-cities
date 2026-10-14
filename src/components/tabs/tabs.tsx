@@ -2,9 +2,10 @@ import cn from 'classnames';
 import { CITY_NAMES } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import createHandleCityClick from './tabs.handlers';
+import { getCity } from '../../store/offers/offers-selectors';
 
 export default function Tabs(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
   const handleClick = createHandleCityClick(currentCity, dispatch);
 

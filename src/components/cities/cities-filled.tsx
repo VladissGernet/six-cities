@@ -1,5 +1,6 @@
 import Places from '../../components/places/places';
 import { useAppSelector } from '../../hooks/redux';
+import { getCity, getGroupedOffers } from '../../store/offers/offers-selectors';
 import Container from '../container/container';
 import OffersMap from '../offers-map/offers-map';
 
@@ -10,9 +11,9 @@ type CitiesFilledProps = {
 export default function CitiesFilled({
   extraTitle,
 }: CitiesFilledProps): JSX.Element {
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getCity);
   const groupedOffersByCity =
-    useAppSelector((state) => state.groupedOffers)[selectedCity] || [];
+    useAppSelector(getGroupedOffers)[selectedCity] || [];
 
   return (
     <Container className="cities__places-container container">

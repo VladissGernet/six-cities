@@ -19,7 +19,6 @@ enum AppRoute {
   NotFoundPage = '/not-found-page',
 }
 
-//TODO , еще раз проверить, Authentication или Authorithation.
 enum AuthenticationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

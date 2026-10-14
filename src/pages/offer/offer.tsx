@@ -3,6 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
+import {
+  getGroupedOffers,
+  getOffers,
+} from '../../store/offers/offers-selectors';
 
 // Components
 import Gallery from '../../components/gallery/gallery';
@@ -31,8 +35,8 @@ import styles from './offer.module.css';
 
 export default function Offer(): JSX.Element {
   const { id } = useParams();
-  const offers = useAppSelector((state) => state.offers);
-  const groupedOffers = useAppSelector((state) => state.groupedOffers);
+  const offers = useAppSelector(getOffers);
+  const groupedOffers = useAppSelector(getGroupedOffers);
 
   if (!id) {
     return <NotFoundPage />;

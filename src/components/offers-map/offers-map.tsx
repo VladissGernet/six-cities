@@ -14,6 +14,7 @@ import type { ActiveMapMarkerId, MapMarkers } from '../../types/general';
 import 'leaflet/dist/leaflet.css';
 
 import { renderMapMarkersLayer } from './offers-map.helper';
+import { getActiveMapMarkerId } from '../../store/offers/offers-selectors';
 
 type OffersMapProps = {
   rootClassName: string;
@@ -39,9 +40,8 @@ export default function OffersMap({
     groupedPlaces,
   });
 
-  const activeMarkerId = useAppSelector<ActiveMapMarkerId>(
-    (state) => state.activeMapMarkerId,
-  );
+  const activeMarkerId =
+    useAppSelector<ActiveMapMarkerId>(getActiveMapMarkerId);
 
   renderMapMarkersLayer(
     groupedPlaces,

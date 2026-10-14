@@ -24,7 +24,7 @@ type StateType = {
   groupedOffers: GroupedOffers;
   groupedFavoirteOffers: GroupedOffersByCity[];
   activeMapMarkerId: ActiveMapMarkerId;
-  AuthenticationStatus: AuthenticationStatus;
+  authenticationStatus: AuthenticationStatus;
   isOffersDataLoading: boolean;
   userAccountData: UserData | null;
 };
@@ -35,7 +35,7 @@ const initialState: StateType = {
   groupedOffers: {},
   groupedFavoirteOffers: [],
   activeMapMarkerId: null,
-  AuthenticationStatus: AuthenticationStatus.Unknown,
+  authenticationStatus: AuthenticationStatus.Unknown,
   isOffersDataLoading: false,
   userAccountData: null,
 };
@@ -72,7 +72,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isOffersDataLoading = false;
     })
     .addCase(requireAuthenticationStatus, (state, action) => {
-      state.AuthenticationStatus = action.payload;
+      state.authenticationStatus = action.payload;
     })
     .addCase(setUserAccountData, (state, action) => {
       state.userAccountData = action.payload;

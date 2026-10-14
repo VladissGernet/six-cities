@@ -4,9 +4,8 @@ import { PropsWithChildren } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { makeBasePath } from '../../utils/utils';
-
 import { AppRoute } from '../../const';
-
+import { getGroupedFavoirteOffers } from '../../store/offers/offers-selectors';
 import { useAppSelector } from '../../hooks/redux';
 
 import styles from './main.module.css';
@@ -22,9 +21,7 @@ export default function Main({ children }: PropsWithChildren): JSX.Element {
   const { pathname } = useLocation();
   const basePath = makeBasePath(pathname);
 
-  const favoriteOffersByCity = useAppSelector(
-    (state) => state.groupedFavoirteOffers,
-  );
+  const favoriteOffersByCity = useAppSelector(getGroupedFavoirteOffers);
   const hasFavorites = favoriteOffersByCity.length > 0;
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 

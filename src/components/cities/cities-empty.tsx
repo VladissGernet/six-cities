@@ -1,8 +1,9 @@
 import { useAppSelector } from '../../hooks/redux';
+import { getCity } from '../../store/offers/offers-selectors';
 import Container from '../container/container';
 
 export default function CitiesEmpty(): JSX.Element {
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getCity);
   return (
     <Container className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">

@@ -13,8 +13,6 @@ const root = ReactDOM.createRoot(
 );
 
 /* TODO
-(state) => state.city - и подобные функции описать как getCity и т.п. в какой-нибудь offers-selectors.ts
-в src/store/offers/offers-selectors.ts
 
 https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/7/item/17
 1.01.00 - варианты для проммисов в action, чтобы обрабатывать pending,fullfild,rejected

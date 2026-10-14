@@ -4,10 +4,14 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { filterByProperty } from '../../utils/utils';
 import { AppRoute } from '../../const';
 import { logoutAction } from '../../store/api-actions';
+import {
+  getOffers,
+  getUserAccountData,
+} from '../../store/offers/offers-selectors';
 
 export default function HeaderLoggedIn(): JSX.Element {
-  const userData = useAppSelector((state) => state.userAccountData);
-  const offers = useAppSelector((state) => state.offers);
+  const userData = useAppSelector(getUserAccountData);
+  const offers = useAppSelector(getOffers);
   const totalFavorites = filterByProperty(offers, 'isFavorite', true).length;
   const dispatch = useAppDispatch();
 

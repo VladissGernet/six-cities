@@ -1,10 +1,11 @@
 import CitiesFilled from './cities-filled';
 import CitiesEmpty from './cities-empty';
 import { useAppSelector } from '../../hooks/redux';
+import { getCity, getGroupedOffers } from '../../store/offers/offers-selectors';
 
 export default function Cities(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
-  const groupedOffers = useAppSelector((state) => state.groupedOffers);
+  const currentCity = useAppSelector(getCity);
+  const groupedOffers = useAppSelector(getGroupedOffers);
   const groupedOffersByCity = groupedOffers[currentCity];
 
   const isNoCities = !groupedOffersByCity?.length;
