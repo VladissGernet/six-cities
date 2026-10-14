@@ -24,6 +24,7 @@ export default function AuthScreen(): JSX.Element {
   const handleSubmit: FormEventHandler = (evt) => {
     evt.preventDefault();
     // TODO, добавить валидацию на пароль Password no have letter or number!
+    // см еще в index.tsx
     if (loginRef.current !== null && passwordRef.current !== null) {
       dispatch(
         loginAction({
