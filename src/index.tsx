@@ -18,10 +18,6 @@ https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/7/i
 1.01.00 - варианты для проммисов в action, чтобы обрабатывать pending,fullfild,rejected
 еще пример на 1.11.00
 не забыть обработку .rejected
-2.25.00
-Разбить reducer и исползовать combineReducer для их объеденения в один чрезе store/root-reducer.ts
-изучить .createSlice
-изучить Ducks (иногда «ducks-modular-redux»)
 
 1.38.20 - д\з 2 - пример проверки авторизации.
 
@@ -53,6 +49,11 @@ interceptor в api.ts.
 2.50 разбор
 
 флаги на загрузку в reducer везде должны быть свои. 2.57
+
+8 раздел. 2.25.00
+Разбить reducer и исползовать combineReducer для их объеденения в один чрезе store/root-reducer.ts
+изучить .createSlice
+изучить Ducks (иногда «ducks-modular-redux»)
 */
 
 store.dispatch(fetchOffersAction());
