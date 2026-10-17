@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useRef, type FormEventHandler } from 'react';
+import { useRef, useState, type FormEventHandler } from 'react';
 
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
@@ -20,20 +20,25 @@ const MIN_LENGTH_PASSWORD = 2;
 export default function AuthScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const authTitleStatus = isSubmitting ? 'Signing in…' : 'Sign in';
 
   const dispatch = useAppDispatch();
 
   const handleSubmit: FormEventHandler = (evt) => {
     evt.preventDefault();
-    // TODO, добавить блокировку кнопки.
+    if (isSubmitting) {
+      return;
+    }
     if (loginRef.current !== null && passwordRef.current !== null) {
+      setIsSubmitting(true);
       dispatch(
         loginAction({
           login: loginRef.current.value,
           password: passwordRef.current.value,
         }),
       ).finally(() => {
-        console.log('go');
+        setIsSubmitting(false);
       });
     }
   };
@@ -49,13 +54,13 @@ export default function AuthScreen(): JSX.Element {
   return (
     <Page>
       <Helmet>
-        <title>Sign in</title>
+        <title>{authTitleStatus}</title>
       </Helmet>
       <Header isHeaderNoNav />
       <Main>
         <Container className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">Sign in</h1>
+            <h1 className="login__title">{authTitleStatus}</h1>
             <form
               onSubmit={handleSubmit}
               className="login__form form"
@@ -90,8 +95,9 @@ export default function AuthScreen(): JSX.Element {
               <button
                 className="login__submit form__submit button"
                 type="submit"
+                disabled={isSubmitting}
               >
-                Sign in
+                {authTitleStatus}
               </button>
             </form>
           </section>
