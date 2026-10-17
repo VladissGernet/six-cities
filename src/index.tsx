@@ -13,14 +13,8 @@ const root = ReactDOM.createRoot(
 );
 
 /* TODO
-1.53.00 рассматривается обработка ошибок на api.interceptors.response.use
-
-2.17.58 - проверка отправки формы с .then.
-
-2.50 разбор
-
+2.50 разбор странички offer. (остановился на перепросмотре на 2.49.00)
 флаги на загрузку в reducer везде должны быть свои. 2.57
-
 8 раздел. 2.25.00
 Разбить reducer и исползовать combineReducer для их объеденения в один чрезе store/root-reducer.ts
 изучить .createSlice
