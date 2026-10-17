@@ -1,5 +1,5 @@
 import { Icon, layerGroup, Marker, IconOptions, type Map } from 'leaflet';
-import type { offerId, Offers } from '../../types/offers';
+import type { offerId, OfferLocation, Offers } from '../../types/offers';
 import type { MapMarkers } from '../../types/general';
 
 import pin from '/img/pin.svg';
@@ -26,6 +26,7 @@ const renderMapMarkersLayer = (
   map: Map | null,
   mapMarkers: MapMarkers,
   activeMarkerId: offerId | null,
+  selectedMarkerLocation?: OfferLocation | undefined,
 ): void => {
   if (map) {
     mapMarkers.clear();
@@ -46,6 +47,21 @@ const renderMapMarkersLayer = (
       }
       marker.addTo(markerLayer);
     });
+
+    if (selectedMarkerLocation) {
+      const marker = new Marker({
+        lat: selectedMarkerLocation.latitude,
+        lng: selectedMarkerLocation.longitude,
+      });
+
+      if (activeMarkerId === null) {
+        marker.setIcon(selectedCustomIcon);
+      } else {
+        marker.setIcon(defaultCustomIcon);
+      }
+
+      marker.addTo(markerLayer);
+    }
 
     markerLayer.addTo(map);
   }

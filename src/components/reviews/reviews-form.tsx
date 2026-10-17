@@ -1,8 +1,8 @@
 import {
   useState,
-  FormEventHandler,
-  ChangeEventHandler,
   Fragment,
+  type FormEventHandler,
+  type ChangeEventHandler,
 } from 'react';
 import { RATING_VALUES } from '../../const';
 
@@ -20,16 +20,16 @@ export default function ReviewsForm(): JSX.Element {
   const isSubmitDisabled =
     userRating === null || userReviewText.length < MIN_TEXTAREA_CHARACTERS;
 
-  const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
   };
 
-  const reviewTextHandler: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+  const handleReviewText: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const value = e.currentTarget.value;
     setUserReviewText(value);
   };
 
-  const ratingChangeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleRatingChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.currentTarget;
     if (!isRatingValue(value)) {
       return;
@@ -42,7 +42,7 @@ export default function ReviewsForm(): JSX.Element {
       className="reviews__form form"
       action="#"
       method="post"
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -56,7 +56,7 @@ export default function ReviewsForm(): JSX.Element {
               value={value}
               id={`${value}-stars`}
               type="radio"
-              onChange={ratingChangeHandler}
+              onChange={handleRatingChange}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -75,7 +75,7 @@ export default function ReviewsForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={reviewTextHandler}
+        onChange={handleReviewText}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

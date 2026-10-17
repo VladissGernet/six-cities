@@ -16,7 +16,7 @@ export default function PlacesSorting({
   const menuRef = useRef<null | HTMLSpanElement>(null);
   const sortingValues = Object.values(PlacesSortingValue);
 
-  const optionClickHandler = (optionValue: PlacesSortingValueType) => {
+  const handleOptionClick = (optionValue: PlacesSortingValueType) => {
     if (optionValue === activeOption) {
       return;
     }
@@ -68,7 +68,7 @@ export default function PlacesSorting({
             }`}
             tabIndex={0}
             key={sortingValue}
-            onClick={() => optionClickHandler(sortingValue)}
+            onClick={() => handleOptionClick(sortingValue)}
           >
             {sortingValue}
           </li>

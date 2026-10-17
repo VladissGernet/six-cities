@@ -33,15 +33,16 @@ const groupOffers = (offers: Offers): GroupedOffers =>
  * Получаем объект с городом и массивом предложеений по этому городу.
  * @param city Название города.
  * @param groupedOffers Коллекция Map предложений.
- * @returns Объект с названием города и массива предложений по этому городу.
+ * @returns Объект с названием города city и массива предложений по этому городу offerPlacesByCity.
  */
-const createGroupedOffersByCity = (
+const getOffersByCity = (
   city: CityName,
   groupedOffers: GroupedOffers,
 ): GroupedOffersByCity => ({
   city: city,
   offerPlacesByCity: groupedOffers[city] ?? [],
 });
+
 /**
  * Возвращает ближайшие предложения, исключая предложения
  * с идентификатором выбранного города.
@@ -102,7 +103,7 @@ const filterFavoriteOffers = (
 };
 
 export {
-  createGroupedOffersByCity,
+  getOffersByCity,
   getNearOffersWithRestriction,
   groupOffers,
   filterFavoriteOffers,

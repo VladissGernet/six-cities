@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -25,10 +25,10 @@ store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <Provider store={store}>
       <ToastContainer />
       <App />
     </Provider>
-  </React.StrictMode>,
+  </StrictMode>,
 );

@@ -26,7 +26,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 // Utils.
 import { capitalizeFirstLetter } from '../../utils/utils';
 import {
-  createGroupedOffersByCity,
+  getOffersByCity,
   getNearOffersWithRestriction,
 } from '../../utils/offers';
 
@@ -47,20 +47,16 @@ export default function Offer(): JSX.Element {
     return <NotFoundPage />;
   }
 
-  const { title, isPremium, rating, type, price, city } = selectedOffer;
+  const { title, isPremium, rating, type, price, city, location } =
+    selectedOffer;
 
   // Подготовка данных для рендера городов поблизости.
-  const groupedOffersByCity = createGroupedOffersByCity(
-    city.name,
-    groupedOffers,
-  );
+  const groupedOffersByCity = getOffersByCity(city.name, groupedOffers);
 
   const nearOffers = getNearOffersWithRestriction(
     groupedOffersByCity.offerPlacesByCity,
     id,
   );
-
-  //!!!! offerId удбно брать из useParams!
 
   // TODO, когда буду получать данные с сервера реализовать проверку 404, т.е. если ввожу
   // неверный offerId и выпадает 404 ошибка, то нет смысла делать еще дополнительные
@@ -136,11 +132,17 @@ export default function Offer(): JSX.Element {
           </div>
         </Container>
         <Container>
-          {/* TODO добавить в карту отображение метки выбранного оффера. */}
-          <OffersMap rootClassName="offer__map" groupedPlaces={nearOffers} />
+          <OffersMap
+            rootClassName="offer__map"
+            groupedPlaces={nearOffers}
+            selectedMarkerLocation={location}
+          />
         </Container>
       </section>
       <Container className={cn('container', styles['offer__places-container'])}>
+        {/* TODO, исправить ошибку переход на другой оффер при клике из 3 предложений поблизости.
+        Еще, после клика по карточке, появляется проблема с метками на карте при наведении на новые
+        предложения поблизости */}
         <Places
           rootClassName={cn('near-places', styles['offer__places-content'])}
           title="Other places in the neighbourhood"

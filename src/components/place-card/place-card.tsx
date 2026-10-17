@@ -1,6 +1,8 @@
+import type { MouseEventHandler } from 'react';
+import { Link } from 'react-router-dom';
+
 import cn from 'classnames';
 import Rating from '../rating/rating';
-import { Link } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/redux';
 import { setActiveMapMaker } from '../../store/action';
@@ -31,9 +33,11 @@ export default function PlaceCard({
   } = offer;
   const dispatch = useAppDispatch();
 
-  const onMouseEnter: React.MouseEventHandler<HTMLElement> = () =>
+  const handleMouseEnter: MouseEventHandler<HTMLElement> = () =>
     dispatch(setActiveMapMaker(id));
-  const onMouseLeave: React.MouseEventHandler<HTMLElement> = () =>
+  const handleMouseLeave: MouseEventHandler<HTMLElement> = () =>
+    dispatch(setActiveMapMaker(null));
+  const handleOfferLinkClick: MouseEventHandler<HTMLElement> = () =>
     dispatch(setActiveMapMaker(null));
 
   const bookmarkButtonClassName = cn(
@@ -47,8 +51,8 @@ export default function PlaceCard({
   return (
     <article
       className={`${parentName}__card place-card`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {isPremium && (
         <div className="place-card__mark">
@@ -56,7 +60,7 @@ export default function PlaceCard({
         </div>
       )}
       <div className={`${parentName}__image-wrapper place-card__image-wrapper`}>
-        <Link to={offerRoute}>
+        <Link to={offerRoute} onClick={handleOfferLinkClick}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -85,7 +89,9 @@ export default function PlaceCard({
           starsWrapperClassName={'place-card__stars'}
         />
         <h2 className="place-card__name">
-          <Link to={offerRoute}>{title}</Link>
+          <Link to={offerRoute} onClick={handleOfferLinkClick}>
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

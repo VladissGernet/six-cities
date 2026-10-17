@@ -2,7 +2,7 @@ import { CITY_NAMES } from '../const';
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
-export type Location = {
+export type OfferLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
@@ -10,7 +10,7 @@ export type Location = {
 
 type City = {
   name: CityName;
-  location: Location;
+  location: OfferLocation;
 };
 
 export type offerId = string;
@@ -23,7 +23,7 @@ export type Offer = {
   type: OfferType;
   price: number;
   city: City;
-  location: Location;
+  location: OfferLocation;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
