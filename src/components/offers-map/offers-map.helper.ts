@@ -29,6 +29,12 @@ const renderMapMarkersLayer = (
   selectedMarkerLocation?: OfferLocation | undefined,
 ): void => {
   if (map) {
+    /*
+      TODO, исправить ошибку переход на другой оффер при клике из 3 предложений поблизости.
+      Еще, после клика по карточке, появляется проблема с метками на карте при наведении на новые
+      предложения поблизости.
+    */
+
     mapMarkers.clear();
     const markerLayer = layerGroup();
 
