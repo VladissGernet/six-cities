@@ -65,12 +65,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.groupedFavoirteOffers = filterFavoriteOffers(state.groupedOffers);
     })
     .addCase(fetchOffersAction.rejected, (state) => {
-      // TODO, Расмотреть вариант с отображением ошибки как тут:
-      // Также здесь рассказано про slice в reducer.
-      // https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/7/item/17
-      // 1:33:41
-
-      // Ошибка будет обработана через api.ts.
       state.isOffersDataLoading = false;
     })
     .addCase(requireAuthenticationStatus, (state, action) => {

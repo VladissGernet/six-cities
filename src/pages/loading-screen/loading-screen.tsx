@@ -5,8 +5,6 @@ import Page from '../../components/page/page';
 
 import styles from './loading-screen.module.css';
 
-// TODO, вынести в layout nonav, либо в header прописать, что на LoadingScreen не надо
-// отображать правую часть о пользователе в header, чтобы не прокидывать isHeaderNoNav.
 function LoadingScreen(): JSX.Element {
   return (
     <Page>
