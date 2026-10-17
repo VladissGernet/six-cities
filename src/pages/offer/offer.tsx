@@ -142,7 +142,11 @@ export default function Offer(): JSX.Element {
       <Container className={cn('container', styles['offer__places-container'])}>
         {/* TODO, исправить ошибку переход на другой оффер при клике из 3 предложений поблизости.
         Еще, после клика по карточке, появляется проблема с метками на карте при наведении на новые
-        предложения поблизости */}
+        предложения поблизости
+
+        проблеммы со скролл
+        https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/3/item/18
+        */}
         <Places
           rootClassName={cn('near-places', styles['offer__places-content'])}
           title="Other places in the neighbourhood"
