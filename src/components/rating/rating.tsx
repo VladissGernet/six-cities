@@ -1,5 +1,7 @@
 import cn from 'classnames';
-import { PERCENT_PER_STAR } from '../../const';
+
+/** 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.) */
+const PERCENT_PER_STAR = 20;
 
 type RatingProps = {
   rating: number;

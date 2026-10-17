@@ -1,16 +1,3 @@
-import { IconOptions } from 'leaflet';
-import pin from '/img/pin.svg';
-import pinActive from '/img/pin-active.svg';
-
-/** 100 / 5 = 20 (100 - 100% ширины элемента, а 5 - максимальное количество звезд.) */
-const PERCENT_PER_STAR = 20;
-const MIN_TEXTAREA_CHARACTERS = 50;
-const MAX_NEAR_OFFERS = 3;
-const INITIAL_STATE_CITY = 'Paris';
-
-const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
-const REQUEST_TIMEOUT = 5000;
-
 enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
@@ -23,15 +10,6 @@ enum AuthenticationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
-}
-
-enum APIRoute {
-  Offers = '/offers',
-  Nearby = '/nearby',
-  Favorite = '/favorite',
-  Comments = '/comments',
-  Login = '/login',
-  Logout = '/logout',
 }
 
 const ImageSize = {
@@ -70,45 +48,11 @@ const CITY_NAMES = [
  */
 const RATING_VALUES = ['1', '2', '3', '4', '5'] as const;
 
-// OffersMap.
-const OffersMapConfig = {
-  Tile: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
-  Attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  DefaultPosition: {
-    Latitude: 0,
-    Longitude: 0,
-    Zoom: 10,
-  },
-} as const;
-
-const CustomIcon: Record<'Default' | 'Active', IconOptions> = {
-  Default: {
-    iconUrl: pin,
-    iconSize: [28, 40],
-    iconAnchor: [14, 40],
-  },
-  Active: {
-    iconUrl: pinActive,
-    iconSize: [28, 40],
-    iconAnchor: [14, 40],
-  },
-};
-
 export {
   AppRoute,
-  APIRoute,
   AuthenticationStatus,
-  INITIAL_STATE_CITY,
   ImageSize,
   CITY_NAMES,
-  PERCENT_PER_STAR,
   RATING_VALUES,
-  MIN_TEXTAREA_CHARACTERS,
-  MAX_NEAR_OFFERS,
-  OffersMapConfig,
-  CustomIcon,
   PlacesSortingValue,
-  BACKEND_URL,
-  REQUEST_TIMEOUT,
 };

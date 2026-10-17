@@ -15,6 +15,8 @@ import { getRandomElement } from '../../utils/utils';
 import { useAppDispatch } from '../../hooks/redux';
 import type { CityName } from '../../types/offers';
 
+const MIN_LENGTH_PASSWORD = 2;
+
 export default function AuthScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -23,15 +25,16 @@ export default function AuthScreen(): JSX.Element {
 
   const handleSubmit: FormEventHandler = (evt) => {
     evt.preventDefault();
-    // TODO, добавить валидацию на пароль Password no have letter or number!
-    // см еще в index.tsx
+    // TODO, добавить блокировку кнопки.
     if (loginRef.current !== null && passwordRef.current !== null) {
       dispatch(
         loginAction({
           login: loginRef.current.value,
           password: passwordRef.current.value,
         }),
-      );
+      ).finally(() => {
+        console.log('go');
+      });
     }
   };
 
@@ -78,6 +81,9 @@ export default function AuthScreen(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  pattern="^.*(?=.*[a-zA-Z])(?=.*\d).*$"
+                  title="Password must be longer than or equal to 2 characters"
+                  minLength={MIN_LENGTH_PASSWORD}
                   required
                 />
               </div>

@@ -4,9 +4,11 @@ import {
   ChangeEventHandler,
   Fragment,
 } from 'react';
-import { RATING_VALUES, MIN_TEXTAREA_CHARACTERS } from '../../const';
+import { RATING_VALUES } from '../../const';
 
 import type { RatingValue } from '../../types/general';
+
+const MIN_TEXTAREA_CHARACTERS = 50;
 
 const isRatingValue = (value: string): value is RatingValue =>
   (RATING_VALUES as readonly string[]).includes(value);

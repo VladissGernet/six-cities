@@ -9,7 +9,6 @@ import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
 import { toast } from 'react-toastify';
-import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 
 type DetailMessageType = {
   type: string;
@@ -21,6 +20,10 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.UNAUTHORIZED]: false,
   [StatusCodes.NOT_FOUND]: true,
 };
+
+const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
+const REQUEST_TIMEOUT = 5000;
+const NETWOR_ERROR = 'ERR_NETWORK';
 
 const shouldDisplayError = (response: AxiosResponse) =>
   !!StatusCodeMapping[response.status];
@@ -46,8 +49,11 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = error.response.data;
-
         toast.warn(detailMessage.message);
+      }
+
+      if (error.code === NETWOR_ERROR) {
+        toast.warn(error.message);
       }
 
       throw error;

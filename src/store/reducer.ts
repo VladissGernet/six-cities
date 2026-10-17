@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthenticationStatus, INITIAL_STATE_CITY } from '../const';
+import { AuthenticationStatus } from '../const';
 import {
   changeCity,
   requireAuthenticationStatus,
@@ -17,6 +17,8 @@ import type {
 import type { ActiveMapMarkerId } from '../types/general';
 import type { UserData } from '../types/user-data';
 import { fetchOffersAction } from './api-actions';
+
+const INITIAL_STATE_CITY = 'Paris';
 
 type StateType = {
   city: CityName;

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AppRoute, AuthenticationStatus } from '../const';
+import { AppRoute, AuthenticationStatus } from '../const';
 import {
   redirectToRoute,
   requireAuthenticationStatus,
@@ -12,6 +12,15 @@ import type { AppDispatch } from '../types/state';
 import type { Offers } from '../types/offers';
 import type { AuthData } from '../types/auth-data';
 import type { UserData } from '../types/user-data';
+
+enum APIRoute {
+  Offers = '/offers',
+  Nearby = '/nearby',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
 
 export const fetchOffersAction = createAsyncThunk<
   Offers,

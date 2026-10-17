@@ -1,7 +1,5 @@
 // Файл с helpers для работы с offers.
 
-import { MAX_NEAR_OFFERS } from '../const';
-
 import type { CityName } from '../types/offers';
 import type {
   GroupedOffers,
@@ -10,6 +8,8 @@ import type {
   Offer,
 } from '../types/offers';
 import { filterByProperty } from './utils';
+
+const MAX_NEAR_OFFERS = 3;
 
 /**
  * Преобразует массив прдложений в объект сгруппированных городов.

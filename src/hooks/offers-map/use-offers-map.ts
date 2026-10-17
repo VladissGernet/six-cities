@@ -1,8 +1,18 @@
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
 import { Map, TileLayer } from 'leaflet';
-import { OffersMapConfig } from '../../const';
 
 import type { Offers } from '../../types/offers';
+
+const OffersMapConfig = {
+  Tile: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
+  Attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  DefaultPosition: {
+    Latitude: 0,
+    Longitude: 0,
+    Zoom: 10,
+  },
+} as const;
 
 type UseOffersMapProps = {
   mapContainerRef: MutableRefObject<HTMLElement | null>;

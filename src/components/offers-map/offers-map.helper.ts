@@ -1,7 +1,22 @@
-import { Icon, layerGroup, Marker, type Map } from 'leaflet';
-import { CustomIcon } from '../../const';
+import { Icon, layerGroup, Marker, IconOptions, type Map } from 'leaflet';
 import type { offerId, Offers } from '../../types/offers';
 import type { MapMarkers } from '../../types/general';
+
+import pin from '/img/pin.svg';
+import pinActive from '/img/pin-active.svg';
+
+const CustomIcon: Record<'Default' | 'Active', IconOptions> = {
+  Default: {
+    iconUrl: pin,
+    iconSize: [28, 40],
+    iconAnchor: [14, 40],
+  },
+  Active: {
+    iconUrl: pinActive,
+    iconSize: [28, 40],
+    iconAnchor: [14, 40],
+  },
+};
 
 const defaultCustomIcon = new Icon(CustomIcon.Default);
 const selectedCustomIcon = new Icon(CustomIcon.Active);
