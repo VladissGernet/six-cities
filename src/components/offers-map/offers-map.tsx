@@ -4,56 +4,61 @@ import { useRef } from 'react';
 
 // Hooks.
 import { useAppSelector } from '../../hooks/redux';
-import useOffersMap from '../../hooks/offers-map/use-offers-map';
+import { useOffersMap } from '../../hooks/offers-map/use-offers-map';
+import { useMarkers } from '../../hooks/offers-map/use-markers';
 
 // Types.
-import type { OfferLocation, Offers } from '../../types/offers';
-import type { ActiveMapMarkerId, MapMarkers } from '../../types/general';
+import type { OfferId, OfferLocation, Offers } from '../../types/offers';
+import type { ActiveMapMarkerId } from '../../types/general';
+
+// Store.
+import { getActiveMapMarkerId } from '../../store/offers/offers-selectors';
 
 // Leaflet.
 import 'leaflet/dist/leaflet.css';
 
-import { renderMapMarkersLayer } from './offers-map.helper';
-import { getActiveMapMarkerId } from '../../store/offers/offers-selectors';
-
 type OffersMapProps = {
   rootClassName: string;
-  groupedPlaces: Offers;
+  /** Только определенные предложения. */
+  offers: Offers;
   selectedMarkerLocation?: OfferLocation;
 };
 
 export default function OffersMap({
   rootClassName,
-  groupedPlaces,
+  offers,
   selectedMarkerLocation,
 }: OffersMapProps): JSX.Element | null {
   // Получаем сгруппированные предложения по одному городу.
   // У всех предложений будет одинаковый offers[n].city.location.
-  const { latitude, longitude, zoom } = groupedPlaces[0].city.location;
+  const firstPlace = offers[0];
+  const cityLocation = firstPlace?.city.location;
+
+  const { latitude, longitude, zoom } = cityLocation;
 
   const mapContainerRef = useRef<HTMLElement | null>(null);
-  const mapMarkersRef = useRef<MapMarkers>(new Map());
-
-  const map = useOffersMap({
+  // TODO, расммотреть улучшение для смены города через map.setView().
+  const offersMap = useOffersMap({
     mapContainerRef,
     latitude,
     longitude,
     zoom,
-    groupedPlaces,
   });
 
-  const activeMarkerId =
-    useAppSelector<ActiveMapMarkerId>(getActiveMapMarkerId);
+  // Получение id для выделения точки на карте.
+  const activeMarkerId = useAppSelector<ActiveMapMarkerId>(
+    getActiveMapMarkerId,
+  ) as OfferId;
 
-  renderMapMarkersLayer(
-    groupedPlaces,
-    map,
-    mapMarkersRef.current,
+  // Очистка и добавление меток на карту.
+  useMarkers({
+    offersMap,
     activeMarkerId,
+    offers,
     selectedMarkerLocation,
-  );
+  });
 
-  return groupedPlaces?.length ? (
+  return offers?.length ? (
     <section className={cn(rootClassName, 'map')} ref={mapContainerRef} />
   ) : null;
 }

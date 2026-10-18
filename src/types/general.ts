@@ -1,7 +1,7 @@
 import { RATING_VALUES, PlacesSortingValue } from '../const';
 
 import type { Marker } from 'leaflet';
-import type { offerId } from './offers';
+import type { OfferId } from './offers';
 
 export type ImageSizes = {
   imageSizes: {
@@ -20,4 +20,4 @@ export type RatingValue = (typeof RATING_VALUES)[number];
 
 export type ActiveMapMarkerId = null | string;
 
-export type MapMarkers = Map<offerId, Marker>;
+export type MapMarkers = Map<OfferId, Marker>;

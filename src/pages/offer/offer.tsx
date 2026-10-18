@@ -59,7 +59,7 @@ export default function Offer(): JSX.Element {
   );
 
   // TODO, когда буду получать данные с сервера реализовать проверку 404, т.е. если ввожу
-  // неверный offerId и выпадает 404 ошибка, то нет смысла делать еще дополнительные
+  // неверный OfferId и выпадает 404 ошибка, то нет смысла делать еще дополнительные
   // запросы на сервер.
   // TODO, не забыть блокировать на момент оправки отзыва, чтобы не отправилось на сервер дважды.
   // TODO, проверить, как отрабатывает ошибка при попытке отправить отзыв при отсутствии инета.
@@ -134,7 +134,7 @@ export default function Offer(): JSX.Element {
         <Container>
           <OffersMap
             rootClassName="offer__map"
-            groupedPlaces={nearOffers}
+            offers={nearOffers}
             selectedMarkerLocation={location}
           />
         </Container>

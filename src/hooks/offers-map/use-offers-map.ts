@@ -1,7 +1,5 @@
-import { useEffect, useState, useRef, MutableRefObject } from 'react';
-import { Map, TileLayer } from 'leaflet';
-
-import type { Offers } from '../../types/offers';
+import { useEffect, useState, MutableRefObject } from 'react';
+import { layerGroup, Map, TileLayer, type LayerGroup } from 'leaflet';
 
 const OffersMapConfig = {
   Tile: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
@@ -19,45 +17,56 @@ type UseOffersMapProps = {
   latitude?: number;
   longitude?: number;
   zoom?: number;
-  groupedPlaces: Offers;
 };
 
-export default function useOffersMap({
+export type UseOffersMapResult = {
+  map: Map | null;
+  mapLayerGroup: LayerGroup | null;
+};
+
+const useOffersMap = ({
   mapContainerRef,
   latitude = OffersMapConfig.DefaultPosition.Latitude,
   longitude = OffersMapConfig.DefaultPosition.Longitude,
   zoom = OffersMapConfig.DefaultPosition.Zoom,
-  groupedPlaces,
-}: UseOffersMapProps): Map | null {
+}: UseOffersMapProps): UseOffersMapResult => {
   const [mapInstance, setMapInstance] = useState<Map | null>(null);
-  const isRenderedRef = useRef<boolean>(false);
+  const [mapLayerGroup, setMapLayerGroup] = useState<LayerGroup | null>(null);
 
   // Добавление карты.
   useEffect(() => {
-    if (mapContainerRef.current !== null && !isRenderedRef.current) {
-      const instance = new Map(mapContainerRef.current, {
-        center: {
-          lat: latitude,
-          lng: longitude,
-        },
-        zoom,
-      });
-
-      const layer = new TileLayer(OffersMapConfig.Tile, {
-        attribution: OffersMapConfig.Attribution,
-      });
-
-      instance.addLayer(layer);
-      setMapInstance(instance);
-      isRenderedRef.current = true;
-
-      return () => {
-        instance.remove();
-        setMapInstance(null);
-        isRenderedRef.current = false;
-      };
+    const mapContainer = mapContainerRef.current;
+    if (!mapContainer) {
+      return;
     }
-  }, [mapContainerRef, latitude, longitude, zoom, groupedPlaces]);
 
-  return mapInstance;
-}
+    const instance = new Map(mapContainer, {
+      center: {
+        lat: latitude,
+        lng: longitude,
+      },
+      zoom,
+    });
+
+    // Добавление тайлов карты.
+    const tileLayer = new TileLayer(OffersMapConfig.Tile, {
+      attribution: OffersMapConfig.Attribution,
+    });
+    instance.addLayer(tileLayer);
+    setMapInstance(instance);
+
+    // Создание слоя для маркеров предложений.
+    const markerLayer = layerGroup().addTo(instance);
+    setMapLayerGroup(markerLayer);
+
+    return () => {
+      markerLayer.clearLayers();
+      markerLayer.remove();
+      instance.remove();
+    };
+  }, [mapContainerRef, latitude, longitude, zoom]);
+
+  return { map: mapInstance, mapLayerGroup };
+};
+
+export { useOffersMap };

@@ -27,10 +27,7 @@ export default function CitiesFilled({
       />
       <div className="cities__right-section">
         {/* TOOD, переместить сюда проверку на grouped.length */}
-        <OffersMap
-          rootClassName="cities__map"
-          groupedPlaces={groupedOffersByCity}
-        />
+        <OffersMap rootClassName="cities__map" offers={groupedOffersByCity} />
       </div>
     </Container>
   );
