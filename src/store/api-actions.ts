@@ -9,7 +9,7 @@ import {
 import { dropToken, saveToken } from '../services/token';
 
 import type { AppDispatch } from '../types/state';
-import type { Offers } from '../types/offers';
+import { type ExtraOffer, type OfferId, type Offers } from '../types/offers';
 import type { AuthData } from '../types/auth-data';
 import type { UserData } from '../types/user-data';
 
@@ -25,9 +25,18 @@ enum APIRoute {
 export const fetchOffersAction = createAsyncThunk<
   Offers,
   void,
-  { dispatch: AppDispatch; extra: AxiosInstance }
+  { extra: AxiosInstance }
 >('data/fetchOffers', async (_arg, { extra: api }) => {
   const { data } = await api.get<Offers>(APIRoute.Offers);
+  return data;
+});
+
+export const fetchExtraOfferAction = createAsyncThunk<
+  ExtraOffer,
+  OfferId,
+  { extra: AxiosInstance }
+>('data/fetchExtraOffer', async (offerId, { extra: api }) => {
+  const { data } = await api.get<ExtraOffer>(`${APIRoute.Offers}/${offerId}`);
   return data;
 });
 

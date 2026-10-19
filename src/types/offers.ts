@@ -41,3 +41,16 @@ export type GroupedOffersByCity = {
  * Зависит от константы { CITY_NAMES } from '../const';
  */
 export type CityName = (typeof CITY_NAMES)[number];
+
+export type ExtraOffer = Omit<Offer, 'previewImage'> & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  images: string[];
+  maxAdults: number;
+};

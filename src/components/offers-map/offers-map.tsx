@@ -37,7 +37,6 @@ export default function OffersMap({
   const { latitude, longitude, zoom } = cityLocation;
 
   const mapContainerRef = useRef<HTMLElement | null>(null);
-  // TODO, расммотреть улучшение для смены города через map.setView().
   const offersMap = useOffersMap({
     mapContainerRef,
     latitude,

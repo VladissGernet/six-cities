@@ -2,11 +2,12 @@
 import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   getGroupedOffers,
   getOffers,
 } from '../../store/offers/offers-selectors';
+import { fetchExtraOfferAction } from '../../store/api-actions';
 
 // Components
 import Gallery from '../../components/gallery/gallery';
@@ -37,6 +38,13 @@ export default function Offer(): JSX.Element {
   const { id } = useParams();
   const offers = useAppSelector(getOffers);
   const groupedOffers = useAppSelector(getGroupedOffers);
+  const dispatch = useAppDispatch();
+  // TODO, осатновился на добавлении
+  // useAppSelector
+  // который будет считывать isExtraOfferLoading
+  // Возможно проверку id придется вынести в fetchOfferAction.pending
+  // Описать в reducer состояния pending,fullfiled и rejected.
+  const offerData = dispatch(fetchExtraOfferAction(id));
 
   if (!id) {
     return <NotFoundPage />;

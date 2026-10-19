@@ -16,7 +16,8 @@ import type {
 } from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
 import type { UserData } from '../types/user-data';
-import { fetchOffersAction } from './api-actions';
+
+import { fetchOffersAction, fetchExtraOfferAction } from './api-actions';
 
 const INITIAL_STATE_CITY = 'Paris';
 
@@ -29,6 +30,7 @@ type StateType = {
   authenticationStatus: AuthenticationStatus;
   isOffersDataLoading: boolean;
   userAccountData: UserData | null;
+  isExtraOfferLoading: boolean;
 };
 
 const initialState: StateType = {
@@ -40,6 +42,7 @@ const initialState: StateType = {
   authenticationStatus: AuthenticationStatus.Unknown,
   isOffersDataLoading: false,
   userAccountData: null,
+  isExtraOfferLoading: false,
 };
 
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
@@ -53,7 +56,14 @@ export const reducer = createReducer(initialState, (builder) => {
       const newActiveMapMarkerId = action.payload;
       state.activeMapMarkerId = newActiveMapMarkerId;
     })
-    // Fetch
+
+    .addCase(requireAuthenticationStatus, (state, action) => {
+      state.authenticationStatus = action.payload;
+    })
+    .addCase(setUserAccountData, (state, action) => {
+      state.userAccountData = action.payload;
+    })
+    // Fetch Offers.
     .addCase(fetchOffersAction.pending, (state) => {
       state.isOffersDataLoading = true;
     })
@@ -67,10 +77,21 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffersAction.rejected, (state) => {
       state.isOffersDataLoading = false;
     })
-    .addCase(requireAuthenticationStatus, (state, action) => {
-      state.authenticationStatus = action.payload;
+    // Fetch Offer
+    .addCase(fetchExtraOfferAction.pending, (state) => {
+      // TODO, add LoadingScreen
+      state.isExtraOfferLoading = true;
     })
-    .addCase(setUserAccountData, (state, action) => {
-      state.userAccountData = action.payload;
+    .addCase(fetchExtraOfferAction.fulfilled, (state, action) => {
+      state.isExtraOfferLoading = false;
+
+      // TODO, ExtraData loaded action.payload
+      console.log(action.payload);
+    })
+    .addCase(fetchExtraOfferAction.rejected, (state) => {
+      state.isExtraOfferLoading = false;
+
+      // TODO, add error definition
+      console.log('error');
     });
 });
