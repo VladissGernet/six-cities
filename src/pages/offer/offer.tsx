@@ -47,6 +47,7 @@ export default function Offer(): JSX.Element {
   // Описать в reducer состояния pending,fullfiled и rejected.
   const offerData = dispatch(fetchExtraOfferAction(id as OfferId));
   console.log(offerData);
+  // https://www.perplexity.ai/search/5b402a25-c080-48b2-996d-521889cc80ad
 
   if (!id) {
     return <NotFoundPage />;
