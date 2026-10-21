@@ -27,11 +27,11 @@ export default function App(): JSX.Element {
             <Route element={<PageWithoutLayout />}>
               <Route path={AppRoute.Root} element={<MainScreen />} />
               <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
-              <Route path="*" element={<NotFoundPage />} />
             </Route>
 
             <Route element={<PageWithFooterLayout />}>
               <Route path={AppRoute.Favorites} element={<PrivateRoute />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Route>
         </Routes>

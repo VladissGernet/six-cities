@@ -33,6 +33,7 @@ import {
 
 // Styles
 import styles from './offer.module.css';
+import type { OfferId } from '../../types/offers';
 
 export default function Offer(): JSX.Element {
   const { id } = useParams();
@@ -44,7 +45,8 @@ export default function Offer(): JSX.Element {
   // который будет считывать isExtraOfferLoading
   // Возможно проверку id придется вынести в fetchOfferAction.pending
   // Описать в reducer состояния pending,fullfiled и rejected.
-  const offerData = dispatch(fetchExtraOfferAction(id));
+  const offerData = dispatch(fetchExtraOfferAction(id as OfferId));
+  console.log(offerData);
 
   if (!id) {
     return <NotFoundPage />;
