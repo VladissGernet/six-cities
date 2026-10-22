@@ -18,18 +18,33 @@ const pageClassNames: Record<string, string | undefined> = {
 export default function Page({ children }: PropsWithChildren): JSX.Element {
   const { pathname } = useLocation();
   const params = useParams();
-  // TODO, остановился на прокидывании в cn.
-  const isNotFound = isNotFoundParams(params);
 
+  const isNotFound = isNotFoundParams(params);
   const basePath = makeBasePath(pathname);
 
   const favoriteOffersByCity = useAppSelector(getGroupedFavoirteOffers);
+
   const hasFavorites = favoriteOffersByCity.length > 0;
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
+  if (isNotFound) {
+    return (
+      <div
+        className={cn(
+          'page',
+          pageClassNames[AppRoute.NotFoundPage],
+          // Фикс sticky-footer на странице Favorites.
+          styles['page--sticky-footer-fix'],
+        )}
+      >
+        {children}
+      </div>
+    );
+  }
+
   const pageClassName = cn(
     'page',
-    pageClassNames[basePath] || pageClassNames[AppRoute.NotFoundPage],
+    pageClassNames[basePath],
     isFavoritesEmpty && 'page--favorites-empty',
     // Фикс sticky-footer на странице Favorites.
     styles['page--sticky-footer-fix'],
