@@ -25,29 +25,36 @@ import {
 import styles from './offer.module.css';
 
 // Types.
-import type { GroupedOffers, Offer, OfferId } from '../../types/offers';
+import type { OfferId } from '../../types/offers';
+import { useAppSelector } from '../../hooks/redux';
+import {
+  getExtraOfferData,
+  getGroupedOffers,
+} from '../../store/offers/offers-selectors';
 
 type OfferContentProps = {
-  selectedOffer: Offer;
   offerId: OfferId;
-  groupedOffers: GroupedOffers;
 };
 
 export default function OfferContent({
-  selectedOffer,
-  groupedOffers,
   offerId,
-}: OfferContentProps): JSX.Element {
+}: OfferContentProps): JSX.Element | null {
+  const extraOfferData = useAppSelector(getExtraOfferData);
+  const groupedOffers = useAppSelector(getGroupedOffers);
+
+  if (!extraOfferData) {
+    return null;
+  }
   const { title, isPremium, rating, type, price, city, location } =
-    selectedOffer;
+    extraOfferData;
 
   // Подготовка данных для рендера городов поблизости.
   const groupedOffersByCity = getOffersByCity(city.name, groupedOffers);
-
   const nearOffers = getNearOffersWithRestriction(
     groupedOffersByCity.offerPlacesByCity,
     offerId,
   );
+
   return (
     <>
       <Helmet>

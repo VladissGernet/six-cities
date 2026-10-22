@@ -13,6 +13,7 @@ import type {
   CityName,
   GroupedOffers,
   GroupedOffersByCity,
+  ExtraOffer,
 } from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
 import type { UserData } from '../types/user-data';
@@ -20,6 +21,7 @@ import type { UserData } from '../types/user-data';
 import { fetchOffersAction, fetchExtraOfferAction } from './api-actions';
 
 const INITIAL_STATE_CITY = 'Paris';
+const ABORTED_REQUEST = 'Aborted';
 
 type StateType = {
   city: CityName;
@@ -30,6 +32,10 @@ type StateType = {
   authenticationStatus: AuthenticationStatus;
   isOffersDataLoading: boolean;
   userAccountData: UserData | null;
+
+  extraOfferData: ExtraOffer | null;
+  isExtraOfferDataError: boolean;
+  extraOfferErrorMessage: string | null | undefined;
 };
 
 const initialState: StateType = {
@@ -41,6 +47,10 @@ const initialState: StateType = {
   authenticationStatus: AuthenticationStatus.Unknown,
   isOffersDataLoading: false,
   userAccountData: null,
+
+  extraOfferData: null,
+  isExtraOfferDataError: false,
+  extraOfferErrorMessage: null,
 };
 
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
@@ -75,16 +85,22 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffersAction.rejected, (state) => {
       state.isOffersDataLoading = false;
     })
-    // Fetch Offer
+
+    // Fetch ExtraOffer
     .addCase(fetchExtraOfferAction.pending, (state) => {
-      // TODO, add LoadingScreen
+      // Очистка предыдущего extraOffer.
+      state.extraOfferData = null;
+      state.isExtraOfferDataError = false;
+      state.extraOfferErrorMessage = null;
     })
     .addCase(fetchExtraOfferAction.fulfilled, (state, action) => {
-      // TODO, ExtraData loaded action.payload
-      console.log(action.payload);
+      state.extraOfferData = action.payload;
     })
-    .addCase(fetchExtraOfferAction.rejected, (state) => {
-      // TODO, add error definition
-      console.log('error');
+    .addCase(fetchExtraOfferAction.rejected, (state, action) => {
+      state.isExtraOfferDataError = true;
+      const message = action.error.message;
+
+      state.extraOfferErrorMessage =
+        message === ABORTED_REQUEST ? null : message;
     });
 });

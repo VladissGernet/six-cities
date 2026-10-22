@@ -1,15 +1,15 @@
 // General.
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
-  getGroupedOffers,
+  getExtraOfferData,
+  getExtraOfferErrorMessage,
   getOffers,
 } from '../../store/offers/offers-selectors';
-import { fetchExtraOfferAction } from '../../store/api-actions';
 
 // Components.
 import LoadingScreenContent from '../loading-screen/loading-screen-content';
+import Container from '../../components/container/container';
 
 // Pages.
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -19,42 +19,41 @@ import OfferContent from './offer-content';
 
 // Types.
 import type { OfferId } from '../../types/offers';
+import { useOfferRequest } from '../../hooks/offer/use-offer-request';
 
 export default function Offer(): JSX.Element {
   const { id: offerId } = useParams<{ id: OfferId }>();
+
   const offers = useAppSelector(getOffers);
-  const groupedOffers = useAppSelector(getGroupedOffers);
+  const extraOfferData = useAppSelector(getExtraOfferData);
+  const extraOfferErrorMessage = useAppSelector(getExtraOfferErrorMessage);
+
   const dispatch = useAppDispatch();
 
-  // Запрос на сервер для получения extraOffer.
-  useEffect(() => {
-    if (!offerId) {
-      return;
-    }
-    const isSelectedOffer = offers.some((item) => item.id === offerId);
-    if (!isSelectedOffer) {
-      return;
-    }
+  const isSelectedOffer = offers.some((item) => item.id === offerId);
 
-    const request = dispatch(fetchExtraOfferAction(offerId));
-    return () => {
-      request.abort();
-    };
-  }, [offerId, dispatch, offers]);
+  // Запрос на сервер.
+  useOfferRequest(offerId, dispatch, isSelectedOffer);
 
   if (!offerId) {
     return <NotFoundPage />;
   }
 
-  const selectedOffer = offers.find((item) => item.id === offerId);
-  // TODO, заменить на .some
-  if (!selectedOffer) {
+  if (!isSelectedOffer) {
     return <NotFoundPage />;
   }
 
-  // TODO, когда буду получать данные с сервера реализовать проверку 404, т.е. если ввожу
-  // неверный OfferId и выпадает 404 ошибка, то нет смысла делать еще дополнительные
-  // запросы на сервер.
+  if (extraOfferData) {
+    return <OfferContent offerId={offerId} />;
+  }
+
+  if (extraOfferErrorMessage) {
+    return (
+      <Container>
+        <h1>{extraOfferErrorMessage}</h1>
+      </Container>
+    );
+  }
   // TODO, не забыть блокировать на момент оправки отзыва, чтобы не отправилось на сервер дважды.
   // TODO, проверить, как отрабатывает ошибка при попытке отправить отзыв при отсутствии инета.
 
@@ -71,11 +70,5 @@ export default function Offer(): JSX.Element {
     пользователь перенаправлен на главную. Также и с отправкой отзыва, чтобы при ошибки отправки данных отзыва
     форма не стиралась, отобразила ошибку отправки комментария на сервер и текст отзыва был бы сохранен.
   */
-  // return (
-  //   <OfferContent
-  //     selectedOffer={selectedOffer}
-  //     groupedOffers={groupedOffers}
-  //     offerId={offerId}
-  //   />
   return <LoadingScreenContent />;
 }
