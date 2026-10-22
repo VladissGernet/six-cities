@@ -45,9 +45,48 @@ const capitalizeFirstLetter = (value: string): string => {
  */
 const makeBasePath = (path: string): string => `/${path.split('/')[1]}`;
 
+/**
+ * Ключ параметра, который React Router использует для catch-all маршрута (`*`).
+ *
+ * Например, для пути `/users/*` при переходе на `/users/unknown/page`
+ * в `params` появится свойство `"*"`.
+ */
+const NOT_FOUND_PATH_KEY = '*';
+/**
+ * Описание параметров текущего маршрута, полученных через `useParams()`.
+ *
+ * Ключом может быть имя динамического сегмента маршрута
+ * (например, `id`, `slug`) или `*` для catch-all сегмента.
+ * Значение может отсутствовать, поэтому имеет тип `string | undefined`.
+ */
+type Params = {
+  [key: string]: string | undefined;
+};
+/**
+ * Проверяет, что текущий маршрут не найден.
+ *
+ * Функция считает маршрут ненайденным, если среди параметров есть
+ * ключ catch-all маршрута (`*`). Такой ключ появляется, когда URL
+ * не совпал ни с одним конкретным маршрутом и был обработан
+ * fallback-маршрутом.
+ *
+ * @param params - Объект параметров маршрута из `useParams()`.
+ * @returns `true`, если маршрут не найден; иначе `false`.
+ *
+ * @example
+ * const params = useParams();
+ *
+ * if (isNotFoundParams(params)) {
+ *   return <NotFoundPage />;
+ * }
+ */
+const isNotFoundParams = (params: Params): boolean =>
+  NOT_FOUND_PATH_KEY in params;
+
 export {
   getRandomElement,
   filterByProperty,
   capitalizeFirstLetter,
   makeBasePath,
+  isNotFoundParams,
 };

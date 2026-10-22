@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react';
 import cn from 'classnames';
 import styles from './page.module.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { makeBasePath } from '../../utils/utils';
+import { isNotFoundParams, makeBasePath } from '../../utils/utils';
 import { useAppSelector } from '../../hooks/redux';
 import { getGroupedFavoirteOffers } from '../../store/offers/offers-selectors';
 
@@ -17,6 +17,10 @@ const pageClassNames: Record<string, string | undefined> = {
 
 export default function Page({ children }: PropsWithChildren): JSX.Element {
   const { pathname } = useLocation();
+  const params = useParams();
+  // TODO, остановился на прокидывании в cn.
+  const isNotFound = isNotFoundParams(params);
+
   const basePath = makeBasePath(pathname);
 
   const favoriteOffersByCity = useAppSelector(getGroupedFavoirteOffers);

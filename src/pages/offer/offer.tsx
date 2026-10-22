@@ -20,15 +20,6 @@ export default function Offer(): JSX.Element {
   const { id: offerId } = useParams<{ id: OfferId }>();
   const offers = useAppSelector(getOffers);
   const groupedOffers = useAppSelector(getGroupedOffers);
-  // const dispatch = useAppDispatch();
-  // TODO, осатновился на добавлении
-  // useAppSelector
-  // который будет считывать isExtraOfferLoading
-  // Возможно проверку offerId придется вынести в fetchOfferAction.pending
-  // Описать в reducer состояния pending,fullfiled и rejected.
-  // const offerData = dispatch(fetchExtraOfferAction(offerId as OfferId));
-  // console.log(offerData);
-  // https://www.perplexity.ai/search/5b402a25-c080-48b2-996d-521889cc80ad
 
   if (!offerId) {
     return <NotFoundPage />;
