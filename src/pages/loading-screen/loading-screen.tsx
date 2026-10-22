@@ -1,9 +1,7 @@
-import Container from '../../components/container/container';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 import Page from '../../components/page/page';
-
-import styles from './loading-screen.module.css';
+import LoadingScreenContent from './loading-screen-content';
 
 function LoadingScreen(): JSX.Element {
   return (
@@ -11,9 +9,7 @@ function LoadingScreen(): JSX.Element {
       <Header isHeaderNoNav />
 
       <Main>
-        <Container>
-          <p className={styles.loader}>Loading</p>
-        </Container>
+        <LoadingScreenContent />
       </Main>
     </Page>
   );

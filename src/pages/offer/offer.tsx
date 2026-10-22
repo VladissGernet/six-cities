@@ -1,11 +1,15 @@
 // General.
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   getGroupedOffers,
   getOffers,
 } from '../../store/offers/offers-selectors';
-// import { fetchExtraOfferAction } from '../../store/api-actions';
+import { fetchExtraOfferAction } from '../../store/api-actions';
+
+// Components.
+import LoadingScreenContent from '../loading-screen/loading-screen-content';
 
 // Pages.
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -20,12 +24,30 @@ export default function Offer(): JSX.Element {
   const { id: offerId } = useParams<{ id: OfferId }>();
   const offers = useAppSelector(getOffers);
   const groupedOffers = useAppSelector(getGroupedOffers);
+  const dispatch = useAppDispatch();
+
+  // Запрос на сервер для получения extraOffer.
+  useEffect(() => {
+    if (!offerId) {
+      return;
+    }
+    const isSelectedOffer = offers.some((item) => item.id === offerId);
+    if (!isSelectedOffer) {
+      return;
+    }
+
+    const request = dispatch(fetchExtraOfferAction(offerId));
+    return () => {
+      request.abort();
+    };
+  }, [offerId, dispatch, offers]);
 
   if (!offerId) {
     return <NotFoundPage />;
   }
 
   const selectedOffer = offers.find((item) => item.id === offerId);
+  // TODO, заменить на .some
   if (!selectedOffer) {
     return <NotFoundPage />;
   }
@@ -49,11 +71,11 @@ export default function Offer(): JSX.Element {
     пользователь перенаправлен на главную. Также и с отправкой отзыва, чтобы при ошибки отправки данных отзыва
     форма не стиралась, отобразила ошибку отправки комментария на сервер и текст отзыва был бы сохранен.
   */
-  return (
-    <OfferContent
-      selectedOffer={selectedOffer}
-      groupedOffers={groupedOffers}
-      offerId={offerId}
-    />
-  );
+  // return (
+  //   <OfferContent
+  //     selectedOffer={selectedOffer}
+  //     groupedOffers={groupedOffers}
+  //     offerId={offerId}
+  //   />
+  return <LoadingScreenContent />;
 }

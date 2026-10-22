@@ -30,7 +30,6 @@ type StateType = {
   authenticationStatus: AuthenticationStatus;
   isOffersDataLoading: boolean;
   userAccountData: UserData | null;
-  isExtraOfferLoading: boolean;
 };
 
 const initialState: StateType = {
@@ -42,7 +41,6 @@ const initialState: StateType = {
   authenticationStatus: AuthenticationStatus.Unknown,
   isOffersDataLoading: false,
   userAccountData: null,
-  isExtraOfferLoading: false,
 };
 
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
@@ -80,17 +78,12 @@ export const reducer = createReducer(initialState, (builder) => {
     // Fetch Offer
     .addCase(fetchExtraOfferAction.pending, (state) => {
       // TODO, add LoadingScreen
-      state.isExtraOfferLoading = true;
     })
     .addCase(fetchExtraOfferAction.fulfilled, (state, action) => {
-      state.isExtraOfferLoading = false;
-
       // TODO, ExtraData loaded action.payload
       console.log(action.payload);
     })
     .addCase(fetchExtraOfferAction.rejected, (state) => {
-      state.isExtraOfferLoading = false;
-
       // TODO, add error definition
       console.log('error');
     });
