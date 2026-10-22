@@ -45,8 +45,27 @@ export default function OfferContent({
   if (!extraOfferData) {
     return null;
   }
-  const { title, isPremium, rating, type, price, city, location } =
-    extraOfferData;
+
+  /*
+    TODO, остановился здесь
+  */
+  const {
+    title,
+    isPremium,
+    rating,
+    type,
+    price,
+    city,
+    location,
+    bedrooms,
+    description,
+    goods,
+    host,
+    id,
+    images,
+    isFavorite,
+    maxAdults,
+  } = extraOfferData;
 
   // Подготовка данных для рендера городов поблизости.
   const groupedOffersByCity = getOffersByCity(city.name, groupedOffers);
@@ -92,12 +111,12 @@ export default function OfferContent({
                 {capitalizeFirstLetter(type)}
               </li>
               <li className="offer__feature offer__feature--bedrooms">
-                {/* TODO, Исправить на реальное, сейчас mock данные */}3
-                Bedrooms
+                {/* TODO, добавить проверку на множественное число */}
+                {bedrooms} Bedrooms
               </li>
               <li className="offer__feature offer__feature--adults">
-                {/* TODO, Исправить на реальное, сейчас mock данные */}
-                Max 4 adults
+                {/* TODO, добавить проверку на множественное число */}
+                Max {maxAdults} adults
               </li>
             </ul>
             <div className="offer__price">
