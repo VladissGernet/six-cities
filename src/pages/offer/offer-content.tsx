@@ -122,7 +122,7 @@ export default function OfferContent({
               <span className="offer__price-text">&nbsp;night</span>
             </div>
             <OfferInside />
-            <OfferHost />
+            <OfferHost description={description} host={host} />
             <Reviews />
           </div>
         </Container>

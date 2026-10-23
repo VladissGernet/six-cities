@@ -46,11 +46,13 @@ export type ExtraOffer = Omit<Offer, 'previewImage'> & {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
+  host: ExtraOfferHost;
   images: string[];
   maxAdults: number;
+};
+
+export type ExtraOfferHost = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
 };
