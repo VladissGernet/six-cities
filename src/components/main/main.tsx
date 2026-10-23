@@ -22,16 +22,19 @@ export default function Main({ children }: PropsWithChildren): JSX.Element {
   const basePath = makeBasePath(pathname);
 
   const favoriteOffersByCity = useAppSelector(getGroupedFavoirteOffers);
+
+  const isFavoritesPage = (AppRoute.Favorites as string) === basePath;
   const hasFavorites = favoriteOffersByCity.length > 0;
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
   const mainClassName = cn(
     'page__main',
     mainClassNames[basePath] || mainClassNames[AppRoute.NotFoundPage],
-    isFavoritesEmpty && 'page__main--favorites-empty',
+    isFavoritesPage && isFavoritesEmpty && 'page__main--favorites-empty',
 
     // Исправление sticky-footer.
-    hasFavorites &&
+    isFavoritesPage &&
+      hasFavorites &&
       `page__main--favorites ${styles['page__main--favorites-not-empty-fix']}`,
   );
 

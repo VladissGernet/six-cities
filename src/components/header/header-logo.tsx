@@ -1,17 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import LogoContent from '../logo-content/logo-content';
 
-function LogoContent(): JSX.Element {
-  return (
-    <img
-      className="header__logo"
-      src="img/logo.svg"
-      alt="6 cities logo"
-      width="81"
-      height="41"
-    />
-  );
-}
+const LOGO_SIZE = {
+  WIDTH: 81,
+  HEIGHT: 41,
+};
 
 export default function HeaderLogo(): JSX.Element {
   const location = useLocation();
@@ -21,11 +15,11 @@ export default function HeaderLogo(): JSX.Element {
     <div className="header__left">
       {isMain ? (
         <span className="header__logo-link header__logo-link--active">
-          <LogoContent />
+          <LogoContent className={'header__logo'} logoSize={LOGO_SIZE} />
         </span>
       ) : (
         <Link className="header__logo-link" to={AppRoute.Root}>
-          <LogoContent />
+          <LogoContent className={'header__logo'} logoSize={LOGO_SIZE} />
         </Link>
       )}
     </div>

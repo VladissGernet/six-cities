@@ -24,6 +24,7 @@ export default function Page({ children }: PropsWithChildren): JSX.Element {
 
   const favoriteOffersByCity = useAppSelector(getGroupedFavoirteOffers);
 
+  const isFavoritesPage = (AppRoute.Favorites as string) === basePath;
   const hasFavorites = favoriteOffersByCity.length > 0;
   const isFavoritesEmpty = hasFavorites !== null && !hasFavorites;
 
@@ -45,7 +46,7 @@ export default function Page({ children }: PropsWithChildren): JSX.Element {
   const pageClassName = cn(
     'page',
     pageClassNames[basePath],
-    isFavoritesEmpty && 'page--favorites-empty',
+    isFavoritesPage && isFavoritesEmpty && 'page--favorites-empty',
     // Фикс sticky-footer на странице Favorites.
     styles['page--sticky-footer-fix'],
   );
