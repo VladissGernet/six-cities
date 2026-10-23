@@ -15,7 +15,7 @@ import OfferHost from './offer-host';
 import OfferInside from './offer-inside';
 
 // Utils.
-import { capitalizeFirstLetter } from '../../utils/utils';
+import { capitalizeFirstLetter, pluralizeEn } from '../../utils/utils';
 import {
   getOffersByCity,
   getNearOffersWithRestriction,
@@ -111,12 +111,10 @@ export default function OfferContent({
                 {capitalizeFirstLetter(type)}
               </li>
               <li className="offer__feature offer__feature--bedrooms">
-                {/* TODO, добавить проверку на множественное число */}
-                {bedrooms} Bedrooms
+                {pluralizeEn(bedrooms, { one: 'bedroom', other: 'bedrooms' })}
               </li>
               <li className="offer__feature offer__feature--adults">
-                {/* TODO, добавить проверку на множественное число */}
-                Max {maxAdults} adults
+                {pluralizeEn(maxAdults, { one: 'adult', other: 'adults' })}
               </li>
             </ul>
             <div className="offer__price">

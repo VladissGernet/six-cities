@@ -83,10 +83,28 @@ type Params = {
 const isNotFoundParams = (params: Params): boolean =>
   NOT_FOUND_PATH_KEY in params;
 
+type EnglishPluralForms = {
+  one: string;
+  other: string;
+};
+/**
+ * Подставляет слово в единственном числе или во монжественном.
+ * @param count - число, на основе которого подставляется слово.
+ * @param forms - возможные формы слов.
+ * @returns Возвращает число и слово.
+ */
+const pluralizeEn = (count: number, forms: EnglishPluralForms): string => {
+  const category = new Intl.PluralRules('en').select(count);
+  const word = category === 'one' ? forms.one : forms.other;
+
+  return `${count} ${word}`;
+};
+
 export {
   getRandomElement,
   filterByProperty,
   capitalizeFirstLetter,
   makeBasePath,
   isNotFoundParams,
+  pluralizeEn,
 };
