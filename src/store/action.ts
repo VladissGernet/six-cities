@@ -5,7 +5,7 @@ import type { ActiveMapMarkerId } from '../types/general';
 import type { AppRoute, AuthenticationStatus } from '../const';
 import { ExtraUserData } from '../types/user-data';
 
-// TODO, добавить общий export { changeCity, ...}
+// TODO, добавить общий export { changeCity, ...} и так во всех в поиске export const.
 export const changeCity = createAction<CityName>('offers/changeCity');
 export const setActiveMapMaker = createAction<ActiveMapMarkerId>(
   'offersMap/setActiveMapMaker',
