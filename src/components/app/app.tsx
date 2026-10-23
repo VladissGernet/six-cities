@@ -15,11 +15,13 @@ import browserHistory from '../../browser-history';
 import AppLayout from '../../layout/app-layout';
 import PageWithoutLayout from '../../layout/page-without-footer-layout';
 import PageWithFooterLayout from '../../layout/page-with-footer-layout';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 export default function App(): JSX.Element {
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
+        <ScrollToTop />
         <Routes>
           <Route element={<AppLayout />}>
             <Route path={AppRoute.Login} element={<AuthScreen />} />

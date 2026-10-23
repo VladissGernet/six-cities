@@ -135,10 +135,6 @@ export default function OfferContent({
         </Container>
       </section>
       <Container className={cn('container', styles['offer__places-container'])}>
-        {/*
-        проблеммы со скролл
-        https://up.htmlacademy.ru/profession/react-lite/4/lite-javascript-3/4/module/3/item/18
-        */}
         <Places
           rootClassName={cn('near-places', styles['offer__places-content'])}
           title="Other places in the neighbourhood"
