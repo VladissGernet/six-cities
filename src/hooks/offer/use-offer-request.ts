@@ -22,6 +22,11 @@ const useOfferRequest = (
     if (!isSelectedOffer) {
       return;
     }
+
+    // TODO
+    // Дополнительно нужно запросить информацию по
+    // предложениям неподалёку get /six-cities/offers/{offerId}/nearby
+    // и списку комментариев предложения get /six-cities/comments/{offerId}
     const request = dispatch(fetchExtraOfferAction(offerId));
     return () => {
       request.abort();

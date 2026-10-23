@@ -6,6 +6,7 @@ import {
   getExtraOfferErrorMessage,
   getOffers,
 } from '../../store/offers/offers-selectors';
+import { useOfferRequest } from '../../hooks/offer/use-offer-request';
 
 // Components.
 import LoadingScreenContent from '../loading-screen/loading-screen-content';
@@ -19,7 +20,6 @@ import OfferContent from './offer-content';
 
 // Types.
 import type { OfferId } from '../../types/offers';
-import { useOfferRequest } from '../../hooks/offer/use-offer-request';
 
 export default function Offer(): JSX.Element {
   const { id: offerId } = useParams<{ id: OfferId }>();
