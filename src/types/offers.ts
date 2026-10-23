@@ -1,4 +1,5 @@
 import { CITY_NAMES } from '../const';
+import type { UserData } from './user-data';
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
@@ -46,17 +47,21 @@ export type ExtraOffer = Omit<Offer, 'previewImage'> & {
   description: string;
   bedrooms: number;
   goods: ExtraOfferGoods;
-  host: ExtraOfferHost;
+  host: UserData;
   images: ExtraOfferImages;
   maxAdults: number;
-};
-
-export type ExtraOfferHost = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
 };
 
 export type ExtraOfferGoods = string[];
 
 export type ExtraOfferImages = string[];
+
+type Comment = {
+  id: string;
+  date: string;
+  user: UserData;
+  comment: string;
+  rating: number;
+};
+
+export type Comments = Comment[];

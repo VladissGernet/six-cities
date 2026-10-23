@@ -16,7 +16,7 @@ import type {
   ExtraOffer,
 } from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
-import type { UserData } from '../types/user-data';
+import type { ExtraUserData } from '../types/user-data';
 
 import { fetchOffersAction, fetchExtraOfferAction } from './api-actions';
 
@@ -31,7 +31,7 @@ type StateType = {
   activeMapMarkerId: ActiveMapMarkerId;
   authenticationStatus: AuthenticationStatus;
   isOffersDataLoading: boolean;
-  userAccountData: UserData | null;
+  userAccountData: ExtraUserData | null;
 
   extraOfferData: ExtraOffer | null;
   isExtraOfferDataError: boolean;

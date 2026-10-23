@@ -63,6 +63,7 @@ export default function OfferContent({
     images,
   } = extraOfferData;
 
+  // TODO, fetchNearbyOffers нужно просто обрезать до первых трех городов.
   // Подготовка данных для рендера городов поблизости.
   const groupedOffersByCity = getOffersByCity(city.name, groupedOffers);
   const nearOffers = getNearOffersWithRestriction(

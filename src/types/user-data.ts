@@ -1,7 +1,10 @@
 export type UserData = {
-  email: string;
-  token: string;
   name: string;
   avatarUrl: string;
   isPro: boolean;
+};
+
+export type ExtraUserData = UserData & {
+  email: string;
+  token: string;
 };

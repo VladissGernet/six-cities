@@ -1,8 +1,8 @@
-import type { ExtraOfferHost } from '../../types/offers';
+import type { UserData } from '../../types/user-data';
 
 type OfferHostProps = {
   description: string;
-  host: ExtraOfferHost;
+  host: UserData;
 };
 
 export default function OfferHost({
