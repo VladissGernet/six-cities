@@ -45,9 +45,9 @@ export type CityName = (typeof CITY_NAMES)[number];
 export type ExtraOffer = Omit<Offer, 'previewImage'> & {
   description: string;
   bedrooms: number;
-  goods: string[];
+  goods: ExtraOfferGoods;
   host: ExtraOfferHost;
-  images: string[];
+  images: ExtraOfferImages;
   maxAdults: number;
 };
 
@@ -56,3 +56,7 @@ export type ExtraOfferHost = {
   avatarUrl: string;
   isPro: boolean;
 };
+
+export type ExtraOfferGoods = string[];
+
+export type ExtraOfferImages = string[];

@@ -46,9 +46,6 @@ export default function OfferContent({
     return null;
   }
 
-  /*
-    TODO, остановился здесь
-  */
   const {
     title,
     isPremium,
@@ -59,12 +56,11 @@ export default function OfferContent({
     location,
     bedrooms,
     description,
-    goods,
     host,
-    id,
-    images,
     isFavorite,
     maxAdults,
+    goods,
+    images,
   } = extraOfferData;
 
   // Подготовка данных для рендера городов поблизости.
@@ -74,6 +70,12 @@ export default function OfferContent({
     offerId,
   );
 
+  const bookmarkClass = cn(
+    'offer__bookmark-button',
+    isFavorite && 'offer__bookmark-button--active',
+    'button',
+  );
+
   return (
     <>
       <Helmet>
@@ -81,7 +83,7 @@ export default function OfferContent({
       </Helmet>
       <section className="offer">
         <Container className="offer__gallery-container container">
-          <Gallery />
+          <Gallery images={images} />
         </Container>
         <Container className="offer__container container">
           <div className="offer__wrapper">
@@ -92,7 +94,7 @@ export default function OfferContent({
             )}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{title}</h1>
-              <button className="offer__bookmark-button button" type="button">
+              <button className={bookmarkClass} type="button">
                 <svg className="offer__bookmark-icon" width="31" height="33">
                   <use href="#icon-bookmark"></use>
                 </svg>
@@ -121,7 +123,7 @@ export default function OfferContent({
               <b className="offer__price-value">&euro;{price}</b>
               <span className="offer__price-text">&nbsp;night</span>
             </div>
-            <OfferInside />
+            <OfferInside goods={goods} />
             <OfferHost description={description} host={host} />
             <Reviews />
           </div>
