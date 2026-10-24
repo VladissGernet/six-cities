@@ -55,7 +55,7 @@ const initialState: StateType = {
 };
 
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
-export const reducer = createReducer(initialState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, { payload }) => {
       const newCity = payload;
@@ -123,3 +123,5 @@ export const reducer = createReducer(initialState, (builder) => {
         message === ABORTED_REQUEST ? null : message;
     });
 });
+
+export { reducer };

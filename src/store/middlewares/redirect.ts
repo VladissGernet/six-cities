@@ -2,7 +2,7 @@ import type { Middleware, PayloadAction } from '@reduxjs/toolkit';
 import browserHistory from '../../browser-history';
 import { redirectToRoute } from '../action';
 
-export const redirect: Middleware =
+const redirect: Middleware =
   () => (next) => (action: PayloadAction<string>) => {
     if (redirectToRoute.match(action)) {
       browserHistory.push(action.payload);
@@ -10,3 +10,5 @@ export const redirect: Middleware =
 
     return next(action);
   };
+
+export { redirect };

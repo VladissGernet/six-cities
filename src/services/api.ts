@@ -28,7 +28,7 @@ const NETWORK_ERROR = 'ERR_NETWORK';
 const shouldDisplayError = (response: AxiosResponse) =>
   !!StatusCodeMapping[response.status];
 
-export const createAPI = (): AxiosInstance => {
+const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -62,3 +62,5 @@ export const createAPI = (): AxiosInstance => {
 
   return api;
 };
+
+export { createAPI };

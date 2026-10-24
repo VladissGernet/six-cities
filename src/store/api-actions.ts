@@ -23,9 +23,7 @@ enum APIRoute {
   Logout = '/logout',
 }
 
-// TODO, заменить export на один в конце export { fetchOffersAction , ...}
-
-export const fetchOffersAction = createAsyncThunk<
+const fetchOffersAction = createAsyncThunk<
   Offers,
   void,
   { extra: AxiosInstance }
@@ -34,7 +32,7 @@ export const fetchOffersAction = createAsyncThunk<
   return data;
 });
 
-export const fetchExtraOfferAction = createAsyncThunk<
+const fetchExtraOfferAction = createAsyncThunk<
   ExtraOffer,
   OfferId,
   { extra: AxiosInstance }
@@ -43,7 +41,7 @@ export const fetchExtraOfferAction = createAsyncThunk<
   return data;
 });
 
-export const fetchNearbyOffers = createAsyncThunk<
+const fetchNearbyOffers = createAsyncThunk<
   Offers,
   OfferId,
   { extra: AxiosInstance }
@@ -54,7 +52,7 @@ export const fetchNearbyOffers = createAsyncThunk<
   return data;
 });
 
-export const fetchComments = createAsyncThunk<
+const fetchComments = createAsyncThunk<
   Comments,
   OfferId,
   { extra: AxiosInstance }
@@ -69,7 +67,7 @@ export const fetchComments = createAsyncThunk<
   быть и 401, и сеть, и сервер. Для учебного приложения обычно этого достаточно, но в production-подходе ошибку лучше различать
   через rejectWithValue и, например, ставить NoAuth только при 401.
 */
-export const checkAuthAction = createAsyncThunk<
+const checkAuthAction = createAsyncThunk<
   ExtraUserData,
   void,
   { dispatch: AppDispatch; extra: AxiosInstance }
@@ -79,7 +77,7 @@ export const checkAuthAction = createAsyncThunk<
   return data;
 });
 
-export const loginAction = createAsyncThunk<
+const loginAction = createAsyncThunk<
   ExtraUserData,
   AuthData,
   {
@@ -100,7 +98,7 @@ export const loginAction = createAsyncThunk<
   },
 );
 
-export const logoutAction = createAsyncThunk<
+const logoutAction = createAsyncThunk<
   void,
   void,
   { dispatch: AppDispatch; extra: AxiosInstance }
@@ -108,3 +106,13 @@ export const logoutAction = createAsyncThunk<
   await api.delete(APIRoute.Logout);
   dropToken();
 });
+
+export {
+  fetchOffersAction,
+  fetchExtraOfferAction,
+  fetchNearbyOffers,
+  fetchComments,
+  checkAuthAction,
+  loginAction,
+  logoutAction,
+};
