@@ -1,11 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthenticationStatus } from '../const';
-import {
-  changeCity,
-  requireAuthenticationStatus,
-  setActiveMapMaker,
-  setUserAccountData,
-} from './action';
+import { changeCity, setActiveMapMaker } from './action';
 import { filterFavoriteOffers, groupOffers } from '../utils/offers';
 
 import type {
@@ -18,7 +13,13 @@ import type {
 import type { ActiveMapMarkerId } from '../types/general';
 import type { ExtraUserData } from '../types/user-data';
 
-import { fetchOffersAction, fetchExtraOfferAction } from './api-actions';
+import {
+  fetchOffersAction,
+  fetchExtraOfferAction,
+  checkAuthAction,
+  loginAction,
+  logoutAction,
+} from './api-actions';
 
 const INITIAL_STATE_CITY = 'Paris';
 const ABORTED_REQUEST = 'Aborted';
@@ -56,28 +57,22 @@ const initialState: StateType = {
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
 export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCity, (state, action) => {
-      const newCity = action.payload;
+    .addCase(changeCity, (state, { payload }) => {
+      const newCity = payload;
       state.city = newCity;
     })
-    .addCase(setActiveMapMaker, (state, action) => {
-      const newActiveMapMarkerId = action.payload;
+    .addCase(setActiveMapMaker, (state, { payload }) => {
+      const newActiveMapMarkerId = payload;
       state.activeMapMarkerId = newActiveMapMarkerId;
     })
 
-    .addCase(requireAuthenticationStatus, (state, action) => {
-      state.authenticationStatus = action.payload;
-    })
-    .addCase(setUserAccountData, (state, action) => {
-      state.userAccountData = action.payload;
-    })
     // Fetch Offers.
     .addCase(fetchOffersAction.pending, (state) => {
       state.isOffersDataLoading = true;
     })
-    .addCase(fetchOffersAction.fulfilled, (state, action) => {
+    .addCase(fetchOffersAction.fulfilled, (state, { payload }) => {
       state.isOffersDataLoading = false;
-      const newOffers = action.payload;
+      const newOffers = payload;
       state.offers = newOffers;
       state.groupedOffers = groupOffers(newOffers);
       state.groupedFavoirteOffers = filterFavoriteOffers(state.groupedOffers);
@@ -86,15 +81,36 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isOffersDataLoading = false;
     })
 
+    // Check auth status.
+    .addCase(checkAuthAction.fulfilled, (state, { payload }) => {
+      state.authenticationStatus = AuthenticationStatus.Auth;
+      state.userAccountData = payload;
+    })
+    .addCase(checkAuthAction.rejected, (state) => {
+      state.authenticationStatus = AuthenticationStatus.NoAuth;
+      state.userAccountData = null;
+    })
+
+    // Login action.
+    .addCase(loginAction.fulfilled, (state, { payload }) => {
+      state.authenticationStatus = AuthenticationStatus.Auth;
+      state.userAccountData = payload;
+    })
+
+    // Logout action.
+    .addCase(logoutAction.fulfilled, (state) => {
+      state.authenticationStatus = AuthenticationStatus.NoAuth;
+      state.userAccountData = null;
+    })
+
     // Fetch ExtraOffer
     .addCase(fetchExtraOfferAction.pending, (state) => {
-      // Очистка предыдущего extraOffer.
       state.extraOfferData = null;
       state.isExtraOfferDataError = false;
       state.extraOfferErrorMessage = null;
     })
-    .addCase(fetchExtraOfferAction.fulfilled, (state, action) => {
-      state.extraOfferData = action.payload;
+    .addCase(fetchExtraOfferAction.fulfilled, (state, { payload }) => {
+      state.extraOfferData = payload;
     })
     .addCase(fetchExtraOfferAction.rejected, (state, action) => {
       state.isExtraOfferDataError = true;

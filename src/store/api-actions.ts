@@ -1,11 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { AppRoute, AuthenticationStatus } from '../const';
-import {
-  redirectToRoute,
-  requireAuthenticationStatus,
-  setUserAccountData,
-} from './action';
+import { AppRoute } from '../const';
+import { redirectToRoute } from './action';
 import { dropToken, saveToken } from '../services/token';
 
 import type { AppDispatch } from '../types/state';
@@ -67,35 +63,24 @@ export const fetchComments = createAsyncThunk<
   return data;
 });
 
+/* TODO.
+  Небольшой нюанс
+  Не путай checkAuthAction.rejected с «пользователь точно не авторизован». rejected означает, что запрос не удался: это может
+  быть и 401, и сеть, и сервер. Для учебного приложения обычно этого достаточно, но в production-подходе ошибку лучше различать
+  через rejectWithValue и, например, ставить NoAuth только при 401.
+*/
 export const checkAuthAction = createAsyncThunk<
-  void,
+  ExtraUserData,
   void,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
-  /* TODO.
-      Для checkAuthAction можно убрать ручные dispatch(requireAuthenticationStatus(...)) и dispatch(setUserAccountData(...)),
-      а статус и данные пользователя задавать в reducer через fulfilled и rejected. createAsyncThunk уже dispatch-ит pending,
-      fulfilled и rejected, поэтому это более идиоматичный вариант.
-      Текущий thunk возвращает void, поэтому reducer не получит данные пользователя. Нужно вернуть ExtraUserData из fulfilled.
-      Здесь try/catch не нужен: если api.get упадёт, Redux Toolkit сам dispatch-ит rejected.
+>('user/checkAuth', async (_arg, { extra: api }) => {
+  const { data } = await api.get<ExtraUserData>(APIRoute.Login);
 
-      Небольшой нюанс
-      Не путай checkAuthAction.rejected с «пользователь точно не авторизован». rejected означает, что запрос не удался: это может
-      быть и 401, и сеть, и сервер. Для учебного приложения обычно этого достаточно, но в production-подходе ошибку лучше различать
-      через rejectWithValue и, например, ставить NoAuth только при 401.
-    */
-  try {
-    const { data } = await api.get<ExtraUserData>(APIRoute.Login);
-    dispatch(requireAuthenticationStatus(AuthenticationStatus.Auth));
-    dispatch(setUserAccountData(data));
-  } catch {
-    dispatch(requireAuthenticationStatus(AuthenticationStatus.NoAuth));
-    dispatch(setUserAccountData(null));
-  }
+  return data;
 });
 
 export const loginAction = createAsyncThunk<
-  void,
+  ExtraUserData,
   AuthData,
   {
     dispatch: AppDispatch;
@@ -104,20 +89,14 @@ export const loginAction = createAsyncThunk<
 >(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    /* TODO.
-      Для checkAuthAction можно убрать ручные dispatch(requireAuthenticationStatus(...)) и dispatch(setUserAccountData(...)),
-      а статус и данные пользователя задавать в reducer через fulfilled и rejected. createAsyncThunk уже dispatch-ит pending,
-      fulfilled и rejected, поэтому это более идиоматичный вариант.
-      saveToken, dropToken и dispatch(redirectToRoute(...)) лучше оставить внутри loginAction и logoutAction, потому что это побочные эффекты.
-    */
     const { data } = await api.post<ExtraUserData>(APIRoute.Login, {
       email,
       password,
     });
+
     saveToken(data.token);
-    dispatch(setUserAccountData(data));
-    dispatch(requireAuthenticationStatus(AuthenticationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Root));
+    return data;
   },
 );
 
@@ -125,15 +104,7 @@ export const logoutAction = createAsyncThunk<
   void,
   void,
   { dispatch: AppDispatch; extra: AxiosInstance }
->('user/logout', async (_arg, { dispatch, extra: api }) => {
-  /* TODO.
-      Для checkAuthAction можно убрать ручные dispatch(requireAuthenticationStatus(...)) и dispatch(setUserAccountData(...)),
-      а статус и данные пользователя задавать в reducer через fulfilled и rejected. createAsyncThunk уже dispatch-ит pending,
-      fulfilled и rejected, поэтому это более идиоматичный вариант.
-      saveToken, dropToken и dispatch(redirectToRoute(...)) лучше оставить внутри loginAction и logoutAction, потому что это побочные эффекты.
-    */
+>('user/logout', async (_arg, { extra: api }) => {
   await api.delete(APIRoute.Logout);
   dropToken();
-  dispatch(setUserAccountData(null));
-  dispatch(requireAuthenticationStatus(AuthenticationStatus.NoAuth));
 });
