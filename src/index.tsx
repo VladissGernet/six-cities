@@ -13,12 +13,12 @@ const root = ReactDOM.createRoot(
 );
 
 /* TODO
-Проверить, есть ли создание анонимных функций в обработчиках разметки onClick, onSubmit и пр.
-флаги на загрузку в reducer везде должны быть свои. 2.57
-8 раздел. 2.25.00
-Разбить reducer и исползовать combineReducer для их объеденения в один чрезе store/root-reducer.ts
-изучить .createSlice
-изучить Ducks (иногда «ducks-modular-redux»)
+  Проверить, есть ли создание анонимных функций в обработчиках разметки onClick, onSubmit и пр.
+  флаги на загрузку в reducer везде должны быть свои. 2.57
+  8 раздел. 2.25.00
+  Разбить reducer и исползовать combineReducer для их объеденения в один чрезе store/root-reducer.ts
+  изучить .createSlice
+  изучить Ducks (иногда «ducks-modular-redux»)
 */
 
 store.dispatch(fetchOffersAction());

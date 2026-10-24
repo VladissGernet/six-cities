@@ -112,10 +112,13 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchExtraOfferAction.fulfilled, (state, { payload }) => {
       state.extraOfferData = payload;
     })
-    .addCase(fetchExtraOfferAction.rejected, (state, action) => {
+    .addCase(fetchExtraOfferAction.rejected, (state, { error }) => {
       state.isExtraOfferDataError = true;
-      const message = action.error.message;
-
+      const message = error.message;
+      /* TODO
+        Почитать про aborted , который должен быть в interceptor.
+        https://www.perplexity.ai/search/5b402a25-c080-48b2-996d-521889cc80ad
+       */
       state.extraOfferErrorMessage =
         message === ABORTED_REQUEST ? null : message;
     });

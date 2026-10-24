@@ -23,7 +23,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 
 const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
-const NETWOR_ERROR = 'ERR_NETWORK';
+const NETWORK_ERROR = 'ERR_NETWORK';
 
 const shouldDisplayError = (response: AxiosResponse) =>
   !!StatusCodeMapping[response.status];
@@ -52,7 +52,7 @@ export const createAPI = (): AxiosInstance => {
         toast.warn(detailMessage.message);
       }
 
-      if (error.code === NETWOR_ERROR) {
+      if (error.code === NETWORK_ERROR) {
         toast.warn(error.message);
       }
 
