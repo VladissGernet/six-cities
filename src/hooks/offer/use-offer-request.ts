@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import {
+  fetchComments,
   fetchExtraOfferAction,
   fetchNearbyOffers,
 } from '../../store/api-actions';
@@ -26,16 +27,14 @@ const useOfferRequest = (
       return;
     }
 
-    // TODO
-    // Дополнительно нужно запросить информацию по
-    // предложениям неподалёку get /six-cities/offers/{offerId}/nearby
-    // и списку комментариев предложения get /six-cities/comments/{offerId}
     const requestExtraOffer = dispatch(fetchExtraOfferAction(offerId));
     const requestNearbyOffers = dispatch(fetchNearbyOffers(offerId));
+    const requestComments = dispatch(fetchComments(offerId));
 
     return () => {
       requestExtraOffer.abort();
       requestNearbyOffers.abort();
+      requestComments.abort();
     };
   }, [offerId, dispatch, isSelectedOffer]);
 };

@@ -9,7 +9,12 @@ import {
 import { dropToken, saveToken } from '../services/token';
 
 import type { AppDispatch } from '../types/state';
-import { type ExtraOffer, type OfferId, type Offers } from '../types/offers';
+import {
+  type Comments,
+  type ExtraOffer,
+  type OfferId,
+  type Offers,
+} from '../types/offers';
 import type { AuthData } from '../types/auth-data';
 import type { ExtraUserData } from '../types/user-data';
 
@@ -54,8 +59,14 @@ export const fetchNearbyOffers = createAsyncThunk<
   return data;
 });
 
-// TODO, закончить запрос на комметы.
-// export const fetchComments = createAsyncThunk<
+export const fetchComments = createAsyncThunk<
+  Comments,
+  OfferId,
+  { extra: AxiosInstance }
+>('data/fetchOfferComments', async (offerId, { extra: api }) => {
+  const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`);
+  return data;
+});
 
 export const checkAuthAction = createAsyncThunk<
   void,
