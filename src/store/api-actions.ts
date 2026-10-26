@@ -66,6 +66,9 @@ const fetchComments = createAsyncThunk<
   Не путай checkAuthAction.rejected с «пользователь точно не авторизован». rejected означает, что запрос не удался: это может
   быть и 401, и сеть, и сервер. Для учебного приложения обычно этого достаточно, но в production-подходе ошибку лучше различать
   через rejectWithValue и, например, ставить NoAuth только при 401.
+
+  Выяснил, что если заблокировать запрос login, то ничего не отобразится и пользователь будет разлогинен. Надо реализовать
+  rejectWithValue.
 */
 const checkAuthAction = createAsyncThunk<
   ExtraUserData,

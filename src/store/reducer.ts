@@ -115,7 +115,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchExtraOfferAction.rejected, (state, { error }) => {
       state.isExtraOfferDataError = true;
       const message = error.message;
-      /* TODO
+      /* TODO abotrted.
         Почитать про aborted , который должен быть в interceptor.
         https://www.perplexity.ai/search/5b402a25-c080-48b2-996d-521889cc80ad
        */
