@@ -36,8 +36,10 @@ const fetchExtraOfferAction = createAsyncThunk<
   ExtraOffer,
   OfferId,
   { extra: AxiosInstance }
->('data/fetchExtraOffer', async (offerId, { extra: api }) => {
-  const { data } = await api.get<ExtraOffer>(`${APIRoute.Offers}/${offerId}`);
+>('data/fetchExtraOffer', async (offerId, { extra: api, signal }) => {
+  const { data } = await api.get<ExtraOffer>(`${APIRoute.Offers}/${offerId}`, {
+    signal,
+  });
   return data;
 });
 
@@ -45,9 +47,10 @@ const fetchNearbyOffers = createAsyncThunk<
   Offers,
   OfferId,
   { extra: AxiosInstance }
->('data/fetchNearbyOffers', async (offerId, { extra: api }) => {
+>('data/fetchNearbyOffers', async (offerId, { extra: api, signal }) => {
   const { data } = await api.get<Offers>(
     `${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`,
+    { signal },
   );
   return data;
 });
@@ -56,8 +59,10 @@ const fetchComments = createAsyncThunk<
   Comments,
   OfferId,
   { extra: AxiosInstance }
->('data/fetchOfferComments', async (offerId, { extra: api }) => {
-  const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`);
+>('data/fetchOfferComments', async (offerId, { extra: api, signal }) => {
+  const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`, {
+    signal,
+  });
   return data;
 });
 

@@ -22,7 +22,6 @@ import {
 } from './api-actions';
 
 const INITIAL_STATE_CITY = 'Paris';
-const ABORTED_REQUEST = 'Aborted';
 
 type StateType = {
   city: CityName;
@@ -112,15 +111,16 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchExtraOfferAction.fulfilled, (state, { payload }) => {
       state.extraOfferData = payload;
     })
-    .addCase(fetchExtraOfferAction.rejected, (state, { error }) => {
+    .addCase(fetchExtraOfferAction.rejected, (state, { meta, error }) => {
+      if (meta.aborted) {
+        state.isExtraOfferDataError = false;
+        state.extraOfferErrorMessage = null;
+        return;
+      }
+
       state.isExtraOfferDataError = true;
-      const message = error.message;
-      /* TODO abotrted.
-        Почитать про aborted , который должен быть в interceptor.
-        https://www.perplexity.ai/search/5b402a25-c080-48b2-996d-521889cc80ad
-       */
       state.extraOfferErrorMessage =
-        message === ABORTED_REQUEST ? null : message;
+        error.message ?? 'Failed to load the offer.';
     });
 });
 

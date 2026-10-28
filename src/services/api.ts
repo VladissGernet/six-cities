@@ -51,7 +51,10 @@ const createAPI = (): AxiosInstance => {
         const detailMessage = error.response.data;
         toast.warn(detailMessage.message);
       }
-
+      /* TODO
+        И ещё один нюанс: в interceptor проверяется только ERR_NETWORK, тогда как Axios может обозначать тайм-аут,
+        например, кодом ECONNABORTED. Поэтому твой interceptor не гарантирует уведомление при каждом сетевом сбое.
+      */
       if (error.code === NETWORK_ERROR) {
         toast.warn(error.message);
       }

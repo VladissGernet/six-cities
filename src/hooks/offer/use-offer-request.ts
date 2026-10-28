@@ -28,6 +28,9 @@ const useOfferRequest = (
     }
 
     const requestExtraOffer = dispatch(fetchExtraOfferAction(offerId));
+    // TODO, организовать в state отдельные ошибки для dispatch ниже.
+    // Также нужно сделать запрос таким, чтобы можно было дождаться ответа от всех
+    // запросов.
     const requestNearbyOffers = dispatch(fetchNearbyOffers(offerId));
     const requestComments = dispatch(fetchComments(offerId));
 
