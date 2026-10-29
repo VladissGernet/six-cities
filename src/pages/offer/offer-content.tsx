@@ -28,7 +28,7 @@ import styles from './offer.module.css';
 import type { OfferId } from '../../types/offers';
 import { useAppSelector } from '../../hooks/redux';
 import {
-  getExtraOfferData,
+  getExtraOffer,
   getGroupedOffers,
 } from '../../store/offers/offers-selectors';
 
@@ -39,10 +39,10 @@ type OfferContentProps = {
 export default function OfferContent({
   offerId,
 }: OfferContentProps): JSX.Element | null {
-  const extraOfferData = useAppSelector(getExtraOfferData);
+  const extraOffer = useAppSelector(getExtraOffer);
   const groupedOffers = useAppSelector(getGroupedOffers);
 
-  if (!extraOfferData) {
+  if (!extraOffer) {
     return null;
   }
 
@@ -61,7 +61,7 @@ export default function OfferContent({
     maxAdults,
     goods,
     images,
-  } = extraOfferData;
+  } = extraOffer;
 
   // TODO, fetchNearbyOffers нужно просто обрезать до первых трех городов.
   // Подготовка данных для рендера городов поблизости.

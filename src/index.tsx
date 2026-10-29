@@ -19,6 +19,8 @@ const root = ReactDOM.createRoot(
   Разбить reducer и исползовать combineReducer для их объеденения в один чрезе store/root-reducer.ts
   изучить .createSlice
   изучить Ducks (иногда «ducks-modular-redux»)
+
+  Проверить issues в DevTools, есть проблемы.
 */
 
 store.dispatch(fetchOffersAction());

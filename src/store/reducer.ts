@@ -9,6 +9,7 @@ import type {
   GroupedOffers,
   GroupedOffersByCity,
   ExtraOffer,
+  Comments,
 } from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
 import type { ExtraUserData } from '../types/user-data';
@@ -19,9 +20,13 @@ import {
   checkAuthAction,
   loginAction,
   logoutAction,
+  fetchNearbyOffers,
+  fetchComments,
 } from './api-actions';
 
 const INITIAL_STATE_CITY = 'Paris';
+
+type ErrorMessage = string | null | undefined;
 
 type StateType = {
   city: CityName;
@@ -33,9 +38,20 @@ type StateType = {
   isOffersDataLoading: boolean;
   userAccountData: ExtraUserData | null;
 
-  extraOfferData: ExtraOffer | null;
-  isExtraOfferDataError: boolean;
-  extraOfferErrorMessage: string | null | undefined;
+  // ExtraOffer.
+  extraOffer: ExtraOffer | null;
+  isExtraOfferError: boolean;
+  extraOfferErrorMessage: ErrorMessage;
+
+  // ExtraOffer NearbyOffers.
+  nearbyOffers: Offers | null;
+  isNearbyError: boolean;
+  nearbyErrorMessage: ErrorMessage;
+
+  // ExtraOffer Comments.
+  extraOfferComments: Comments | null;
+  isExtraOfferCommentsError: boolean;
+  extraOfferCommentsErrorMessage: ErrorMessage;
 };
 
 const initialState: StateType = {
@@ -48,9 +64,18 @@ const initialState: StateType = {
   isOffersDataLoading: false,
   userAccountData: null,
 
-  extraOfferData: null,
-  isExtraOfferDataError: false,
+  // ExtraOffer.
+  extraOffer: null,
+  isExtraOfferError: false,
   extraOfferErrorMessage: null,
+  // ExtraOffer NearbyOffers.
+  nearbyOffers: null,
+  isNearbyError: false,
+  nearbyErrorMessage: null,
+  // ExtraOffer Comments.
+  extraOfferComments: null,
+  isExtraOfferCommentsError: false,
+  extraOfferCommentsErrorMessage: null,
 };
 
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
@@ -102,25 +127,68 @@ const reducer = createReducer(initialState, (builder) => {
       state.userAccountData = null;
     })
 
+    // ExtraOffer.
     // Fetch ExtraOffer
     .addCase(fetchExtraOfferAction.pending, (state) => {
-      state.extraOfferData = null;
-      state.isExtraOfferDataError = false;
+      state.extraOffer = null;
+      state.isExtraOfferError = false;
       state.extraOfferErrorMessage = null;
     })
     .addCase(fetchExtraOfferAction.fulfilled, (state, { payload }) => {
-      state.extraOfferData = payload;
+      state.extraOffer = payload;
     })
     .addCase(fetchExtraOfferAction.rejected, (state, { meta, error }) => {
       if (meta.aborted) {
-        state.isExtraOfferDataError = false;
+        state.isExtraOfferError = false;
         state.extraOfferErrorMessage = null;
         return;
       }
 
-      state.isExtraOfferDataError = true;
+      state.isExtraOfferError = true;
       state.extraOfferErrorMessage =
         error.message ?? 'Failed to load the offer.';
+    })
+
+    // Fetch ExtraOffer NearbyOffers.
+    .addCase(fetchNearbyOffers.pending, (state) => {
+      state.nearbyOffers = null;
+      state.isNearbyError = false;
+      state.nearbyErrorMessage = null;
+    })
+    .addCase(fetchNearbyOffers.fulfilled, (state, { payload }) => {
+      state.nearbyOffers = payload;
+    })
+    .addCase(fetchNearbyOffers.rejected, (state, { meta, error }) => {
+      if (meta.aborted) {
+        state.isNearbyError = false;
+        state.nearbyErrorMessage = null;
+        return;
+      }
+
+      state.isNearbyError = true;
+      state.nearbyErrorMessage =
+        error.message ?? 'Failed to load nearby offers the offer.';
+    })
+
+    // Fetch ExtraOffer Comments.
+    .addCase(fetchComments.pending, (state) => {
+      state.extraOfferComments = null;
+      state.isExtraOfferCommentsError = false;
+      state.extraOfferCommentsErrorMessage = null;
+    })
+    .addCase(fetchComments.fulfilled, (state, { payload }) => {
+      state.extraOfferComments = payload;
+    })
+    .addCase(fetchComments.rejected, (state, { meta, error }) => {
+      if (meta.aborted) {
+        state.isExtraOfferCommentsError = false;
+        state.extraOfferCommentsErrorMessage = null;
+        return;
+      }
+
+      state.isExtraOfferCommentsError = true;
+      state.extraOfferCommentsErrorMessage =
+        error.message ?? 'Failed to load comments of the offer.';
     });
 });
 

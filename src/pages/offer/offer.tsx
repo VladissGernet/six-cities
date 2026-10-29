@@ -2,7 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
-  getExtraOfferData,
+  getExtraOffer,
   getExtraOfferErrorMessage,
   getOffers,
 } from '../../store/offers/offers-selectors';
@@ -25,8 +25,9 @@ export default function Offer(): JSX.Element {
   const { id: offerId } = useParams<{ id: OfferId }>();
 
   const offers = useAppSelector(getOffers);
-  const extraOfferData = useAppSelector(getExtraOfferData);
+  const extraOffer = useAppSelector(getExtraOffer);
   const extraOfferErrorMessage = useAppSelector(getExtraOfferErrorMessage);
+  // TODO, осталось получить данные nearby и comments через useAppSelector.
 
   const dispatch = useAppDispatch();
 
@@ -43,7 +44,7 @@ export default function Offer(): JSX.Element {
     return <NotFoundPage />;
   }
 
-  if (extraOfferData) {
+  if (extraOffer) {
     return <OfferContent offerId={offerId} />;
   }
 

@@ -9,7 +9,7 @@ const getGroupedFavoirteOffers = (state: State) => state.groupedFavoirteOffers;
 const getActiveMapMarkerId = (state: State) => state.activeMapMarkerId;
 const getIsOffersDataLoading = (state: State) => state.isOffersDataLoading;
 
-const getExtraOfferData = (state: State) => state.extraOfferData;
+const getExtraOffer = (state: State) => state.extraOffer;
 const getExtraOfferErrorMessage = (state: State) =>
   state.extraOfferErrorMessage;
 
@@ -22,6 +22,6 @@ export {
   getGroupedFavoirteOffers,
   getActiveMapMarkerId,
   getIsOffersDataLoading,
-  getExtraOfferData,
+  getExtraOffer,
   getExtraOfferErrorMessage,
 };

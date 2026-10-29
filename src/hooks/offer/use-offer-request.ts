@@ -9,7 +9,7 @@ import type { AppDispatch } from '../../types/state';
 
 /**
  * Запрос на сервер для получения extraOffer.
- * @param offerId - ID оффера, для получения extraOfferData.
+ * @param offerId - ID оффера, для получения extraOffer.
  * @param dispatch - AppDispatch.
  * @param isSelectedOffer - Результат boolean проверки на наличие id
  * offer в базе.
