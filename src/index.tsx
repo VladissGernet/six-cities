@@ -21,6 +21,7 @@ const root = ReactDOM.createRoot(
   изучить Ducks (иногда «ducks-modular-redux»)
 
   Проверить issues в DevTools, есть проблемы.
+  Исправить опечатки через Spell Checker. Поискать возможность поиска сразу по всему проекту.
 */
 
 store.dispatch(fetchOffersAction());

@@ -32,6 +32,7 @@ type StateType = {
   city: CityName;
   offers: Offers;
   groupedOffers: GroupedOffers;
+  // TODO, исправить опечатку.
   groupedFavoirteOffers: GroupedOffersByCity[];
   activeMapMarkerId: ActiveMapMarkerId;
   authenticationStatus: AuthenticationStatus;
