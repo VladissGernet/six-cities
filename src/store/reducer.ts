@@ -26,7 +26,7 @@ import {
 
 const INITIAL_STATE_CITY = 'Paris';
 
-type ErrorMessage = string | null | undefined;
+type ErrorMessage = string | null;
 
 type StateType = {
   city: CityName;
@@ -43,16 +43,19 @@ type StateType = {
   extraOffer: ExtraOffer | null;
   isExtraOfferError: boolean;
   extraOfferErrorMessage: ErrorMessage;
+  isExtraOfferLoading: boolean;
 
   // ExtraOffer NearbyOffers.
   nearbyOffers: Offers | null;
   isNearbyError: boolean;
   nearbyErrorMessage: ErrorMessage;
+  isNearbyLoading: boolean;
 
   // ExtraOffer Comments.
   extraOfferComments: Comments | null;
   isExtraOfferCommentsError: boolean;
   extraOfferCommentsErrorMessage: ErrorMessage;
+  isCommentsLoading: boolean;
 };
 
 const initialState: StateType = {
@@ -69,14 +72,17 @@ const initialState: StateType = {
   extraOffer: null,
   isExtraOfferError: false,
   extraOfferErrorMessage: null,
+  isExtraOfferLoading: false,
   // ExtraOffer NearbyOffers.
   nearbyOffers: null,
   isNearbyError: false,
   nearbyErrorMessage: null,
+  isNearbyLoading: false,
   // ExtraOffer Comments.
   extraOfferComments: null,
   isExtraOfferCommentsError: false,
   extraOfferCommentsErrorMessage: null,
+  isCommentsLoading: false,
 };
 
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
@@ -112,6 +118,11 @@ const reducer = createReducer(initialState, (builder) => {
       state.userAccountData = payload;
     })
     .addCase(checkAuthAction.rejected, (state) => {
+      /*  TODO
+        Это необходимо исправить отдельно: устанавливать NoAuth только при подтверждённом
+        отсутствии авторизации, например при HTTP 401. При сетевой ошибке лучше сохранять
+        Unknown и дать приложению возможность повторить проверку.
+      */
       state.authenticationStatus = AuthenticationStatus.NoAuth;
       state.userAccountData = null;
     })
@@ -131,65 +142,71 @@ const reducer = createReducer(initialState, (builder) => {
     // ExtraOffer.
     // Fetch ExtraOffer
     .addCase(fetchExtraOfferAction.pending, (state) => {
+      state.isExtraOfferLoading = true;
       state.extraOffer = null;
       state.isExtraOfferError = false;
       state.extraOfferErrorMessage = null;
     })
     .addCase(fetchExtraOfferAction.fulfilled, (state, { payload }) => {
+      state.isExtraOfferLoading = false;
       state.extraOffer = payload;
     })
     .addCase(fetchExtraOfferAction.rejected, (state, { meta, error }) => {
+      state.isExtraOfferLoading = false;
+
       if (meta.aborted) {
-        state.isExtraOfferError = false;
-        state.extraOfferErrorMessage = null;
         return;
       }
 
       state.isExtraOfferError = true;
       state.extraOfferErrorMessage =
-        error.message ?? 'Failed to load the offer.';
+        error.message || 'Failed to load the offer.';
     })
 
     // Fetch ExtraOffer NearbyOffers.
     .addCase(fetchNearbyOffers.pending, (state) => {
+      state.isNearbyLoading = true;
       state.nearbyOffers = null;
       state.isNearbyError = false;
       state.nearbyErrorMessage = null;
     })
     .addCase(fetchNearbyOffers.fulfilled, (state, { payload }) => {
+      state.isNearbyLoading = false;
       state.nearbyOffers = payload;
     })
     .addCase(fetchNearbyOffers.rejected, (state, { meta, error }) => {
+      state.isNearbyLoading = false;
+
       if (meta.aborted) {
-        state.isNearbyError = false;
-        state.nearbyErrorMessage = null;
         return;
       }
 
       state.isNearbyError = true;
       state.nearbyErrorMessage =
-        error.message ?? 'Failed to load nearby offers the offer.';
+        error.message || 'Failed to load nearby offers .';
     })
 
     // Fetch ExtraOffer Comments.
     .addCase(fetchComments.pending, (state) => {
+      state.isCommentsLoading = true;
       state.extraOfferComments = null;
       state.isExtraOfferCommentsError = false;
       state.extraOfferCommentsErrorMessage = null;
     })
     .addCase(fetchComments.fulfilled, (state, { payload }) => {
+      state.isCommentsLoading = false;
       state.extraOfferComments = payload;
     })
     .addCase(fetchComments.rejected, (state, { meta, error }) => {
+      state.isCommentsLoading = false;
+
       if (meta.aborted) {
-        state.isExtraOfferCommentsError = false;
-        state.extraOfferCommentsErrorMessage = null;
         return;
       }
 
       state.isExtraOfferCommentsError = true;
       state.extraOfferCommentsErrorMessage =
-        error.message ?? 'Failed to load comments of the offer.';
+        error.message || 'Failed to load comments of the offer.';
     });
 });
 
