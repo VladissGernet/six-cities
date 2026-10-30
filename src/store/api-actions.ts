@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { AppRoute } from '../const';
 import { redirectToRoute } from './action';
 import { dropToken, saveToken } from '../services/token';
@@ -13,6 +13,7 @@ import {
 } from '../types/offers';
 import type { AuthData } from '../types/auth-data';
 import type { ExtraUserData } from '../types/user-data';
+import { StatusCodes } from 'http-status-codes';
 
 enum APIRoute {
   Offers = '/offers',
@@ -22,6 +23,21 @@ enum APIRoute {
   Login = '/login',
   Logout = '/logout',
 }
+
+const CHECK_AUTH_REJECT_VALUE = {
+  UNAUTHORIZED: { kind: 'unauthorized' },
+  TRANSPORT: { kind: 'transport' },
+} as const;
+
+/**
+  unauthorized — сервер ответил 401;
+  transport — не получили HTTP-ответ (например, потеря сети);
+  http — получили другой ошибочный HTTP-статус.
+ */
+type CheckAuthRejectValue =
+  | typeof CHECK_AUTH_REJECT_VALUE.UNAUTHORIZED
+  | typeof CHECK_AUTH_REJECT_VALUE.TRANSPORT
+  | { kind: 'http'; status: number };
 
 const fetchOffersAction = createAsyncThunk<
   Offers,
@@ -66,23 +82,39 @@ const fetchComments = createAsyncThunk<
   return data;
 });
 
-/* TODO.
-  Небольшой нюанс
-  Не путай checkAuthAction.rejected с «пользователь точно не авторизован». rejected означает, что запрос не удался: это может
-  быть и 401, и сеть, и сервер. Для учебного приложения обычно этого достаточно, но в production-подходе ошибку лучше различать
-  через rejectWithValue и, например, ставить NoAuth только при 401.
-
-  Выяснил, что если заблокировать запрос login, то ничего не отобразится и пользователь будет разлогинен. Надо реализовать
-  rejectWithValue.
-*/
 const checkAuthAction = createAsyncThunk<
   ExtraUserData,
   void,
-  { dispatch: AppDispatch; extra: AxiosInstance }
->('user/checkAuth', async (_arg, { extra: api }) => {
-  const { data } = await api.get<ExtraUserData>(APIRoute.Login);
+  {
+    dispatch: AppDispatch;
+    extra: AxiosInstance;
+    rejectValue: CheckAuthRejectValue;
+  }
+>('user/checkAuth', async (_arg, { extra: api, rejectWithValue }) => {
+  try {
+    const { data } = await api.get<ExtraUserData>(APIRoute.Login);
 
-  return data;
+    return data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
+
+      if (status === StatusCodes.UNAUTHORIZED) {
+        return rejectWithValue(CHECK_AUTH_REJECT_VALUE.UNAUTHORIZED);
+      }
+
+      if (status === undefined) {
+        return rejectWithValue(CHECK_AUTH_REJECT_VALUE.TRANSPORT);
+      }
+
+      return rejectWithValue({
+        kind: 'http',
+        status,
+      });
+    }
+
+    throw error;
+  }
 });
 
 const loginAction = createAsyncThunk<

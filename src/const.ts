@@ -10,6 +10,8 @@ enum AuthenticationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+  Loading = 'LOADING',
+  Error = 'ERROR',
 }
 
 const ImageSize = {

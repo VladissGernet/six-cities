@@ -113,18 +113,21 @@ const reducer = createReducer(initialState, (builder) => {
     })
 
     // Check auth status.
+    .addCase(checkAuthAction.pending, (state) => {
+      state.authenticationStatus = AuthenticationStatus.Loading;
+    })
     .addCase(checkAuthAction.fulfilled, (state, { payload }) => {
       state.authenticationStatus = AuthenticationStatus.Auth;
       state.userAccountData = payload;
     })
-    .addCase(checkAuthAction.rejected, (state) => {
-      /*  TODO
-        Это необходимо исправить отдельно: устанавливать NoAuth только при подтверждённом
-        отсутствии авторизации, например при HTTP 401. При сетевой ошибке лучше сохранять
-        Unknown и дать приложению возможность повторить проверку.
-      */
-      state.authenticationStatus = AuthenticationStatus.NoAuth;
-      state.userAccountData = null;
+    .addCase(checkAuthAction.rejected, (state, { payload }) => {
+      if (payload?.kind === 'unauthorized') {
+        state.authenticationStatus = AuthenticationStatus.NoAuth;
+        state.userAccountData = null;
+        return;
+      }
+
+      state.authenticationStatus = AuthenticationStatus.Error;
     })
 
     // Login action.

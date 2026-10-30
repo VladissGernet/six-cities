@@ -70,6 +70,43 @@ export default function ReviewsForm(): JSX.Element {
           </Fragment>
         ))}
       </div>
+      {/* TODO к реализации.
+        3. Практический пример из твоего проекта
+          Допустим, пользователь отправляет форму отзыва.
+          const handleSubmit = async () => {
+            try {
+              await dispatch(sendCommentAction({
+                offerId,
+                comment,
+                rating,
+              })).unwrap();
+
+              // Только если сервер успешно принял отзыв:
+              setComment('');
+
+            } catch (error) {
+              // Ошибка отправки.
+              // Текст отзыва останется в textarea.
+            }
+          };
+
+
+          Здесь .unwrap() особенно полезен: ты очищаешь форму только после успешной отправки.
+
+          Без .unwrap() пришлось бы самостоятельно проверять:
+          const result = await dispatch(sendCommentAction(data));
+
+          if (sendCommentAction.fulfilled.match(result)) {
+            setComment('');
+          }
+
+          4. Когда применять .unwrap()?
+Я бы использовал его в следующих ситуациях:
+- Отправка формы авторизации.
+- Отправка комментария.
+- Удаление или добавление предложения в избранное, когда дальнейшее действие зависит от успеха запроса.
+- Любые операции, после которых нужно выполнить дополнительные действия только при успешном ответе сервера.
+      */}
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
