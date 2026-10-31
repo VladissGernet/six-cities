@@ -32,6 +32,9 @@ type StateType = {
   city: CityName;
 
   activeMapMarkerId: ActiveMapMarkerId;
+
+  // Auth.
+  checkAuthErrorMessage: ErrorMessage;
   authenticationStatus: AuthenticationStatus;
   userAccountData: ExtraUserData | null;
 
@@ -62,6 +65,9 @@ const initialState: StateType = {
   city: INITIAL_STATE_CITY,
 
   activeMapMarkerId: null,
+
+  // Auth.
+  checkAuthErrorMessage: null,
   authenticationStatus: AuthenticationStatus.Unknown,
   userAccountData: null,
 
@@ -118,19 +124,34 @@ const reducer = createReducer(initialState, (builder) => {
     // Check auth status.
     .addCase(checkAuthAction.pending, (state) => {
       state.authenticationStatus = AuthenticationStatus.Loading;
+      state.checkAuthErrorMessage = null;
     })
     .addCase(checkAuthAction.fulfilled, (state, { payload }) => {
       state.authenticationStatus = AuthenticationStatus.Auth;
       state.userAccountData = payload;
     })
-    .addCase(checkAuthAction.rejected, (state, { payload }) => {
+    .addCase(checkAuthAction.rejected, (state, { payload, error }) => {
       if (payload?.kind === 'unauthorized') {
         state.authenticationStatus = AuthenticationStatus.NoAuth;
         state.userAccountData = null;
         return;
       }
-
+      // TODO, описать ренде ошибок.
       state.authenticationStatus = AuthenticationStatus.Error;
+
+      if (payload?.kind === 'transport') {
+        state.checkAuthErrorMessage =
+          'Unable to connect to the server. Check your connection.';
+        return;
+      }
+
+      if (payload?.kind === 'http') {
+        state.checkAuthErrorMessage = `Server returned HTTP ${payload.status}.`;
+        return;
+      }
+
+      state.checkAuthErrorMessage =
+        error.message || 'Failed to check authentication.';
     })
 
     // Login action.

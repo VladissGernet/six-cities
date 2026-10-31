@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import { AppRoute } from '../const';
 import { redirectToRoute } from './action';
 import { dropToken, saveToken } from '../services/token';
 
+import type { AxiosInstance } from 'axios';
 import type { AppDispatch } from '../types/state';
 import {
   type Comments,
@@ -28,6 +29,8 @@ const CHECK_AUTH_REJECT_VALUE = {
   UNAUTHORIZED: { kind: 'unauthorized' },
   TRANSPORT: { kind: 'transport' },
 } as const;
+
+// TODO, остановился на замечания 2.4. Обрати внимание на loginAction
 
 /**
   unauthorized — сервер ответил 401;
@@ -131,6 +134,7 @@ const loginAction = createAsyncThunk<
       email,
       password,
     });
+    // TODO, проверить на случай ошибки
 
     saveToken(data.token);
     dispatch(redirectToRoute(AppRoute.Root));
@@ -143,6 +147,8 @@ const logoutAction = createAsyncThunk<
   void,
   { dispatch: AppDispatch; extra: AxiosInstance }
 >('user/logout', async (_arg, { extra: api }) => {
+  // TODO, проверить на случай ошибки
+
   await api.delete(APIRoute.Logout);
   dropToken();
 });
