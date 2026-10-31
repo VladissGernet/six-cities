@@ -14,11 +14,11 @@ import {
  */
 export default function AppLayout(): JSX.Element {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
-  const isQuestionsDataLoading = useAppSelector(getIsOffersDataLoading);
+  const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
 
   if (
     authenticationStatus === AuthenticationStatus.Unknown ||
-    isQuestionsDataLoading
+    isOffersDataLoading
   ) {
     return <LoadingScreen />;
   }

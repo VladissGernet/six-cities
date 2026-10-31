@@ -22,7 +22,8 @@ export default function AuthScreen(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const authTitleStatus = isSubmitting ? 'Signing in…' : 'Sign in';
-
+  // TODO, если я залогинен и перейду сам по ссылке http://localhost:5173/login,
+  // то я снова могу логиниться.
   const dispatch = useAppDispatch();
 
   const handleSubmit: FormEventHandler = (evt) => {

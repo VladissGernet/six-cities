@@ -9,10 +9,10 @@ import FavoritesEmptyList from './favorites-empty-list';
 // Исправление sticky-footer.
 import styles from './favorites.module.css';
 import { useAppSelector } from '../../hooks/redux';
-import { getGroupedFavoirteOffers } from '../../store/offers/offers-selectors';
+import { getGroupedFavoriteOffers } from '../../store/offers/offers-selectors';
 
 export default function Favorites(): JSX.Element {
-  const favoriteOffersByCity = useAppSelector(getGroupedFavoirteOffers);
+  const favoriteOffersByCity = useAppSelector(getGroupedFavoriteOffers);
   const hasFavorites = favoriteOffersByCity.length > 0;
 
   const mainContainerClassName = cn(

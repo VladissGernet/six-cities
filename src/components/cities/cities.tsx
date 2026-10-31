@@ -7,6 +7,7 @@ export default function Cities(): JSX.Element {
   const currentCity = useAppSelector(getCity);
   const groupedOffers = useAppSelector(getGroupedOffers);
   const groupedOffersByCity = groupedOffers[currentCity];
+  // TODO, обработать получение ошибки загрузки офферов.
 
   const isNoCities = !groupedOffersByCity?.length;
   const isMultipleCities =

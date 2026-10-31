@@ -30,57 +30,58 @@ type ErrorMessage = string | null;
 
 type StateType = {
   city: CityName;
-  offers: Offers;
-  groupedOffers: GroupedOffers;
-  // TODO, исправить опечатку.
-  groupedFavoirteOffers: GroupedOffersByCity[];
+
   activeMapMarkerId: ActiveMapMarkerId;
   authenticationStatus: AuthenticationStatus;
-  isOffersDataLoading: boolean;
   userAccountData: ExtraUserData | null;
+
+  // Fetch Offers.
+  isOffersDataLoading: boolean;
+  offersErrorMessage: ErrorMessage;
+  offers: Offers;
+  groupedOffers: GroupedOffers;
+  groupedFavoriteOffers: GroupedOffersByCity[];
 
   // ExtraOffer.
   extraOffer: ExtraOffer | null;
-  isExtraOfferError: boolean;
   extraOfferErrorMessage: ErrorMessage;
   isExtraOfferLoading: boolean;
 
   // ExtraOffer NearbyOffers.
   nearbyOffers: Offers | null;
-  isNearbyError: boolean;
   nearbyErrorMessage: ErrorMessage;
   isNearbyLoading: boolean;
 
   // ExtraOffer Comments.
   extraOfferComments: Comments | null;
-  isExtraOfferCommentsError: boolean;
   extraOfferCommentsErrorMessage: ErrorMessage;
   isCommentsLoading: boolean;
 };
 
 const initialState: StateType = {
   city: INITIAL_STATE_CITY,
-  offers: [],
-  groupedOffers: {},
-  groupedFavoirteOffers: [],
+
   activeMapMarkerId: null,
   authenticationStatus: AuthenticationStatus.Unknown,
-  isOffersDataLoading: false,
   userAccountData: null,
+
+  // Fetch Offers.
+  isOffersDataLoading: false,
+  offersErrorMessage: null,
+  offers: [],
+  groupedOffers: {},
+  groupedFavoriteOffers: [],
 
   // ExtraOffer.
   extraOffer: null,
-  isExtraOfferError: false,
   extraOfferErrorMessage: null,
   isExtraOfferLoading: false,
   // ExtraOffer NearbyOffers.
   nearbyOffers: null,
-  isNearbyError: false,
   nearbyErrorMessage: null,
   isNearbyLoading: false,
   // ExtraOffer Comments.
   extraOfferComments: null,
-  isExtraOfferCommentsError: false,
   extraOfferCommentsErrorMessage: null,
   isCommentsLoading: false,
 };
@@ -100,16 +101,18 @@ const reducer = createReducer(initialState, (builder) => {
     // Fetch Offers.
     .addCase(fetchOffersAction.pending, (state) => {
       state.isOffersDataLoading = true;
+      state.offersErrorMessage = null;
     })
     .addCase(fetchOffersAction.fulfilled, (state, { payload }) => {
       state.isOffersDataLoading = false;
-      const newOffers = payload;
-      state.offers = newOffers;
-      state.groupedOffers = groupOffers(newOffers);
-      state.groupedFavoirteOffers = filterFavoriteOffers(state.groupedOffers);
+      state.offers = payload;
+      state.groupedOffers = groupOffers(payload);
+      state.groupedFavoriteOffers = filterFavoriteOffers(state.groupedOffers);
     })
-    .addCase(fetchOffersAction.rejected, (state) => {
+    .addCase(fetchOffersAction.rejected, (state, { error }) => {
       state.isOffersDataLoading = false;
+
+      state.offersErrorMessage = error.message || 'Failed to load offers.';
     })
 
     // Check auth status.
@@ -147,7 +150,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchExtraOfferAction.pending, (state) => {
       state.isExtraOfferLoading = true;
       state.extraOffer = null;
-      state.isExtraOfferError = false;
       state.extraOfferErrorMessage = null;
     })
     .addCase(fetchExtraOfferAction.fulfilled, (state, { payload }) => {
@@ -161,7 +163,7 @@ const reducer = createReducer(initialState, (builder) => {
         return;
       }
 
-      state.isExtraOfferError = true;
+      // TODO, добавить обработку ошибки.
       state.extraOfferErrorMessage =
         error.message || 'Failed to load the offer.';
     })
@@ -170,7 +172,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchNearbyOffers.pending, (state) => {
       state.isNearbyLoading = true;
       state.nearbyOffers = null;
-      state.isNearbyError = false;
       state.nearbyErrorMessage = null;
     })
     .addCase(fetchNearbyOffers.fulfilled, (state, { payload }) => {
@@ -184,7 +185,7 @@ const reducer = createReducer(initialState, (builder) => {
         return;
       }
 
-      state.isNearbyError = true;
+      // TODO, добавить обработку ошибки.
       state.nearbyErrorMessage =
         error.message || 'Failed to load nearby offers .';
     })
@@ -193,7 +194,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchComments.pending, (state) => {
       state.isCommentsLoading = true;
       state.extraOfferComments = null;
-      state.isExtraOfferCommentsError = false;
       state.extraOfferCommentsErrorMessage = null;
     })
     .addCase(fetchComments.fulfilled, (state, { payload }) => {
@@ -207,7 +207,7 @@ const reducer = createReducer(initialState, (builder) => {
         return;
       }
 
-      state.isExtraOfferCommentsError = true;
+      // TODO, добавить обработку ошибки.
       state.extraOfferCommentsErrorMessage =
         error.message || 'Failed to load comments of the offer.';
     });

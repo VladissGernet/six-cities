@@ -5,7 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { isNotFoundParams, makeBasePath } from '../../utils/utils';
 import { useAppSelector } from '../../hooks/redux';
-import { getGroupedFavoirteOffers } from '../../store/offers/offers-selectors';
+import { getGroupedFavoriteOffers } from '../../store/offers/offers-selectors';
 
 const pageClassNames: Record<string, string | undefined> = {
   [AppRoute.Root]: 'page--main page--gray',
@@ -22,7 +22,7 @@ export default function Page({ children }: PropsWithChildren): JSX.Element {
   const isNotFound = isNotFoundParams(params);
   const basePath = makeBasePath(pathname);
 
-  const favoriteOffersByCity = useAppSelector(getGroupedFavoirteOffers);
+  const favoriteOffersByCity = useAppSelector(getGroupedFavoriteOffers);
 
   const isFavoritesPage = (AppRoute.Favorites as string) === basePath;
   const hasFavorites = favoriteOffersByCity.length > 0;

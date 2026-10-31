@@ -1,32 +1,10 @@
-import type {
-  AxiosError,
-  AxiosInstance,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from 'axios';
+import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
-import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
-import { toast } from 'react-toastify';
-
-type DetailMessageType = {
-  type: string;
-  message: string;
-};
-
-const StatusCodeMapping: Record<number, boolean> = {
-  [StatusCodes.BAD_REQUEST]: true,
-  [StatusCodes.UNAUTHORIZED]: false,
-  [StatusCodes.NOT_FOUND]: false,
-};
 
 const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
-const NETWORK_ERROR = 'ERR_NETWORK';
-
-const shouldDisplayError = (response: AxiosResponse) =>
-  !!StatusCodeMapping[response.status];
 
 const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -43,25 +21,6 @@ const createAPI = (): AxiosInstance => {
 
     return config;
   });
-
-  api.interceptors.response.use(
-    (response) => response,
-    (error: AxiosError<DetailMessageType>) => {
-      if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = error.response.data;
-        toast.warn(detailMessage.message);
-      }
-      /* TODO
-        И ещё один нюанс: в interceptor проверяется только ERR_NETWORK, тогда как Axios может обозначать тайм-аут,
-        например, кодом ECONNABORTED. Поэтому твой interceptor не гарантирует уведомление при каждом сетевом сбое.
-      */
-      if (error.code === NETWORK_ERROR) {
-        toast.warn(error.message);
-      }
-
-      throw error;
-    },
-  );
 
   return api;
 };
