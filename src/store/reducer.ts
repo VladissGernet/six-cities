@@ -27,6 +27,7 @@ import {
 const INITIAL_STATE_CITY = 'Paris';
 
 type ErrorMessage = string | null;
+type RequestId = string | null;
 
 type StateType = {
   city: CityName;
@@ -49,16 +50,19 @@ type StateType = {
   extraOffer: ExtraOffer | null;
   extraOfferErrorMessage: ErrorMessage;
   isExtraOfferLoading: boolean;
+  extraOfferRequestId: RequestId;
 
   // ExtraOffer NearbyOffers.
   nearbyOffers: Offers | null;
   nearbyErrorMessage: ErrorMessage;
   isNearbyLoading: boolean;
+  nearbyOffersRequestId: RequestId;
 
   // ExtraOffer Comments.
   extraOfferComments: Comments | null;
   extraOfferCommentsErrorMessage: ErrorMessage;
   isCommentsLoading: boolean;
+  commentsRequestId: RequestId;
 };
 
 const initialState: StateType = {
@@ -82,14 +86,17 @@ const initialState: StateType = {
   extraOffer: null,
   extraOfferErrorMessage: null,
   isExtraOfferLoading: false,
+  extraOfferRequestId: null,
   // ExtraOffer NearbyOffers.
   nearbyOffers: null,
   nearbyErrorMessage: null,
   isNearbyLoading: false,
+  nearbyOffersRequestId: null,
   // ExtraOffer Comments.
   extraOfferComments: null,
   extraOfferCommentsErrorMessage: null,
   isCommentsLoading: false,
+  commentsRequestId: null,
 };
 
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
@@ -168,16 +175,27 @@ const reducer = createReducer(initialState, (builder) => {
 
     // ExtraOffer.
     // Fetch ExtraOffer
-    .addCase(fetchExtraOfferAction.pending, (state) => {
+    .addCase(fetchExtraOfferAction.pending, (state, { meta }) => {
       state.isExtraOfferLoading = true;
       state.extraOffer = null;
       state.extraOfferErrorMessage = null;
+      state.extraOfferRequestId = meta.requestId;
     })
-    .addCase(fetchExtraOfferAction.fulfilled, (state, { payload }) => {
+    .addCase(fetchExtraOfferAction.fulfilled, (state, { payload, meta }) => {
+      if (state.extraOfferRequestId !== meta.requestId) {
+        return;
+      }
+
+      state.extraOfferRequestId = null;
       state.isExtraOfferLoading = false;
       state.extraOffer = payload;
     })
     .addCase(fetchExtraOfferAction.rejected, (state, { meta, error }) => {
+      if (state.extraOfferRequestId !== meta.requestId) {
+        return;
+      }
+
+      state.extraOfferRequestId = null;
       state.isExtraOfferLoading = false;
 
       if (meta.aborted) {
@@ -190,16 +208,27 @@ const reducer = createReducer(initialState, (builder) => {
     })
 
     // Fetch ExtraOffer NearbyOffers.
-    .addCase(fetchNearbyOffers.pending, (state) => {
+    .addCase(fetchNearbyOffers.pending, (state, { meta }) => {
       state.isNearbyLoading = true;
       state.nearbyOffers = null;
       state.nearbyErrorMessage = null;
+      state.nearbyOffersRequestId = meta.requestId;
     })
-    .addCase(fetchNearbyOffers.fulfilled, (state, { payload }) => {
+    .addCase(fetchNearbyOffers.fulfilled, (state, { payload, meta }) => {
+      if (state.nearbyOffersRequestId !== meta.requestId) {
+        return;
+      }
+
+      state.nearbyOffersRequestId = null;
       state.isNearbyLoading = false;
       state.nearbyOffers = payload;
     })
     .addCase(fetchNearbyOffers.rejected, (state, { meta, error }) => {
+      if (state.nearbyOffersRequestId !== meta.requestId) {
+        return;
+      }
+
+      state.nearbyOffersRequestId = null;
       state.isNearbyLoading = false;
 
       if (meta.aborted) {
@@ -212,16 +241,27 @@ const reducer = createReducer(initialState, (builder) => {
     })
 
     // Fetch ExtraOffer Comments.
-    .addCase(fetchComments.pending, (state) => {
+    .addCase(fetchComments.pending, (state, { meta }) => {
       state.isCommentsLoading = true;
       state.extraOfferComments = null;
       state.extraOfferCommentsErrorMessage = null;
+      state.commentsRequestId = meta.requestId;
     })
-    .addCase(fetchComments.fulfilled, (state, { payload }) => {
+    .addCase(fetchComments.fulfilled, (state, { payload, meta }) => {
+      if (state.commentsRequestId !== meta.requestId) {
+        return;
+      }
+
+      state.commentsRequestId = null;
       state.isCommentsLoading = false;
       state.extraOfferComments = payload;
     })
     .addCase(fetchComments.rejected, (state, { meta, error }) => {
+      if (state.commentsRequestId !== meta.requestId) {
+        return;
+      }
+
+      state.commentsRequestId = null;
       state.isCommentsLoading = false;
 
       if (meta.aborted) {

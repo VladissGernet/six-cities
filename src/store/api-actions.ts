@@ -28,7 +28,7 @@ const CHECK_AUTH_REJECT_VALUE = {
   TRANSPORT: { kind: 'transport' },
 } as const;
 
-// TODO, остановился на замечания 2.4. Обрати внимание на loginAction
+// TODO, остановился на замечания 4. Ещё два замечания к reducer
 
 /**
   unauthorized — сервер ответил 401;
