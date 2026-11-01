@@ -8,13 +8,13 @@ import Main from '../../components/main/main';
 import Container from '../../components/container/container';
 
 import { loginAction } from '../../store/api-actions';
-import { changeCity } from '../../store/action';
+import { changeCity, redirectToRoute } from '../../store/action';
 
 import { AppRoute, CITY_NAMES } from '../../const';
 import { getRandomElement } from '../../utils/utils';
 import { useAppDispatch } from '../../hooks/redux';
 import type { CityName } from '../../types/offers';
-
+import type { AuthData } from '../../types/auth-data';
 const MIN_LENGTH_PASSWORD = 2;
 
 export default function AuthScreen(): JSX.Element {
@@ -26,20 +26,29 @@ export default function AuthScreen(): JSX.Element {
   // то я снова могу логиниться.
   const dispatch = useAppDispatch();
 
+  const submitLogin = async (authData: AuthData): Promise<void> => {
+    setIsSubmitting(true);
+
+    try {
+      await dispatch(loginAction(authData)).unwrap();
+
+      dispatch(redirectToRoute(AppRoute.Root));
+    } catch (error: unknown) {
+      // TODO, Обработка ошибки авторизации.
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleSubmit: FormEventHandler = (evt) => {
     evt.preventDefault();
     if (isSubmitting) {
       return;
     }
     if (loginRef.current !== null && passwordRef.current !== null) {
-      setIsSubmitting(true);
-      dispatch(
-        loginAction({
-          login: loginRef.current.value,
-          password: passwordRef.current.value,
-        }),
-      ).finally(() => {
-        setIsSubmitting(false);
+      submitLogin({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
       });
     }
   };
