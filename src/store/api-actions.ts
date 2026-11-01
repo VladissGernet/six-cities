@@ -87,7 +87,6 @@ const checkAuthAction = createAsyncThunk<
   ExtraUserData,
   void,
   {
-    dispatch: AppDispatch;
     extra: AxiosInstance;
     rejectValue: CheckAuthRejectValue;
   }
@@ -136,16 +135,15 @@ const loginAction = createAsyncThunk<
   return data;
 });
 
-const logoutAction = createAsyncThunk<
-  void,
-  void,
-  { dispatch: AppDispatch; extra: AxiosInstance }
->('user/logout', async (_arg, { extra: api }) => {
-  // TODO, проверить на случай ошибки
+const logoutAction = createAsyncThunk<void, void, { extra: AxiosInstance }>(
+  'user/logout',
+  async (_arg, { extra: api }) => {
+    // TODO, проверить на случай ошибки
 
-  await api.delete(APIRoute.Logout);
-  dropToken();
-});
+    await api.delete(APIRoute.Logout);
+    dropToken();
+  },
+);
 
 export {
   fetchOffersAction,

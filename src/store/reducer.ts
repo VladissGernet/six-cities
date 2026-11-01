@@ -124,7 +124,11 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchOffersAction.rejected, (state, { error }) => {
       state.isOffersDataLoading = false;
-
+      /* TODO. Добавить обработку ошибки
+        Отдельно про fetchOffersAction.rejected: сейчас, например, HTTP 500 не вызовет toast согласно твоей таблице статусов,
+        а reducer просто установит isOffersDataLoading = false. Если компонент не предусматривает другого отображения ошибки,
+        пользователь может увидеть пустую страницу без объяснений.
+      */
       state.offersErrorMessage = error.message || 'Failed to load offers.';
     })
 
@@ -166,11 +170,17 @@ const reducer = createReducer(initialState, (builder) => {
       state.authenticationStatus = AuthenticationStatus.Auth;
       state.userAccountData = payload;
     })
+    .addCase(loginAction.rejected, () => {
+      // TODO, добавить обработку ошибки
+    })
 
     // Logout action.
     .addCase(logoutAction.fulfilled, (state) => {
       state.authenticationStatus = AuthenticationStatus.NoAuth;
       state.userAccountData = null;
+    })
+    .addCase(logoutAction.rejected, () => {
+      // TODO, добавить обработку ошибки
     })
 
     // ExtraOffer.
@@ -194,6 +204,12 @@ const reducer = createReducer(initialState, (builder) => {
       if (state.extraOfferRequestId !== meta.requestId) {
         return;
       }
+      /* TODO, проверить моменты
+        Ещё момент: в обработчиках rejected для трёх офферных запросов ты используешь error.message.
+        Это сообщение Axios, например Request failed with status code 404, а не обязательно сообщение,
+        которое сервер прислал в response.data.message. Если впоследствии захочешь отображать именно
+        серверные сообщения, понадобится rejectWithValue и для этих thunk.
+      */
 
       state.extraOfferRequestId = null;
       state.isExtraOfferLoading = false;
