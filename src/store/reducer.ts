@@ -79,6 +79,47 @@ const initialState: StateType = {
   isOffersDataLoading: false,
   offersErrorMessage: null,
   offers: [],
+
+  /* TODO 8 раздел
+    1.
+    В Redux часто используют подход store the source of truth, derive the rest — хранить исходные данные,
+    а производные вычислять селекторами.
+
+    createSelector мемоизирует вычисления: пока offers не изменились, повторно группировать данные не придётся.
+
+    import { createSelector } from '@reduxjs/toolkit';
+
+    const getOffers = (state: RootState) => state.offers;
+
+    const getGroupedOffers = createSelector(
+      [getOffers],
+      (offers) => groupOffers(offers),
+    );
+
+    const getGroupedFavoriteOffers = createSelector(
+      [getGroupedOffers],
+      (groupedOffers) => filterFavoriteOffers(groupedOffers),
+    );
+
+    2. Разделить reducer по смыслу (combineReducers и createSlice).
+    store/
+      index.ts
+      root-reducer.ts
+
+      offers/
+        offers-slice.ts
+        offers-selectors.ts
+
+      offer/
+        offer-slice.ts
+        offer-selectors.ts
+
+      user/
+        user-slice.ts
+        user-selectors.ts
+
+      api-actions.ts
+  */
   groupedOffers: {},
   groupedFavoriteOffers: [],
 
@@ -128,6 +169,9 @@ const reducer = createReducer(initialState, (builder) => {
         Отдельно про fetchOffersAction.rejected: сейчас, например, HTTP 500 не вызовет toast согласно твоей таблице статусов,
         а reducer просто установит isOffersDataLoading = false. Если компонент не предусматривает другого отображения ошибки,
         пользователь может увидеть пустую страницу без объяснений.
+
+        Важная поправка: я бы не выводил непосредственно error.message от Axios в JSX. Например, текст Request failed with
+        status code 500 не очень полезен посетителю.
       */
       state.offersErrorMessage = error.message || 'Failed to load offers.';
     })
@@ -172,6 +216,42 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loginAction.rejected, () => {
       // TODO, добавить обработку ошибки
+      /*
+        6.2. Ошибки пользовательских действий
+Здесь я бы использовал .unwrap() и try/catch.
+
+Например, твой submitLogin:
+const submitLogin = async (authData: AuthData): Promise<void> => {
+  setIsSubmitting(true);
+
+  try {
+    await dispatch(loginAction(authData)).unwrap();
+
+    dispatch(redirectToRoute(AppRoute.Root));
+  } catch (error: unknown) {
+    toast.error('Не удалось выполнить вход. Проверьте данные и попробуйте снова.');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+Здесь есть важное следствие для твоего reducer.ts.
+
+Сейчас у тебя:
+.addCase(loginAction.rejected, () => {
+  // TODO, добавить обработку ошибки
+})
+
+
+И аналогично для logoutAction.rejected.
+
+Эти обработчики ничего не делают, а ошибки ты обрабатываешь в компонентах через .unwrap().
+
+Поэтому оба пустых addCase можно удалить. Само действие rejected при этом никуда не исчезнет. Просто reducer не будет реагировать на него.
+
+Если впоследствии появится необходимость хранить состояние ошибки авторизации глобально, тогда добавишь соответствующую обработку.
+      */
     })
 
     // Logout action.
