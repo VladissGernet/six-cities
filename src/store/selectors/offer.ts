@@ -6,4 +6,12 @@ const getExtraOfferErrorMessage = (state: State) =>
   state.extraOfferErrorMessage;
 const getIsExtraOfferLoading = (state: State) => state.isExtraOfferLoading;
 
-export { getExtraOffer, getExtraOfferErrorMessage, getIsExtraOfferLoading };
+// Nearby Places.
+const getNearOffers = (state: State) => state.nearbyOffers;
+
+export {
+  getExtraOffer,
+  getExtraOfferErrorMessage,
+  getIsExtraOfferLoading,
+  getNearOffers,
+};

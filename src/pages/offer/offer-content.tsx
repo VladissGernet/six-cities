@@ -6,9 +6,9 @@ import cn from 'classnames';
 import Gallery from '../../components/gallery/gallery';
 import Rating from '../../components/rating/rating';
 import Reviews from '../../components/reviews/reviews';
-import OffersMap from '../../components/offers-map/offers-map';
-import Places from '../../components/places/places';
 import Container from '../../components/container/container';
+import OfferPlaces from './offer-places';
+import OfferMap from './offer-map';
 
 // This folder.
 import OfferHost from './offer-host';
@@ -16,22 +16,13 @@ import OfferInside from './offer-inside';
 
 // Utils.
 import { capitalizeFirstLetter, pluralizeEn } from '../../utils/utils';
-import {
-  getOffersByCity,
-  getNearOffersWithRestriction,
-} from '../../utils/offers';
-
-// Styles.
-import styles from './offer.module.css';
 
 // Types.
 import { useAppSelector } from '../../hooks/redux';
 import { getExtraOffer } from '../../store/selectors/offer';
-import { getGroupedOffers } from '../../store/selectors/offers';
 
 export default function OfferContent(): JSX.Element | null {
   const extraOffer = useAppSelector(getExtraOffer);
-  const groupedOffers = useAppSelector(getGroupedOffers);
 
   if (!extraOffer) {
     return null;
@@ -43,8 +34,6 @@ export default function OfferContent(): JSX.Element | null {
     rating,
     type,
     price,
-    city,
-    location,
     bedrooms,
     description,
     host,
@@ -52,16 +41,7 @@ export default function OfferContent(): JSX.Element | null {
     maxAdults,
     goods,
     images,
-    id,
   } = extraOffer;
-
-  // TODO, fetchNearbyOffers нужно просто обрезать до первых трех городов.
-  // Подготовка данных для рендера городов поблизости.
-  const groupedOffersByCity = getOffersByCity(city.name, groupedOffers);
-  const nearOffers = getNearOffersWithRestriction(
-    groupedOffersByCity.offerPlacesByCity,
-    id,
-  );
 
   const bookmarkClass = cn(
     'offer__bookmark-button',
@@ -121,22 +101,9 @@ export default function OfferContent(): JSX.Element | null {
             <Reviews />
           </div>
         </Container>
-        <Container>
-          <OffersMap
-            rootClassName="offer__map"
-            offers={nearOffers}
-            selectedMarkerLocation={location}
-          />
-        </Container>
+        <OfferMap />
       </section>
-      <Container className={cn('container', styles['offer__places-container'])}>
-        <Places
-          rootClassName={cn('near-places', styles['offer__places-content'])}
-          title="Other places in the neighbourhood"
-          titleClassName="near-places__title"
-          groupedOffersByCity={nearOffers}
-        />
-      </Container>
+      <OfferPlaces />
     </>
   );
 }
