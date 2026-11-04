@@ -9,13 +9,11 @@ import Reviews from '../../components/reviews/reviews';
 import Container from '../../components/container/container';
 import OfferPlaces from './offer-places';
 import OfferMap from './offer-map';
+import OfferFeatures from './offer-features';
 
 // This folder.
 import OfferHost from './offer-host';
 import OfferInside from './offer-inside';
-
-// Utils.
-import { capitalizeFirstLetter, pluralizeEn } from '../../utils/utils';
 
 // Types.
 import { useAppSelector } from '../../hooks/redux';
@@ -81,17 +79,11 @@ export default function OfferContent(): JSX.Element | null {
               valueClassName={'offer__rating-value'}
               showValue
             />
-            <ul className="offer__features">
-              <li className="offer__feature offer__feature--entire">
-                {capitalizeFirstLetter(type)}
-              </li>
-              <li className="offer__feature offer__feature--bedrooms">
-                {pluralizeEn(bedrooms, { one: 'bedroom', other: 'bedrooms' })}
-              </li>
-              <li className="offer__feature offer__feature--adults">
-                {pluralizeEn(maxAdults, { one: 'adult', other: 'adults' })}
-              </li>
-            </ul>
+            <OfferFeatures
+              type={type}
+              bedrooms={bedrooms}
+              maxAdults={maxAdults}
+            />
             <div className="offer__price">
               <b className="offer__price-value">&euro;{price}</b>
               <span className="offer__price-text">&nbsp;night</span>

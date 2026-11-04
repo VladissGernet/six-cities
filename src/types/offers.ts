@@ -1,7 +1,7 @@
 import { CITY_NAMES } from '../const';
 import type { UserData } from './user-data';
 
-type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
+export type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
 export type OfferLocation = {
   latitude: number;
