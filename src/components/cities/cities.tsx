@@ -1,7 +1,7 @@
 import CitiesFilled from './cities-filled';
 import CitiesEmpty from './cities-empty';
 import { useAppSelector } from '../../hooks/redux';
-import { getCity, getGroupedOffers } from '../../store/offers/offers-selectors';
+import { getCity, getGroupedOffers } from '../../store/selectors/offers';
 
 export default function Cities(): JSX.Element {
   const currentCity = useAppSelector(getCity);

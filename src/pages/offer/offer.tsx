@@ -1,12 +1,14 @@
 // General.
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useOfferRequest } from '../../hooks/offer/use-offer-request';
+
+// Selectors.
+import { getOffers } from '../../store/selectors/offers';
 import {
   getExtraOffer,
   getExtraOfferErrorMessage,
-  getOffers,
-} from '../../store/offers/offers-selectors';
-import { useOfferRequest } from '../../hooks/offer/use-offer-request';
+} from '../../store/selectors/offer';
 
 // Components.
 import LoadingScreenContent from '../loading-screen/loading-screen-content';

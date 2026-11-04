@@ -12,7 +12,7 @@ import type { OfferId, OfferLocation, Offers } from '../../types/offers';
 import type { ActiveMapMarkerId } from '../../types/general';
 
 // Store.
-import { getActiveMapMarkerId } from '../../store/offers/offers-selectors';
+import { getActiveMapMarkerId } from '../../store/selectors/offers';
 
 // Leaflet.
 import 'leaflet/dist/leaflet.css';

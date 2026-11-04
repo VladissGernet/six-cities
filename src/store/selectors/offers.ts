@@ -1,5 +1,7 @@
 import type { State } from '../../types/state';
 
+// TODO, переместить в соответсвующие файлы
+
 const getUserAccountData = (state: State) => state.userAccountData;
 const getAuthenticationStatus = (state: State) => state.authenticationStatus;
 const getActiveMapMarkerId = (state: State) => state.activeMapMarkerId;
@@ -12,11 +14,6 @@ const getIsOffersDataLoading = (state: State) => state.isOffersDataLoading;
 const getOffersErrorMessage = (state: State) => state.offersErrorMessage;
 const getCity = (state: State) => state.city;
 
-// Extra Offer.
-const getExtraOffer = (state: State) => state.extraOffer;
-const getExtraOfferErrorMessage = (state: State) =>
-  state.extraOfferErrorMessage;
-
 export {
   getCity,
   getGroupedOffers,
@@ -26,7 +23,5 @@ export {
   getGroupedFavoriteOffers,
   getActiveMapMarkerId,
   getIsOffersDataLoading,
-  getExtraOffer,
-  getExtraOfferErrorMessage,
   getOffersErrorMessage,
 };

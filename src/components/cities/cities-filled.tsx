@@ -1,6 +1,6 @@
 import Places from '../../components/places/places';
 import { useAppSelector } from '../../hooks/redux';
-import { getCity, getGroupedOffers } from '../../store/offers/offers-selectors';
+import { getCity, getGroupedOffers } from '../../store/selectors/offers';
 import Container from '../container/container';
 import OffersMap from '../offers-map/offers-map';
 

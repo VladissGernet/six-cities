@@ -5,7 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { isNotFoundParams, makeBasePath } from '../../utils/utils';
 import { useAppSelector } from '../../hooks/redux';
-import { getGroupedFavoriteOffers } from '../../store/offers/offers-selectors';
+import { getGroupedFavoriteOffers } from '../../store/selectors/offers';
 
 const pageClassNames: Record<string, string | undefined> = {
   [AppRoute.Root]: 'page--main page--gray',

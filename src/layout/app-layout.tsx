@@ -5,7 +5,7 @@ import LoadingScreen from '../pages/loading-screen/loading-screen';
 import {
   getAuthenticationStatus,
   getIsOffersDataLoading,
-} from '../store/offers/offers-selectors';
+} from '../store/selectors/offers';
 
 /**
  * Обертка для выноса логики загрузки и авторизации из компонента App.

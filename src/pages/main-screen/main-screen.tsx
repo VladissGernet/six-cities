@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Tabs from '../../components/tabs/tabs';
 import Cities from '../../components/cities/cities';
 import { useAppSelector } from '../../hooks/redux';
-import { getOffersErrorMessage } from '../../store/offers/offers-selectors';
+import { getOffersErrorMessage } from '../../store/selectors/offers';
 import Container from '../../components/container/container';
 
 export default function MainScreen(): JSX.Element {

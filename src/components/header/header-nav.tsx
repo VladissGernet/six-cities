@@ -1,6 +1,6 @@
 import { AuthenticationStatus } from '../../const';
 import { useAppSelector } from '../../hooks/redux';
-import { getAuthenticationStatus } from '../../store/offers/offers-selectors';
+import { getAuthenticationStatus } from '../../store/selectors/offers';
 import HeaderLoggedIn from './header-logged-in';
 import HeaderSignIn from './header-sign-in';
 

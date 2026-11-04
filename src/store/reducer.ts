@@ -140,6 +140,11 @@ const initialState: StateType = {
   commentsRequestId: null,
 };
 
+const ErrorMessages = {
+  Authentication:
+    'Unable to connect to the server for authentification. Check your connection.',
+};
+
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
 const reducer = createReducer(initialState, (builder) => {
   builder
@@ -186,17 +191,16 @@ const reducer = createReducer(initialState, (builder) => {
       state.userAccountData = payload;
     })
     .addCase(checkAuthAction.rejected, (state, { payload, error }) => {
+      // Ошбибка не требующая уведомления пользователя.
       if (payload?.kind === 'unauthorized') {
         state.authenticationStatus = AuthenticationStatus.NoAuth;
         state.userAccountData = null;
         return;
       }
-      // TODO, описать ренде ошибок.
       state.authenticationStatus = AuthenticationStatus.Error;
 
       if (payload?.kind === 'transport') {
-        state.checkAuthErrorMessage =
-          'Unable to connect to the server. Check your connection.';
+        state.checkAuthErrorMessage = ErrorMessages.Authentication;
         return;
       }
 
