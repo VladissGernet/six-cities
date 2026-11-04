@@ -4,5 +4,6 @@ import type { State } from '../../types/state';
 const getExtraOffer = (state: State) => state.extraOffer;
 const getExtraOfferErrorMessage = (state: State) =>
   state.extraOfferErrorMessage;
+const getIsExtraOfferLoading = (state: State) => state.isExtraOfferLoading;
 
-export { getExtraOffer, getExtraOfferErrorMessage };
+export { getExtraOffer, getExtraOfferErrorMessage, getIsExtraOfferLoading };

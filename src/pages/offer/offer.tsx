@@ -6,8 +6,8 @@ import { useOfferRequest } from '../../hooks/offer/use-offer-request';
 // Selectors.
 import { getOffers } from '../../store/selectors/offers';
 import {
-  getExtraOffer,
   getExtraOfferErrorMessage,
+  getIsExtraOfferLoading,
 } from '../../store/selectors/offer';
 
 // Components.
@@ -27,9 +27,8 @@ export default function Offer(): JSX.Element {
   const { id: offerId } = useParams<{ id: OfferId }>();
 
   const offers = useAppSelector(getOffers);
-  const extraOffer = useAppSelector(getExtraOffer);
   const extraOfferErrorMessage = useAppSelector(getExtraOfferErrorMessage);
-  // TODO, осталось получить данные nearby и comments через useAppSelector.
+  const isExtraOfferLoading = useAppSelector(getIsExtraOfferLoading);
 
   const dispatch = useAppDispatch();
 
@@ -37,7 +36,6 @@ export default function Offer(): JSX.Element {
 
   // Запрос на сервер.
   useOfferRequest(offerId, dispatch, isSelectedOffer);
-
   if (!offerId) {
     return <NotFoundPage />;
   }
@@ -46,8 +44,8 @@ export default function Offer(): JSX.Element {
     return <NotFoundPage />;
   }
 
-  if (extraOffer) {
-    return <OfferContent offerId={offerId} />;
+  if (isExtraOfferLoading) {
+    return <LoadingScreenContent />;
   }
 
   if (extraOfferErrorMessage) {
@@ -57,6 +55,9 @@ export default function Offer(): JSX.Element {
       </Container>
     );
   }
+
+  return <OfferContent />;
+
   // TODO, не забыть блокировать на момент оправки отзыва, чтобы не отправилось на сервер дважды.
   // TODO, проверить, как отрабатывает ошибка при попытке отправить отзыв при отсутствии инета.
 
@@ -73,5 +74,4 @@ export default function Offer(): JSX.Element {
     пользователь перенаправлен на главную. Также и с отправкой отзыва, чтобы при ошибки отправки данных отзыва
     форма не стиралась, отобразила ошибку отправки комментария на сервер и текст отзыва был бы сохранен.
   */
-  return <LoadingScreenContent />;
 }

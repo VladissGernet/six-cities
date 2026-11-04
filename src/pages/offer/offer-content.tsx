@@ -25,18 +25,11 @@ import {
 import styles from './offer.module.css';
 
 // Types.
-import type { OfferId } from '../../types/offers';
 import { useAppSelector } from '../../hooks/redux';
 import { getExtraOffer } from '../../store/selectors/offer';
 import { getGroupedOffers } from '../../store/selectors/offers';
 
-type OfferContentProps = {
-  offerId: OfferId;
-};
-
-export default function OfferContent({
-  offerId,
-}: OfferContentProps): JSX.Element | null {
+export default function OfferContent(): JSX.Element | null {
   const extraOffer = useAppSelector(getExtraOffer);
   const groupedOffers = useAppSelector(getGroupedOffers);
 
@@ -59,6 +52,7 @@ export default function OfferContent({
     maxAdults,
     goods,
     images,
+    id,
   } = extraOffer;
 
   // TODO, fetchNearbyOffers нужно просто обрезать до первых трех городов.
@@ -66,7 +60,7 @@ export default function OfferContent({
   const groupedOffersByCity = getOffersByCity(city.name, groupedOffers);
   const nearOffers = getNearOffersWithRestriction(
     groupedOffersByCity.offerPlacesByCity,
-    offerId,
+    id,
   );
 
   const bookmarkClass = cn(

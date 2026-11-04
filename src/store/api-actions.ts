@@ -62,7 +62,6 @@ const fetchExtraOfferAction = createAsyncThunk<
   const { data } = await api.get<ExtraOffer>(`${APIRoute.Offers}/${offerId}`, {
     signal,
   });
-  // TODO, обработкать ошибки.
   return data;
 });
 

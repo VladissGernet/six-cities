@@ -237,13 +237,6 @@ const reducer = createReducer(initialState, (builder) => {
       if (state.extraOfferRequestId !== meta.requestId) {
         return;
       }
-      /* TODO, проверить моменты
-        Ещё момент: в обработчиках rejected для трёх офферных запросов ты используешь error.message.
-        Это сообщение Axios, например Request failed with status code 404, а не обязательно сообщение,
-        которое сервер прислал в response.data.message. Если впоследствии захочешь отображать именно
-        серверные сообщения, понадобится rejectWithValue и для этих thunk.
-      */
-
       state.extraOfferRequestId = null;
       state.isExtraOfferLoading = false;
 
@@ -251,7 +244,6 @@ const reducer = createReducer(initialState, (builder) => {
         return;
       }
 
-      // TODO, добавить обработку ошибки.
       state.extraOfferErrorMessage =
         error.message || 'Failed to load the offer.';
     })
