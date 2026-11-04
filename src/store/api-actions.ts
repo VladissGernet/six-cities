@@ -28,7 +28,7 @@ const CHECK_AUTH_REJECT_VALUE = {
   TRANSPORT: { kind: 'transport' },
 } as const;
 
-// TODO, остановился на замечания 4. Ещё два замечания к reducer
+// TODO, остановился на реализации отображения ошибок.
 /* fetchOffersAction	Сохранение ошибки в Redux для отображения на странице
 fetchExtraOfferAction	Сохранение ошибки в Redux для отображения на странице оффера
 fetchNearbyOffers	Локальное отображение ошибки в секции похожих предложений
