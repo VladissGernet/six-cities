@@ -16,7 +16,13 @@ import styles from './offer.module.css';
 
 export default function OfferPlaces(): JSX.Element | null {
   const nearOffers = useAppSelector(getNearOffers);
-  // TODO, добавить обработку ошибки.
+
+  /*
+    TODO, добавить обработку ошибки и лоадер.
+      state.isNearbyLoading = true;
+      state.nearbyOffers = null;
+      state.nearbyErrorMessage = null;
+  */
 
   if (!nearOffers) {
     return null;

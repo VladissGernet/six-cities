@@ -309,7 +309,7 @@ const reducer = createReducer(initialState, (builder) => {
         return;
       }
 
-      // TODO, добавить обработку ошибки.
+      // TODO, добавить обработку ошибки и добавить лоадер.
       state.extraOfferCommentsErrorMessage =
         error.message || 'Failed to load comments of the offer.';
     });
