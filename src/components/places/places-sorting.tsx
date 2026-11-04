@@ -49,6 +49,7 @@ export default function PlacesSorting({
         ref={menuRef}
         className="places__sorting-type"
         tabIndex={0}
+        // TODO, исправить создание анонимных функций в обработчиках разметки onClick, onSubmit и пр.
         onClick={() => setIsMenuOpened((lastOpened) => !lastOpened)}
       >
         {activeOption}
@@ -68,6 +69,7 @@ export default function PlacesSorting({
             }`}
             tabIndex={0}
             key={sortingValue}
+            // TODO, исправить создание анонимных функций в обработчиках разметки onClick, onSubmit и пр.
             onClick={() => handleOptionClick(sortingValue)}
           >
             {sortingValue}
