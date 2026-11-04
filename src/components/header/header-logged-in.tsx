@@ -7,7 +7,7 @@ import { logoutAction } from '../../store/api-actions';
 
 // Selectors.
 import { getOffers } from '../../store/selectors/offers';
-import { getUserAccountData } from '../../store/selectors/general';
+import { getUserAccountData } from '../../store/selectors/authentication';
 
 export default function HeaderLoggedIn(): JSX.Element {
   const userData = useAppSelector(getUserAccountData);

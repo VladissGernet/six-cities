@@ -35,7 +35,7 @@ type StateType = {
   activeMapMarkerId: ActiveMapMarkerId;
 
   // Auth.
-  checkAuthErrorMessage: ErrorMessage;
+  authErrorMessage: ErrorMessage;
   authenticationStatus: AuthenticationStatus;
   userAccountData: ExtraUserData | null;
 
@@ -71,7 +71,7 @@ const initialState: StateType = {
   activeMapMarkerId: null,
 
   // Auth.
-  checkAuthErrorMessage: null,
+  authErrorMessage: null,
   authenticationStatus: AuthenticationStatus.Unknown,
   userAccountData: null,
 
@@ -182,7 +182,7 @@ const reducer = createReducer(initialState, (builder) => {
     // Check auth status.
     .addCase(checkAuthAction.pending, (state) => {
       state.authenticationStatus = AuthenticationStatus.Loading;
-      state.checkAuthErrorMessage = null;
+      state.authErrorMessage = null;
     })
     .addCase(checkAuthAction.fulfilled, (state, { payload }) => {
       state.authenticationStatus = AuthenticationStatus.Auth;
@@ -198,16 +198,16 @@ const reducer = createReducer(initialState, (builder) => {
       state.authenticationStatus = AuthenticationStatus.Error;
 
       if (payload?.kind === 'transport') {
-        state.checkAuthErrorMessage = ErrorMessages.Authentication;
+        state.authErrorMessage = ErrorMessages.Authentication;
         return;
       }
 
       if (payload?.kind === 'http') {
-        state.checkAuthErrorMessage = `Server returned HTTP ${payload.status}.`;
+        state.authErrorMessage = `Server returned HTTP ${payload.status}.`;
         return;
       }
 
-      state.checkAuthErrorMessage =
+      state.authErrorMessage =
         error.message || 'Failed to check authentication.';
     })
 

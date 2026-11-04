@@ -5,7 +5,11 @@ import LoadingScreen from '../pages/loading-screen/loading-screen';
 
 // Selectors.
 import { getIsOffersDataLoading } from '../store/selectors/offers';
-import { getAuthenticationStatus } from '../store/selectors/general';
+import {
+  getAuthenticationStatus,
+  getAuthErrorMessage,
+} from '../store/selectors/authentication';
+import { toast } from 'react-toastify';
 
 /**
  * Обертка для выноса логики загрузки и авторизации из компонента App.
@@ -15,12 +19,18 @@ import { getAuthenticationStatus } from '../store/selectors/general';
 export default function AppLayout(): JSX.Element {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
   const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
+  const authErrorMessage = useAppSelector(getAuthErrorMessage);
 
   if (
     authenticationStatus === AuthenticationStatus.Unknown ||
     isOffersDataLoading
   ) {
     return <LoadingScreen />;
+  }
+
+  if (authenticationStatus === AuthenticationStatus.Error) {
+    // TODO, добавить .abort , чтобы не вызывалось дважды.
+    toast.warn(authErrorMessage);
   }
 
   return <Outlet />;
