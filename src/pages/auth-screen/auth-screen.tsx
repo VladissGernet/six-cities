@@ -1,20 +1,25 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useRef, useState, type FormEventHandler } from 'react';
+import { AppRoute, CITY_NAMES } from '../../const';
+import { getRandomElement } from '../../utils/utils';
+import { useAppDispatch } from '../../hooks/redux';
+import { toast } from 'react-toastify';
 
+// Components.
 import Page from '../../components/page/page';
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 import Container from '../../components/container/container';
 
+// Thunk.
 import { loginAction } from '../../store/api-actions';
 import { changeCity, redirectToRoute } from '../../store/action';
 
-import { AppRoute, CITY_NAMES } from '../../const';
-import { getRandomElement } from '../../utils/utils';
-import { useAppDispatch } from '../../hooks/redux';
+// Types.
 import type { CityName } from '../../types/offers';
 import type { AuthData } from '../../types/auth-data';
+
 const MIN_LENGTH_PASSWORD = 2;
 
 export default function AuthScreen(): JSX.Element {
@@ -34,7 +39,7 @@ export default function AuthScreen(): JSX.Element {
 
       dispatch(redirectToRoute(AppRoute.Root));
     } catch (error: unknown) {
-      // TODO, Обработка ошибки авторизации.
+      toast.error('Failed to log in. Check the data and try again.');
     } finally {
       setIsSubmitting(false);
     }

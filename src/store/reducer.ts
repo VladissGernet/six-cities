@@ -217,53 +217,11 @@ const reducer = createReducer(initialState, (builder) => {
       state.authenticationStatus = AuthenticationStatus.Auth;
       state.userAccountData = payload;
     })
-    .addCase(loginAction.rejected, () => {
-      // TODO, добавить обработку ошибки
-      /*
-        6.2. Ошибки пользовательских действий
-Здесь я бы использовал .unwrap() и try/catch.
-
-Например, твой submitLogin:
-const submitLogin = async (authData: AuthData): Promise<void> => {
-  setIsSubmitting(true);
-
-  try {
-    await dispatch(loginAction(authData)).unwrap();
-
-    dispatch(redirectToRoute(AppRoute.Root));
-  } catch (error: unknown) {
-    toast.error('Не удалось выполнить вход. Проверьте данные и попробуйте снова.');
-  } finally {
-    setIsSubmitting(false);
-  }
-};
-
-
-Здесь есть важное следствие для твоего reducer.ts.
-
-Сейчас у тебя:
-.addCase(loginAction.rejected, () => {
-  // TODO, добавить обработку ошибки
-})
-
-
-И аналогично для logoutAction.rejected.
-
-Эти обработчики ничего не делают, а ошибки ты обрабатываешь в компонентах через .unwrap().
-
-Поэтому оба пустых addCase можно удалить. Само действие rejected при этом никуда не исчезнет. Просто reducer не будет реагировать на него.
-
-Если впоследствии появится необходимость хранить состояние ошибки авторизации глобально, тогда добавишь соответствующую обработку.
-      */
-    })
 
     // Logout action.
     .addCase(logoutAction.fulfilled, (state) => {
       state.authenticationStatus = AuthenticationStatus.NoAuth;
       state.userAccountData = null;
-    })
-    .addCase(logoutAction.rejected, () => {
-      // TODO, добавить обработку ошибки
     })
 
     // ExtraOffer.

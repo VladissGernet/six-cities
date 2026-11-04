@@ -166,8 +166,6 @@ const loginAction = createAsyncThunk<
 const logoutAction = createAsyncThunk<void, void, { extra: AxiosInstance }>(
   'user/logout',
   async (_arg, { extra: api }) => {
-    // TODO, проверить на случай ошибки
-
     await api.delete(APIRoute.Logout);
     dropToken();
   },

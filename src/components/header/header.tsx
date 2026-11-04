@@ -12,7 +12,6 @@ export default function Header({ isHeaderNoNav }: HeaderProps): JSX.Element {
       <Container>
         <div className="header__wrapper">
           <HeaderLogo />
-
           {isHeaderNoNav ? '' : <HeaderNav />}
         </div>
       </Container>

@@ -1,0 +1,11 @@
+.header__nav-link--fix {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: inherit;
+
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+}

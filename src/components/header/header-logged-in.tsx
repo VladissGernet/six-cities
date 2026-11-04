@@ -8,12 +8,36 @@ import { logoutAction } from '../../store/api-actions';
 // Selectors.
 import { getOffers } from '../../store/selectors/offers';
 import { getUserAccountData } from '../../store/selectors/authentication';
+import { useState, type MouseEventHandler } from 'react';
+import { toast } from 'react-toastify';
+
+import styles from './header-logged-in.module.css';
 
 export default function HeaderLoggedIn(): JSX.Element {
   const userData = useAppSelector(getUserAccountData);
   const offers = useAppSelector(getOffers);
   const totalFavorites = filterByProperty(offers, 'isFavorite', true).length;
+  const [isSigningOut, setIsSigningOut] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const signOutStatus = isSigningOut ? 'Signing out…' : 'Sign out';
+
+  const tryDispatch = async (): Promise<void> => {
+    setIsSigningOut(true);
+
+    try {
+      await dispatch(logoutAction()).unwrap();
+    } catch (error: unknown) {
+      toast.error('Failed to sign out. Try again.');
+    } finally {
+      setIsSigningOut(false);
+    }
+  };
+
+  const handleSignOut: MouseEventHandler = (evt) => {
+    evt.preventDefault();
+
+    tryDispatch();
+  };
 
   return (
     <>
@@ -37,16 +61,14 @@ export default function HeaderLoggedIn(): JSX.Element {
         </Link>
       </li>
       <li className="header__nav-item">
-        <Link
-          className="header__nav-link"
-          onClick={(evt) => {
-            evt.preventDefault();
-            dispatch(logoutAction());
-          }}
-          to={AppRoute.Root}
+        <button
+          className={`header__nav-link ${styles['header__nav-link--fix']}`}
+          type="button"
+          disabled={isSigningOut}
+          onClick={handleSignOut}
         >
-          <span className="header__signout">Sign out</span>
-        </Link>
+          <span className="header__signout">{signOutStatus}</span>
+        </button>
       </li>
     </>
   );
