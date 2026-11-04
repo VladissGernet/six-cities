@@ -85,6 +85,7 @@ const fetchExtraOfferAction = createAsyncThunk<
   const { data } = await api.get<ExtraOffer>(`${APIRoute.Offers}/${offerId}`, {
     signal,
   });
+  // TODO, обработкать ошибки.
   return data;
 });
 
@@ -97,6 +98,7 @@ const fetchNearbyOffers = createAsyncThunk<
     `${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`,
     { signal },
   );
+  // TODO, обработкать ошибки.
   return data;
 });
 
@@ -108,6 +110,7 @@ const fetchComments = createAsyncThunk<
   const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`, {
     signal,
   });
+  // TODO, обработкать ошибки.
   return data;
 });
 

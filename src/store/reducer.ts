@@ -170,14 +170,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchOffersAction.rejected, (state, { error }) => {
       state.isOffersDataLoading = false;
-      /* TODO. Добавить обработку ошибки
-        Отдельно про fetchOffersAction.rejected: сейчас, например, HTTP 500 не вызовет toast согласно твоей таблице статусов,
-        а reducer просто установит isOffersDataLoading = false. Если компонент не предусматривает другого отображения ошибки,
-        пользователь может увидеть пустую страницу без объяснений.
-
-        Важная поправка: я бы не выводил непосредственно error.message от Axios в JSX. Например, текст Request failed with
-        status code 500 не очень полезен посетителю.
-      */
       state.offersErrorMessage = error.message || 'Failed to load offers.';
     })
 
