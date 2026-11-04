@@ -157,8 +157,6 @@ const loginAction = createAsyncThunk<
     email,
     password,
   });
-
-  // TODO, добавить обработку ошибок.
   saveToken(data.token);
   return data;
 });
