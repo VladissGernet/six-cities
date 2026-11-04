@@ -11,8 +11,8 @@ import { useMarkers } from '../../hooks/offers-map/use-markers';
 import type { OfferId, OfferLocation, Offers } from '../../types/offers';
 import type { ActiveMapMarkerId } from '../../types/general';
 
-// Store.
-import { getActiveMapMarkerId } from '../../store/selectors/offers';
+// Selectors.
+import { getActiveMapMarkerId } from '../../store/selectors/general';
 
 // Leaflet.
 import 'leaflet/dist/leaflet.css';

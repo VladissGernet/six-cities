@@ -4,7 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { filterByProperty } from '../../utils/utils';
 import { AppRoute } from '../../const';
 import { logoutAction } from '../../store/api-actions';
-import { getOffers, getUserAccountData } from '../../store/selectors/offers';
+
+// Selectors.
+import { getOffers } from '../../store/selectors/offers';
+import { getUserAccountData } from '../../store/selectors/general';
 
 export default function HeaderLoggedIn(): JSX.Element {
   const userData = useAppSelector(getUserAccountData);

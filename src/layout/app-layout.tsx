@@ -2,10 +2,10 @@ import { Outlet } from 'react-router-dom';
 import { useAppSelector } from '../hooks/redux';
 import { AuthenticationStatus } from '../const';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
-import {
-  getAuthenticationStatus,
-  getIsOffersDataLoading,
-} from '../store/selectors/offers';
+
+// Selectors.
+import { getIsOffersDataLoading } from '../store/selectors/offers';
+import { getAuthenticationStatus } from '../store/selectors/general';
 
 /**
  * Обертка для выноса логики загрузки и авторизации из компонента App.

@@ -1,8 +1,13 @@
-import Places from '../../components/places/places';
 import { useAppSelector } from '../../hooks/redux';
-import { getCity, getGroupedOffers } from '../../store/selectors/offers';
+
+// Components.
+import Places from '../../components/places/places';
 import Container from '../container/container';
 import OffersMap from '../offers-map/offers-map';
+
+// Selectors.
+import { getCity } from '../../store/selectors/general';
+import { getGroupedOffers } from '../../store/selectors/offers';
 
 type CitiesFilledProps = {
   extraTitle?: string;

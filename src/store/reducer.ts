@@ -149,12 +149,10 @@ const ErrorMessages = {
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, { payload }) => {
-      const newCity = payload;
-      state.city = newCity;
+      state.city = payload;
     })
     .addCase(setActiveMapMaker, (state, { payload }) => {
-      const newActiveMapMarkerId = payload;
-      state.activeMapMarkerId = newActiveMapMarkerId;
+      state.activeMapMarkerId = payload;
     })
 
     // Fetch Offers.
