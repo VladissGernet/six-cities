@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import { Outlet } from 'react-router-dom';
 import { useAppSelector } from '../hooks/redux';
 import { AuthenticationStatus } from '../const';
@@ -20,17 +22,32 @@ export default function AppLayout(): JSX.Element {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
   const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
   const authErrorMessage = useAppSelector(getAuthErrorMessage);
+  const authErrorToastShown = useRef(false);
+
+  useEffect(() => {
+    if (
+      authenticationStatus !== AuthenticationStatus.Error ||
+      !authErrorMessage
+    ) {
+      authErrorToastShown.current = false;
+      return;
+    }
+
+    if (authErrorToastShown.current) {
+      return;
+    }
+
+    authErrorToastShown.current = true;
+
+    toast.warn(authErrorMessage);
+  }, [authenticationStatus, authErrorMessage]);
 
   if (
     authenticationStatus === AuthenticationStatus.Unknown ||
+    authenticationStatus === AuthenticationStatus.Loading ||
     isOffersDataLoading
   ) {
     return <LoadingScreen />;
-  }
-
-  if (authenticationStatus === AuthenticationStatus.Error) {
-    // TODO, добавить .abort , чтобы не вызывалось дважды.
-    toast.warn(authErrorMessage);
   }
 
   return <Outlet />;
