@@ -143,6 +143,8 @@ const initialState: StateType = {
 const ErrorMessages = {
   Authentication:
     'Unable to connect to the server for authentification. Check your connection.',
+  AuthServerHTTP: 'Server returned HTTP',
+  AuthFailed: 'Failed to check authentication.',
 };
 
 // TODO, 8 модуль. Критерий про Combine Reducer, чтобы разбить "универсальный" reducer на более мелкие.
@@ -203,12 +205,11 @@ const reducer = createReducer(initialState, (builder) => {
       }
 
       if (payload?.kind === 'http') {
-        state.authErrorMessage = `Server returned HTTP ${payload.status}.`;
+        state.authErrorMessage = `${ErrorMessages.AuthServerHTTP} ${payload.status}.`;
         return;
       }
 
-      state.authErrorMessage =
-        error.message || 'Failed to check authentication.';
+      state.authErrorMessage = error.message || ErrorMessages.AuthFailed;
     })
 
     // Login action.
