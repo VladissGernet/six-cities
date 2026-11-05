@@ -5,11 +5,11 @@ import cn from 'classnames';
 // Components.
 import Gallery from '../../components/gallery/gallery';
 import Rating from '../../components/rating/rating';
-import Reviews from '../../components/reviews/reviews';
 import Container from '../../components/container/container';
 import OfferPlaces from './offer-places';
 import OfferMap from './offer-map';
 import OfferFeatures from './offer-features';
+import OfferReviews from './offer-reviews';
 
 // This folder.
 import OfferHost from './offer-host';
@@ -90,7 +90,7 @@ export default function OfferContent(): JSX.Element | null {
             </div>
             <OfferInside goods={goods} />
             <OfferHost description={description} host={host} />
-            <Reviews />
+            <OfferReviews />
           </div>
         </Container>
         <OfferMap />

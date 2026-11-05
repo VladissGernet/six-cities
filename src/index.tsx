@@ -12,8 +12,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-/* TODO
-  8 раздел. 2.25.00
+/* TODO  8 раздел. 2.25.00
   Разбить reducer и исползовать combineReducer для их объеденения в один чрезе store/root-reducer.ts
   изучить .createSlice
   изучить Ducks (иногда «ducks-modular-redux»)

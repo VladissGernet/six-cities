@@ -1,0 +1,33 @@
+.reviews__avatar-wrapper--pro {
+  position: relative;
+
+  & ~ :global(.reviews__user-status) {
+    font-size: 12px;
+    line-height: 1.167;
+    color: #696969;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: -16px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #ff9000;
+    background-image: url(../img/star-white.svg);
+    background-size: 14px 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.reviews__show-more {
+  display: block;
+  margin: 0 0 20px auto;
+  padding: 16px 20px 13px;
+  color: #fff;
+  background-color: #4481c3;
+  border-radius: 3px;
+}
