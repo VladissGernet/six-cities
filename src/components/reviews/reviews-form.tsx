@@ -24,6 +24,7 @@ export default function ReviewsForm(): JSX.Element {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    // TODO, добавить обработку ошибки отправки и скрывать форму при отстутсвии аутентификации.
     if (
       userReviewText.length < MIN_TEXTAREA_CHARACTERS ||
       userReviewText.length > MAX_TEXTAREA_CHARACTERS
