@@ -276,9 +276,8 @@ const reducer = createReducer(initialState, (builder) => {
         return;
       }
 
-      // TODO, добавить обработку ошибки.
       state.nearbyErrorMessage =
-        error.message || 'Failed to load nearby offers .';
+        error.message || 'Failed to load nearby offers.';
     })
 
     // Fetch ExtraOffer Comments.

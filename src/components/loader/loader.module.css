@@ -1,0 +1,44 @@
+.loader {
+  --color-1: #383838;
+  --color-2: rgba(0, 0, 0, 0);
+  --size: 1px;
+  position: relative;
+  font-size: calc(24 * var(--size));
+  box-sizing: border-box;
+
+  margin: 0;
+  width: fit-content;
+  user-select: none;
+}
+
+.loader::after {
+  content: '';
+  width: calc(3 * var(--size));
+  height: calc(3 * var(--size));
+  bottom: calc(7 * var(--size));
+  right: calc(-5 * var(--size));
+
+  background: currentColor;
+  position: absolute;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite;
+  border-radius: 24%;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow:
+      calc(6 * var(--size)) 0 var(--color-2),
+      calc(12 * var(--size)) 0 var(--color-2);
+  }
+  50% {
+    box-shadow:
+      calc(6 * var(--size)) 0 var(--color-1),
+      calc(12 * var(--size)) 0 var(--color-2);
+  }
+  100% {
+    box-shadow:
+      calc(6 * var(--size)) 0 var(--color-1),
+      calc(12 * var(--size)) 0 var(--color-1);
+  }
+}

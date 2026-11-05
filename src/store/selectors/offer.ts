@@ -6,6 +6,8 @@ const getExtraOfferErrorMessage = (state: State) =>
 const getIsExtraOfferLoading = (state: State) => state.isExtraOfferLoading;
 
 const getNearOffers = (state: State) => state.nearbyOffers;
+const getIsNearbyLoading = (state: State) => state.isNearbyLoading;
+const getNearbyErrorMessage = (state: State) => state.nearbyErrorMessage;
 
 const getComments = (state: State) => state.extraOfferComments;
 
@@ -15,4 +17,6 @@ export {
   getIsExtraOfferLoading,
   getNearOffers,
   getComments,
+  getIsNearbyLoading,
+  getNearbyErrorMessage,
 };

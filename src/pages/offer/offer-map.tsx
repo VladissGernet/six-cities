@@ -12,16 +12,25 @@ import { MAX_EXTRA_OFFER_PLACES } from '../../const';
 export default function OfferMap(): JSX.Element | null {
   const nearOffers = useAppSelector(getNearOffers);
   const extraOffer = useAppSelector(getExtraOffer);
-  /*
-    TODO, добавить обработку ошибки и лоадер.
-      state.isNearbyLoading = true;
-      state.nearbyOffers = null;
-      state.nearbyErrorMessage = null;
-  */
 
   if (!nearOffers || !extraOffer?.location) {
     return null;
   }
+  // TODO, если предложения поблизости отсутсвуют, то рендер карты
+  // без них с location. Если грузятся, то подождать с рендером карты
+  // и отобразить лоадер.
+
+  // if (!nearOffers) {
+  //   return (
+  //     <Container>
+  //       <OffersMap
+  //         rootClassName="offer__map"
+  //         offers={[]}
+  //         selectedMarkerLocation={extraOffer.location}
+  //       />
+  //     </Container>
+  //   );
+  // }
 
   return (
     <Container>

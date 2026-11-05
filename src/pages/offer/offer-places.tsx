@@ -3,10 +3,15 @@ import cn from 'classnames';
 // Components.
 import Container from '../../components/container/container';
 import Places from '../../components/places/places';
+import Loader from '../../components/loader/loader';
 
 // Selectors.
 import { useAppSelector } from '../../hooks/redux';
-import { getNearOffers } from '../../store/selectors/offer';
+import {
+  getIsNearbyLoading,
+  getNearbyErrorMessage,
+  getNearOffers,
+} from '../../store/selectors/offer';
 
 // Const.
 import { MAX_EXTRA_OFFER_PLACES } from '../../const';
@@ -16,16 +21,33 @@ import styles from './offer.module.css';
 
 export default function OfferPlaces(): JSX.Element | null {
   const nearOffers = useAppSelector(getNearOffers);
+  const isNearbyLoading = useAppSelector(getIsNearbyLoading);
+  const nearbyErrorMessage = useAppSelector(getNearbyErrorMessage);
 
-  /*
-    TODO, добавить обработку ошибки и лоадер.
-      state.isNearbyLoading = true;
-      state.nearbyOffers = null;
-      state.nearbyErrorMessage = null;
-  */
+  if (isNearbyLoading) {
+    return (
+      <Container>
+        <Loader text="Loading nearby offers" />
+      </Container>
+    );
+  }
+
+  if (nearbyErrorMessage) {
+    return (
+      <Container>
+        <p className="offer__text">
+          Failed to load nearby offers. {nearbyErrorMessage}
+        </p>
+      </Container>
+    );
+  }
 
   if (!nearOffers) {
-    return null;
+    return (
+      <Container>
+        <p className="offer__text">There are no nearby offers.</p>
+      </Container>
+    );
   }
 
   return (
