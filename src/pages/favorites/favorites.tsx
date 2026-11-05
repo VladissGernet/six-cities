@@ -12,7 +12,7 @@ import { useAppSelector } from '../../hooks/redux';
 import { getGroupedFavoriteOffers } from '../../store/selectors/offers';
 
 export default function Favorites(): JSX.Element {
-  // TODO, при залогиненом состоянии и потери соеденения с offers, отобразить ошибку.
+  // TODO, при залогиненом состоянии и потери соединения с offers, отобразить ошибку.
   const favoriteOffersByCity = useAppSelector(getGroupedFavoriteOffers);
   const hasFavorites = favoriteOffersByCity.length > 0;
 

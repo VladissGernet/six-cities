@@ -142,7 +142,7 @@ const initialState: StateType = {
 
 const ErrorMessages = {
   Authentication:
-    'Unable to connect to the server for authentification. Check your connection.',
+    'Unable to connect to the server for authentication. Check your connection.',
   AuthServerHTTP: 'Server returned HTTP',
   AuthFailed: 'Failed to check authentication.',
 };
@@ -183,7 +183,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.userAccountData = payload;
     })
     .addCase(checkAuthAction.rejected, (state, { payload, error }) => {
-      // Ошбибка не требующая уведомления пользователя.
+      // Ошибка не требующая уведомления пользователя.
       if (payload?.kind === 'unauthorized') {
         state.authenticationStatus = AuthenticationStatus.NoAuth;
         state.userAccountData = null;

@@ -25,7 +25,7 @@ export default function PlacesSorting({
     setIsMenuOpened(false);
   };
 
-  // Закрытие меню при клике за пределами селектов.
+  // Закрытие меню при клике за пределами selects.
   useEffect(() => {
     const hideMenu = (evt: MouseEvent) => {
       if (

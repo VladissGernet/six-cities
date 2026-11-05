@@ -48,7 +48,7 @@ const renderMapMarkersLayer = ({
   });
 
   // Добавление опционной точки на слой карты.
-  // Используется для отображения выбранного оффера
+  // Используется для отображения выбранного офера
   // страницы offer/:id.
   if (selectedMarkerLocation) {
     const marker = new Marker(

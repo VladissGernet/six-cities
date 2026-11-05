@@ -16,11 +16,11 @@ export default function OfferMap(): JSX.Element | null {
   if (!nearOffers || !extraOffer?.location) {
     return null;
   }
-  // TODO, если предложения поблизости отсутсвуют, то рендер карты
+  // TODO, если предложения поблизости отсутствуют, то рендер карты
   // без них с location. Если грузятся, то подождать с рендером карты
   // и отобразить лоадер.
   // Остановился на решение проблемы в offerS-map.tsx с offers[n].city.location.
-  // Надо придумать другйо способ получения базового location для map.
+  // Надо придумать другой способ получения базового location для map.
 
   // if (!nearOffers) {
   //   return (

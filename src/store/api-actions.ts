@@ -30,7 +30,7 @@ const CHECK_AUTH_REJECT_VALUE = {
 
 /*
   TODO, остановился на реализации отображения ошибок.
-  fetchExtraOfferAction	Сохранение ошибки в Redux для отображения на странице оффера
+  fetchExtraOfferAction	Сохранение ошибки в Redux для отображения на странице офера
   fetchNearbyOffers	Локальное отображение ошибки в секции похожих предложений
   fetchComments	Локальное отображение ошибки в секции комментариев
  */

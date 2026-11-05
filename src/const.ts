@@ -34,7 +34,7 @@ const PlacesSortingValue = {
 } as const;
 
 /**
- * Ещё создёт тип { CityName } from "./types/offers".
+ * Ещё создаёт тип { CityName } from "./types/offers".
  */
 const CITY_NAMES = [
   'Paris',
@@ -46,7 +46,7 @@ const CITY_NAMES = [
 ] as const;
 
 /**
- * Ещё создёт тип { RatingValue } from "./types/general".
+ * Ещё создаёт тип { RatingValue } from "./types/general".
  */
 const RATING_VALUES = ['1', '2', '3', '4', '5'] as const;
 

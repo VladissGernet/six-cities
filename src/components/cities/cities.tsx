@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../hooks/redux';
 
-// Compontents.
+// Components.
 import CitiesFilled from './cities-filled';
 import CitiesEmpty from './cities-empty';
 
