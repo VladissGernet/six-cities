@@ -7,8 +7,10 @@ import {
 import { RATING_VALUES } from '../../const';
 
 import type { RatingValue } from '../../types/general';
+import { toast } from 'react-toastify';
 
 const MIN_TEXTAREA_CHARACTERS = 50;
+const MAX_TEXTAREA_CHARACTERS = 300;
 
 const isRatingValue = (value: string): value is RatingValue =>
   (RATING_VALUES as readonly string[]).includes(value);
@@ -22,6 +24,18 @@ export default function ReviewsForm(): JSX.Element {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    if (
+      userReviewText.length < MIN_TEXTAREA_CHARACTERS ||
+      userReviewText.length > MAX_TEXTAREA_CHARACTERS
+    ) {
+      toast.warn(
+        `
+          The review text should be between ${MIN_TEXTAREA_CHARACTERS} and
+          ${MAX_TEXTAREA_CHARACTERS} characters long. Current review text
+          length is ${userReviewText.length}.
+        `,
+      );
+    }
   };
 
   const handleReviewText: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
