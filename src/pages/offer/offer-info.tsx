@@ -16,6 +16,38 @@ type OfferInfoProps = {
   offerData: ExtraOffer;
 };
 
+type OfferMarkProps = Pick<ExtraOffer, 'isPremium'>;
+
+type OfferNameProps = Pick<ExtraOffer, 'title' | 'isFavorite'>;
+
+function OfferMark({ isPremium }: OfferMarkProps): JSX.Element | null {
+  return isPremium ? (
+    <div className="offer__mark">
+      <span>Premium</span>
+    </div>
+  ) : null;
+}
+
+function OfferName({ title, isFavorite }: OfferNameProps): JSX.Element | null {
+  const bookmarkClass = cn(
+    'offer__bookmark-button',
+    isFavorite && 'offer__bookmark-button--active',
+    'button',
+  );
+
+  return (
+    <div className="offer__name-wrapper">
+      <h1 className="offer__name">{title}</h1>
+      <button className={bookmarkClass} type="button">
+        <svg className="offer__bookmark-icon" width="31" height="33">
+          <use href="#icon-bookmark"></use>
+        </svg>
+        <span className="visually-hidden">To bookmarks</span>
+      </button>
+    </div>
+  );
+}
+
 export default function OfferInfo({ offerData }: OfferInfoProps): JSX.Element {
   const {
     title,
@@ -31,29 +63,11 @@ export default function OfferInfo({ offerData }: OfferInfoProps): JSX.Element {
     goods,
   } = offerData;
 
-  const bookmarkClass = cn(
-    'offer__bookmark-button',
-    isFavorite && 'offer__bookmark-button--active',
-    'button',
-  );
-
   return (
     <Container className="offer__container container">
       <div className="offer__wrapper">
-        {isPremium && (
-          <div className="offer__mark">
-            <span>Premium</span>
-          </div>
-        )}
-        <div className="offer__name-wrapper">
-          <h1 className="offer__name">{title}</h1>
-          <button className={bookmarkClass} type="button">
-            <svg className="offer__bookmark-icon" width="31" height="33">
-              <use href="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
-        </div>
+        <OfferMark isPremium={isPremium} />
+        <OfferName title={title} isFavorite={isFavorite} />
         <Rating
           rating={rating}
           rootClassName={'offer__rating'}
