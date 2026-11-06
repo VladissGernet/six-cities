@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useRef, useState, type FormEventHandler } from 'react';
-import { AppRoute, CITY_NAMES } from '../../const';
-import { getRandomElement } from '../../utils/utils';
-import { useAppDispatch } from '../../hooks/redux';
 import { toast } from 'react-toastify';
+
+import { AppRoute, AuthenticationStatus, CITY_NAMES } from '../../const';
+import { getRandomElement } from '../../utils/utils';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 // Components.
 import Page from '../../components/page/page';
@@ -12,9 +13,10 @@ import Header from '../../components/header/header';
 import Main from '../../components/main/main';
 import Container from '../../components/container/container';
 
-// Thunk.
+// Store.
 import { loginAction } from '../../store/api-actions';
 import { changeCity, redirectToRoute } from '../../store/action';
+import { getAuthenticationStatus } from '../../store/selectors/authentication';
 
 // Types.
 import type { CityName } from '../../types/offers';
@@ -23,13 +25,17 @@ import type { AuthData } from '../../types/auth-data';
 const MIN_LENGTH_PASSWORD = 2;
 
 export default function AuthScreen(): JSX.Element {
+  const authenticationStatus = useAppSelector(getAuthenticationStatus);
+
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const authTitleStatus = isSubmitting ? 'Signing in…' : 'Sign in';
-  // TODO, если я аутентифицирован и перейду сам по ссылке http://localhost:5173/login,
-  // то я снова могу логиниться.
+
   const dispatch = useAppDispatch();
+
+  if (authenticationStatus === AuthenticationStatus.Auth) {
+    return <Navigate to={AppRoute.Root} replace />;
+  }
 
   const submitLogin = async (authData: AuthData): Promise<void> => {
     setIsSubmitting(true);
@@ -65,6 +71,8 @@ export default function AuthScreen(): JSX.Element {
       dispatch(changeCity(randomCity));
     }
   };
+
+  const authTitleStatus = isSubmitting ? 'Signing in…' : 'Sign in';
 
   return (
     <Page>
