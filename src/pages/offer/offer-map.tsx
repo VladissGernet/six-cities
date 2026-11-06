@@ -13,26 +13,20 @@ export default function OfferMap(): JSX.Element | null {
   const nearOffers = useAppSelector(getNearOffers);
   const extraOffer = useAppSelector(getExtraOffer);
 
-  if (!nearOffers || !extraOffer?.location) {
+  if (!extraOffer?.location) {
     return null;
   }
-  // TODO, если предложения поблизости отсутствуют, то рендер карты
-  // без них с location. Если грузятся, то подождать с рендером карты
-  // и отобразить лоадер.
-  // Остановился на решение проблемы в offerS-map.tsx с offers[n].city.location.
-  // Надо придумать другой способ получения базового location для map.
 
-  // if (!nearOffers) {
-  //   return (
-  //     <Container>
-  //       <OffersMap
-  //         rootClassName="offer__map"
-  //         offers={[]}
-  //         selectedMarkerLocation={extraOffer.location}
-  //       />
-  //     </Container>
-  //   );
-  // }
+  if (!nearOffers) {
+    return (
+      <Container>
+        <OffersMap
+          rootClassName="offer__map"
+          selectedMarkerLocation={extraOffer.location}
+        />
+      </Container>
+    );
+  }
 
   return (
     <Container>

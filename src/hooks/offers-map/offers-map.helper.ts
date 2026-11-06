@@ -21,7 +21,7 @@ const defaultCustomIcon = new Icon(CustomIcon.Default);
 const selectedCustomIcon = new Icon(CustomIcon.Active);
 
 type MapMarkersLayerProps = {
-  offers: Offers;
+  offers?: Offers;
   layerGroup: LayerGroup;
   activeMarkerId: OfferId | null;
   selectedMarkerLocation?: OfferLocation;
@@ -34,18 +34,20 @@ const renderMapMarkersLayer = ({
   selectedMarkerLocation,
 }: MapMarkersLayerProps): void => {
   // Добавление меток на слой карты.
-  offers.forEach(({ location, id }) => {
-    const marker = new Marker(
-      {
-        lat: location.latitude,
-        lng: location.longitude,
-      },
-      {
-        icon: id === activeMarkerId ? selectedCustomIcon : defaultCustomIcon,
-      },
-    );
-    marker.addTo(layerGroup);
-  });
+  if (offers && offers.length) {
+    offers.forEach(({ location, id }) => {
+      const marker = new Marker(
+        {
+          lat: location.latitude,
+          lng: location.longitude,
+        },
+        {
+          icon: id === activeMarkerId ? selectedCustomIcon : defaultCustomIcon,
+        },
+      );
+      marker.addTo(layerGroup);
+    });
+  }
 
   // Добавление опционной точки на слой карты.
   // Используется для отображения выбранного офера

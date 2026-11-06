@@ -12,7 +12,8 @@ import type { OfferId, OfferLocation, Offers } from '../../types/offers';
 import type { ActiveMapMarkerId } from '../../types/general';
 
 // Selectors.
-import { getActiveMapMarkerId } from '../../store/selectors/general';
+import { getActiveMapMarkerId, getCity } from '../../store/selectors/general';
+import { getGroupedOffers } from '../../store/selectors/offers';
 
 // Leaflet.
 import 'leaflet/dist/leaflet.css';
@@ -20,7 +21,7 @@ import 'leaflet/dist/leaflet.css';
 type OffersMapProps = {
   rootClassName: string;
   /** Только определенные предложения. */
-  offers: Offers;
+  offers?: Offers;
   selectedMarkerLocation?: OfferLocation;
 };
 
@@ -29,19 +30,20 @@ export default function OffersMap({
   offers,
   selectedMarkerLocation,
 }: OffersMapProps): JSX.Element | null {
+  const currentCity = useAppSelector(getCity);
+  const groupedOffers = useAppSelector(getGroupedOffers);
+
   // Получаем сгруппированные предложения по одному городу.
   // У всех предложений будет одинаковый offers[n].city.location.
-  const firstPlace = offers[0];
-  const cityLocation = firstPlace?.city.location;
-
-  const { latitude, longitude, zoom } = cityLocation;
+  const cityLocation =
+    groupedOffers[currentCity] && groupedOffers[currentCity][0].city.location;
 
   const mapContainerRef = useRef<HTMLElement | null>(null);
   const offersMap = useOffersMap({
     mapContainerRef,
-    latitude,
-    longitude,
-    zoom,
+    latitude: cityLocation?.latitude,
+    longitude: cityLocation?.longitude,
+    zoom: cityLocation?.zoom,
   });
 
   // Получение id для выделения точки на карте.
@@ -57,7 +59,9 @@ export default function OffersMap({
     selectedMarkerLocation,
   });
 
-  return offers?.length ? (
-    <section className={cn(rootClassName, 'map')} ref={mapContainerRef} />
-  ) : null;
+  if (!selectedMarkerLocation && !offers?.length) {
+    return null;
+  }
+
+  return <section className={cn(rootClassName, 'map')} ref={mapContainerRef} />;
 }

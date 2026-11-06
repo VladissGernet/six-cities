@@ -6,7 +6,7 @@ import type { Offers, OfferId, OfferLocation } from '../../types/offers';
 type UseMarkersProps = {
   offersMap: UseOffersMapResult;
   activeMarkerId: OfferId;
-  offers: Offers;
+  offers?: Offers;
   selectedMarkerLocation?: OfferLocation;
 };
 

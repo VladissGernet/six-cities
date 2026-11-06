@@ -232,6 +232,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.extraOfferRequestId = null;
       state.isExtraOfferLoading = false;
       state.extraOffer = payload;
+
+      // Необходимо на случай перезагрузки страницы офера для обновления города,
+      // который ставится по INITIAL_STATE_CITY.
+      state.city = payload.city.name;
     })
     .addCase(fetchExtraOfferAction.rejected, (state, { meta, error }) => {
       if (state.extraOfferRequestId !== meta.requestId) {
