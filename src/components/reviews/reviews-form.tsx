@@ -4,10 +4,12 @@ import {
   type FormEventHandler,
   type ChangeEventHandler,
 } from 'react';
-import { RATING_VALUES } from '../../const';
 
 import type { RatingValue } from '../../types/general';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '../../hooks/redux';
+import { getAuthenticationStatus } from '../../store/selectors/authentication';
+import { AuthenticationStatus, RATING_VALUES } from '../../const';
 
 const MIN_TEXTAREA_CHARACTERS = 50;
 const MAX_TEXTAREA_CHARACTERS = 300;
@@ -16,16 +18,20 @@ const isRatingValue = (value: string): value is RatingValue =>
   (RATING_VALUES as readonly string[]).includes(value);
 
 export default function ReviewsForm(): JSX.Element {
+  const authenticationStatus = useAppSelector(getAuthenticationStatus);
   const [userRating, setUserRating] = useState<RatingValue | null>(null);
   const [userReviewText, setUserReviewText] = useState<string>('');
+
+  if (authenticationStatus !== AuthenticationStatus.Auth) {
+    return <span>Sign in to leave a review.</span>;
+  }
 
   const isSubmitDisabled =
     userRating === null || userReviewText.length < MIN_TEXTAREA_CHARACTERS;
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    // TODO, добавить обработку ошибки отправки и скрывать форму при
-    // отсутствии аутентификации.
+    // TODO, добавить обработку ошибки отправки
     if (
       userReviewText.length < MIN_TEXTAREA_CHARACTERS ||
       userReviewText.length > MAX_TEXTAREA_CHARACTERS
