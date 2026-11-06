@@ -15,10 +15,13 @@ type CitiesFilledProps = {
 
 export default function CitiesFilled({
   extraTitle,
-}: CitiesFilledProps): JSX.Element {
+}: CitiesFilledProps): JSX.Element | null {
   const selectedCity = useAppSelector(getCity);
-  const groupedOffersByCity =
-    useAppSelector(getGroupedOffers)[selectedCity] || [];
+  const groupedOffersByCity = useAppSelector(getGroupedOffers)[selectedCity];
+
+  if (!groupedOffersByCity) {
+    return null;
+  }
 
   return (
     <Container className="cities__places-container container">
@@ -31,7 +34,6 @@ export default function CitiesFilled({
         isSortingForm
       />
       <div className="cities__right-section">
-        {/* TODO, переместить сюда проверку на grouped.length */}
         <OffersMap rootClassName="cities__map" offers={groupedOffersByCity} />
       </div>
     </Container>
