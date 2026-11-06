@@ -59,8 +59,8 @@ type StateType = {
   nearbyOffersRequestId: RequestId;
 
   // ExtraOffer Comments.
-  extraOfferComments: Comments | null;
-  extraOfferCommentsErrorMessage: ErrorMessage;
+  comments: Comments | null;
+  commentsErrorMessage: ErrorMessage;
   isCommentsLoading: boolean;
   commentsRequestId: RequestId;
 };
@@ -134,8 +134,8 @@ const initialState: StateType = {
   isNearbyLoading: false,
   nearbyOffersRequestId: null,
   // ExtraOffer Comments.
-  extraOfferComments: null,
-  extraOfferCommentsErrorMessage: null,
+  comments: null,
+  commentsErrorMessage: null,
   isCommentsLoading: false,
   commentsRequestId: null,
 };
@@ -287,8 +287,8 @@ const reducer = createReducer(initialState, (builder) => {
     // Fetch ExtraOffer Comments.
     .addCase(fetchComments.pending, (state, { meta }) => {
       state.isCommentsLoading = true;
-      state.extraOfferComments = null;
-      state.extraOfferCommentsErrorMessage = null;
+      state.comments = null;
+      state.commentsErrorMessage = null;
       state.commentsRequestId = meta.requestId;
     })
     .addCase(fetchComments.fulfilled, (state, { payload, meta }) => {
@@ -298,7 +298,7 @@ const reducer = createReducer(initialState, (builder) => {
 
       state.commentsRequestId = null;
       state.isCommentsLoading = false;
-      state.extraOfferComments = payload;
+      state.comments = payload;
     })
     .addCase(fetchComments.rejected, (state, { meta, error }) => {
       if (state.commentsRequestId !== meta.requestId) {
@@ -312,8 +312,7 @@ const reducer = createReducer(initialState, (builder) => {
         return;
       }
 
-      // TODO, добавить обработку ошибки и добавить лоадер.
-      state.extraOfferCommentsErrorMessage =
+      state.commentsErrorMessage =
         error.message || 'Failed to load comments of the offer.';
     });
 });

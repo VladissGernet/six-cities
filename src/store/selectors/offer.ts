@@ -9,7 +9,9 @@ const getNearOffers = (state: State) => state.nearbyOffers;
 const getIsNearbyLoading = (state: State) => state.isNearbyLoading;
 const getNearbyErrorMessage = (state: State) => state.nearbyErrorMessage;
 
-const getComments = (state: State) => state.extraOfferComments;
+const getComments = (state: State) => state.comments;
+const getIsCommentsLoading = (state: State) => state.isCommentsLoading;
+const getCommentsErrorMessage = (state: State) => state.commentsErrorMessage;
 
 export {
   getExtraOffer,
@@ -19,4 +21,6 @@ export {
   getComments,
   getIsNearbyLoading,
   getNearbyErrorMessage,
+  getIsCommentsLoading,
+  getCommentsErrorMessage,
 };

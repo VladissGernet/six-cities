@@ -28,11 +28,6 @@ const CHECK_AUTH_REJECT_VALUE = {
   TRANSPORT: { kind: 'transport' },
 } as const;
 
-/*
-  TODO, остановился на реализации отображения ошибок.
-  fetchComments	Локальное отображение ошибки в секции комментариев
- */
-
 /**
   unauthorized — сервер ответил 401;
   transport — не получили HTTP-ответ (например, потеря сети);
