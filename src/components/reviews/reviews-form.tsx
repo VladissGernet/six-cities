@@ -7,7 +7,7 @@ import type { RatingValue } from '../../types/general';
 import type { FormEventHandler, ChangeEventHandler } from 'react';
 
 // Store.
-import { sendCommentAction } from '../../store/api-actions';
+import { fetchComments, sendCommentAction } from '../../store/api-actions';
 import { getExtraOffer } from '../../store/selectors/offer';
 import { getAuthenticationStatus } from '../../store/selectors/authentication';
 
@@ -54,6 +54,9 @@ export default function ReviewsForm(): JSX.Element | null {
 
       setUserRating(null);
       setUserReviewText('');
+
+      // Запрашиваем обновлённый список комментариев.
+      void dispatch(fetchComments(extraOffer.id));
     } catch (error: unknown) {
       toast.error('Failed to send review. Try again.');
     } finally {

@@ -82,17 +82,14 @@ const fetchComments = createAsyncThunk<
 });
 
 const sendCommentAction = createAsyncThunk<
-  Comment,
+  void,
   CommentForSending,
   { extra: AxiosInstance }
 >('data/sendCommentAction', async ({ comment, rating, id }, { extra: api }) => {
-  const { data } = await api.post<Comment>(`${APIRoute.Comments}/${id}`, {
+  await api.post<Comment>(`${APIRoute.Comments}/${id}`, {
     comment,
     rating,
   });
-  // TODO, добавить обработку ошибок.
-
-  return data;
 });
 
 const checkAuthAction = createAsyncThunk<
