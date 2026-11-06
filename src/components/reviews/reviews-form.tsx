@@ -17,11 +17,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 // Const.
 import { AuthenticationStatus, RATING_VALUES } from '../../const';
 
+// Helper.
+import { isRatingValue } from './reviews-form.helper';
+
 const MIN_TEXTAREA_CHARACTERS = 50;
 const MAX_TEXTAREA_CHARACTERS = 300;
-
-const isRatingValue = (value: number): value is RatingValue =>
-  (RATING_VALUES as readonly number[]).includes(value);
 
 export default function ReviewsForm(): JSX.Element | null {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
