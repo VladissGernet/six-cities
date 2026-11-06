@@ -17,11 +17,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 // Const.
 import { AuthenticationStatus, RATING_VALUES } from '../../const';
 
-// Helper.
-import { isRatingValue } from './reviews-form.helper';
-
-const MIN_TEXTAREA_CHARACTERS = 50;
-const MAX_TEXTAREA_CHARACTERS = 300;
+// Helpers.
+import { getReviewValidationError, isRatingValue } from './reviews-form.helper';
 
 export default function ReviewsForm(): JSX.Element | null {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
@@ -29,6 +26,7 @@ export default function ReviewsForm(): JSX.Element | null {
 
   const [userRating, setUserRating] = useState<RatingValue | null>(null);
   const [userReviewText, setUserReviewText] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -41,76 +39,49 @@ export default function ReviewsForm(): JSX.Element | null {
     return <span>Sign in to leave a review.</span>;
   }
 
+  const submitReview = async (rating: RatingValue): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      setIsSubmitDisabled(true);
+
+      await dispatch(
+        sendCommentAction({
+          comment: userReviewText,
+          rating,
+          id: extraOffer.id,
+        }),
+      ).unwrap();
+
+      setUserRating(null);
+      setUserReviewText('');
+    } catch (error: unknown) {
+      toast.error('Failed to send review. Try again.');
+    } finally {
+      setIsSubmitting(false);
+      setIsSubmitDisabled(false);
+    }
+  };
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    const isUserRating = userRating === null;
-    const isMinCharacters = userReviewText.length < MIN_TEXTAREA_CHARACTERS;
+    const validationError = getReviewValidationError({
+      rating: userRating,
+      text: userReviewText,
+    });
 
-    setIsSubmitDisabled(isUserRating || isMinCharacters);
+    setIsSubmitDisabled(Boolean(validationError));
 
-    if (isUserRating) {
-      toast.warn('Leave your rating star of this offer.');
+    if (validationError) {
+      toast.warn(validationError);
       return;
     }
 
-    if (
-      userReviewText.length < MIN_TEXTAREA_CHARACTERS ||
-      userReviewText.length > MAX_TEXTAREA_CHARACTERS
-    ) {
-      toast.warn(
-        `
-          The review text should be between ${MIN_TEXTAREA_CHARACTERS} and
-          ${MAX_TEXTAREA_CHARACTERS} characters long. Current review text
-          length is ${userReviewText.length}.
-        `,
-      );
+    if (userRating === null) {
       return;
     }
-    /* TODO к реализации.
-        3. Практический пример из твоего проекта
-          Допустим, пользователь отправляет форму отзыва.
-          const handleSubmit = async () => {
-            try {
-              await dispatch(sendCommentAction({
-                offerId,
-                comment,
-                rating,
-              })).unwrap();
 
-              // Только если сервер успешно принял отзыв:
-              setComment('');
-
-            } catch (error) {
-              // Ошибка отправки.
-              // Текст отзыва останется в textarea.
-            }
-          };
-
-
-          Здесь .unwrap() особенно полезен: ты очищаешь форму только после успешной отправки.
-
-          Без .unwrap() пришлось бы самостоятельно проверять:
-          const result = await dispatch(sendCommentAction(data));
-
-          if (sendCommentAction.fulfilled.match(result)) {
-            setComment('');
-          }
-
-          4. Когда применять .unwrap()?
-          Я бы использовал его в следующих ситуациях:
-          - Отправка формы авторизации.
-          - Отправка комментария.
-          - Удаление или добавление предложения в избранное, когда дальнейшее действие зависит от успеха запроса.
-          - Любые операции, после которых нужно выполнить дополнительные действия только при успешном ответе сервера.
-                */
-    dispatch(
-      sendCommentAction({
-        comment: userReviewText,
-        rating: userRating,
-        id: extraOffer.id,
-      }),
-    );
+    void submitReview(userRating);
   };
 
   const handleReviewText: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
@@ -145,9 +116,10 @@ export default function ReviewsForm(): JSX.Element | null {
             <input
               className="form__rating-input visually-hidden"
               name="rating"
+              type="radio"
               value={value}
               id={`${value}-stars`}
-              type="radio"
+              checked={userRating === value}
               onChange={handleRatingChange}
             />
             <label
@@ -168,6 +140,7 @@ export default function ReviewsForm(): JSX.Element | null {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleReviewText}
+        value={userReviewText}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -180,7 +153,7 @@ export default function ReviewsForm(): JSX.Element | null {
           type="submit"
           disabled={isSubmitDisabled}
         >
-          Submit
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </div>
     </form>
