@@ -21,17 +21,26 @@ export default function ReviewsForm(): JSX.Element {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
   const [userRating, setUserRating] = useState<RatingValue | null>(null);
   const [userReviewText, setUserReviewText] = useState<string>('');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
 
   if (authenticationStatus !== AuthenticationStatus.Auth) {
     return <span>Sign in to leave a review.</span>;
   }
 
-  const isSubmitDisabled =
-    userRating === null || userReviewText.length < MIN_TEXTAREA_CHARACTERS;
-
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     // TODO, добавить обработку ошибки отправки
+
+    const isUserRating = userRating === null;
+    const isMinCharacters = userReviewText.length < MIN_TEXTAREA_CHARACTERS;
+
+    setIsSubmitDisabled(isUserRating || isMinCharacters);
+
+    if (isUserRating) {
+      toast.warn('Leave your rating star of this offer.');
+      return;
+    }
+
     if (
       userReviewText.length < MIN_TEXTAREA_CHARACTERS ||
       userReviewText.length > MAX_TEXTAREA_CHARACTERS
@@ -43,11 +52,13 @@ export default function ReviewsForm(): JSX.Element {
           length is ${userReviewText.length}.
         `,
       );
+      return;
     }
   };
 
   const handleReviewText: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const value = e.currentTarget.value;
+    setIsSubmitDisabled(false);
     setUserReviewText(value);
   };
 
@@ -56,6 +67,7 @@ export default function ReviewsForm(): JSX.Element {
     if (!isRatingValue(value)) {
       return;
     }
+    setIsSubmitDisabled(false);
     setUserRating(value);
   };
 
