@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { PlacesSortingValue } from '../../const';
 
+import type { MouseEventHandler } from 'react';
 import type { PlacesSortingValueType } from '../../types/general';
 
 type PlacesSortingTypes = {
@@ -20,10 +21,12 @@ export default function PlacesSorting({
     if (optionValue === activeOption) {
       return;
     }
-
     setActiveOption(optionValue);
     setIsMenuOpened(false);
   };
+
+  const handleSelectClick: MouseEventHandler<HTMLSpanElement> = () =>
+    setIsMenuOpened((lastOpened) => !lastOpened);
 
   // Закрытие меню при клике за пределами selects.
   useEffect(() => {
@@ -49,8 +52,7 @@ export default function PlacesSorting({
         ref={menuRef}
         className="places__sorting-type"
         tabIndex={0}
-        // TODO, исправить создание анонимных функций в обработчиках разметки onClick, onSubmit и пр.
-        onClick={() => setIsMenuOpened((lastOpened) => !lastOpened)}
+        onClick={handleSelectClick}
       >
         {activeOption}
         <svg className="places__sorting-arrow" width="7" height="4">
