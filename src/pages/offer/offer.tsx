@@ -36,10 +36,6 @@ export default function Offer(): JSX.Element {
 
   // Запрос на сервер.
   useOfferRequest(offerId, dispatch, isSelectedOffer);
-  if (!offerId) {
-    return <NotFoundPage />;
-  }
-
   if (!isSelectedOffer) {
     return <NotFoundPage />;
   }
