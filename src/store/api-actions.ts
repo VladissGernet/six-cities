@@ -1,18 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { dropToken, saveToken } from '../services/token';
+import { StatusCodes } from 'http-status-codes';
 
+// Types.
 import type { AxiosInstance } from 'axios';
 import type { AppDispatch } from '../types/state';
-import {
-  type Comments,
-  type ExtraOffer,
-  type OfferId,
-  type Offers,
-} from '../types/offers';
+import type { ExtraOffer, OfferId, Offers } from '../types/offers';
 import type { AuthData } from '../types/auth-data';
-import type { ExtraUserData } from '../types/user-data';
-import { StatusCodes } from 'http-status-codes';
+import type {
+  CommentForSending,
+  Comments,
+  ExtraUserData,
+} from '../types/user-data';
 
 enum APIRoute {
   Offers = '/offers',
@@ -78,6 +78,20 @@ const fetchComments = createAsyncThunk<
   const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`, {
     signal,
   });
+  return data;
+});
+
+const sendCommentAction = createAsyncThunk<
+  Comment,
+  CommentForSending,
+  { extra: AxiosInstance }
+>('data/sendCommentAction', async ({ comment, rating, id }, { extra: api }) => {
+  const { data } = await api.post<Comment>(`${APIRoute.Comments}/${id}`, {
+    comment,
+    rating,
+  });
+  // TODO, добавить обработку ошибок.
+
   return data;
 });
 
@@ -147,4 +161,5 @@ export {
   checkAuthAction,
   loginAction,
   logoutAction,
+  sendCommentAction,
 };

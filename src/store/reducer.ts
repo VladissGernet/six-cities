@@ -9,10 +9,9 @@ import type {
   GroupedOffers,
   GroupedOffersByCity,
   ExtraOffer,
-  Comments,
 } from '../types/offers';
 import type { ActiveMapMarkerId } from '../types/general';
-import type { ExtraUserData } from '../types/user-data';
+import type { Comments, ExtraUserData } from '../types/user-data';
 
 import {
   fetchOffersAction,

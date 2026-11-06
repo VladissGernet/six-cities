@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import Rating from '../rating/rating';
 
-import type { Comments } from '../../types/offers';
+import type { Comments } from '../../types/user-data';
 
 import styles from './reviews.module.css';
 import { useState, type MouseEventHandler } from 'react';

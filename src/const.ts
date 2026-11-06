@@ -48,7 +48,7 @@ const CITY_NAMES = [
 /**
  * Ещё создаёт тип { RatingValue } from "./types/general".
  */
-const RATING_VALUES = ['1', '2', '3', '4', '5'] as const;
+const RATING_VALUES = [1, 2, 3, 4, 5] as const;
 
 const MAX_EXTRA_OFFER_PLACES = 3;
 

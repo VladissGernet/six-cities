@@ -1,27 +1,41 @@
-import {
-  useState,
-  Fragment,
-  type FormEventHandler,
-  type ChangeEventHandler,
-} from 'react';
-
-import type { RatingValue } from '../../types/general';
+// General.
+import { useState, Fragment } from 'react';
 import { toast } from 'react-toastify';
-import { useAppSelector } from '../../hooks/redux';
+
+// Types.
+import type { RatingValue } from '../../types/general';
+import type { FormEventHandler, ChangeEventHandler } from 'react';
+
+// Store.
+import { sendCommentAction } from '../../store/api-actions';
+import { getExtraOffer } from '../../store/selectors/offer';
 import { getAuthenticationStatus } from '../../store/selectors/authentication';
+
+// Hooks.
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+
+// Const.
 import { AuthenticationStatus, RATING_VALUES } from '../../const';
 
 const MIN_TEXTAREA_CHARACTERS = 50;
 const MAX_TEXTAREA_CHARACTERS = 300;
 
-const isRatingValue = (value: string): value is RatingValue =>
-  (RATING_VALUES as readonly string[]).includes(value);
+const isRatingValue = (value: number): value is RatingValue =>
+  (RATING_VALUES as readonly number[]).includes(value);
 
-export default function ReviewsForm(): JSX.Element {
+export default function ReviewsForm(): JSX.Element | null {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
+  const extraOffer = useAppSelector(getExtraOffer);
+
   const [userRating, setUserRating] = useState<RatingValue | null>(null);
   const [userReviewText, setUserReviewText] = useState<string>('');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+
+  if (!extraOffer) {
+    return null;
+  }
 
   if (authenticationStatus !== AuthenticationStatus.Auth) {
     return <span>Sign in to leave a review.</span>;
@@ -29,7 +43,6 @@ export default function ReviewsForm(): JSX.Element {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    // TODO, добавить обработку ошибки отправки
 
     const isUserRating = userRating === null;
     const isMinCharacters = userReviewText.length < MIN_TEXTAREA_CHARACTERS;
@@ -54,6 +67,14 @@ export default function ReviewsForm(): JSX.Element {
       );
       return;
     }
+
+    dispatch(
+      sendCommentAction({
+        comment: userReviewText,
+        rating: userRating,
+        id: extraOffer.id,
+      }),
+    );
   };
 
   const handleReviewText: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
@@ -63,7 +84,8 @@ export default function ReviewsForm(): JSX.Element {
   };
 
   const handleRatingChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { value } = e.currentTarget;
+    const value = Number(e.currentTarget.value);
+
     if (!isRatingValue(value)) {
       return;
     }

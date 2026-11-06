@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import type { Comments } from '../../types/offers';
+import type { Comments } from '../../types/user-data';
 
 // Components.
 import ReviewsForm from './reviews-form';

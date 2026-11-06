@@ -55,13 +55,3 @@ export type ExtraOffer = Omit<Offer, 'previewImage'> & {
 export type ExtraOfferGoods = string[];
 
 export type ExtraOfferImages = string[];
-
-type Comment = {
-  id: string;
-  date: string;
-  user: UserData;
-  comment: string;
-  rating: number;
-};
-
-export type Comments = Comment[];
