@@ -1,9 +1,9 @@
 import { CITY_NAMES } from '../const';
 import type { UserData } from './user-data';
 
-export type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
+type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
-export type OfferLocation = {
+type OfferLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
@@ -14,11 +14,11 @@ type City = {
   location: OfferLocation;
 };
 
-export type OfferId = string;
+type OfferId = string;
 
-export type GroupedOffers = Partial<Record<CityName, Offers>>;
+type GroupedOffers = Partial<Record<CityName, Offers>>;
 
-export type Offer = {
+type Offer = {
   id: OfferId;
   title: string;
   type: OfferType;
@@ -31,9 +31,9 @@ export type Offer = {
   previewImage: string;
 };
 
-export type Offers = Offer[];
+type Offers = Offer[];
 
-export type GroupedOffersByCity = {
+type GroupedOffersByCity = {
   city: CityName;
   offerPlacesByCity: Offers;
 };
@@ -41,9 +41,9 @@ export type GroupedOffersByCity = {
 /**
  * Зависит от константы { CITY_NAMES } from '../const';
  */
-export type CityName = (typeof CITY_NAMES)[number];
+type CityName = (typeof CITY_NAMES)[number];
 
-export type ExtraOffer = Omit<Offer, 'previewImage'> & {
+type ExtraOffer = Omit<Offer, 'previewImage'> & {
   description: string;
   bedrooms: number;
   goods: ExtraOfferGoods;
@@ -52,6 +52,20 @@ export type ExtraOffer = Omit<Offer, 'previewImage'> & {
   maxAdults: number;
 };
 
-export type ExtraOfferGoods = string[];
+type ExtraOfferGoods = string[];
 
-export type ExtraOfferImages = string[];
+type ExtraOfferImages = string[];
+
+export type {
+  OfferType,
+  OfferLocation,
+  OfferId,
+  GroupedOffers,
+  Offer,
+  Offers,
+  GroupedOffersByCity,
+  CityName,
+  ExtraOffer,
+  ExtraOfferGoods,
+  ExtraOfferImages,
+};

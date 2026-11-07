@@ -3,7 +3,7 @@ import { PlacesSortingValue } from '../../const';
 import type { PlacesSortingValueType } from '../../types/general';
 import type { Offer, Offers } from '../../types/offers';
 
-export type Comparator = (a: Offer, b: Offer) => number;
+type Comparator = (a: Offer, b: Offer) => number;
 
 const SortingComparator: Readonly<Record<PlacesSortingValueType, Comparator>> =
   {

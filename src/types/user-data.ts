@@ -1,17 +1,17 @@
 import type { RatingValue } from './general';
 
-export type UserData = {
+type UserData = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
 };
 
-export type ExtraUserData = UserData & {
+type ExtraUserData = UserData & {
   email: string;
   token: string;
 };
 
-export type Comment = {
+type UserComment = {
   id: string;
   date: string;
   user: UserData;
@@ -19,6 +19,14 @@ export type Comment = {
   rating: RatingValue;
 };
 
-export type CommentForSending = Pick<Comment, 'comment' | 'rating' | 'id'>;
+type CommentForSending = Pick<UserComment, 'comment' | 'rating' | 'id'>;
 
-export type Comments = Comment[];
+type Comments = UserComment[];
+
+export type {
+  UserData,
+  ExtraUserData,
+  UserComment,
+  CommentForSending,
+  Comments,
+};

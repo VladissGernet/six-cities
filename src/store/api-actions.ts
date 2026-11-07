@@ -12,6 +12,7 @@ import type {
   CommentForSending,
   Comments,
   ExtraUserData,
+  UserComment,
 } from '../types/user-data';
 
 enum APIRoute {
@@ -86,7 +87,7 @@ const sendCommentAction = createAsyncThunk<
   CommentForSending,
   { extra: AxiosInstance }
 >('data/sendCommentAction', async ({ comment, rating, id }, { extra: api }) => {
-  await api.post<Comment>(`${APIRoute.Comments}/${id}`, {
+  await api.post<UserComment>(`${APIRoute.Comments}/${id}`, {
     comment,
     rating,
   });

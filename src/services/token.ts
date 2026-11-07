@@ -1,7 +1,6 @@
 const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
-// TODO, export type тоже рассмотреть на export как и с const.
-export type Token = string;
+type Token = string;
 
 const getToken = (): Token => {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);

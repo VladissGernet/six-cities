@@ -19,7 +19,7 @@ type UseOffersMapProps = {
   zoom?: number;
 };
 
-export type UseOffersMapResult = {
+type UseOffersMapResult = {
   map: Map | null;
   mapLayerGroup: LayerGroup | null;
 };
@@ -68,5 +68,7 @@ const useOffersMap = ({
 
   return { map: mapInstance, mapLayerGroup };
 };
+
+export type { UseOffersMapResult };
 
 export { useOffersMap };
