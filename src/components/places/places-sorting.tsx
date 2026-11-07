@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { PlacesSortingValue } from '../../const';
+import { useRef, useState } from 'react';
 
 import type { MouseEventHandler } from 'react';
 import type { PlacesSortingValueType } from '../../types/general';
+
+import { isPlacesSortingValue, sortingValues } from './places.helper';
+import { useSortingMenu } from '../../hooks/places/use-sorting-menu';
 
 type PlacesSortingTypes = {
   activeOption: PlacesSortingValueType;
@@ -15,35 +17,28 @@ export default function PlacesSorting({
 }: PlacesSortingTypes): JSX.Element {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   const menuRef = useRef<null | HTMLSpanElement>(null);
-  const sortingValues = Object.values(PlacesSortingValue);
-
-  const handleOptionClick = (optionValue: PlacesSortingValueType) => {
-    if (optionValue === activeOption) {
-      return;
-    }
-    setActiveOption(optionValue);
-    setIsMenuOpened(false);
-  };
+  useSortingMenu(menuRef, setIsMenuOpened);
 
   const handleSelectClick: MouseEventHandler<HTMLSpanElement> = () =>
     setIsMenuOpened((lastOpened) => !lastOpened);
 
-  // Закрытие меню при клике за пределами selects.
-  useEffect(() => {
-    const hideMenu = (evt: MouseEvent) => {
-      if (
-        evt.target instanceof HTMLElement &&
-        menuRef.current &&
-        !menuRef.current.contains(evt.target)
-      ) {
-        setIsMenuOpened(false);
-      }
-    };
-    document.addEventListener('click', hideMenu);
-    return () => {
-      document.removeEventListener('click', hideMenu);
-    };
-  }, []);
+  const handleOptionClick: MouseEventHandler<HTMLUListElement> = (evt) => {
+    const optionElement = (evt.target as HTMLElement).closest<HTMLLIElement>(
+      '[data-value]',
+    );
+    const optionValue = optionElement?.dataset.value;
+
+    if (
+      !optionValue ||
+      !isPlacesSortingValue(optionValue) ||
+      optionValue === activeOption
+    ) {
+      return;
+    }
+
+    setActiveOption(optionValue);
+    setIsMenuOpened(false);
+  };
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -63,6 +58,7 @@ export default function PlacesSorting({
         className={`places__options places__options--custom ${
           isMenuOpened ? 'places__options--opened' : ''
         }`}
+        onClick={handleOptionClick}
       >
         {sortingValues.map((sortingValue) => (
           <li
@@ -70,9 +66,8 @@ export default function PlacesSorting({
               sortingValue === activeOption ? 'places__option--active' : ''
             }`}
             tabIndex={0}
+            data-value={sortingValue}
             key={sortingValue}
-            // TODO, исправить создание анонимных функций в обработчиках разметки onClick, onSubmit и пр.
-            onClick={() => handleOptionClick(sortingValue)}
           >
             {sortingValue}
           </li>

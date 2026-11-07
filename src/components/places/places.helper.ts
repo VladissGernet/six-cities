@@ -19,9 +19,11 @@ const SortingComparator: Readonly<Record<PlacesSortingValueType, Comparator>> =
  * @param option Значение для выбора функции сортировки из SortingComparator.
  * @returns Отсортированный массив предложений в соответствии с option.
  */
-export function sortOffers(
-  offers: Offers,
-  option: PlacesSortingValueType,
-): Offers {
-  return offers.toSorted(SortingComparator[option]);
-}
+const sortOffers = (offers: Offers, option: PlacesSortingValueType): Offers =>
+  offers.toSorted(SortingComparator[option]);
+
+const sortingValues = Object.values(PlacesSortingValue);
+const isPlacesSortingValue = (value: string): value is PlacesSortingValueType =>
+  (sortingValues as readonly string[]).includes(value);
+
+export { sortOffers, isPlacesSortingValue, sortingValues };
