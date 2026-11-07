@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from 'react';
+
 // Components.
 import Loader from '../../components/loader/loader';
 import Reviews from '../../components/reviews/reviews';
@@ -10,6 +12,14 @@ import {
   getIsCommentsLoading,
 } from '../../store/selectors/offer';
 
+function OfferReviewsTemplate({ children }: PropsWithChildren): JSX.Element {
+  return (
+    <section className="reviews">
+      <h2 className="reviews__title">{children}</h2>
+    </section>
+  );
+}
+
 export default function OfferReviews(): JSX.Element {
   const comments = useAppSelector(getComments);
   const isCommentsLoading = useAppSelector(getIsCommentsLoading);
@@ -17,21 +27,17 @@ export default function OfferReviews(): JSX.Element {
 
   if (isCommentsLoading) {
     return (
-      <section className="reviews">
-        <h2 className="reviews__title">
-          <Loader text="Loading reviews" />
-        </h2>
-      </section>
+      <OfferReviewsTemplate>
+        <Loader text="Loading reviews" />
+      </OfferReviewsTemplate>
     );
   }
 
   if (commentsErrorMessage) {
     return (
-      <section className="reviews">
-        <h2 className="reviews__title">
-          Failed to load comments. {commentsErrorMessage}
-        </h2>
-      </section>
+      <OfferReviewsTemplate>
+        Failed to load comments. {commentsErrorMessage}
+      </OfferReviewsTemplate>
     );
   }
 
