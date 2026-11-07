@@ -1,10 +1,8 @@
-import type { OfferType } from '../../types/offers';
+import type { ExtraOffer, OfferType } from '../../types/offers';
 import { capitalizeFirstLetter, pluralizeEn } from '../../utils/utils';
 
-type OfferFeaturesProps = {
+type OfferFeaturesProps = Pick<ExtraOffer, 'bedrooms' | 'maxAdults'> & {
   type: OfferType;
-  bedrooms: number;
-  maxAdults: number;
 };
 
 export default function OfferFeatures({

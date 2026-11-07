@@ -1,7 +1,7 @@
+import type { ExtraOffer } from '../../types/offers';
 import type { UserData } from '../../types/user-data';
 
-type OfferHostProps = {
-  description: string;
+type OfferHostProps = Pick<ExtraOffer, 'description'> & {
   host: UserData;
 };
 

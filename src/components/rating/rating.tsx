@@ -4,6 +4,7 @@ import cn from 'classnames';
 const PERCENT_PER_STAR = 20;
 
 type RatingProps = {
+  // Не путать с RatingValue, здесь дробное число.
   rating: number;
   /** Внешний контейнер: place-card__rating / offer__rating */
   rootClassName?: string;

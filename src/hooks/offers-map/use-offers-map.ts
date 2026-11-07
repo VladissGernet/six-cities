@@ -1,6 +1,8 @@
 import { useEffect, useState, MutableRefObject } from 'react';
 import { layerGroup, Map, TileLayer, type LayerGroup } from 'leaflet';
 
+import type { OfferLocation } from '../../types/offers';
+
 const OffersMapConfig = {
   Tile: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
   Attribution:
@@ -12,11 +14,8 @@ const OffersMapConfig = {
   },
 } as const;
 
-type UseOffersMapProps = {
+type UseOffersMapProps = Partial<OfferLocation> & {
   mapContainerRef: MutableRefObject<HTMLElement | null>;
-  latitude?: number;
-  longitude?: number;
-  zoom?: number;
 };
 
 type UseOffersMapResult = {

@@ -1,16 +1,17 @@
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
-import { filterByProperty } from '../../utils/utils';
-import { AppRoute } from '../../const';
+// Store.
 import { logoutAction } from '../../store/api-actions';
-
-// Selectors.
 import { getOffers } from '../../store/selectors/offers';
 import { getUserAccountData } from '../../store/selectors/authentication';
-import { useState, type MouseEventHandler } from 'react';
-import { toast } from 'react-toastify';
 
+// Other.
+import { filterByProperty } from '../../utils/utils';
+import { AppRoute } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import type { MouseEventHandler } from 'react';
 import styles from './header-logged-in.module.css';
 
 export default function HeaderLoggedIn(): JSX.Element {
