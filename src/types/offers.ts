@@ -1,5 +1,7 @@
 import { CITY_NAMES } from '../const';
-import type { UserData } from './user-data';
+import type { ActiveMapMarkerId } from './general';
+import type { ErrorMessage } from './state';
+import type { Comments, UserData } from './user-data';
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
@@ -33,6 +35,22 @@ type Offer = {
 
 type Offers = Offer[];
 
+type RequestId = OfferId | null;
+
+type OffersStateType = {
+  city: CityName;
+  activeMapMarkerId: ActiveMapMarkerId;
+
+  isOffersDataLoading: boolean;
+  offersErrorMessage: ErrorMessage;
+  offers: Offers;
+
+  groupedOffers: GroupedOffers;
+  groupedFavoriteOffers: GroupedOffersByCity[];
+
+  extraOfferCityRequestId: RequestId;
+};
+
 type GroupedOffersByCity = {
   city: CityName;
   offerPlacesByCity: Offers;
@@ -56,6 +74,25 @@ type ExtraOfferGoods = string[];
 
 type ExtraOfferImages = string[];
 
+type ExtraOfferStateType = {
+  extraOffer: ExtraOffer | null;
+  extraOfferErrorMessage: ErrorMessage;
+  isExtraOfferLoading: boolean;
+  extraOfferRequestId: RequestId;
+
+  // NearbyOffers.
+  nearbyOffers: Offers | null;
+  nearbyErrorMessage: ErrorMessage;
+  isNearbyLoading: boolean;
+  nearbyOffersRequestId: RequestId;
+
+  // Comments.
+  comments: Comments | null;
+  commentsErrorMessage: ErrorMessage;
+  isCommentsLoading: boolean;
+  commentsRequestId: RequestId;
+};
+
 export type {
   OfferType,
   OfferLocation,
@@ -63,9 +100,11 @@ export type {
   GroupedOffers,
   Offer,
   Offers,
+  OffersStateType,
   GroupedOffersByCity,
   CityName,
   ExtraOffer,
   ExtraOfferGoods,
   ExtraOfferImages,
+  ExtraOfferStateType,
 };

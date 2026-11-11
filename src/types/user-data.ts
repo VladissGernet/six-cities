@@ -1,4 +1,6 @@
+import type { AuthenticationStatus } from '../const';
 import type { RatingValue } from './general';
+import type { ErrorMessage } from './state';
 
 type UserData = {
   name: string;
@@ -23,10 +25,17 @@ type CommentForSending = Pick<UserComment, 'comment' | 'rating' | 'id'>;
 
 type Comments = UserComment[];
 
+type UserStateType = {
+  authErrorMessage: ErrorMessage;
+  authenticationStatus: AuthenticationStatus;
+  userAccountData: ExtraUserData | null;
+};
+
 export type {
   UserData,
   ExtraUserData,
   UserComment,
   CommentForSending,
   Comments,
+  UserStateType,
 };

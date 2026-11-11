@@ -1,46 +1,82 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { NameSpace } from '../../const';
+import { fetchExtraOfferAction, fetchOffersAction } from '../api-actions';
+import { filterFavoriteOffers, groupOffers } from '../../utils/offers';
 
-/* TODO 8 раздел
-    createSelector мемоизирует вычисления: пока offers не изменились, повторно группировать данные не придётся.
+// Types.
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { CityName, OffersStateType } from '../../types/offers';
+import type { ActiveMapMarkerId } from '../../types/general';
 
-    import { createSelector } from '@reduxjs/toolkit';
+const INITIAL_STATE_CITY = 'Paris';
 
-    const getOffers = (state: RootState) => state.offers;
+const initialState: OffersStateType = {
+  city: INITIAL_STATE_CITY,
+  activeMapMarkerId: null,
 
-    const getGroupedOffers = createSelector(
-      [getOffers],
-      (offers) => groupOffers(offers),
-    );
+  isOffersDataLoading: false,
+  offersErrorMessage: null,
+  offers: [],
+  groupedOffers: {},
+  groupedFavoriteOffers: [],
 
-    const getGroupedFavoriteOffers = createSelector(
-      [getGroupedOffers],
-      (groupedOffers) => filterFavoriteOffers(groupedOffers),
-    );
-
-    2. Разделить reducer по смыслу (combineReducers и createSlice).
-    store/
-      index.ts
-      root-reducer.ts
-
-      offers/
-        offers-slice.ts
-        offers-selectors.ts
-
-      offer/
-        offer-slice.ts
-        offer-selectors.ts
-
-      user/
-        user-slice.ts
-        user-selectors.ts
-
-      api-actions.ts
-  */
+  extraOfferCityRequestId: null,
+};
 
 const offersProcess = createSlice({
   name: NameSpace.Offers,
   initialState,
+  reducers: {
+    changeCity: (state, { payload }: PayloadAction<CityName>) => {
+      state.city = payload;
+    },
+    setActiveMapMaker: (
+      state,
+      { payload }: PayloadAction<ActiveMapMarkerId>,
+    ) => {
+      state.activeMapMarkerId = payload;
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchOffersAction.pending, (state) => {
+        state.isOffersDataLoading = true;
+        state.offersErrorMessage = null;
+      })
+      .addCase(fetchOffersAction.fulfilled, (state, { payload }) => {
+        state.isOffersDataLoading = false;
+        state.offers = payload;
+        state.groupedOffers = groupOffers(payload);
+        state.groupedFavoriteOffers = filterFavoriteOffers(state.groupedOffers);
+      })
+      .addCase(fetchOffersAction.rejected, (state, { error }) => {
+        state.isOffersDataLoading = false;
+        state.offersErrorMessage = error.message || 'Failed to load offers.';
+      })
+
+      // Update city from ExtraOffer.
+      // Необходимо на случай перезагрузки страницы офера для обновления города,
+      // который ставится по INITIAL_STATE_CITY.
+      .addCase(fetchExtraOfferAction.pending, (state, { meta }) => {
+        state.extraOfferCityRequestId = meta.requestId;
+      })
+      .addCase(fetchExtraOfferAction.fulfilled, (state, { payload, meta }) => {
+        if (state.extraOfferCityRequestId !== meta.requestId) {
+          return;
+        }
+
+        state.extraOfferCityRequestId = null;
+        state.city = payload.city.name;
+      })
+      .addCase(fetchExtraOfferAction.rejected, (state, { meta }) => {
+        if (state.extraOfferCityRequestId !== meta.requestId) {
+          return;
+        }
+
+        state.extraOfferCityRequestId = null;
+      });
+  },
 });
 
 export { offersProcess };
