@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthenticationStatus } from '../../const';
 import Favorites from '../../pages/favorites/favorites';
 import { useAppSelector } from '../../hooks/redux';
-import { getAuthenticationStatus } from '../../store/selectors/authentication';
+import { getAuthenticationStatus } from '../../store/user/user.selectors';
 
 export default function PrivateRoute(): JSX.Element {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);

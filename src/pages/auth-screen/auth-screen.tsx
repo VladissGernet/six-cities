@@ -15,8 +15,9 @@ import Container from '../../components/container/container';
 
 // Store.
 import { loginAction } from '../../store/api-actions';
-import { changeCity, redirectToRoute } from '../../store/action';
-import { getAuthenticationStatus } from '../../store/selectors/authentication';
+import { getAuthenticationStatus } from '../../store/user/user.selectors';
+import { changeCity } from '../../store/offers/offers.slice';
+import { redirectToRoute } from '../../store/action';
 
 // Types.
 import type { CityName } from '../../types/offers';

@@ -4,7 +4,10 @@ import OffersMap from '../../components/offers-map/offers-map';
 
 // Selectors.
 import { useAppSelector } from '../../hooks/redux';
-import { getExtraOffer, getNearOffers } from '../../store/selectors/offer';
+import {
+  getExtraOffer,
+  getNearOffers,
+} from '../../store/extra-offer/extra-offer.selectors';
 
 // Const.
 import { MAX_EXTRA_OFFER_PLACES } from '../../const';

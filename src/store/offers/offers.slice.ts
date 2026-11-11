@@ -24,7 +24,7 @@ const initialState: OffersStateType = {
   extraOfferCityRequestId: null,
 };
 
-const offersProcess = createSlice({
+const offers = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
@@ -79,4 +79,6 @@ const offersProcess = createSlice({
   },
 });
 
-export { offersProcess };
+const { changeCity, setActiveMapMaker } = offers.actions;
+
+export { offers, changeCity, setActiveMapMaker };

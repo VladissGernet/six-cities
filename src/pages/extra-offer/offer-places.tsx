@@ -11,7 +11,7 @@ import {
   getIsNearbyLoading,
   getNearbyErrorMessage,
   getNearOffers,
-} from '../../store/selectors/offer';
+} from '../../store/extra-offer/extra-offer.selectors';
 
 // Const.
 import { MAX_EXTRA_OFFER_PLACES } from '../../const';

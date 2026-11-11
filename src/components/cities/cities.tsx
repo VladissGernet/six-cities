@@ -5,8 +5,7 @@ import CitiesFilled from './cities-filled';
 import CitiesEmpty from './cities-empty';
 
 // Selectors.
-import { getGroupedOffers } from '../../store/selectors/offers';
-import { getCity } from '../../store/selectors/general';
+import { getCity, getGroupedOffers } from '../../store/offers/offers.selectors';
 
 export default function Cities(): JSX.Element {
   const currentCity = useAppSelector(getCity);

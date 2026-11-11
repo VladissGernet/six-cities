@@ -8,7 +8,7 @@ import { useAppSelector } from '../../hooks/redux';
 import {
   getGroupedFavoriteOffers,
   getOffersErrorMessage,
-} from '../../store/selectors/offers';
+} from '../../store/offers/offers.selectors';
 
 export default function Favorites(): JSX.Element {
   const offersErrorMessage = useAppSelector(getOffersErrorMessage);

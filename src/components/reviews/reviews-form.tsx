@@ -8,8 +8,8 @@ import type { FormEventHandler, ChangeEventHandler } from 'react';
 
 // Store.
 import { fetchComments, sendCommentAction } from '../../store/api-actions';
-import { getExtraOffer } from '../../store/selectors/offer';
-import { getAuthenticationStatus } from '../../store/selectors/authentication';
+import { getExtraOffer } from '../../store/extra-offer/extra-offer.selectors';
+import { getAuthenticationStatus } from '../../store/user/user.selectors';
 
 // Hooks.
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';

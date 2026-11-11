@@ -1,17 +1,18 @@
 import { useEffect, useRef } from 'react';
-
 import { Outlet } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import { useAppSelector } from '../hooks/redux';
 import { AuthenticationStatus } from '../const';
+
 import LoadingScreen from '../pages/loading-screen/loading-screen';
 
 // Selectors.
-import { getIsOffersDataLoading } from '../store/selectors/offers';
+import { getIsOffersDataLoading } from '../store/offers/offers.selectors';
 import {
   getAuthenticationStatus,
   getAuthErrorMessage,
-} from '../store/selectors/authentication';
-import { toast } from 'react-toastify';
+} from '../store/user/user.selectors';
 
 /**
  * Обертка для выноса логики загрузки и авторизации из компонента App.

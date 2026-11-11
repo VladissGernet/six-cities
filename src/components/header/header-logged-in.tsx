@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 // Store.
 import { logoutAction } from '../../store/api-actions';
-import { getOffers } from '../../store/selectors/offers';
-import { getUserAccountData } from '../../store/selectors/authentication';
+import { getOffers } from '../../store/offers/offers.selectors';
+import { getUserAccountData } from '../../store/user/user.selectors';
 
 // Other.
 import { filterByProperty } from '../../utils/utils';

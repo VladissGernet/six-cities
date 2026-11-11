@@ -6,8 +6,7 @@ import Container from '../container/container';
 import OffersMap from '../offers-map/offers-map';
 
 // Selectors.
-import { getCity } from '../../store/selectors/general';
-import { getGroupedOffers } from '../../store/selectors/offers';
+import { getCity, getGroupedOffers } from '../../store/offers/offers.selectors';
 
 type CitiesFilledProps = {
   extraTitle?: string;

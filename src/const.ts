@@ -15,7 +15,6 @@ enum AuthenticationStatus {
 }
 
 enum NameSpace {
-  Data = 'DATA',
   Offers = 'OFFERS',
   ExtraOffer = 'EXTRA_OFFER',
   User = 'USER',

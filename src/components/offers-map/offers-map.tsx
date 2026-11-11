@@ -12,8 +12,11 @@ import type { OfferId, OfferLocation, Offers } from '../../types/offers';
 import type { ActiveMapMarkerId } from '../../types/general';
 
 // Selectors.
-import { getActiveMapMarkerId, getCity } from '../../store/selectors/general';
-import { getGroupedOffers } from '../../store/selectors/offers';
+import {
+  getActiveMapMarkerId,
+  getCity,
+  getGroupedOffers,
+} from '../../store/offers/offers.selectors';
 
 // Leaflet.
 import 'leaflet/dist/leaflet.css';

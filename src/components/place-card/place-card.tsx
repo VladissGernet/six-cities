@@ -1,15 +1,15 @@
 import type { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
-
 import cn from 'classnames';
+
 import Rating from '../rating/rating';
-
+import { setActiveMapMaker } from '../../store/offers/offers.slice';
+import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks/redux';
-import { setActiveMapMaker } from '../../store/action';
 
+// Types.
 import type { Offer } from '../../types/offers';
 import type { ImageSizes } from '../../types/general';
-import { AppRoute } from '../../const';
 
 type PlaceCardProps = ImageSizes & {
   offer: Offer;

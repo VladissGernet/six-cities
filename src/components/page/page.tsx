@@ -1,11 +1,14 @@
 import { PropsWithChildren } from 'react';
 import cn from 'classnames';
-import styles from './page.module.css';
 import { useLocation, useParams } from 'react-router-dom';
+
 import { AppRoute } from '../../const';
 import { isNotFoundParams, makeBasePath } from '../../utils/utils';
 import { useAppSelector } from '../../hooks/redux';
-import { getGroupedFavoriteOffers } from '../../store/selectors/offers';
+
+import { getGroupedFavoriteOffers } from '../../store/offers/offers.selectors';
+
+import styles from './page.module.css';
 
 const pageClassNames: Record<string, string | undefined> = {
   [AppRoute.Root]: 'page--main page--gray',

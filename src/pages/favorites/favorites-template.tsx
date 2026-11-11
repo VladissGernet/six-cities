@@ -7,7 +7,7 @@ import Container from '../../components/container/container';
 
 import type { PropsWithChildren } from 'react';
 
-import { getGroupedFavoriteOffers } from '../../store/selectors/offers';
+import { getGroupedFavoriteOffers } from '../../store/offers/offers.selectors';
 
 // Styles.
 import styles from './favorites.module.css';

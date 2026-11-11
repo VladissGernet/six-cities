@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react';
 import { CITY_NAMES } from '../../const';
+import { changeCity } from '../../store/offers/offers.slice';
 
-import { changeCity } from '../../store/action';
-
+// Types.
 import type { CityName } from '../../types/offers';
 import type { AppDispatch } from '../../types/state';
 

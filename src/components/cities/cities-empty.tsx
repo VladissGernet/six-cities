@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks/redux';
-import { getCity } from '../../store/selectors/general';
+import { getCity } from '../../store/offers/offers.selectors';
 import Container from '../container/container';
 
 export default function CitiesEmpty(): JSX.Element {

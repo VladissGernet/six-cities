@@ -1,9 +1,13 @@
 import { Helmet } from 'react-helmet-async';
+
+// Components.
 import Tabs from '../../components/tabs/tabs';
 import Cities from '../../components/cities/cities';
-import { useAppSelector } from '../../hooks/redux';
-import { getOffersErrorMessage } from '../../store/selectors/offers';
 import Container from '../../components/container/container';
+
+// Selectors.
+import { useAppSelector } from '../../hooks/redux';
+import { getOffersErrorMessage } from '../../store/offers/offers.selectors';
 
 export default function MainScreen(): JSX.Element {
   const errorMessage = useAppSelector(getOffersErrorMessage);

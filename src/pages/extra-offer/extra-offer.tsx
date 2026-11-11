@@ -4,11 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useOfferRequest } from '../../hooks/offer/use-offer-request';
 
 // Selectors.
-import { getOffers } from '../../store/selectors/offers';
 import {
   getExtraOfferErrorMessage,
   getIsExtraOfferLoading,
-} from '../../store/selectors/offer';
+} from '../../store/extra-offer/extra-offer.selectors';
+import { getOffers } from '../../store/offers/offers.selectors';
 
 // Components.
 import LoadingScreenContent from '../loading-screen/loading-screen-content';

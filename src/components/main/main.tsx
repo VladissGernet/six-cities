@@ -1,12 +1,12 @@
 import cn from 'classnames';
-
 import { PropsWithChildren } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { makeBasePath } from '../../utils/utils';
 import { AppRoute } from '../../const';
-import { getGroupedFavoriteOffers } from '../../store/selectors/offers';
 import { useAppSelector } from '../../hooks/redux';
+
+import { getGroupedFavoriteOffers } from '../../store/offers/offers.selectors';
 
 import styles from './main.module.css';
 

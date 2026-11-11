@@ -28,7 +28,7 @@ const initialState: ExtraOfferStateType = {
   commentsRequestId: null,
 };
 
-const offersProcess = createSlice({
+const extraOffer = createSlice({
   name: NameSpace.ExtraOffer,
   initialState,
   reducers: {},
@@ -130,4 +130,4 @@ const offersProcess = createSlice({
   },
 });
 
-export { offersProcess };
+export { extraOffer };
