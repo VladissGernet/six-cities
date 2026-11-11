@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 import MainScreen from '../../pages/main-screen/main-screen';
-import Offer from '../../pages/offer/offer';
+import ExtraOffer from '../../pages/extra-offer/extra-offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
@@ -28,7 +28,7 @@ export default function App(): JSX.Element {
 
             <Route element={<PageWithoutLayout />}>
               <Route path={AppRoute.Root} element={<MainScreen />} />
-              <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
+              <Route path={`${AppRoute.Offer}/:id`} element={<ExtraOffer />} />
             </Route>
 
             <Route element={<PageWithFooterLayout />}>

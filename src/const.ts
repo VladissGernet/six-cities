@@ -14,6 +14,13 @@ enum AuthenticationStatus {
   Error = 'ERROR',
 }
 
+enum NameSpace {
+  Data = 'DATA',
+  Offers = 'OFFERS',
+  ExtraOffer = 'EXTRA_OFFER',
+  User = 'USER',
+}
+
 const ImageSize = {
   Places: {
     width: 260,
@@ -55,6 +62,7 @@ const MAX_EXTRA_OFFER_PLACES = 3;
 export {
   AppRoute,
   AuthenticationStatus,
+  NameSpace,
   ImageSize,
   CITY_NAMES,
   RATING_VALUES,

@@ -23,7 +23,7 @@ import OfferContent from './offer-content';
 // Types.
 import type { OfferId } from '../../types/offers';
 
-export default function Offer(): JSX.Element {
+export default function ExtraOffer(): JSX.Element {
   const { id: offerId } = useParams<{ id: OfferId }>();
 
   const offers = useAppSelector(getOffers);

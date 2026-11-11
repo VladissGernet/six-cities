@@ -6,7 +6,7 @@ import type { AppRoute } from '../const';
 
 const changeCity = createAction<CityName>('offers/changeCity');
 const setActiveMapMaker = createAction<ActiveMapMarkerId>(
-  'offersMap/setActiveMapMaker',
+  'offers/setActiveMapMaker',
 );
 const redirectToRoute = createAction<AppRoute>('offers/redirectToRoute');
 
