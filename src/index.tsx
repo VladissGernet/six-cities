@@ -13,6 +13,8 @@ const root = ReactDOM.createRoot(
 );
 
 /* TODO  8 раздел. 2.25.00
+  Проверить вызовы метода в render .map и вынести для читабельности item в отдельные компоненты.
+
   Разбить reducer и использовать combineReducer для их объедения в один
   через store/root-reducer.ts
   изучить .createSlice
