@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 // Types.
 import type { AxiosInstance } from 'axios';
 import type { AppDispatch } from '../types/state';
-import type { SelectedOffer, OfferId, Offers } from '../types/offers';
+import type { OfferId, Offers } from '../types/offers';
 import type { AuthData } from '../types/auth-data';
 import type {
   CommentForSending,
@@ -14,6 +14,7 @@ import type {
   ExtraUserData,
   UserComment,
 } from '../types/user-data';
+import type { SelectedOffer } from '../types/selected-offer';
 
 enum APIRoute {
   Offers = '/offers',

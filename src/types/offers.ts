@@ -1,7 +1,6 @@
 import { CITY_NAMES } from '../const';
 import type { ActiveMapMarkerId } from './general';
 import type { ErrorMessage } from './state';
-import type { Comments, UserData } from './user-data';
 
 type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
@@ -10,6 +9,11 @@ type OfferLocation = {
   longitude: number;
   zoom: number;
 };
+
+/**
+ * Зависит от константы { CITY_NAMES } from '../const';
+ */
+type CityName = (typeof CITY_NAMES)[number];
 
 type City = {
   name: CityName;
@@ -35,8 +39,6 @@ type Offer = {
 
 type Offers = Offer[];
 
-type RequestId = OfferId | null;
-
 type OffersStateType = {
   city: CityName;
   activeMapMarkerId: ActiveMapMarkerId;
@@ -48,49 +50,12 @@ type OffersStateType = {
   groupedOffers: GroupedOffers;
   groupedFavoriteOffers: GroupedOffersByCity[];
 
-  selectedOfferCityRequestId: RequestId;
+  selectedOfferCityRequestId: OfferId | null;
 };
 
 type GroupedOffersByCity = {
   city: CityName;
   offerPlacesByCity: Offers;
-};
-
-/**
- * Зависит от константы { CITY_NAMES } from '../const';
- */
-type CityName = (typeof CITY_NAMES)[number];
-
-type SelectedOffer = Omit<Offer, 'previewImage'> & {
-  description: string;
-  bedrooms: number;
-  goods: SelectedOfferGoods;
-  host: UserData;
-  images: SelectedOfferImages;
-  maxAdults: number;
-};
-
-type SelectedOfferGoods = string[];
-
-type SelectedOfferImages = string[];
-
-type SelectedOfferStateType = {
-  selectedOffer: SelectedOffer | null;
-  selectedOfferErrorMessage: ErrorMessage;
-  isSelectedOfferLoading: boolean;
-  selectedOfferRequestId: RequestId;
-
-  // NearbyOffers.
-  nearbyOffers: Offers | null;
-  nearbyErrorMessage: ErrorMessage;
-  isNearbyLoading: boolean;
-  nearbyOffersRequestId: RequestId;
-
-  // Comments.
-  comments: Comments | null;
-  commentsErrorMessage: ErrorMessage;
-  isCommentsLoading: boolean;
-  commentsRequestId: RequestId;
 };
 
 export type {
@@ -103,8 +68,4 @@ export type {
   OffersStateType,
   GroupedOffersByCity,
   CityName,
-  SelectedOffer,
-  SelectedOfferGoods,
-  SelectedOfferImages,
-  SelectedOfferStateType,
 };

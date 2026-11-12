@@ -1,4 +1,4 @@
-import type { SelectedOfferGoods } from '../../types/offers';
+import type { SelectedOfferGoods } from '../../types/selected-offer';
 
 type OfferInsideProps = {
   goods: SelectedOfferGoods;

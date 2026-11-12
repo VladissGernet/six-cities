@@ -1,4 +1,4 @@
-import type { SelectedOfferImages } from '../../types/offers';
+import type { SelectedOfferImages } from '../../types/selected-offer';
 import Container from '../container/container';
 
 type GalleryProps = {

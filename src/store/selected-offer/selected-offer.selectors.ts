@@ -9,17 +9,18 @@ const getIsSelectedOfferLoading = (state: State) =>
   state[NameSpace.SelectedOffer].isSelectedOfferLoading;
 
 const getNearOffers = (state: State) =>
-  state[NameSpace.SelectedOffer].nearbyOffers;
+  state[NameSpace.SelectedOfferNearby].nearbyOffers;
 const getIsNearbyLoading = (state: State) =>
-  state[NameSpace.SelectedOffer].isNearbyLoading;
+  state[NameSpace.SelectedOfferNearby].isNearbyLoading;
 const getNearbyErrorMessage = (state: State) =>
-  state[NameSpace.SelectedOffer].nearbyErrorMessage;
+  state[NameSpace.SelectedOfferNearby].nearbyErrorMessage;
 
-const getComments = (state: State) => state[NameSpace.SelectedOffer].comments;
+const getComments = (state: State) =>
+  state[NameSpace.SelectedOfferComments].comments;
 const getIsCommentsLoading = (state: State) =>
-  state[NameSpace.SelectedOffer].isCommentsLoading;
+  state[NameSpace.SelectedOfferComments].isCommentsLoading;
 const getCommentsErrorMessage = (state: State) =>
-  state[NameSpace.SelectedOffer].commentsErrorMessage;
+  state[NameSpace.SelectedOfferComments].commentsErrorMessage;
 
 export {
   getSelectedOffer,

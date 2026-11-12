@@ -17,6 +17,8 @@ enum AuthenticationStatus {
 enum NameSpace {
   Offers = 'OFFERS',
   SelectedOffer = 'SELECTED_OFFER',
+  SelectedOfferComments = 'SELECTED_OFFER_COMMENTS',
+  SelectedOfferNearby = 'SELECTED_OFFER_NEARBY',
   User = 'USER',
 }
 

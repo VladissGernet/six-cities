@@ -10,7 +10,7 @@ import OfferInside from './selected-offer-inside';
 import OfferReviews from './selected-offer-reviews';
 
 // Types.
-import type { SelectedOffer } from '../../types/offers';
+import type { SelectedOffer } from '../../types/selected-offer';
 
 type OfferInfoProps = {
   offerData: SelectedOffer;
