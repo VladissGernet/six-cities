@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { NameSpace } from '../../const';
-import { fetchExtraOfferAction, fetchOffersAction } from '../api-actions';
+import { fetchSelectedOfferAction, fetchOffersAction } from '../api-actions';
 import { filterFavoriteOffers, groupOffers } from '../../utils/offers';
 
 // Types.
@@ -21,7 +21,7 @@ const initialState: OffersStateType = {
   groupedOffers: {},
   groupedFavoriteOffers: [],
 
-  extraOfferCityRequestId: null,
+  selectedOfferCityRequestId: null,
 };
 
 const offers = createSlice({
@@ -55,26 +55,29 @@ const offers = createSlice({
         state.offersErrorMessage = error.message || 'Failed to load offers.';
       })
 
-      // Update city from ExtraOffer.
+      // Update city from SelectedOffer.
       // Необходимо на случай перезагрузки страницы офера для обновления города,
       // который ставится по INITIAL_STATE_CITY.
-      .addCase(fetchExtraOfferAction.pending, (state, { meta }) => {
-        state.extraOfferCityRequestId = meta.requestId;
+      .addCase(fetchSelectedOfferAction.pending, (state, { meta }) => {
+        state.selectedOfferCityRequestId = meta.requestId;
       })
-      .addCase(fetchExtraOfferAction.fulfilled, (state, { payload, meta }) => {
-        if (state.extraOfferCityRequestId !== meta.requestId) {
+      .addCase(
+        fetchSelectedOfferAction.fulfilled,
+        (state, { payload, meta }) => {
+          if (state.selectedOfferCityRequestId !== meta.requestId) {
+            return;
+          }
+
+          state.selectedOfferCityRequestId = null;
+          state.city = payload.city.name;
+        },
+      )
+      .addCase(fetchSelectedOfferAction.rejected, (state, { meta }) => {
+        if (state.selectedOfferCityRequestId !== meta.requestId) {
           return;
         }
 
-        state.extraOfferCityRequestId = null;
-        state.city = payload.city.name;
-      })
-      .addCase(fetchExtraOfferAction.rejected, (state, { meta }) => {
-        if (state.extraOfferCityRequestId !== meta.requestId) {
-          return;
-        }
-
-        state.extraOfferCityRequestId = null;
+        state.selectedOfferCityRequestId = null;
       });
   },
 });

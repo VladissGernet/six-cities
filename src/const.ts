@@ -16,7 +16,7 @@ enum AuthenticationStatus {
 
 enum NameSpace {
   Offers = 'OFFERS',
-  ExtraOffer = 'EXTRA_OFFER',
+  SelectedOffer = 'SELECTED_OFFER',
   User = 'USER',
 }
 
@@ -56,7 +56,7 @@ const CITY_NAMES = [
  */
 const RATING_VALUES = [1, 2, 3, 4, 5] as const;
 
-const MAX_EXTRA_OFFER_PLACES = 3;
+const MAX_SELECTED_OFFER_PLACES = 3;
 
 export {
   AppRoute,
@@ -66,5 +66,5 @@ export {
   CITY_NAMES,
   RATING_VALUES,
   PlacesSortingValue,
-  MAX_EXTRA_OFFER_PLACES,
+  MAX_SELECTED_OFFER_PLACES,
 };

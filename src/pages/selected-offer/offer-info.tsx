@@ -10,15 +10,15 @@ import OfferInside from './offer-inside';
 import OfferReviews from './offer-reviews';
 
 // Types.
-import type { ExtraOffer } from '../../types/offers';
+import type { SelectedOffer } from '../../types/offers';
 
 type OfferInfoProps = {
-  offerData: ExtraOffer;
+  offerData: SelectedOffer;
 };
 
-type OfferMarkProps = Pick<ExtraOffer, 'isPremium'>;
+type OfferMarkProps = Pick<SelectedOffer, 'isPremium'>;
 
-type OfferNameProps = Pick<ExtraOffer, 'title' | 'isFavorite'>;
+type OfferNameProps = Pick<SelectedOffer, 'title' | 'isFavorite'>;
 
 function OfferMark({ isPremium }: OfferMarkProps): JSX.Element | null {
   return isPremium ? (

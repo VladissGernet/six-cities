@@ -1,7 +1,7 @@
-import type { ExtraOfferGoods } from '../../types/offers';
+import type { SelectedOfferGoods } from '../../types/offers';
 
 type OfferInsideProps = {
-  goods: ExtraOfferGoods;
+  goods: SelectedOfferGoods;
 };
 
 export default function OfferInside({ goods }: OfferInsideProps): JSX.Element {

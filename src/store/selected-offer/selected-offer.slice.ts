@@ -3,64 +3,67 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import {
   fetchComments,
-  fetchExtraOfferAction,
+  fetchSelectedOfferAction,
   fetchNearbyOffers,
 } from '../api-actions';
 
-import type { ExtraOfferStateType } from '../../types/offers';
+import type { SelectedOfferStateType } from '../../types/offers';
 
-const initialState: ExtraOfferStateType = {
-  extraOffer: null,
-  extraOfferErrorMessage: null,
-  isExtraOfferLoading: false,
-  extraOfferRequestId: null,
+const initialState: SelectedOfferStateType = {
+  selectedOffer: null,
+  selectedOfferErrorMessage: null,
+  isSelectedOfferLoading: false,
+  selectedOfferRequestId: null,
 
-  // ExtraOffer NearbyOffers.
+  // SelectedOffer NearbyOffers.
   nearbyOffers: null,
   nearbyErrorMessage: null,
   isNearbyLoading: false,
   nearbyOffersRequestId: null,
 
-  // ExtraOffer Comments.
+  // SelectedOffer Comments.
   comments: null,
   commentsErrorMessage: null,
   isCommentsLoading: false,
   commentsRequestId: null,
 };
 
-const extraOffer = createSlice({
-  name: NameSpace.ExtraOffer,
+const selectedOffer = createSlice({
+  name: NameSpace.SelectedOffer,
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchExtraOfferAction.pending, (state, { meta }) => {
-        state.isExtraOfferLoading = true;
-        state.extraOffer = null;
-        state.extraOfferErrorMessage = null;
-        state.extraOfferRequestId = meta.requestId;
+      .addCase(fetchSelectedOfferAction.pending, (state, { meta }) => {
+        state.isSelectedOfferLoading = true;
+        state.selectedOffer = null;
+        state.selectedOfferErrorMessage = null;
+        state.selectedOfferRequestId = meta.requestId;
       })
-      .addCase(fetchExtraOfferAction.fulfilled, (state, { payload, meta }) => {
-        if (state.extraOfferRequestId !== meta.requestId) {
-          return;
-        }
+      .addCase(
+        fetchSelectedOfferAction.fulfilled,
+        (state, { payload, meta }) => {
+          if (state.selectedOfferRequestId !== meta.requestId) {
+            return;
+          }
 
-        state.extraOfferRequestId = null;
-        state.isExtraOfferLoading = false;
-        state.extraOffer = payload;
-      })
-      .addCase(fetchExtraOfferAction.rejected, (state, { meta, error }) => {
-        if (state.extraOfferRequestId !== meta.requestId) {
+          state.selectedOfferRequestId = null;
+          state.isSelectedOfferLoading = false;
+          state.selectedOffer = payload;
+        },
+      )
+      .addCase(fetchSelectedOfferAction.rejected, (state, { meta, error }) => {
+        if (state.selectedOfferRequestId !== meta.requestId) {
           return;
         }
-        state.extraOfferRequestId = null;
-        state.isExtraOfferLoading = false;
+        state.selectedOfferRequestId = null;
+        state.isSelectedOfferLoading = false;
 
         if (meta.aborted) {
           return;
         }
 
-        state.extraOfferErrorMessage =
+        state.selectedOfferErrorMessage =
           error.message || 'Failed to load the offer.';
       })
 
@@ -130,4 +133,4 @@ const extraOffer = createSlice({
   },
 });
 
-export { extraOffer };
+export { selectedOffer };

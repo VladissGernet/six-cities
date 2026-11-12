@@ -48,7 +48,7 @@ type OffersStateType = {
   groupedOffers: GroupedOffers;
   groupedFavoriteOffers: GroupedOffersByCity[];
 
-  extraOfferCityRequestId: RequestId;
+  selectedOfferCityRequestId: RequestId;
 };
 
 type GroupedOffersByCity = {
@@ -61,24 +61,24 @@ type GroupedOffersByCity = {
  */
 type CityName = (typeof CITY_NAMES)[number];
 
-type ExtraOffer = Omit<Offer, 'previewImage'> & {
+type SelectedOffer = Omit<Offer, 'previewImage'> & {
   description: string;
   bedrooms: number;
-  goods: ExtraOfferGoods;
+  goods: SelectedOfferGoods;
   host: UserData;
-  images: ExtraOfferImages;
+  images: SelectedOfferImages;
   maxAdults: number;
 };
 
-type ExtraOfferGoods = string[];
+type SelectedOfferGoods = string[];
 
-type ExtraOfferImages = string[];
+type SelectedOfferImages = string[];
 
-type ExtraOfferStateType = {
-  extraOffer: ExtraOffer | null;
-  extraOfferErrorMessage: ErrorMessage;
-  isExtraOfferLoading: boolean;
-  extraOfferRequestId: RequestId;
+type SelectedOfferStateType = {
+  selectedOffer: SelectedOffer | null;
+  selectedOfferErrorMessage: ErrorMessage;
+  isSelectedOfferLoading: boolean;
+  selectedOfferRequestId: RequestId;
 
   // NearbyOffers.
   nearbyOffers: Offers | null;
@@ -103,8 +103,8 @@ export type {
   OffersStateType,
   GroupedOffersByCity,
   CityName,
-  ExtraOffer,
-  ExtraOfferGoods,
-  ExtraOfferImages,
-  ExtraOfferStateType,
+  SelectedOffer,
+  SelectedOfferGoods,
+  SelectedOfferImages,
+  SelectedOfferStateType,
 };

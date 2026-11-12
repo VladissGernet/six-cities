@@ -1,8 +1,8 @@
-import type { ExtraOfferImages } from '../../types/offers';
+import type { SelectedOfferImages } from '../../types/offers';
 import Container from '../container/container';
 
 type GalleryProps = {
-  images: ExtraOfferImages;
+  images: SelectedOfferImages;
 };
 
 export default function Gallery({ images }: GalleryProps): JSX.Element {

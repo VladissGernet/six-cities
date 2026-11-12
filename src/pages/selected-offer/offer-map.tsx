@@ -5,18 +5,18 @@ import OffersMap from '../../components/offers-map/offers-map';
 // Selectors.
 import { useAppSelector } from '../../hooks/redux';
 import {
-  getExtraOffer,
+  getSelectedOffer,
   getNearOffers,
-} from '../../store/extra-offer/extra-offer.selectors';
+} from '../../store/selected-offer/selected-offer.selectors';
 
 // Const.
-import { MAX_EXTRA_OFFER_PLACES } from '../../const';
+import { MAX_SELECTED_OFFER_PLACES } from '../../const';
 
 export default function OfferMap(): JSX.Element | null {
   const nearOffers = useAppSelector(getNearOffers);
-  const extraOffer = useAppSelector(getExtraOffer);
+  const selectedOffer = useAppSelector(getSelectedOffer);
 
-  if (!extraOffer?.location) {
+  if (!selectedOffer?.location) {
     return null;
   }
 
@@ -25,7 +25,7 @@ export default function OfferMap(): JSX.Element | null {
       <Container>
         <OffersMap
           rootClassName="offer__map"
-          selectedMarkerLocation={extraOffer.location}
+          selectedMarkerLocation={selectedOffer.location}
         />
       </Container>
     );
@@ -35,8 +35,8 @@ export default function OfferMap(): JSX.Element | null {
     <Container>
       <OffersMap
         rootClassName="offer__map"
-        offers={nearOffers.slice(0, MAX_EXTRA_OFFER_PLACES)}
-        selectedMarkerLocation={extraOffer.location}
+        offers={nearOffers.slice(0, MAX_SELECTED_OFFER_PLACES)}
+        selectedMarkerLocation={selectedOffer.location}
       />
     </Container>
   );

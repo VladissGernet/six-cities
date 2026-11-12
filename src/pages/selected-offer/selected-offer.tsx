@@ -5,9 +5,9 @@ import { useOfferRequest } from '../../hooks/offer/use-offer-request';
 
 // Selectors.
 import {
-  getExtraOfferErrorMessage,
-  getIsExtraOfferLoading,
-} from '../../store/extra-offer/extra-offer.selectors';
+  getSelectedOfferErrorMessage,
+  getIsSelectedOfferLoading,
+} from '../../store/selected-offer/selected-offer.selectors';
 import { getOffers } from '../../store/offers/offers.selectors';
 
 // Components.
@@ -23,12 +23,14 @@ import OfferContent from './offer-content';
 // Types.
 import type { OfferId } from '../../types/offers';
 
-export default function ExtraOffer(): JSX.Element {
+export default function SelectedOffer(): JSX.Element {
   const { id: offerId } = useParams<{ id: OfferId }>();
 
   const offers = useAppSelector(getOffers);
-  const extraOfferErrorMessage = useAppSelector(getExtraOfferErrorMessage);
-  const isExtraOfferLoading = useAppSelector(getIsExtraOfferLoading);
+  const selectedOfferErrorMessage = useAppSelector(
+    getSelectedOfferErrorMessage,
+  );
+  const isSelectedOfferLoading = useAppSelector(getIsSelectedOfferLoading);
 
   const dispatch = useAppDispatch();
 
@@ -40,14 +42,14 @@ export default function ExtraOffer(): JSX.Element {
     return <NotFoundPage />;
   }
 
-  if (isExtraOfferLoading) {
+  if (isSelectedOfferLoading) {
     return <LoadingScreenContent />;
   }
 
-  if (extraOfferErrorMessage) {
+  if (selectedOfferErrorMessage) {
     return (
       <Container>
-        <h1>{extraOfferErrorMessage}</h1>
+        <h1>{selectedOfferErrorMessage}</h1>
       </Container>
     );
   }

@@ -8,7 +8,7 @@ import type { FormEventHandler, ChangeEventHandler } from 'react';
 
 // Store.
 import { fetchComments, sendCommentAction } from '../../store/api-actions';
-import { getExtraOffer } from '../../store/extra-offer/extra-offer.selectors';
+import { getSelectedOffer } from '../../store/selected-offer/selected-offer.selectors';
 import { getAuthenticationStatus } from '../../store/user/user.selectors';
 
 // Hooks.
@@ -22,7 +22,7 @@ import { getReviewValidationError, isRatingValue } from './reviews-form.helper';
 
 export default function ReviewsForm(): JSX.Element | null {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
-  const extraOffer = useAppSelector(getExtraOffer);
+  const selectedOffer = useAppSelector(getSelectedOffer);
 
   const [userRating, setUserRating] = useState<RatingValue | null>(null);
   const [userReviewText, setUserReviewText] = useState<string>('');
@@ -31,7 +31,7 @@ export default function ReviewsForm(): JSX.Element | null {
 
   const dispatch = useAppDispatch();
 
-  if (!extraOffer) {
+  if (!selectedOffer) {
     return null;
   }
 
@@ -48,7 +48,7 @@ export default function ReviewsForm(): JSX.Element | null {
         sendCommentAction({
           comment: userReviewText,
           rating,
-          id: extraOffer.id,
+          id: selectedOffer.id,
         }),
       ).unwrap();
 
@@ -56,7 +56,7 @@ export default function ReviewsForm(): JSX.Element | null {
       setUserReviewText('');
 
       // Запрашиваем обновлённый список комментариев.
-      void dispatch(fetchComments(extraOffer.id));
+      void dispatch(fetchComments(selectedOffer.id));
     } catch (error: unknown) {
       toast.error('Failed to send review. Try again.');
     } finally {

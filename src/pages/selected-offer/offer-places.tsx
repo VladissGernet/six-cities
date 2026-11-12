@@ -11,10 +11,10 @@ import {
   getIsNearbyLoading,
   getNearbyErrorMessage,
   getNearOffers,
-} from '../../store/extra-offer/extra-offer.selectors';
+} from '../../store/selected-offer/selected-offer.selectors';
 
 // Const.
-import { MAX_EXTRA_OFFER_PLACES } from '../../const';
+import { MAX_SELECTED_OFFER_PLACES } from '../../const';
 
 // Styles.
 import styles from './offer.module.css';
@@ -56,7 +56,7 @@ export default function OfferPlaces(): JSX.Element | null {
         rootClassName={cn('near-places', styles['offer__places-content'])}
         title="Other places in the neighborhood"
         titleClassName="near-places__title"
-        groupedOffersByCity={nearOffers.slice(0, MAX_EXTRA_OFFER_PLACES)}
+        groupedOffersByCity={nearOffers.slice(0, MAX_SELECTED_OFFER_PLACES)}
       />
     </Container>
   );

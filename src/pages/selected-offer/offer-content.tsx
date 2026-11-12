@@ -8,19 +8,19 @@ import OfferMap from './offer-map';
 import OfferInfo from './offer-info';
 
 // Selectors.
-import { getExtraOffer } from '../../store/extra-offer/extra-offer.selectors';
+import { getSelectedOffer } from '../../store/selected-offer/selected-offer.selectors';
 
 // Types.
 import { useAppSelector } from '../../hooks/redux';
 
 export default function OfferContent(): JSX.Element | null {
-  const extraOffer = useAppSelector(getExtraOffer);
+  const selectedOffer = useAppSelector(getSelectedOffer);
 
-  if (!extraOffer) {
+  if (!selectedOffer) {
     return null;
   }
 
-  const { title, images } = extraOffer;
+  const { title, images } = selectedOffer;
 
   return (
     <>
@@ -29,7 +29,7 @@ export default function OfferContent(): JSX.Element | null {
       </Helmet>
       <section className="offer">
         <Gallery images={images} />
-        <OfferInfo offerData={extraOffer} />
+        <OfferInfo offerData={selectedOffer} />
         <OfferMap />
       </section>
       <OfferPlaces />

@@ -1,7 +1,7 @@
-import type { ExtraOffer, OfferType } from '../../types/offers';
+import type { SelectedOffer, OfferType } from '../../types/offers';
 import { capitalizeFirstLetter, pluralizeEn } from '../../utils/utils';
 
-type OfferFeaturesProps = Pick<ExtraOffer, 'bedrooms' | 'maxAdults'> & {
+type OfferFeaturesProps = Pick<SelectedOffer, 'bedrooms' | 'maxAdults'> & {
   type: OfferType;
 };
 

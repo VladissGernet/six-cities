@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 // Types.
 import type { AxiosInstance } from 'axios';
 import type { AppDispatch } from '../types/state';
-import type { ExtraOffer, OfferId, Offers } from '../types/offers';
+import type { SelectedOffer, OfferId, Offers } from '../types/offers';
 import type { AuthData } from '../types/auth-data';
 import type {
   CommentForSending,
@@ -48,14 +48,17 @@ const fetchOffersAction = createAsyncThunk<
   return data;
 });
 
-const fetchExtraOfferAction = createAsyncThunk<
-  ExtraOffer,
+const fetchSelectedOfferAction = createAsyncThunk<
+  SelectedOffer,
   OfferId,
   { extra: AxiosInstance }
->('data/fetchExtraOffer', async (offerId, { extra: api, signal }) => {
-  const { data } = await api.get<ExtraOffer>(`${APIRoute.Offers}/${offerId}`, {
-    signal,
-  });
+>('data/fetchSelectedOffer', async (offerId, { extra: api, signal }) => {
+  const { data } = await api.get<SelectedOffer>(
+    `${APIRoute.Offers}/${offerId}`,
+    {
+      signal,
+    },
+  );
   return data;
 });
 
@@ -153,7 +156,7 @@ const logoutAction = createAsyncThunk<void, void, { extra: AxiosInstance }>(
 
 export {
   fetchOffersAction,
-  fetchExtraOfferAction,
+  fetchSelectedOfferAction,
   fetchNearbyOffers,
   fetchComments,
   checkAuthAction,

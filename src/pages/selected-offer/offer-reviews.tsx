@@ -10,7 +10,7 @@ import {
   getComments,
   getCommentsErrorMessage,
   getIsCommentsLoading,
-} from '../../store/extra-offer/extra-offer.selectors';
+} from '../../store/selected-offer/selected-offer.selectors';
 
 function OfferReviewsTemplate({ children }: PropsWithChildren): JSX.Element {
   return (

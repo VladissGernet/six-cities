@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import {
   fetchComments,
-  fetchExtraOfferAction,
+  fetchSelectedOfferAction,
   fetchNearbyOffers,
 } from '../../store/api-actions';
 import type { OfferId } from '../../types/offers';
 import type { AppDispatch } from '../../types/state';
 
 /**
- * Запрос на сервер для получения extraOffer.
- * @param offerId - ID офера, для получения extraOffer.
+ * Запрос на сервер для получения selectedOffer.
+ * @param offerId - ID офера, для получения selectedOffer.
  * @param dispatch - AppDispatch.
  * @param isSelectedOffer - Результат boolean проверки на наличие id
  * offer в базе.
@@ -27,12 +27,12 @@ const useOfferRequest = (
       return;
     }
 
-    const requestExtraOffer = dispatch(fetchExtraOfferAction(offerId));
+    const requestSelectedOffer = dispatch(fetchSelectedOfferAction(offerId));
     const requestNearbyOffers = dispatch(fetchNearbyOffers(offerId));
     const requestComments = dispatch(fetchComments(offerId));
 
     return () => {
-      requestExtraOffer.abort();
+      requestSelectedOffer.abort();
       requestNearbyOffers.abort();
       requestComments.abort();
     };
