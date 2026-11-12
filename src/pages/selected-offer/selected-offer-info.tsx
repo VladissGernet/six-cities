@@ -4,10 +4,10 @@ import cn from 'classnames';
 // Components.
 import Container from '../../components/container/container';
 import Rating from '../../components/rating/rating';
-import OfferFeatures from './offer-features';
-import OfferHost from './offer-host';
-import OfferInside from './offer-inside';
-import OfferReviews from './offer-reviews';
+import OfferFeatures from './selected-offer-features';
+import OfferHost from './selected-offer-host';
+import OfferInside from './selected-offer-inside';
+import OfferReviews from './selected-offer-reviews';
 
 // Types.
 import type { SelectedOffer } from '../../types/offers';

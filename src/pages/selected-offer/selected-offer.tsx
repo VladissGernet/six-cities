@@ -18,7 +18,7 @@ import Container from '../../components/container/container';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 // This folder.
-import OfferContent from './offer-content';
+import OfferContent from './selected-offer-content';
 
 // Types.
 import type { OfferId } from '../../types/offers';

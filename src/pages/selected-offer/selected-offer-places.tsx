@@ -17,7 +17,7 @@ import {
 import { MAX_SELECTED_OFFER_PLACES } from '../../const';
 
 // Styles.
-import styles from './offer.module.css';
+import styles from './selected-offer.module.css';
 
 export default function OfferPlaces(): JSX.Element | null {
   const nearOffers = useAppSelector(getNearOffers);

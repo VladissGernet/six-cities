@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet-async';
 
 // Components.
 import Gallery from '../../components/gallery/gallery';
-import OfferPlaces from './offer-places';
-import OfferMap from './offer-map';
-import OfferInfo from './offer-info';
+import OfferPlaces from './selected-offer-places';
+import OfferMap from './selected-offer-map';
+import OfferInfo from './selected-offer-info';
 
 // Selectors.
 import { getSelectedOffer } from '../../store/selected-offer/selected-offer.selectors';
