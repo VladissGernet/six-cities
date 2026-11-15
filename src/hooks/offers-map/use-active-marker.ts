@@ -2,35 +2,40 @@ import { useEffect, useRef } from 'react';
 
 import { selectedCustomIcon, defaultCustomIcon } from './offers-map.helper';
 
-import type { renderMapMarkersLayer } from './offers-map.helper';
+import type { MapMarkersResult } from './offers-map.helper';
 import type { OfferId } from '../../types/offers';
 import type { Marker } from 'leaflet';
 
-import { useAppSelector } from '../redux';
-import { getSelectedOffer } from '../../store/selected-offer/selected-offer.selectors';
-
 type ActiveMarker = {
-  markers: ReturnType<typeof renderMapMarkersLayer>;
+  markers: MapMarkersResult | null;
   activeMarkerId: OfferId;
 };
 
 const useActiveMarker = ({ markers, activeMarkerId }: ActiveMarker): void => {
-  const selectedOffer = useAppSelector(getSelectedOffer);
-
   const prevActiveMarker = useRef<Marker | null | undefined>(null);
 
   useEffect(() => {
-    // TODO, реализовать получение маркера от selectedOffer.
-    // Возможно нужно прокидывать marker через renderMapMarkersLayer.
-    console.log(selectedOffer);
+    if (!markers) {
+      return;
+    }
 
+    const { markersMap, selectedMarker } = markers;
+
+    // Управление иконкой выбранного предложения.
+    selectedMarker?.setIcon(
+      !activeMarkerId && prevActiveMarker.current
+        ? selectedCustomIcon
+        : defaultCustomIcon,
+    );
+
+    // Управление иконкой маркера при наведении.
     prevActiveMarker.current?.setIcon(defaultCustomIcon);
 
-    const activeMarker = markers.get(activeMarkerId);
+    const activeMarker = markersMap.get(activeMarkerId);
     activeMarker?.setIcon(selectedCustomIcon);
 
-    prevActiveMarker.current = activeMarker;
-  }, [markers, activeMarkerId, selectedOffer]);
+    prevActiveMarker.current = activeMarker ?? null;
+  }, [markers, activeMarkerId]);
 };
 
 export { useActiveMarker };

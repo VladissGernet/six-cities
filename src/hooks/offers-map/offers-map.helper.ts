@@ -30,12 +30,15 @@ type MapMarkersLayerProps = {
   selectedMarkerLocation?: OfferLocation;
 };
 
+type MapMarkersResult = ReturnType<typeof renderMapMarkersLayer>;
+
 const renderMapMarkersLayer = ({
   offers,
   layerGroup,
   selectedMarkerLocation,
 }: MapMarkersLayerProps) => {
   const markersMap = new Map<OfferId, Marker>();
+
   // Добавление меток на слой карты.
   if (offers && offers.length) {
     offers.forEach(({ location, id }) => {
@@ -57,6 +60,8 @@ const renderMapMarkersLayer = ({
   // Добавление опционной точки на слой карты.
   // Используется для отображения выбранного офера
   // страницы offer/:id.
+
+  let selectedMarker = null;
   if (selectedMarkerLocation) {
     const marker = new Marker(
       {
@@ -68,10 +73,13 @@ const renderMapMarkersLayer = ({
       },
     );
 
+    selectedMarker = marker;
     marker.addTo(layerGroup);
   }
 
-  return markersMap;
+  return { markersMap: markersMap, selectedMarker: selectedMarker };
 };
+
+export type { MapMarkersResult };
 
 export { renderMapMarkersLayer, defaultCustomIcon, selectedCustomIcon };
