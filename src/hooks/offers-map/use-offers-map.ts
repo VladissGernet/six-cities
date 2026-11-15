@@ -1,7 +1,7 @@
 import { useEffect, useState, MutableRefObject } from 'react';
 import { layerGroup, Map, TileLayer, type LayerGroup } from 'leaflet';
 
-import type { OfferLocation } from '../../types/offers';
+import type { MapWithLayer, OfferLocation } from '../../types/offers';
 
 const OffersMapConfig = {
   Tile: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
@@ -18,17 +18,12 @@ type UseOffersMapProps = Partial<OfferLocation> & {
   mapContainerRef: MutableRefObject<HTMLElement | null>;
 };
 
-type UseOffersMapResult = {
-  map: Map | null;
-  mapLayerGroup: LayerGroup | null;
-};
-
 const useOffersMap = ({
   mapContainerRef,
   latitude = OffersMapConfig.DefaultPosition.Latitude,
   longitude = OffersMapConfig.DefaultPosition.Longitude,
   zoom = OffersMapConfig.DefaultPosition.Zoom,
-}: UseOffersMapProps): UseOffersMapResult => {
+}: UseOffersMapProps): MapWithLayer => {
   const [mapInstance, setMapInstance] = useState<Map | null>(null);
   const [mapLayerGroup, setMapLayerGroup] = useState<LayerGroup | null>(null);
 
@@ -67,7 +62,5 @@ const useOffersMap = ({
 
   return { map: mapInstance, mapLayerGroup };
 };
-
-export type { UseOffersMapResult };
 
 export { useOffersMap };

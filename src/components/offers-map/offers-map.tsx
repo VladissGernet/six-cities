@@ -6,10 +6,7 @@ import { useRef } from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import { useOffersMap } from '../../hooks/offers-map/use-offers-map';
 import { useMarkers } from '../../hooks/offers-map/use-markers';
-
-// Types.
-import type { OfferId, OfferLocation, Offers } from '../../types/offers';
-import type { ActiveMapMarkerId } from '../../types/general';
+import { useActiveMarker } from '../../hooks/offers-map/use-active-marker';
 
 // Selectors.
 import {
@@ -20,6 +17,10 @@ import {
 
 // Leaflet.
 import 'leaflet/dist/leaflet.css';
+
+// Types.
+import type { OfferId, OfferLocation, Offers } from '../../types/offers';
+import type { ActiveMapMarkerId } from '../../types/general';
 
 type OffersMapProps = {
   rootClassName: string;
@@ -49,17 +50,22 @@ export default function OffersMap({
     zoom: cityLocation?.zoom,
   });
 
-  // Получение id для выделения точки на карте.
+  // Добавление меток на карту и сохранение их в коллекцию.
+  const markers = useMarkers({
+    offersMap,
+    offers,
+    selectedMarkerLocation,
+  });
+
+  // Получение id для выделения точки на карте при наведении на offer.
   const activeMarkerId = useAppSelector<ActiveMapMarkerId>(
     getActiveMapMarkerId,
   ) as OfferId;
 
-  // Очистка и добавление меток на карту.
-  useMarkers({
-    offersMap,
+  // Обновление иконки маркера на карте при наведении на offer.
+  useActiveMarker({
+    markers,
     activeMarkerId,
-    offers,
-    selectedMarkerLocation,
   });
 
   if (!selectedMarkerLocation && !offers?.length) {

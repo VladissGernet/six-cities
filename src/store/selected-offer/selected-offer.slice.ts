@@ -15,7 +15,9 @@ const initialState: SelectedOfferStateType = {
 const selectedOffer = createSlice({
   name: NameSpace.SelectedOffer,
   initialState,
-  reducers: {},
+  reducers: {
+    clearSelectedOffer: () => initialState,
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchSelectedOfferAction.pending, (state, { meta }) => {
@@ -53,4 +55,6 @@ const selectedOffer = createSlice({
   },
 });
 
-export { selectedOffer };
+const { clearSelectedOffer } = selectedOffer.actions;
+
+export { selectedOffer, clearSelectedOffer };

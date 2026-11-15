@@ -1,14 +1,16 @@
 // General.
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useOfferRequest } from '../../hooks/offer/use-offer-request';
 
-// Selectors.
+// Store.
 import {
   getSelectedOfferErrorMessage,
   getIsSelectedOfferLoading,
 } from '../../store/selected-offer/selected-offer.selectors';
 import { getOffers } from '../../store/offers/offers.selectors';
+import { clearSelectedOffer } from '../../store/selected-offer/selected-offer.slice';
 
 // Components.
 import LoadingScreenContent from '../loading-screen/loading-screen-content';
@@ -33,6 +35,14 @@ export default function SelectedOffer(): JSX.Element {
   const isSelectedOfferLoading = useAppSelector(getIsSelectedOfferLoading);
 
   const dispatch = useAppDispatch();
+
+  // Очистка SelectedOffer в store после размонтирования страницы.
+  useEffect(
+    () => () => {
+      dispatch(clearSelectedOffer());
+    },
+    [dispatch],
+  );
 
   const isSelectedOffer = offers.some((item) => item.id === offerId);
 

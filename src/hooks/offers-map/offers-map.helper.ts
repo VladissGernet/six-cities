@@ -1,6 +1,10 @@
-import { Icon, IconOptions, type LayerGroup, Marker } from 'leaflet';
+import { Icon, IconOptions, Marker } from 'leaflet';
+
+// Types.
+import type { LayerGroup } from 'leaflet';
 import type { OfferId, OfferLocation, Offers } from '../../types/offers';
 
+// Custom map pins.
 import pin from '/img/pin.svg';
 import pinActive from '/img/pin-active.svg';
 
@@ -23,16 +27,15 @@ const selectedCustomIcon = new Icon(CustomIcon.Active);
 type MapMarkersLayerProps = {
   offers?: Offers;
   layerGroup: LayerGroup;
-  activeMarkerId: OfferId | null;
   selectedMarkerLocation?: OfferLocation;
 };
 
 const renderMapMarkersLayer = ({
   offers,
   layerGroup,
-  activeMarkerId,
   selectedMarkerLocation,
-}: MapMarkersLayerProps): void => {
+}: MapMarkersLayerProps) => {
+  const markersMap = new Map<OfferId, Marker>();
   // Добавление меток на слой карты.
   if (offers && offers.length) {
     offers.forEach(({ location, id }) => {
@@ -42,10 +45,12 @@ const renderMapMarkersLayer = ({
           lng: location.longitude,
         },
         {
-          icon: id === activeMarkerId ? selectedCustomIcon : defaultCustomIcon,
+          icon: defaultCustomIcon,
         },
       );
+
       marker.addTo(layerGroup);
+      markersMap.set(id, marker);
     });
   }
 
@@ -59,12 +64,14 @@ const renderMapMarkersLayer = ({
         lng: selectedMarkerLocation.longitude,
       },
       {
-        icon: activeMarkerId === null ? selectedCustomIcon : defaultCustomIcon,
+        icon: selectedCustomIcon,
       },
     );
 
     marker.addTo(layerGroup);
   }
+
+  return markersMap;
 };
 
-export { renderMapMarkersLayer };
+export { renderMapMarkersLayer, defaultCustomIcon, selectedCustomIcon };

@@ -1,3 +1,4 @@
+import type { LayerGroup, Map } from 'leaflet';
 import { CITY_NAMES } from '../const';
 import type { ActiveMapMarkerId } from './general';
 import type { ErrorMessage } from './state';
@@ -58,6 +59,11 @@ type GroupedOffersByCity = {
   offerPlacesByCity: Offers;
 };
 
+type MapWithLayer = {
+  map: Map | null;
+  mapLayerGroup: LayerGroup | null;
+};
+
 export type {
   OfferType,
   OfferLocation,
@@ -68,4 +74,5 @@ export type {
   OffersStateType,
   GroupedOffersByCity,
   CityName,
+  MapWithLayer,
 };
