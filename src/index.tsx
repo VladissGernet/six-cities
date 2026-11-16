@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-/* TODO  8 раздел. 2.25.00
+/* TODO
   изучить Ducks (иногда «ducks-modular-redux»)
   Проверить issues в DevTools, есть проблемы.
 */

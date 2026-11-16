@@ -9,26 +9,28 @@ import type {
 import type { RatingValue } from '../../types/general';
 import type { Dispatch, SetStateAction } from 'react';
 
+type SetStateBooleanType = Dispatch<SetStateAction<boolean>>;
+
 type CreateHandleSubmitTypes = {
   userRating: RatingValue | null;
   userReviewText: ReviewText;
-  setIsSubmitDisabled: Dispatch<SetStateAction<boolean>>;
+  setIsSubmitDisabled: SetStateBooleanType;
   submitReview: SubmitReviewType;
 };
 
-const createHandleSubmit = ({
+// Из-за настроек конфига вместо стрелочной функции.
+const createHandleSubmit = function ({
   userRating,
   userReviewText,
   setIsSubmitDisabled,
   submitReview,
-}: CreateHandleSubmitTypes): ReviewSubmit => {
-  const validationError = getReviewValidationError({
-    rating: userRating,
-    text: userReviewText,
-  });
-
+}: CreateHandleSubmitTypes): ReviewSubmit {
   return (e) => {
     e.preventDefault();
+    const validationError = getReviewValidationError({
+      rating: userRating,
+      text: userReviewText,
+    });
 
     setIsSubmitDisabled(Boolean(validationError));
 
@@ -45,5 +47,4 @@ const createHandleSubmit = ({
   };
 };
 
-// TODO, продолжить перенос обработчиков.
 export { createHandleSubmit };

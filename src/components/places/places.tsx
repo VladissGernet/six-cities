@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import cn from 'classnames';
 
 import PlacesList from './places-list';
 import PlacesSorting from './places-sorting';
 import { ImageSize, PlacesSortingValue } from '../../const';
-// TODO Раздел 8. рассмотреть кеширование с помощью useMemo.
 import { sortOffers } from './places.helper';
 
 import type { Offers } from '../../types/offers';
@@ -33,6 +32,14 @@ export default function Places({
     PlacesSortingValue.Popular,
   );
 
+  const sortedOffers = useMemo(
+    () =>
+      activeOption === PlacesSortingValue.Popular
+        ? groupedOffersByCity
+        : sortOffers(groupedOffersByCity, activeOption),
+    [groupedOffersByCity, activeOption],
+  );
+
   return (
     <section className={cn(rootClassName, 'places')}>
       <h2
@@ -48,11 +55,7 @@ export default function Places({
         />
       )}
       <PlacesList
-        groupedOffersByCity={
-          activeOption === PlacesSortingValue.Popular
-            ? groupedOffersByCity
-            : sortOffers(groupedOffersByCity, activeOption)
-        }
+        groupedOffersByCity={sortedOffers}
         className="cities__places-list places__list"
         parentName="cities"
         imageSizes={ImageSize.Places}
