@@ -1,9 +1,10 @@
 import { RATING_VALUES } from '../../const';
 import type { RatingValue } from '../../types/general';
+import type { ReviewText } from '../../types/reviews';
 
 type ReviewData = {
   rating: RatingValue | null;
-  text: string;
+  text: ReviewText;
 };
 
 const isRatingValue = (value: number): value is RatingValue =>

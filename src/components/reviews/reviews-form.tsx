@@ -1,10 +1,9 @@
 // General.
-import { useState, Fragment } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-// Types.
-import type { RatingValue } from '../../types/general';
-import type { FormEventHandler, ChangeEventHandler } from 'react';
+// Components.
+import ReviewsContent from './reviews-content';
 
 // Store.
 import { fetchComments, sendCommentAction } from '../../store/api-actions';
@@ -15,10 +14,18 @@ import { getAuthenticationStatus } from '../../store/user/user.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 // Const.
-import { AuthenticationStatus, RATING_VALUES } from '../../const';
+import { AuthenticationStatus } from '../../const';
 
 // Helpers.
 import { getReviewValidationError, isRatingValue } from './reviews-form.helper';
+
+// Types.
+import type { RatingValue } from '../../types/general';
+import type {
+  ReviewHandleChange,
+  ReviewHandleText,
+  ReviewSubmit,
+} from '../../types/reviews';
 
 export default function ReviewsForm(): JSX.Element | null {
   const authenticationStatus = useAppSelector(getAuthenticationStatus);
@@ -65,7 +72,7 @@ export default function ReviewsForm(): JSX.Element | null {
     }
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: ReviewSubmit = (e) => {
     e.preventDefault();
 
     const validationError = getReviewValidationError({
@@ -87,13 +94,13 @@ export default function ReviewsForm(): JSX.Element | null {
     void submitReview(userRating);
   };
 
-  const handleReviewText: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+  const handleReviewText: ReviewHandleText = (e) => {
     const value = e.currentTarget.value;
     setIsSubmitDisabled(false);
     setUserReviewText(value);
   };
 
-  const handleRatingChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleRatingChange: ReviewHandleChange = (e) => {
     const value = Number(e.currentTarget.value);
 
     if (!isRatingValue(value)) {
@@ -103,62 +110,15 @@ export default function ReviewsForm(): JSX.Element | null {
     setUserRating(value);
   };
 
-  return (
-    <form
-      className="reviews__form form"
-      action="#"
-      method="post"
-      onSubmit={handleSubmit}
-    >
-      <label className="reviews__label form__label" htmlFor="review">
-        Your review
-      </label>
-      <div className="reviews__rating-form form__rating">
-        {RATING_VALUES.toReversed().map((value) => (
-          <Fragment key={value}>
-            <input
-              className="form__rating-input visually-hidden"
-              name="rating"
-              type="radio"
-              value={value}
-              id={`${value}-stars`}
-              checked={userRating === value}
-              onChange={handleRatingChange}
-            />
-            <label
-              htmlFor={`${value}-stars`}
-              className="reviews__rating-label form__rating-label"
-              title="perfect"
-            >
-              <svg className="form__star-image" width="37" height="33">
-                <use href="#icon-star"></use>
-              </svg>
-            </label>
-          </Fragment>
-        ))}
-      </div>
-      <textarea
-        className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
-        placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleReviewText}
-        value={userReviewText}
-      />
-      <div className="reviews__button-wrapper">
-        <p className="reviews__help">
-          To submit review please make sure to set{' '}
-          <span className="reviews__star">rating</span> and describe your stay
-          with at least <b className="reviews__text-amount">50 characters</b>.
-        </p>
-        <button
-          className="reviews__submit form__submit button"
-          type="submit"
-          disabled={isSubmitDisabled}
-        >
-          {isSubmitting ? 'Submitting...' : 'Submit'}
-        </button>
-      </div>
-    </form>
-  );
+  const formProps = {
+    handleSubmit: handleSubmit,
+    userRating: userRating,
+    handleRatingChange: handleRatingChange,
+    userReviewText: userReviewText,
+    handleReviewText: handleReviewText,
+    isSubmitting,
+    isSubmitDisabled,
+  };
+
+  return <ReviewsContent {...formProps} />;
 }
