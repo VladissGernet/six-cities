@@ -4,10 +4,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '../redux';
 
 // Helpers.
-import {
-  getReviewValidationError,
-  isRatingValue,
-} from '../../components/reviews/reviews-form.helper';
+import { isRatingValue } from './reviews-form.helper';
 
 // Store.
 import { fetchComments, sendCommentAction } from '../../store/api-actions';
@@ -17,19 +14,21 @@ import type { RatingValue } from '../../types/general';
 import type {
   ReviewHandleChange,
   ReviewHandleText,
-  ReviewSubmit,
+  ReviewText,
+  SubmitReviewType,
 } from '../../types/reviews';
 import type { SelectedOffer } from '../../types/selected-offer';
 
+import { createHandleSubmit } from './reviews-form.handlers';
+
 const useReviewsForm = (selectedOffer: SelectedOffer | null) => {
   const [userRating, setUserRating] = useState<RatingValue | null>(null);
-  const [userReviewText, setUserReviewText] = useState<string>('');
+  const [userReviewText, setUserReviewText] = useState<ReviewText>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
-
   const dispatch = useAppDispatch();
 
-  const submitReview = async (rating: RatingValue): Promise<void> => {
+  const submitReview: SubmitReviewType = async (rating) => {
     if (!selectedOffer) {
       return;
     }
@@ -59,27 +58,12 @@ const useReviewsForm = (selectedOffer: SelectedOffer | null) => {
     }
   };
 
-  const handleSubmit: ReviewSubmit = (e) => {
-    e.preventDefault();
-
-    const validationError = getReviewValidationError({
-      rating: userRating,
-      text: userReviewText,
-    });
-
-    setIsSubmitDisabled(Boolean(validationError));
-
-    if (validationError) {
-      toast.warn(validationError);
-      return;
-    }
-
-    if (userRating === null) {
-      return;
-    }
-
-    void submitReview(userRating);
-  };
+  const handleSubmit = createHandleSubmit({
+    userRating,
+    userReviewText,
+    setIsSubmitDisabled,
+    submitReview,
+  });
 
   const handleReviewText: ReviewHandleText = (e) => {
     const value = e.currentTarget.value;

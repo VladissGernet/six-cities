@@ -13,15 +13,8 @@ const root = ReactDOM.createRoot(
 );
 
 /* TODO  8 раздел. 2.25.00
-  Проверить вызовы метода в render .map и вынести для читабельности item в отдельные компоненты.
-
   изучить Ducks (иногда «ducks-modular-redux»)
   Проверить issues в DevTools, есть проблемы.
-
-  Есть еще useStore.
-  Если я использую useCallback и в нём нужно получить значение из store.
-  На данный момент я мог реализовать передачу через useAppSelector в этот
-  useCallBack.
 */
 
 store.dispatch(fetchOffersAction());

@@ -4,7 +4,7 @@ import { RATING_VALUES } from '../../const';
 
 // Types.
 import type { RatingValue } from '../../types/general';
-import type { ReviewHandleChange } from './reviews-form';
+import type { ReviewHandleChange } from '../../types/reviews';
 
 type ReviewsFormRatingTypes = {
   userRating: RatingValue | null;
