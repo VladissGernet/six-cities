@@ -22,6 +22,8 @@ const root = ReactDOM.createRoot(
   Если я использую useCallback и в нём нужно получить значение из store.
   На данный момент я мог реализовать передачу через useAppSelector в этот
   useCallBack.
+
+  для поиска использовать on[A-Z][a-zA-Z]*=
 */
 
 store.dispatch(fetchOffersAction());

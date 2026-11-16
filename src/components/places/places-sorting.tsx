@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import type { MouseEventHandler } from 'react';
 import type { PlacesSortingValueType } from '../../types/general';
@@ -10,6 +10,25 @@ type PlacesSortingTypes = {
   activeOption: PlacesSortingValueType;
   setActiveOption: (value: PlacesSortingValueType) => void;
 };
+
+type SortingOptionTypes = {
+  activeOption: PlacesSortingValueType;
+  sortingValue: PlacesSortingValueType;
+};
+
+function SortingOption({ sortingValue, activeOption }: SortingOptionTypes) {
+  return (
+    <li
+      className={`places__option ${
+        sortingValue === activeOption ? 'places__option--active' : ''
+      }`}
+      tabIndex={0}
+      data-value={sortingValue}
+    >
+      {sortingValue}
+    </li>
+  );
+}
 
 export default function PlacesSorting({
   activeOption,
@@ -40,6 +59,19 @@ export default function PlacesSorting({
     setIsMenuOpened(false);
   };
 
+  // Использую useMemo только с целью практики.
+  const optionList = useMemo(
+    () =>
+      sortingValues.map((sortingValue) => (
+        <SortingOption
+          key={sortingValue}
+          sortingValue={sortingValue}
+          activeOption={activeOption}
+        />
+      )),
+    [activeOption],
+  );
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
@@ -60,18 +92,7 @@ export default function PlacesSorting({
         }`}
         onClick={handleOptionClick}
       >
-        {sortingValues.map((sortingValue) => (
-          <li
-            className={`places__option ${
-              sortingValue === activeOption ? 'places__option--active' : ''
-            }`}
-            tabIndex={0}
-            data-value={sortingValue}
-            key={sortingValue}
-          >
-            {sortingValue}
-          </li>
-        ))}
+        {optionList}
       </ul>
     </form>
   );
