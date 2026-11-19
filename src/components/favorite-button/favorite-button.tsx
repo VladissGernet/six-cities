@@ -5,16 +5,19 @@ import { useState } from 'react';
 // Types.
 import type { MouseEventHandler } from 'react';
 import type { ImageSizes } from '../../types/general';
+import type { OfferId } from '../../types/offers';
 
 type FavoriteButtonTypes = ImageSizes & {
   rootClassName: string;
   isFavorite: boolean;
+  offerId: OfferId;
 };
 
 export default function FavoriteButton({
   rootClassName,
   imageSizes,
   isFavorite,
+  offerId,
 }: FavoriteButtonTypes): JSX.Element {
   const [isBookmarkFavorite, setIsBookmarkFavorite] =
     useState<boolean>(isFavorite);
@@ -28,6 +31,7 @@ export default function FavoriteButton({
   const handleBookmarkClick: MouseEventHandler<HTMLButtonElement> = (evt) => {
     evt.preventDefault();
     setIsBookmarkFavorite((prevValue) => !prevValue);
+    console.log(offerId);
 
     // TODO, добавить отправку на сервер.
   };

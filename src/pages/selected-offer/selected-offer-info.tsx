@@ -16,7 +16,7 @@ type OfferInfoProps = {
 
 type OfferMarkProps = Pick<SelectedOffer, 'isPremium'>;
 
-type OfferNameProps = Pick<SelectedOffer, 'title' | 'isFavorite'>;
+type OfferNameProps = Pick<SelectedOffer, 'title' | 'isFavorite' | 'id'>;
 
 const BOOKMARK_BUTTON_SIZES = {
   width: 31,
@@ -31,7 +31,11 @@ function OfferMark({ isPremium }: OfferMarkProps): JSX.Element | null {
   ) : null;
 }
 
-function OfferName({ title, isFavorite }: OfferNameProps): JSX.Element | null {
+function OfferName({
+  title,
+  isFavorite,
+  id,
+}: OfferNameProps): JSX.Element | null {
   return (
     <div className="offer__name-wrapper">
       <h1 className="offer__name">{title}</h1>
@@ -39,6 +43,7 @@ function OfferName({ title, isFavorite }: OfferNameProps): JSX.Element | null {
         rootClassName="offer"
         imageSizes={BOOKMARK_BUTTON_SIZES}
         isFavorite={isFavorite}
+        offerId={id}
       />
     </div>
   );
@@ -57,13 +62,14 @@ export default function OfferInfo({ offerData }: OfferInfoProps): JSX.Element {
     maxAdults,
     goods,
     isFavorite,
+    id,
   } = offerData;
 
   return (
     <Container className="offer__container container">
       <div className="offer__wrapper">
         <OfferMark isPremium={isPremium} />
-        <OfferName title={title} isFavorite={isFavorite} />
+        <OfferName title={title} isFavorite={isFavorite} id={id} />
         <Rating
           rating={rating}
           rootClassName={'offer__rating'}

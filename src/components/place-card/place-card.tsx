@@ -81,6 +81,7 @@ export default function PlaceCard({
             rootClassName="place-card"
             imageSizes={BOOKMARK_BUTTON_SIZES}
             isFavorite={isFavorite}
+            offerId={id}
           />
         </div>
         <Rating
