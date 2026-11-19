@@ -23,6 +23,8 @@ type City = {
 
 type OfferId = string;
 
+type OfferStatusCode = number;
+
 type GroupedOffers = Partial<Record<CityName, Offers>>;
 
 type Offer = {
@@ -64,6 +66,11 @@ type MapWithLayer = {
   mapLayerGroup: LayerGroup | null;
 };
 
+type DispatchFavoriteData = {
+  offerStatusCode: OfferStatusCode;
+  offerId: OfferId;
+};
+
 export type {
   OfferType,
   OfferLocation,
@@ -75,4 +82,5 @@ export type {
   GroupedOffersByCity,
   CityName,
   MapWithLayer,
+  DispatchFavoriteData,
 };

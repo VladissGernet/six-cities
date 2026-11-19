@@ -1,11 +1,12 @@
-// General.
 import cn from 'classnames';
 import { useState } from 'react';
+import { useAppDispatch } from '../../hooks/redux';
+import { favoriteAction } from '../../store/api-actions';
 
 // Types.
 import type { MouseEventHandler } from 'react';
 import type { ImageSizes } from '../../types/general';
-import type { OfferId } from '../../types/offers';
+import type { DispatchFavoriteData, OfferId } from '../../types/offers';
 
 type FavoriteButtonTypes = ImageSizes & {
   rootClassName: string;
@@ -21,6 +22,7 @@ export default function FavoriteButton({
 }: FavoriteButtonTypes): JSX.Element {
   const [isBookmarkFavorite, setIsBookmarkFavorite] =
     useState<boolean>(isFavorite);
+  const dispatch = useAppDispatch();
 
   const bookmarkButtonClass = cn(
     `${rootClassName}__bookmark-button`,
@@ -28,12 +30,25 @@ export default function FavoriteButton({
     'button',
   );
 
+  const postFavoriteStatus = async () => {
+    const newOfferStatusCode = Number(!isBookmarkFavorite);
+    const dispatchData: DispatchFavoriteData = {
+      offerStatusCode: newOfferStatusCode,
+      offerId,
+    };
+
+    try {
+      await dispatch(favoriteAction(dispatchData)).unwrap();
+      setIsBookmarkFavorite((prevValue) => !prevValue);
+    } catch (error: unknown) {
+      // TODO, описать ошибку.
+      console.log(error);
+    }
+  };
+
   const handleBookmarkClick: MouseEventHandler<HTMLButtonElement> = (evt) => {
     evt.preventDefault();
-    setIsBookmarkFavorite((prevValue) => !prevValue);
-    console.log(offerId);
-
-    // TODO, добавить отправку на сервер.
+    postFavoriteStatus();
   };
 
   return (

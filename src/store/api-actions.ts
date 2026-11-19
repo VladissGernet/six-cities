@@ -5,8 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 
 // Types.
 import type { AxiosInstance } from 'axios';
-import type { AppDispatch } from '../types/state';
-import type { OfferId, Offers } from '../types/offers';
+import type { DispatchFavoriteData, OfferId, Offers } from '../types/offers';
 import type { AuthData } from '../types/auth-data';
 import type {
   CommentForSending,
@@ -135,7 +134,6 @@ const loginAction = createAsyncThunk<
   ExtraUserData,
   AuthData,
   {
-    dispatch: AppDispatch;
     extra: AxiosInstance;
   }
 >('user/login', async ({ login: email, password }, { extra: api }) => {
@@ -155,6 +153,19 @@ const logoutAction = createAsyncThunk<void, void, { extra: AxiosInstance }>(
   },
 );
 
+const favoriteAction = createAsyncThunk<
+  void,
+  DispatchFavoriteData,
+  { extra: AxiosInstance }
+>(
+  'offer/favoriteAction',
+  async ({ offerStatusCode, offerId }, { extra: api }) => {
+    await api.post<DispatchFavoriteData>(
+      `${APIRoute.Favorite}/${offerId}/${offerStatusCode}`,
+    );
+  },
+);
+
 export {
   fetchOffersAction,
   fetchSelectedOfferAction,
@@ -164,4 +175,5 @@ export {
   loginAction,
   logoutAction,
   sendCommentAction,
+  favoriteAction,
 };
