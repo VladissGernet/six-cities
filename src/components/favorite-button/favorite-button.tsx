@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { favoriteAction } from '../../store/api-actions';
@@ -22,6 +23,8 @@ export default function FavoriteButton({
 }: FavoriteButtonTypes): JSX.Element {
   const [isBookmarkFavorite, setIsBookmarkFavorite] =
     useState<boolean>(isFavorite);
+  const [isFavoriteButtonDisabled, setIsFavoriteButtonDisabled] =
+    useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   const bookmarkButtonClass = cn(
@@ -38,11 +41,15 @@ export default function FavoriteButton({
     };
 
     try {
+      setIsFavoriteButtonDisabled(true);
       await dispatch(favoriteAction(dispatchData)).unwrap();
       setIsBookmarkFavorite((prevValue) => !prevValue);
     } catch (error: unknown) {
-      // TODO, описать ошибку.
       console.log(error);
+      // TODO, подумать, как лучше описать причину ошибки для пользователя.
+      toast.error(error.message);
+    } finally {
+      setIsFavoriteButtonDisabled(false);
     }
   };
 
@@ -56,6 +63,7 @@ export default function FavoriteButton({
       className={bookmarkButtonClass}
       type="button"
       onClick={handleBookmarkClick}
+      disabled={isFavoriteButtonDisabled}
     >
       <svg
         className={`${rootClassName}__bookmark-icon`}
