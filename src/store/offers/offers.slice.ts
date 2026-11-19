@@ -20,7 +20,13 @@ const initialState: OffersStateType = {
   offers: [],
   groupedOffers: {},
   groupedFavoriteOffers: [],
+  /* TODO, остановился здесь на добавлении:
+    1. Общего количества groupedFavoriteOffers;
+    2. Рефакторинге groupedFavoriteOffers, чтобы
+  state.groupedFavoriteOffers = filterFavoriteOffers(state.groupedOffers);
+  выполнялся только при открытии странички Favorites.
 
+*/
   selectedOfferCityRequestId: null,
 };
 
