@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { dropToken, saveToken } from '../services/token';
-import { StatusCodes } from 'http-status-codes';
+import { getApiError } from '../services/api-error';
 
 // Types.
 import type { AxiosInstance } from 'axios';
@@ -13,6 +12,7 @@ import type {
   ExtraUserData,
   UserComment,
 } from '../types/user-data';
+import type { ApiError } from '../services/api-error';
 import type { SelectedOffer } from '../types/selected-offer';
 
 enum APIRoute {
@@ -23,21 +23,6 @@ enum APIRoute {
   Login = '/login',
   Logout = '/logout',
 }
-
-const CHECK_AUTH_REJECT_VALUE = {
-  UNAUTHORIZED: { kind: 'unauthorized' },
-  TRANSPORT: { kind: 'transport' },
-} as const;
-
-/**
-  unauthorized — сервер ответил 401;
-  transport — не получили HTTP-ответ (например, потеря сети);
-  http — получили другой ошибочный HTTP-статус.
- */
-type CheckAuthRejectValue =
-  | typeof CHECK_AUTH_REJECT_VALUE.UNAUTHORIZED
-  | typeof CHECK_AUTH_REJECT_VALUE.TRANSPORT
-  | { kind: 'http'; status: number };
 
 const fetchOffersAction = createAsyncThunk<
   Offers,
@@ -101,7 +86,7 @@ const checkAuthAction = createAsyncThunk<
   void,
   {
     extra: AxiosInstance;
-    rejectValue: CheckAuthRejectValue;
+    rejectValue: ApiError;
   }
 >('user/checkAuth', async (_arg, { extra: api, rejectWithValue }) => {
   try {
@@ -109,21 +94,10 @@ const checkAuthAction = createAsyncThunk<
 
     return data;
   } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      const status = error.response?.status;
+    const apiError = getApiError(error);
 
-      if (status === StatusCodes.UNAUTHORIZED) {
-        return rejectWithValue(CHECK_AUTH_REJECT_VALUE.UNAUTHORIZED);
-      }
-
-      if (status === undefined) {
-        return rejectWithValue(CHECK_AUTH_REJECT_VALUE.TRANSPORT);
-      }
-
-      return rejectWithValue({
-        kind: 'http',
-        status,
-      });
+    if (apiError) {
+      return rejectWithValue(apiError);
     }
 
     throw error;
@@ -156,13 +130,23 @@ const logoutAction = createAsyncThunk<void, void, { extra: AxiosInstance }>(
 const favoriteAction = createAsyncThunk<
   void,
   DispatchFavoriteData,
-  { extra: AxiosInstance }
+  { extra: AxiosInstance; rejectValue: ApiError }
 >(
   'offer/favoriteAction',
-  async ({ offerStatusCode, offerId }, { extra: api }) => {
-    await api.post<DispatchFavoriteData>(
-      `${APIRoute.Favorite}/${offerId}/${offerStatusCode}`,
-    );
+  async ({ offerStatusCode, offerId }, { extra: api, rejectWithValue }) => {
+    try {
+      await api.post<DispatchFavoriteData>(
+        `${APIRoute.Favorite}/${offerId}/${offerStatusCode}`,
+      );
+    } catch (error: unknown) {
+      const apiError = getApiError(error);
+
+      if (apiError) {
+        return rejectWithValue(apiError);
+      }
+
+      throw error;
+    }
   },
 );
 

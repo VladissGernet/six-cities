@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { favoriteAction } from '../../store/api-actions';
+import { isApiError } from '../../services/api-error';
 
 // Types.
 import type { MouseEventHandler } from 'react';
@@ -39,15 +40,33 @@ export default function FavoriteButton({
       offerStatusCode: newOfferStatusCode,
       offerId,
     };
+    // TODO, после аутентификации добавить обновление offers.
+    // Добавить мониторинг количества favorite offers в header.
 
     try {
       setIsFavoriteButtonDisabled(true);
       await dispatch(favoriteAction(dispatchData)).unwrap();
       setIsBookmarkFavorite((prevValue) => !prevValue);
     } catch (error: unknown) {
-      console.log(error);
-      // TODO, подумать, как лучше описать причину ошибки для пользователя.
-      toast.error(error.message);
+      if (isApiError(error)) {
+        switch (error.kind) {
+          case 'unauthorized':
+            toast.error('Login to add to favorites.');
+            break;
+
+          case 'transport':
+            toast.error('Connection lost. Try again.');
+            break;
+
+          case 'http':
+            toast.error(
+              `Failed to add to favorites. HTTP error: ${error.status}`,
+            );
+            break;
+        }
+      }
+
+      throw error;
     } finally {
       setIsFavoriteButtonDisabled(false);
     }
