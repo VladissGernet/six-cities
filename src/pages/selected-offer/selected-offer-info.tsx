@@ -44,12 +44,6 @@ function OfferName({ title, isFavorite }: OfferNameProps): JSX.Element | null {
   return (
     <div className="offer__name-wrapper">
       <h1 className="offer__name">{title}</h1>
-      <button className={bookmarkButtonClass} type="button">
-        <svg className="offer__bookmark-icon" width="31" height="33">
-          <use href="#icon-bookmark"></use>
-        </svg>
-        <span className="visually-hidden">To bookmarks</span>
-      </button>
       <FavoriteButton
         className={bookmarkButtonClass}
         sizes={BOOKMARK_BUTTON_SIZES}
