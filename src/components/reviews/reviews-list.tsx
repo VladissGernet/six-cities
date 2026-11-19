@@ -75,7 +75,7 @@ export default function ReviewsList({
               <div className="reviews__info">
                 <Rating
                   rating={rating}
-                  rootClassName="reviews__rating"
+                  rootClassName="reviews"
                   starsWrapperClassName="reviews__stars"
                   showValue={false}
                 />

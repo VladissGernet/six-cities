@@ -1,6 +1,3 @@
-// General.
-import cn from 'classnames';
-
 // Components.
 import Container from '../../components/container/container';
 import Rating from '../../components/rating/rating';
@@ -35,18 +32,13 @@ function OfferMark({ isPremium }: OfferMarkProps): JSX.Element | null {
 }
 
 function OfferName({ title, isFavorite }: OfferNameProps): JSX.Element | null {
-  const bookmarkButtonClass = cn(
-    'offer__bookmark-button',
-    isFavorite && 'offer__bookmark-button--active',
-    'button',
-  );
-
   return (
     <div className="offer__name-wrapper">
       <h1 className="offer__name">{title}</h1>
       <FavoriteButton
-        className={bookmarkButtonClass}
-        sizes={BOOKMARK_BUTTON_SIZES}
+        rootClassName="offer"
+        imageSizes={BOOKMARK_BUTTON_SIZES}
+        isFavorite={isFavorite}
       />
     </div>
   );
@@ -62,9 +54,9 @@ export default function OfferInfo({ offerData }: OfferInfoProps): JSX.Element {
     bedrooms,
     description,
     host,
-    isFavorite,
     maxAdults,
     goods,
+    isFavorite,
   } = offerData;
 
   return (

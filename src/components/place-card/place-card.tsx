@@ -1,6 +1,5 @@
 // General.
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
 import { setActiveMapMaker } from '../../store/offers/offers.slice';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks/redux';
@@ -30,7 +29,6 @@ export default function PlaceCard({
   imageSizes,
 }: PlaceCardProps): JSX.Element {
   const {
-    isFavorite,
     isPremium,
     previewImage,
     price,
@@ -38,6 +36,7 @@ export default function PlaceCard({
     title,
     type,
     id,
+    isFavorite,
   } = offer;
   const dispatch = useAppDispatch();
 
@@ -47,12 +46,6 @@ export default function PlaceCard({
     dispatch(setActiveMapMaker(null));
   const handleOfferLinkClick: MouseEventHandler<HTMLElement> = () =>
     dispatch(setActiveMapMaker(null));
-
-  const bookmarkButtonClassName = cn(
-    'place-card__bookmark-button',
-    isFavorite && 'place-card__bookmark-button--active',
-    'button',
-  );
 
   const offerRoute = `${AppRoute.Offer}/${id}`;
 
@@ -85,14 +78,15 @@ export default function PlaceCard({
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <FavoriteButton
-            className={bookmarkButtonClassName}
-            sizes={BOOKMARK_BUTTON_SIZES}
+            rootClassName="place-card"
+            imageSizes={BOOKMARK_BUTTON_SIZES}
+            isFavorite={isFavorite}
           />
         </div>
         <Rating
           rating={rating}
-          rootClassName={'place-card__rating'}
-          starsWrapperClassName={'place-card__stars'}
+          rootClassName="place-card"
+          starsWrapperClassName="place-card__stars"
         />
         <h2 className="place-card__name">
           <Link to={offerRoute} onClick={handleOfferLinkClick}>

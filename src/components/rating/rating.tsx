@@ -27,7 +27,7 @@ export default function Rating({
   const finalWidth = `${Math.round(rating) * PERCENT_PER_STAR}%`;
 
   return (
-    <div className={cn(rootClassName, 'rating')}>
+    <div className={cn(`${rootClassName}__rating`, 'rating')}>
       <div className={cn(starsWrapperClassName, 'rating__stars')}>
         <span style={{ width: finalWidth }}></span>
         <span className="visually-hidden">Rating</span>
