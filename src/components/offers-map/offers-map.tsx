@@ -72,5 +72,10 @@ export default function OffersMap({
     return null;
   }
 
-  return <section className={cn(rootClassName, 'map')} ref={mapContainerRef} />;
+  return (
+    <section
+      className={cn(`${rootClassName}__map`, 'map')}
+      ref={mapContainerRef}
+    />
+  );
 }

@@ -10,7 +10,7 @@ import type { Offers } from '../../types/offers';
 import type { PlacesSortingValueType } from '../../types/general';
 
 type PlacesProps = {
-  rootClassName?: string;
+  sectionClassName?: string;
   title: string;
   titleClassName?: string;
   isTitleNotVisible?: boolean;
@@ -20,7 +20,7 @@ type PlacesProps = {
 };
 
 export default function Places({
-  rootClassName,
+  sectionClassName,
   title,
   titleClassName,
   isTitleNotVisible,
@@ -41,7 +41,7 @@ export default function Places({
   );
 
   return (
-    <section className={cn(rootClassName, 'places')}>
+    <section className={cn(sectionClassName, 'places')}>
       <h2
         className={cn(isTitleNotVisible ? 'visually-hidden' : titleClassName)}
       >

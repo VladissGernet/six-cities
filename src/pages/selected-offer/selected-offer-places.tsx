@@ -53,7 +53,7 @@ export default function OfferPlaces(): JSX.Element | null {
   return (
     <Container className={cn('container', styles['offer__places-container'])}>
       <Places
-        rootClassName={cn('near-places', styles['offer__places-content'])}
+        sectionClassName={cn('near-places', styles['offer__places-content'])}
         title="Other places in the neighborhood"
         titleClassName="near-places__title"
         groupedOffersByCity={nearOffers.slice(0, MAX_SELECTED_OFFER_PLACES)}

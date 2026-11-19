@@ -24,7 +24,7 @@ export default function OfferMap(): JSX.Element | null {
     return (
       <Container>
         <OffersMap
-          rootClassName="offer__map"
+          rootClassName="offer"
           selectedMarkerLocation={selectedOffer.location}
         />
       </Container>
@@ -34,7 +34,7 @@ export default function OfferMap(): JSX.Element | null {
   return (
     <Container>
       <OffersMap
-        rootClassName="offer__map"
+        rootClassName="offer"
         offers={nearOffers.slice(0, MAX_SELECTED_OFFER_PLACES)}
         selectedMarkerLocation={selectedOffer.location}
       />

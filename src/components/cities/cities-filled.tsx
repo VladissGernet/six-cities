@@ -25,7 +25,7 @@ export default function CitiesFilled({
   return (
     <Container className="cities__places-container container">
       <Places
-        rootClassName="cities__places"
+        sectionClassName="cities__places"
         title="Places"
         extraTitle={extraTitle}
         isTitleNotVisible
@@ -33,7 +33,7 @@ export default function CitiesFilled({
         isSortingForm
       />
       <div className="cities__right-section">
-        <OffersMap rootClassName="cities__map" offers={groupedOffersByCity} />
+        <OffersMap rootClassName="cities" offers={groupedOffersByCity} />
       </div>
     </Container>
   );
