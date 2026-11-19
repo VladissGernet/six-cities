@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
-import { favoriteAction } from '../../store/api-actions';
+import { favoriteAction, fetchOffersAction } from '../../store/api-actions';
 import { isApiError } from '../../services/api-error';
 
 // Types.
@@ -40,13 +40,14 @@ export default function FavoriteButton({
       offerStatusCode: newOfferStatusCode,
       offerId,
     };
-    // TODO, после аутентификации добавить обновление offers.
-    // Добавить мониторинг количества favorite offers в header.
 
     try {
       setIsFavoriteButtonDisabled(true);
       await dispatch(favoriteAction(dispatchData)).unwrap();
       setIsBookmarkFavorite((prevValue) => !prevValue);
+      //TODO рабочее решение, попробовать оптимизировать и не использовать fetchOffersAction.
+      // Добавить мониторинг количества favorite offers в header.
+      await dispatch(fetchOffersAction());
     } catch (error: unknown) {
       if (isApiError(error)) {
         switch (error.kind) {

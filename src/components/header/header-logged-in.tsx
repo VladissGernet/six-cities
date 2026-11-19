@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 // Store.
-import { logoutAction } from '../../store/api-actions';
+import { fetchOffersAction, logoutAction } from '../../store/api-actions';
 import { getOffers } from '../../store/offers/offers.selectors';
 import { getUserAccountData } from '../../store/user/user.selectors';
 
@@ -27,6 +27,10 @@ export default function HeaderLoggedIn(): JSX.Element {
 
     try {
       await dispatch(logoutAction()).unwrap();
+
+      // После успешного запроса на "logout" обновляем offers
+      // для скрытия добавленных в избранное offers.
+      await dispatch(fetchOffersAction());
     } catch (error: unknown) {
       toast.error('Failed to sign out. Try again.');
     } finally {

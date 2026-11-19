@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 
 /* TODO
   изучить Ducks (иногда «ducks-modular-redux»)
-  Проверить issues в DevTools, есть проблемы.
+  Проверить issues в DevTools, есть проблемы на странице login.
 */
 
 store.dispatch(fetchOffersAction());

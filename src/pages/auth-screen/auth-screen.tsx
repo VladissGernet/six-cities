@@ -14,7 +14,7 @@ import Main from '../../components/main/main';
 import Container from '../../components/container/container';
 
 // Store.
-import { loginAction } from '../../store/api-actions';
+import { fetchOffersAction, loginAction } from '../../store/api-actions';
 import { getAuthenticationStatus } from '../../store/user/user.selectors';
 import { changeCity } from '../../store/offers/offers.slice';
 import { redirectToRoute } from '../../store/action';
@@ -44,6 +44,9 @@ export default function AuthScreen(): JSX.Element {
     try {
       await dispatch(loginAction(authData)).unwrap();
 
+      // После успешной аутентификации необходимо обновить offers для
+      // отображения избранных offers.
+      await dispatch(fetchOffersAction());
       dispatch(redirectToRoute(AppRoute.Root));
     } catch (error: unknown) {
       toast.error('Failed to log in. Check the data and try again.');
