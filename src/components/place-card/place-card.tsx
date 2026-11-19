@@ -1,19 +1,27 @@
-import type { MouseEventHandler } from 'react';
+// General.
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-
-import Rating from '../rating/rating';
 import { setActiveMapMaker } from '../../store/offers/offers.slice';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks/redux';
 
+// Components.
+import Rating from '../rating/rating';
+import FavoriteButton from '../favorite-button/favorite-button';
+
 // Types.
+import type { MouseEventHandler } from 'react';
 import type { Offer } from '../../types/offers';
 import type { ImageSizes } from '../../types/general';
 
 type PlaceCardProps = ImageSizes & {
   offer: Offer;
   parentName: string;
+};
+
+const BOOKMARK_BUTTON_SIZES = {
+  width: 18,
+  height: 19,
 };
 
 export default function PlaceCard({
@@ -76,13 +84,10 @@ export default function PlaceCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          {/* TODO, вынести для добавления в избранное. */}
-          <button className={bookmarkButtonClassName} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use href="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <FavoriteButton
+            className={bookmarkButtonClassName}
+            sizes={BOOKMARK_BUTTON_SIZES}
+          />
         </div>
         <Rating
           rating={rating}

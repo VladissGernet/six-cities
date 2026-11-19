@@ -8,6 +8,7 @@ import OfferFeatures from './selected-offer-features';
 import OfferHost from './selected-offer-host';
 import OfferInside from './selected-offer-inside';
 import OfferReviews from './selected-offer-reviews';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 
 // Types.
 import type { SelectedOffer } from '../../types/selected-offer';
@@ -20,6 +21,11 @@ type OfferMarkProps = Pick<SelectedOffer, 'isPremium'>;
 
 type OfferNameProps = Pick<SelectedOffer, 'title' | 'isFavorite'>;
 
+const BOOKMARK_BUTTON_SIZES = {
+  width: 31,
+  height: 33,
+};
+
 function OfferMark({ isPremium }: OfferMarkProps): JSX.Element | null {
   return isPremium ? (
     <div className="offer__mark">
@@ -29,7 +35,7 @@ function OfferMark({ isPremium }: OfferMarkProps): JSX.Element | null {
 }
 
 function OfferName({ title, isFavorite }: OfferNameProps): JSX.Element | null {
-  const bookmarkClass = cn(
+  const bookmarkButtonClass = cn(
     'offer__bookmark-button',
     isFavorite && 'offer__bookmark-button--active',
     'button',
@@ -38,12 +44,16 @@ function OfferName({ title, isFavorite }: OfferNameProps): JSX.Element | null {
   return (
     <div className="offer__name-wrapper">
       <h1 className="offer__name">{title}</h1>
-      <button className={bookmarkClass} type="button">
+      <button className={bookmarkButtonClass} type="button">
         <svg className="offer__bookmark-icon" width="31" height="33">
           <use href="#icon-bookmark"></use>
         </svg>
         <span className="visually-hidden">To bookmarks</span>
       </button>
+      <FavoriteButton
+        className={bookmarkButtonClass}
+        sizes={BOOKMARK_BUTTON_SIZES}
+      />
     </div>
   );
 }
